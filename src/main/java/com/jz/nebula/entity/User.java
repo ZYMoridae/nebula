@@ -1,24 +1,60 @@
 package com.jz.nebula.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Builder;
+
 @Entity
+@Builder
 @Table(name="user", schema="public")
-public class User {
+public class User{
+	@ElementCollection(fetch = FetchType.EAGER)
+  @Builder.Default
+  private List<String> roles = new ArrayList<>();
+    
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
  
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
- 
-    @Column(name="username")
-    private String username;
- 
-    private String password;
+  @Column(name="username")
+  private String username;
+  
+  @JsonIgnore
+  private String password;  
+  
+  @OneToOne
+  @JoinColumn(name = "role_id")   
+  Role role;
+  
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 
 	public Long getId() {
 		return id;
@@ -43,6 +79,4 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
- 
-    //standard getters and setters
 }

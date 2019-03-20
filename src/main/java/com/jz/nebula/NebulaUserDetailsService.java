@@ -20,11 +20,11 @@ public class NebulaUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username).get();
         UserBuilder builder = null;
         builder = org.springframework.security.core.userdetails.User.withUsername(username);
         builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
-        builder.roles("user");
+        builder.roles(user.getRole().getCode());
         
         return builder.build();
     }

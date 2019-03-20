@@ -1,9 +1,12 @@
-package com.jz.nebula;
+package com.jz.nebula.controller;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +16,7 @@ import com.jz.nebula.repository.ShipperRepository;
 import com.jz.nebula.repository.UserRepository;
 
 @Controller
+@RequestMapping("/app/greeting")
 public class GreetingController {
 	
 	@Autowired // This means to get the bean called userRepository
@@ -48,8 +52,9 @@ public class GreetingController {
 	}
 	
 	@GetMapping(path="/user")
-	public @ResponseBody User getUser() {
+	public @ResponseBody List<User> getUser() {
 		// This returns a JSON or XML with the users
-		return userRepository.findByUsername("joe");
+		List<User> user = userRepository.findAll();
+		return user;
 	}
 }

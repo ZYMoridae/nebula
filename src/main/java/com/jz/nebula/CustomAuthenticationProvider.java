@@ -27,7 +27,9 @@ public class CustomAuthenticationProvider
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
         
-        User user = userRepository.findByUsername(name);
+        System.out.println(name);
+        
+        User user = userRepository.findByUsername(name).get();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         
         

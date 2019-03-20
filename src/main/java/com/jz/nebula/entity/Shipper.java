@@ -4,22 +4,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="shipper", schema="public")
 public class Shipper {
+	
+  @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
+  private Long id;
+  private String name;
+  private String contact;
+  
+  
+  public Shipper() {}
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-    private String name;
-
-    public Shipper() {}
-
-    public Shipper(String name) {
-        this.name = name;
-    }
+  public Shipper(String name) {
+    this.name = name;
+  }
     
-    public Long getId() {
+  public Long getId() {
 		return id;
 	}
 
@@ -30,12 +34,20 @@ public class Shipper {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 
 	@Override
-    public String toString() {
-        return String.format(
-                "Customer[id=%d, name='%s']",
-                id, name);
-    }
+  public String toString() {
+    return String.format(
+    		"Customer[id=%d, name='%s']",
+    id, name);
+  }
 
 }

@@ -1,9 +1,11 @@
 package com.jz.nebula.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.jz.nebula.entity.User;
 
-public interface UserRepository extends CrudRepository<User, Long>{
-	User findByUsername(String username);
+public interface UserRepository extends JpaRepository<User, Long>{
+	Optional<User> findByUsername(String username);
 }
