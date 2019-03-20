@@ -15,7 +15,8 @@ spring:
     default-property-inclusion: non_empty 
   
   redis:
-    host: iresdev1.intsrv.net
+#    host: iresdev1.intsrv.net
+    host: localhost
     port: 6379
     password: ?_TK$czHb9LhyWy8W2G4gZAa@byj8H&4  
     timeout: 0  
@@ -46,6 +47,7 @@ spring:
     show_sql: true
 #    generate-ddl: true
 #    hibernate:
+#      ddl-auto: create
 #      ddl-auto: create-drop
     properties:
       # fixes Caused by: java.sql.SQLFeatureNotSupportedException: Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.

@@ -9,12 +9,19 @@ import javax.persistence.Table;
 import lombok.Builder;
 
 @Entity
-@Builder
 @Table(name="role", schema="public")
 public class Role{
-
+	
+	public Role() {}
+	
+	public final static String ROLE_USER = "ROLE_USER";
+	
+	public final static String ROLE_VENDOR = "ROLE_VENDOR";
+	
+	public final static String ROLE_ADMIN = "ROLE_ADMIN";
+	
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   
   private String code;

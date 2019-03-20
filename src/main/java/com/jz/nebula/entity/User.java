@@ -19,15 +19,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 
 @Entity
-@Builder
 @Table(name="user", schema="public")
 public class User{
-	@ElementCollection(fetch = FetchType.EAGER)
+	public User() {}
+	
+  @ElementCollection(fetch = FetchType.EAGER)
   @Builder.Default
   private List<String> roles = new ArrayList<>();
     
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
  
   @Column(name="username")
