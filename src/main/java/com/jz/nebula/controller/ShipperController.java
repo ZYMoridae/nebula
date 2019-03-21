@@ -1,8 +1,15 @@
 package com.jz.nebula.controller;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.ApplicationEventPublisher;
+//import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,47 +20,57 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.Shipper;
-import com.jz.nebula.repository.ShipperRepository;
+//import com.jz.nebula.hateoas.event.PaginatedResultsRetrievedEvent;
+import com.jz.nebula.service.ShipperService;
+
+//import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/shippers")
 public class ShipperController {
-    
+//  @Autowired
+//  private ApplicationEventPublisher eventPublisher;
+  
 	@Autowired
-    private ShipperRepository shipperRepository;
-    
-	@GetMapping("")
+	private ShipperService shipperService;
+	
+	@GetMapping
 	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-	public @ResponseBody Iterable<Shipper> allShipper() {
-		return shipperRepository.findAll();
+	public @ResponseBody PagedResources<Resource<Shipper>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+      final HttpServletResponse response, PagedResourcesAssembler<Shipper> assembler) {	
+//		eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<Shipper>(Shipper.class, uriBuilder, response,
+//        pageable.getPageNumber(), page.getTotalPages(), pageable.getPageSize()));
+		
+		return shipperService.findAll(pageable, assembler);
 	}	
 	
 	@GetMapping("/{id}")
 	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
 	public @ResponseBody Shipper findById(@PathVariable("id") long id) {
-		return shipperRepository.findById(id).get();
+		return shipperService.findById(id);
 	}
     
 	@PostMapping("")
 	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-	public @ResponseBody Shipper newShipper(@RequestBody Shipper shipper) {
-		return shipperRepository.save(shipper);
+	public @ResponseBody Shipper create(@RequestBody Shipper shipper) {
+		return shipperService.save(shipper);
 	}
     
 	@PutMapping("/{id}")
 	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-	public @ResponseBody Shipper updateShipper(@PathVariable("id") long id, @RequestBody Shipper shipper) {
+	public @ResponseBody Shipper update(@PathVariable("id") long id, @RequestBody Shipper shipper) {
 		shipper.setId(id);
-		return shipperRepository.save(shipper);
+		return shipperService.save(shipper);
 	}
     
 	@DeleteMapping("/{id}")
 	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-	public @ResponseBody ResponseEntity<?> deleteShipper(@PathVariable("id") long id) {
-		shipperRepository.deleteById(id);
+	public @ResponseBody ResponseEntity<?> delete(@PathVariable("id") long id) {
+		shipperService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

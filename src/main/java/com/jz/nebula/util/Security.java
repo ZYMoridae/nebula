@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Security {
-	
+
 	/**
 	 * Generate md5 hash for given string
 	 * 
@@ -17,7 +17,7 @@ public class Security {
 		MessageDigest messageDigest;
 		try {
 			messageDigest = MessageDigest.getInstance("MD5");
-			if(messageDigest != null) {
+			if (messageDigest != null) {
 				md5Hash = String.format("%032x", new BigInteger(1, messageDigest.digest(msg.getBytes())));
 			}
 		} catch (NoSuchAlgorithmException e) {
@@ -26,7 +26,7 @@ public class Security {
 		}
 		return md5Hash;
 	}
-	
+
 	/**
 	 * Get random hash
 	 * 
@@ -36,4 +36,3 @@ public class Security {
 		return Security.generateHash(String.valueOf(System.currentTimeMillis()));
 	}
 }
-

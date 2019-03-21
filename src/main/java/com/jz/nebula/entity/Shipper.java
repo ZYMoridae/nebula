@@ -1,5 +1,7 @@
 package com.jz.nebula.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,10 +10,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="shipper", schema="public")
-public class Shipper {
+public class Shipper implements Serializable {
 	
-  @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3952309942343713378L;
+	
+	@Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
   private Long id;
   private String name;
   private String contact;

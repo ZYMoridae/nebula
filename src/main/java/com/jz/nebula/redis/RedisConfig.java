@@ -26,53 +26,53 @@ import com.jz.nebula.redis.queue.RedisMessageSubscriber;
 @EnableRedisRepositories(basePackages = "com.jz.nebula.repository")
 @PropertySource("classpath:application.yml")
 public class RedisConfig {
-		
-		@Value("${spring.redis.host}")
-		private String redisHost;
-		
-		@Value("${spring.redis.port}")
-		private int redisPort;
-		
-		@Value("${spring.redis.password}")
-		private String redisPassword;
-		
-    @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
-    		
-    		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHost, redisPort);
-    		redisStandaloneConfiguration.setPassword(RedisPassword.of(redisPassword));
-    		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration);
-    		return connectionFactory;
-    }
 
-    @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
-        template.setConnectionFactory(jedisConnectionFactory());
-        template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
-        return template;
-    }
+	@Value("${spring.redis.host}")
+	private String redisHost;
 
-    @Bean
-    MessageListenerAdapter messageListener() {
-        return new MessageListenerAdapter(new RedisMessageSubscriber());
-    }
+	@Value("${spring.redis.port}")
+	private int redisPort;
 
-    @Bean
-    RedisMessageListenerContainer redisContainer() {
-        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(jedisConnectionFactory());
-        container.addMessageListener(messageListener(), topic());
-        return container;
-    }
+	@Value("${spring.redis.password}")
+	private String redisPassword;
 
-    @Bean
-    MessagePublisher redisPublisher() {
-        return new RedisMessagePublisher(redisTemplate(), topic());
-    }
+	@Bean
+	JedisConnectionFactory jedisConnectionFactory() {
 
-    @Bean
-    ChannelTopic topic() {
-        return new ChannelTopic("pubsub:queue");
-    }
+		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHost, redisPort);
+		redisStandaloneConfiguration.setPassword(RedisPassword.of(redisPassword));
+		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration);
+		return connectionFactory;
+	}
+
+	@Bean
+	public RedisTemplate<String, Object> redisTemplate() {
+		final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+		template.setConnectionFactory(jedisConnectionFactory());
+		template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
+		return template;
+	}
+
+	@Bean
+	MessageListenerAdapter messageListener() {
+		return new MessageListenerAdapter(new RedisMessageSubscriber());
+	}
+
+	@Bean
+	RedisMessageListenerContainer redisContainer() {
+		final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+		container.setConnectionFactory(jedisConnectionFactory());
+		container.addMessageListener(messageListener(), topic());
+		return container;
+	}
+
+	@Bean
+	MessagePublisher redisPublisher() {
+		return new RedisMessagePublisher(redisTemplate(), topic());
+	}
+
+	@Bean
+	ChannelTopic topic() {
+		return new ChannelTopic("pubsub:queue");
+	}
 }

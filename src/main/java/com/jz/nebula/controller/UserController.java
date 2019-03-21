@@ -15,28 +15,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.User;
-import com.jz.nebula.repository.UserRepository;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-		@Autowired
-		UserRepository userRepository;
+	@Autowired
+	UserRepository userRepository;
 	
-    @GetMapping("/me")
-    public ResponseEntity<?> currentUser(@AuthenticationPrincipal UserDetails userDetails){
-        Map<Object, Object> model = new HashMap<>();
-        System.out.println(userDetails.getUsername());
-        model.put("username", userDetails.getUsername());
-        model.put("roles", userDetails.getAuthorities()
-            .stream()
-            .map(a -> ((GrantedAuthority) a).getAuthority())
-            .collect(toList())
-        );
-        
-        User user = userRepository.findByUsername(userDetails.getUsername()).get();
-        
-        return ok(user);
-    }
+  @GetMapping("/me")
+  public ResponseEntity<?> currentUser(@AuthenticationPrincipal UserDetails userDetails){
+    Map<Object, Object> model = new HashMap<>();
+    System.out.println(userDetails.getUsername());
+    model.put("username", userDetails.getUsername());
+    model.put("roles", userDetails.getAuthorities()
+      .stream()
+      .map(a -> ((GrantedAuthority) a).getAuthority())
+      .collect(toList())
+    );
+    
+    User user = userRepository.findByUsername(userDetails.getUsername()).get();
+    
+    return ok(user);
+  }
 }

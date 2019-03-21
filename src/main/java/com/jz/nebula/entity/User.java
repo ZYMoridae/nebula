@@ -1,5 +1,6 @@
 package com.jz.nebula.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,12 @@ import lombok.Builder;
 
 @Entity
 @Table(name="user", schema="public")
-public class User{
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7813183948065034220L;
+
 	public User() {}
 	
   @ElementCollection(fetch = FetchType.EAGER)
@@ -28,7 +34,7 @@ public class User{
   private List<String> roles = new ArrayList<>();
     
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
  
   @Column(name="username")

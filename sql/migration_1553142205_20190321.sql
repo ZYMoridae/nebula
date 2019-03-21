@@ -1,0 +1,1 @@
+create view vendor_info as (select username, telephone, address1, address2, firstname, lastname, gender, email from "user")
