@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 //import org.hibernate.annotations.CascadeType;
@@ -26,7 +24,7 @@ public class ProductMeta implements Serializable{
 	private static final long serialVersionUID = -6418169893155673908L;
 	
 	@Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Long id;
 	
 	private String key;
@@ -41,9 +39,9 @@ public class ProductMeta implements Serializable{
   @Column(name="updated_at")
   private Date updatedAt;
   
-  @ManyToOne
-  @JoinColumn
-  private Product product;
+//  @ManyToOne
+//  @JoinColumn(name="product_id", insert="false" update="false")
+//  private Product product;
   
 	public Long getId() {
 		return id;

@@ -33,6 +33,14 @@ public class Vendor implements Serializable{
 	private String lastname;
 	
 	private String email;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getUsername() {
 		return username;

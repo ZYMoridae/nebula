@@ -30,7 +30,8 @@ public class ProductService {
 	}
 
 	public Product save(Product product) {
-		return productRepository.save(product);
+		Product updatedProduct = productRepository.save(product);
+		return findById(updatedProduct.getId());
 	}
 
 	public Product findById(long id) {

@@ -1,7 +1,5 @@
 package com.jz.nebula.controller;
 
-import java.util.Set;
-
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.jz.nebula.entity.Product;
-import com.jz.nebula.entity.ProductMeta;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.ProductService;
 
