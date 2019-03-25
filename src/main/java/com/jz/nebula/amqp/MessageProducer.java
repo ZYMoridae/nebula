@@ -22,8 +22,8 @@ public class MessageProducer {
       if(Pattern.matches("^pdf.*", message)) {
       	System.out.println("123");
       	rabbitTemplate.convertAndSend(SpringAmqpConfig.topicExchangeName, "pdf." + message, message);
-      }else if(Pattern.matches("^invoice.*", message)){
-      	rabbitTemplate.convertAndSend(SpringAmqpConfig.topicExchangeName, "invoice." + message, message);
+      }else if(Pattern.matches("^invoice\\..*", message)){
+      	rabbitTemplate.convertAndSend(SpringAmqpConfig.topicExchangeName, message, message);
       }
     }
 }
