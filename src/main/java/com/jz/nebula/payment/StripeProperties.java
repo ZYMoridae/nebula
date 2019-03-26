@@ -2,11 +2,11 @@ package com.jz.nebula.payment;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix="stripe")
+@ConfigurationProperties(prefix = "stripe")
 public class StripeProperties {
-	
+
 	private Api api = new Api();
-	
+
 	public Api getApi() {
 		return api;
 	}
@@ -17,7 +17,7 @@ public class StripeProperties {
 
 	public static class Api {
 		private String key;
-		
+
 		public String getKey() {
 			return key;
 		}
@@ -26,5 +26,5 @@ public class StripeProperties {
 			this.key = key;
 		}
 	}
-	
+
 }

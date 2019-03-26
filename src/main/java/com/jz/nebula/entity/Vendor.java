@@ -7,33 +7,34 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="vendor_info", schema="public")
-public class Vendor implements Serializable{
-	
-	public Vendor() {}
-	
+@Table(name = "vendor_info", schema = "public")
+public class Vendor implements Serializable {
+
+	public Vendor() {
+	}
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2705040384638908993L;
 
 	@Id
-  private Long id;
-	
+	private Long id;
+
 	private String username;
-	
+
 	private String telephone;
-	
+
 	private String address1;
-	
+
 	private String address2;
-	
+
 	private String firstname;
-	
+
 	private String lastname;
-	
+
 	private String email;
-	
+
 	public Long getId() {
 		return id;
 	}

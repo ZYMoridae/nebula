@@ -23,20 +23,17 @@ import com.jz.nebula.entity.User;
 public class UserController {
 	@Autowired
 	UserRepository userRepository;
-	
-  @GetMapping("/me")
-  public ResponseEntity<?> currentUser(@AuthenticationPrincipal UserDetails userDetails){
-    Map<Object, Object> model = new HashMap<>();
-    System.out.println(userDetails.getUsername());
-    model.put("username", userDetails.getUsername());
-    model.put("roles", userDetails.getAuthorities()
-      .stream()
-      .map(a -> ((GrantedAuthority) a).getAuthority())
-      .collect(toList())
-    );
-    
-    User user = userRepository.findByUsername(userDetails.getUsername()).get();
-    
-    return ok(user);
-  }
+
+	@GetMapping("/me")
+	public ResponseEntity<?> currentUser(@AuthenticationPrincipal UserDetails userDetails) {
+		Map<Object, Object> model = new HashMap<>();
+		System.out.println(userDetails.getUsername());
+		model.put("username", userDetails.getUsername());
+		model.put("roles",
+				userDetails.getAuthorities().stream().map(a -> ((GrantedAuthority) a).getAuthority()).collect(toList()));
+
+		User user = userRepository.findByUsername(userDetails.getUsername()).get();
+
+		return ok(user);
+	}
 }

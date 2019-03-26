@@ -13,29 +13,30 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="product_category", schema="public")
-public class ProductCategory implements Serializable{
-	
-	public ProductCategory() {}
-	
+@Table(name = "product_category", schema = "public")
+public class ProductCategory implements Serializable {
+
+	public ProductCategory() {
+	}
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7576563878222934393L;
-	
+
 	@Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
-  private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 	private String name;
-	
-  @JsonIgnore
-  @Column(name="created_at")
-  private Date createdAt;
-  
-  @JsonIgnore
-  @Column(name="updated_at")
-  private Date updatedAt;
+
+	@JsonIgnore
+	@Column(name = "created_at")
+	private Date createdAt;
+
+	@JsonIgnore
+	@Column(name = "updated_at")
+	private Date updatedAt;
 
 	public Long getId() {
 		return id;

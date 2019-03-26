@@ -46,7 +46,7 @@ public class EmailService implements EmailServiceInterface {
 			MimeMessage message = emailSender.createMimeMessage();
 			// pass 'true' to the constructor to create a multipart message
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			
+
 			helper.setFrom(from);
 			helper.setTo(to);
 			helper.setSubject(subject);

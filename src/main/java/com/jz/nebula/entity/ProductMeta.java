@@ -15,34 +15,34 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="product_meta", schema="public")
-public class ProductMeta implements Serializable{
-	
+@Table(name = "product_meta", schema = "public")
+public class ProductMeta implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6418169893155673908L;
-	
+
 	@Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	private String key;
-	
+
 	private String value;
-	
-  @JsonIgnore
-  @Column(name="created_at")
-  private Date createdAt;
-  
-  @JsonIgnore
-  @Column(name="updated_at")
-  private Date updatedAt;
-  
+
+	@JsonIgnore
+	@Column(name = "created_at")
+	private Date createdAt;
+
+	@JsonIgnore
+	@Column(name = "updated_at")
+	private Date updatedAt;
+
 //  @ManyToOne
 //  @JoinColumn(name="product_id", insert="false" update="false")
 //  private Product product;
-  
+
 	public Long getId() {
 		return id;
 	}
