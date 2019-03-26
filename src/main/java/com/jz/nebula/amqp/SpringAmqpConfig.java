@@ -23,14 +23,14 @@ public class SpringAmqpConfig {
 	public final static String fanoutQueue2Name = "nebula.fanout.queue2";
 	public final static String fanoutExchangeName = "nebula.fanout.exchange";
 
-	public final static String topicQueue1Name = "nebula.topic.pdf";
-	public final static String topicQueue2Name = "nebula.topic.invoice";
+	public final static String topicQueuePdf = "nebula.topic.pdf";
+	public final static String topicQueueInvoice = "nebula.topic.invoice";
 	public final static String topicExchangeName = "nebula.topic.exchange";
 
 	@Bean
 	public List<Declarable> topicBindings() {
-		Queue topicQueue1 = new Queue(topicQueue1Name, false);
-		Queue topicQueue2 = new Queue(topicQueue2Name, false);
+		Queue topicQueue1 = new Queue(topicQueuePdf, false);
+		Queue topicQueue2 = new Queue(topicQueueInvoice, false);
 
 		TopicExchange topicExchange = new TopicExchange(topicExchangeName);
 

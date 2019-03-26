@@ -9,43 +9,43 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="shipper", schema="public")
+@Table(name = "shipper", schema = "public")
 public class Shipper implements Serializable {
-	
-  /**
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3952309942343713378L;
-	
+
 	@Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
-  private Long id;
-  private String name;
-  private String contact;
-  
-  
-  public Shipper() {}
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String name;
+	private String contact;
 
-  public Shipper(String name) {
-    this.name = name;
-  }
+	public Shipper() {
+	}
 
-  public Long getId() {
-	return id;
-  }
+	public Shipper(String name) {
+		this.name = name;
+	}
 
-  public void setId(Long id) {
-	this.id = id;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public String getName() {
-	  return name;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getContact() {
 		return contact;
 	}
@@ -55,10 +55,8 @@ public class Shipper implements Serializable {
 	}
 
 	@Override
-  public String toString() {
-    return String.format(
-    		"Shipper[id=%d, name='%s']",
-    id, name);
-  }
+	public String toString() {
+		return String.format("Shipper[id=%d, name='%s']", id, name);
+	}
 
 }

@@ -1,19 +1,21 @@
 package com.jz.nebula.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.payment.PaymentGateway;
-import com.jz.nebula.payment.StripeGateway;
 
 @Service
 @Component("paymentService")
 public class PaymentService {
-	
+
+	@Autowired
+	@Qualifier("stripeGateway")
 	private PaymentGateway paymentGatway;
-	
+
 	public PaymentService() {
-		this.paymentGatway = new StripeGateway();
 	}
 
 	public PaymentGateway getPaymentGatway() {

@@ -21,44 +21,44 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
-@Table(name="order", schema="public")
-public class Order implements Serializable{
-	
+@Table(name = "order", schema = "public")
+public class Order implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5165402274482950113L;
-	
+
 	@Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private Long id;
-	
-	@JsonProperty(access=Access.WRITE_ONLY)
-	@Column(name="user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@Column(name = "user_id")
 	private Long userId;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="user_id", insertable=false, updatable=false)
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private User user;
-	
-	@JsonProperty(access=Access.WRITE_ONLY)
-	@Column(name="shipper_id")
+
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@Column(name = "shipper_id")
 	private Long shipperId;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="shipper_id", insertable=false, updatable=false)
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "shipper_id", insertable = false, updatable = false)
 	private Shipper shipper;
-	
-  @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-  @JoinColumn(name="order_id", nullable=false)
-  private Set<OrderItem> orderItems;
-  
-  @Column(name="created_at", updatable=false, insertable=false)
-  private Date createdAt;
-  
-  @Column(name="updated_at", updatable=false, insertable=false)
-  private Date updatedAt;
-  
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "order_id", nullable = false)
+	private Set<OrderItem> orderItems;
+
+	@Column(name = "created_at", updatable = false, insertable = false)
+	private Date createdAt;
+
+	@Column(name = "updated_at", updatable = false, insertable = false)
+	private Date updatedAt;
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -90,7 +90,7 @@ public class Order implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@JsonIgnore
 	public Long getUserId() {
 		return userId;
@@ -107,7 +107,7 @@ public class Order implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	@JsonIgnore
 	public Long getShipperId() {
 		return shipperId;

@@ -29,39 +29,37 @@ import com.jz.nebula.service.ProductCategoryService;
 public class ProductCategoryController {
 	@Autowired
 	private ProductCategoryService productCategoryService;
-	
+
 	@GetMapping
-	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-	public @ResponseBody PagedResources<Resource<ProductCategory>> all(
-			Pageable pageable, 
-			final UriComponentsBuilder uriBuilder,
-	    final HttpServletResponse response, 
-	    PagedResourcesAssembler<ProductCategory> assembler
-	) {	
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
+	public @ResponseBody PagedResources<Resource<ProductCategory>> all(Pageable pageable,
+			final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+			PagedResourcesAssembler<ProductCategory> assembler) {
 		return productCategoryService.findAll(pageable, assembler);
-	}	
-	
+	}
+
 	@GetMapping("/{id}")
-	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody ProductCategory findById(@PathVariable("id") long id) {
 		return productCategoryService.findById(id);
 	}
-	  
+
 	@PostMapping("")
-	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody ProductCategory create(@RequestBody ProductCategory productCategory) {
 		return productCategoryService.save(productCategory);
 	}
-	  
+
 	@PutMapping("/{id}")
-	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-	public @ResponseBody ProductCategory update(@PathVariable("id") long id, @RequestBody ProductCategory productCategory) {
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
+	public @ResponseBody ProductCategory update(@PathVariable("id") long id,
+			@RequestBody ProductCategory productCategory) {
 		productCategory.setId(id);
 		return productCategoryService.save(productCategory);
 	}
-	  
+
 	@DeleteMapping("/{id}")
-	@RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody ResponseEntity<?> delete(@PathVariable("id") long id) {
 		productCategoryService.delete(id);
 		return ResponseEntity.noContent().build();

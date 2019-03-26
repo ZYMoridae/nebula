@@ -4,6 +4,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.jz.nebula.entity.Order;
 
-public interface OrderRepository extends PagingAndSortingRepository<Order, Long>{
+public interface OrderRepository extends PagingAndSortingRepository<Order, Long> {
 
 }

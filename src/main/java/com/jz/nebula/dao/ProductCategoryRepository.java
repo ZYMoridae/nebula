@@ -4,6 +4,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.jz.nebula.entity.ProductCategory;
 
-public interface ProductCategoryRepository extends PagingAndSortingRepository<ProductCategory, Long>{
+public interface ProductCategoryRepository extends PagingAndSortingRepository<ProductCategory, Long> {
 
 }

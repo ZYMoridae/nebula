@@ -20,33 +20,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 
 @Entity
-@Table(name="user", schema="public")
-public class User implements Serializable{
+@Table(name = "user", schema = "public")
+public class User implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7813183948065034220L;
 
-	public User() {}
-	
-  @ElementCollection(fetch = FetchType.EAGER)
-  @Builder.Default
-  private List<String> roles = new ArrayList<>();
-    
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
- 
-  @Column(name="username")
-  private String username;
-  
-  @JsonIgnore
-  private String password;  
-  
-  @OneToOne
-  @JoinColumn(name = "role_id")   
-  Role role;
-  
+	public User() {
+	}
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Builder.Default
+	private List<String> roles = new ArrayList<>();
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@Column(name = "username")
+	private String username;
+
+	@JsonIgnore
+	private String password;
+
+	@OneToOne
+	@JoinColumn(name = "role_id")
+	Role role;
+
 	public Role getRole() {
 		return role;
 	}
