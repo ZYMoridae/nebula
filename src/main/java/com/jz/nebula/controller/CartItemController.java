@@ -32,8 +32,13 @@ public class CartItemController {
 
 	@PostMapping("")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody CartItem create(@RequestBody CartItem cartItem){
-		return cartItemService.save(cartItem);
+	public @ResponseBody CartItem create(@RequestBody CartItem cartItem) throws Exception{
+		CartItem savedCartItem = cartItemService.save(cartItem);
+		if(savedCartItem == null) {
+			//TODO: Create exception
+			throw new Exception();
+		}
+		return savedCartItem;
 	}
 
 	@PutMapping("/{id}")
