@@ -19,16 +19,17 @@ import com.jz.nebula.dao.CartRepository;
 //import com.jz.nebula.dao.OrderRepository;
 //import com.jz.nebula.entity.Order;
 import com.jz.nebula.entity.Cart;
+import com.jz.nebula.entity.Order;
 
 @Service
 @Component("cartService")
 public class CartService {
 	@Autowired
 	private IAuthenticationFacade authenticationFacade;
-	
+
 	@Autowired
 	private CartRepository cartRepository;
-	
+
 //	public PagedResources<Resource<Cart>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
 //		Page<Order> page = orderRepository.findAll(pageable);
 //		PagedResources<Resource<Order>> resources = assembler.toResource(page,
@@ -49,14 +50,19 @@ public class CartService {
 //	public void delete(long id) {
 //		orderRepository.deleteById(id);
 //	}
-	
-		public Cart getCart(long id) {
-			
-			return cartRepository.findByUserId(id);
-		}
-		
-		public Cart getMyCart() {
-			return cartRepository.findByUserId(authenticationFacade.getUser().getId());
-		}
-}
 
+	public Cart getCart(long id) {
+
+		return cartRepository.findByUserId(id);
+	}
+
+	public Cart getMyCart() {
+		return cartRepository.findByUserId(authenticationFacade.getUser().getId());
+	}
+
+	public Order finaliseCart(long id) {
+		Cart cart = getMyCart();
+		
+		return null;
+	}
+}

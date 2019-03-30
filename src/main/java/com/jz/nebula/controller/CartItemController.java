@@ -43,7 +43,7 @@ public class CartItemController {
 
 	@PutMapping("/{id}")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody CartItem update(@PathVariable("id") long id, @RequestBody CartItem cartItem) {
+	public @ResponseBody CartItem update(@PathVariable("id") long id, @RequestBody CartItem cartItem) throws Exception {
 		cartItem.setId(id);
 		return cartItemService.save(cartItem);
 	}

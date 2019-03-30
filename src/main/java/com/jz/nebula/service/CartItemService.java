@@ -7,6 +7,7 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.dao.CartItemRepository;
@@ -20,8 +21,11 @@ import com.jz.nebula.entity.User;
 import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.validator.CartItemValidator;
 
+import org.springframework.transaction.annotation.Propagation;
+
 @Service
 @Component("cartItemService")
+@Transactional(propagation=Propagation.NOT_SUPPORTED, rollbackFor=Exception.class)
 public class CartItemService {
 	private final Logger logger = Logger.getLogger(CartItemService.class);
 	
@@ -54,12 +58,12 @@ public class CartItemService {
 	
 	private CartItem getItemInCart(CartItem cartItem) {
 		Optional<CartItem> optional = cartItemRepository.findByCartIdAndProductId(cartItem.getCartId(), cartItem.getProductId());
-		return optional.get();
+		return optional.isPresent() ? optional.get() : null;
 	}
 	
 	private synchronized void updateStock(CartItem cartItem) throws ProductStockException {
 		Optional<Product> optional = productRepository.findById(cartItem.getProductId()); 
-		if(!optional.isEmpty()) {
+		if(optional.isPresent()) {
 			Product product = optional.get();
 			AtomicInteger currentStock = new AtomicInteger(product.getUnitsInStock());
 			currentStock.addAndGet(cartItem.getQuantity() * -1);
@@ -72,7 +76,8 @@ public class CartItemService {
 		}
 	}
 	
-	public synchronized CartItem save(CartItem cartItem){
+	@Transactional(rollbackFor = {Exception.class})
+	public synchronized CartItem save(CartItem cartItem) throws Exception{
 		boolean isValid = cartItemValidator.validate(cartItem);
 		CartItem updatedOrder = null;
 		if(!isValid) {
