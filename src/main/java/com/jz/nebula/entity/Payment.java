@@ -2,6 +2,7 @@ package com.jz.nebula.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jz.nebula.payment.PaymentType;
 
 public class Payment {
 	private int amount;
@@ -13,13 +14,13 @@ public class Payment {
 	private String source;
 
 	@JsonIgnore
-	private int type;
+	private PaymentType type;
 
-	public int getType() {
+	public PaymentType getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(PaymentType type) {
 		this.type = type;
 	}
 

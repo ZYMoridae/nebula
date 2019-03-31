@@ -22,7 +22,13 @@ public class PaymentController {
 	@PostMapping("")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody Object create(@RequestBody Payment payment) throws Exception {
-		return this.paymentService.getPaymentGatway().doPayment(payment);
+		return this.paymentService.doPayment(payment);
+	}
+
+	@PostMapping("/finalise")
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
+	public @ResponseBody Object finalise() throws Exception {
+		return this.paymentService.finaliseOrder();
 	}
 
 }

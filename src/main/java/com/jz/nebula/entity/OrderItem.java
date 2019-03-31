@@ -106,4 +106,8 @@ public class OrderItem implements Serializable {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
+	public double getAmount() {
+		return (double) this.quantity * this.unitPrice * 100;
+	}
 }

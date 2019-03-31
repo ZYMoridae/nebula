@@ -1,9 +1,9 @@
 package com.jz.nebula.service;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.dao.CartItemRepository;
 import com.jz.nebula.dao.CartRepository;
-import com.jz.nebula.dao.ProductRepository;
+//import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.Cart;
 import com.jz.nebula.entity.CartItem;
-import com.jz.nebula.entity.Product;
+//import com.jz.nebula.entity.Product;
 import com.jz.nebula.entity.User;
-import com.jz.nebula.exception.ProductStockException;
+//import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.validator.CartItemValidator;
 
 import org.springframework.transaction.annotation.Propagation;
@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Propagation;
 @Component("cartItemService")
 @Transactional(propagation=Propagation.NOT_SUPPORTED, rollbackFor=Exception.class)
 public class CartItemService {
-	private final Logger logger = Logger.getLogger(CartItemService.class);
+	private final Logger logger = LogManager.getLogger(CartItemService.class);
 	
 	@Autowired
 	private IAuthenticationFacade authenticationFacade;
@@ -41,8 +41,8 @@ public class CartItemService {
 	@Autowired
 	private CartRepository cartRepository;
 	
-	@Autowired
-	private ProductRepository productRepository;
+//	@Autowired
+//	private ProductRepository productRepository;
 	
 	@Autowired
 	private CartItemValidator cartItemValidator;
@@ -61,25 +61,25 @@ public class CartItemService {
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	private synchronized void updateStock(CartItem cartItem) throws ProductStockException {
-		Optional<Product> optional = productRepository.findById(cartItem.getProductId()); 
-		if(optional.isPresent()) {
-			Product product = optional.get();
-			AtomicInteger currentStock = new AtomicInteger(product.getUnitsInStock());
-			currentStock.addAndGet(cartItem.getQuantity() * -1);
-			if(currentStock.get() < 0) {
-				throw new ProductStockException();
-			}
-			
-			product.setUnitsInStock(currentStock.get());
-			productRepository.save(product);
-		}
-	}
+//	private synchronized void updateStock(CartItem cartItem) throws ProductStockException {
+//		Optional<Product> optional = productRepository.findById(cartItem.getProductId()); 
+//		if(optional.isPresent()) {
+//			Product product = optional.get();
+//			AtomicInteger currentStock = new AtomicInteger(product.getUnitsInStock());
+//			currentStock.addAndGet(cartItem.getQuantity() * -1);
+//			if(currentStock.get() < 0) {
+//				throw new ProductStockException();
+//			}
+//			
+//			product.setUnitsInStock(currentStock.get());
+//			productRepository.save(product);
+//		}
+//	}
 	
 	@Transactional(rollbackFor = {Exception.class})
 	public synchronized CartItem save(CartItem cartItem) throws Exception{
 		boolean isValid = cartItemValidator.validate(cartItem);
-		CartItem updatedOrder = null;
+		CartItem updatedCartItem = null;
 		if(!isValid) {
 			return null;
 		}
@@ -94,20 +94,21 @@ public class CartItemService {
 		CartItem existingCartItem = getItemInCart(cartItem);
 		if(existingCartItem != null) {
 			existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
-			updatedOrder = cartItemRepository.save(existingCartItem);
+			updatedCartItem = cartItemRepository.save(existingCartItem);
 		}else {
-			updatedOrder = cartItemRepository.save(cartItem);
+			updatedCartItem = cartItemRepository.save(cartItem);
 		}
 		
-		try {
-			this.updateStock(cartItem);
-		} catch (ProductStockException e) {
-			logger.error("product stock update error...");
-			e.printStackTrace();
-			return null;
-		}
+//		try {
+//			this.updateStock(cartItem);
+//		} catch (ProductStockException e) {
+//			logger.error("product stock update error...");
+//			e.printStackTrace();
+//			return null;
+//		}
+		logger.info("Product with id:[{}] has been added", cartItem.getProductId());
 		
-		return findById(updatedOrder.getId());
+		return findById(updatedCartItem.getId());
 	}
 
 	public CartItem findById(long id) {

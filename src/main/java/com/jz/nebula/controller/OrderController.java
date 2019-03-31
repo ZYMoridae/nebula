@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.jz.nebula.amqp.MessageProducer;
+//import com.jz.nebula.amqp.MessageProducer;
 import com.jz.nebula.entity.Order;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.OrderService;
@@ -31,8 +31,8 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
-	@Autowired
-	private MessageProducer messageProducer;
+//	@Autowired
+//	private MessageProducer messageProducer;
 
 	@GetMapping
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
@@ -67,9 +67,9 @@ public class OrderController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PostMapping(value = "/messages")
-	public void sendMessage(@RequestBody String message) {
-		messageProducer.sendMessage(message);
-	}
+//	@PostMapping(value = "/messages")
+//	public void sendMessage(@RequestBody String message) {
+//		messageProducer.sendMessage(message);
+//	}
 
 }

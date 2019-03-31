@@ -20,17 +20,17 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "cart_item", schema = "public")
-public class CartItem implements Serializable{
+public class CartItem implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1485757059766369065L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "product_id")
 	private Long productId;
@@ -40,17 +40,17 @@ public class CartItem implements Serializable{
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "cart_id")
 	private Long cartId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id", insertable = false, updatable = false)
 	private Product product;
-	
+
 	@Column(name = "created_at", updatable = false, insertable = false)
 	private Date createdAt;
 
 	@Column(name = "updated_at", updatable = false, insertable = false)
 	private Date updatedAt;
-	
+
 	@JsonIgnore
 	public Long getCartId() {
 		return cartId;
@@ -83,7 +83,7 @@ public class CartItem implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@JsonIgnore
 	public Long getProductId() {
 		return productId;
@@ -107,5 +107,18 @@ public class CartItem implements Serializable{
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	/**
+	 * Convert to OrderItem
+	 * 
+	 * @return
+	 */
+	public OrderItem toOrderItem() {
+		OrderItem orderItem = new OrderItem();
+		orderItem.setProductId(this.productId);
+		orderItem.setQuantity(this.quantity);
+		orderItem.setUnitPrice(this.product.getPrice());
+		return orderItem;
 	}
 }

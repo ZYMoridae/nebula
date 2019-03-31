@@ -40,13 +40,24 @@ public class User implements Serializable {
 
 	@Column(name = "username")
 	private String username;
-
+	
+	@Column(name="email")
+	private String email;
+	
 	@JsonIgnore
 	private String password;
 
 	@OneToOne
 	@JoinColumn(name = "role_id")
 	Role role;
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public Role getRole() {
 		return role;

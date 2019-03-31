@@ -1,5 +1,7 @@
 package com.jz.nebula.service;
 
+import java.util.stream.Collectors;
+
 //import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
 //import com.jz.nebula.controller.OrderController;
 import com.jz.nebula.dao.CartRepository;
+import com.jz.nebula.dao.OrderRepository;
 //import com.jz.nebula.dao.OrderRepository;
 //import com.jz.nebula.entity.Order;
 import com.jz.nebula.entity.Cart;
@@ -23,12 +27,16 @@ import com.jz.nebula.entity.Order;
 
 @Service
 @Component("cartService")
+@Transactional
 public class CartService {
 	@Autowired
 	private IAuthenticationFacade authenticationFacade;
 
 	@Autowired
 	private CartRepository cartRepository;
+
+	@Autowired
+	private OrderRepository orderRepository;
 
 //	public PagedResources<Resource<Cart>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
 //		Page<Order> page = orderRepository.findAll(pageable);
@@ -60,9 +68,16 @@ public class CartService {
 		return cartRepository.findByUserId(authenticationFacade.getUser().getId());
 	}
 
-	public Order finaliseCart(long id) {
+	@Transactional(rollbackFor = { Exception.class })
+	public Order cartToOrder() {
 		Cart cart = getMyCart();
-		
-		return null;
+		Order order = new Order();
+		order.setOrderItems(cart.getCartItems().stream().map(item -> item.toOrderItem()).collect(Collectors.toSet()));
+		order.setUserId(this.authenticationFacade.getUser().getId());
+		// TODO: Read shipper from user preference
+		order.setShipperId((long) 1);
+
+		order = orderRepository.save(order);
+		return order;
 	}
 }
