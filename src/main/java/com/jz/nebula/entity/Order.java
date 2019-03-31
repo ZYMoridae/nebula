@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,6 +46,10 @@ public class Order implements Serializable {
 	@Column(name = "shipper_id")
 	private Long shipperId;
 
+//	@JsonProperty(access = Access.WRITE_ONLY)
+//	@Column(name = "order_status_id")
+//	private Long orderStatusId;
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "shipper_id", insertable = false, updatable = false)
 	private Shipper shipper;
@@ -53,11 +58,32 @@ public class Order implements Serializable {
 	@JoinColumn(name = "order_id", nullable = false)
 	private Set<OrderItem> orderItems;
 
+	@OneToOne
+	@JoinColumn(name = "order_status_id")
+	private OrderStatus orderStatus;
+
 	@Column(name = "created_at", updatable = false, insertable = false)
 	private Date createdAt;
 
 	@Column(name = "updated_at", updatable = false, insertable = false)
 	private Date updatedAt;
+
+//	@JsonIgnore
+//	public Long getOrderStatusId() {
+//		return orderStatusId;
+//	}
+//
+//	public void setOrderStatusId(Long orderStatusId) {
+//		this.orderStatusId = orderStatusId;
+//	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 
 	public Date getCreatedAt() {
 		return createdAt;

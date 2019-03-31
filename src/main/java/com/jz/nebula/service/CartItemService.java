@@ -25,10 +25,10 @@ import org.springframework.transaction.annotation.Propagation;
 
 @Service
 @Component("cartItemService")
-@Transactional(propagation=Propagation.NOT_SUPPORTED, rollbackFor=Exception.class)
+@Transactional(propagation = Propagation.NOT_SUPPORTED, rollbackFor = Exception.class)
 public class CartItemService {
 	private final Logger logger = LogManager.getLogger(CartItemService.class);
-	
+
 	@Autowired
 	private IAuthenticationFacade authenticationFacade;
 
@@ -40,13 +40,13 @@ public class CartItemService {
 
 	@Autowired
 	private CartRepository cartRepository;
-	
+
 //	@Autowired
 //	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private CartItemValidator cartItemValidator;
-	
+
 	private Cart getCart() {
 		User user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName()).get();
 		Cart cart = null;
@@ -55,12 +55,19 @@ public class CartItemService {
 		}
 		return cart;
 	}
-	
+
+	/**
+	 * Get item in shopping cart
+	 * 
+	 * @param cartItem
+	 * @return
+	 */
 	private CartItem getItemInCart(CartItem cartItem) {
-		Optional<CartItem> optional = cartItemRepository.findByCartIdAndProductId(cartItem.getCartId(), cartItem.getProductId());
+		Optional<CartItem> optional = cartItemRepository.findByCartIdAndProductId(cartItem.getCartId(),
+				cartItem.getProductId());
 		return optional.isPresent() ? optional.get() : null;
 	}
-	
+
 //	private synchronized void updateStock(CartItem cartItem) throws ProductStockException {
 //		Optional<Product> optional = productRepository.findById(cartItem.getProductId()); 
 //		if(optional.isPresent()) {
@@ -75,12 +82,19 @@ public class CartItemService {
 //			productRepository.save(product);
 //		}
 //	}
-	
-	@Transactional(rollbackFor = {Exception.class})
-	public synchronized CartItem save(CartItem cartItem) throws Exception{
+
+	/**
+	 * Save cartItem into database
+	 * 
+	 * @param cartItem
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = { Exception.class })
+	public synchronized CartItem save(CartItem cartItem) throws Exception {
 		boolean isValid = cartItemValidator.validate(cartItem);
 		CartItem updatedCartItem = null;
-		if(!isValid) {
+		if (!isValid) {
 			return null;
 		}
 		Cart cart = getCart();
@@ -88,17 +102,17 @@ public class CartItemService {
 			cart = new Cart(authenticationFacade.getUser().getId());
 			cart = cartRepository.save(cart);
 		}
-		
+
 		cartItem.setCartId(cart.getId());
-		
+
 		CartItem existingCartItem = getItemInCart(cartItem);
-		if(existingCartItem != null) {
+		if (existingCartItem != null) {
 			existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
 			updatedCartItem = cartItemRepository.save(existingCartItem);
-		}else {
+		} else {
 			updatedCartItem = cartItemRepository.save(cartItem);
 		}
-		
+
 //		try {
 //			this.updateStock(cartItem);
 //		} catch (ProductStockException e) {
@@ -107,14 +121,14 @@ public class CartItemService {
 //			return null;
 //		}
 		logger.info("Product with id:[{}] has been added", cartItem.getProductId());
-		
+
 		return findById(updatedCartItem.getId());
 	}
 
 	public CartItem findById(long id) {
 		return cartItemRepository.findById(id).get();
 	}
-	
+
 	public void delete(long id) {
 		cartItemRepository.deleteById(id);
 	}
