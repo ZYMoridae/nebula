@@ -2,6 +2,7 @@ package com.jz.nebula.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jz.nebula.dao.UserRepository;
+import com.jz.nebula.entity.User;
 //import com.jz.nebula.AuthenticationRequest;
 import com.jz.nebula.jwt.JwtTokenProvider;
 
@@ -52,10 +54,11 @@ public class AuthController {
 			String username = actualCredentials[0];
 			String password = actualCredentials[1];
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-			String token = jwtTokenProvider.createToken(username, this.users.findByUsername(username)
+			Optional<User> user = this.users.findByUsername(username);
+			String token = jwtTokenProvider.createToken(username, user
 					.orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
 			Map<Object, Object> model = new HashMap<>();
-			model.put("username", username);
+			model.put("user", user.get());
 			model.put("token", token);
 			return ok(model);
 		} catch (AuthenticationException e) {
