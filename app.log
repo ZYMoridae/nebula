@@ -6128,3 +6128,1187 @@ Caused by: redis.clients.jedis.exceptions.JedisDataException: ERR Protocol error
 2019-03-31 18:24:25.163  INFO 7198 --- [Thread-9] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2019-03-31 18:24:25.165  INFO 7198 --- [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2019-03-31 18:24:25.189  INFO 7198 --- [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-03-31 18:31:32.307  INFO 8228 --- [restartedMain] com.jz.nebula.Application                : Starting Application on yue-desktop with PID 8228 (/home/yue/Documents/Git/nebula-server-spring/target/classes started by yue in /home/yue/Documents/Git/nebula-server-spring)
+2019-03-31 18:31:32.311  INFO 8228 --- [restartedMain] com.jz.nebula.Application                : No active profile set, falling back to default profiles: default
+2019-03-31 18:31:32.390  INFO 8228 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-03-31 18:31:32.390  INFO 8228 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-03-31 18:31:33.392  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:31:33.393  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:31:33.416  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-03-31 18:31:33.662  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:31:33.663  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:31:33.890  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 224ms. Found 10 repository interfaces.
+2019-03-31 18:31:33.901  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:31:33.901  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:31:33.910  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.CartItemRepository.
+2019-03-31 18:31:33.911  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.CartRepository.
+2019-03-31 18:31:33.912  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderItemRepository.
+2019-03-31 18:31:33.913  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderRepository.
+2019-03-31 18:31:33.914  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderStatusRepository.
+2019-03-31 18:31:33.915  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ProductCategoryRepository.
+2019-03-31 18:31:33.915  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ProductRepository.
+2019-03-31 18:31:33.916  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ShipperRepository.
+2019-03-31 18:31:33.917  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.UserRepository.
+2019-03-31 18:31:33.918  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.VendorRepository.
+2019-03-31 18:31:33.919  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 0 repository interfaces.
+2019-03-31 18:31:34.535  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$ef1182ea] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:34.628  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$28a5c4bc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:34.677  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$c1538cf6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:34.686  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:34.689  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@5798a338' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:34.694  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$e6282fa8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:34.705  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration' of type [org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration$$EnhancerBySpringCGLIB$$b7d47be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:34.711  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'jsr250MethodSecurityMetadataSource' of type [org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:34.712  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:31:35.311  INFO 8228 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-03-31 18:31:35.376  INFO 8228 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-03-31 18:31:35.376  INFO 8228 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
+2019-03-31 18:31:35.390  INFO 8228 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+2019-03-31 18:31:35.511  INFO 8228 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-03-31 18:31:35.511  INFO 8228 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3117 ms
+2019-03-31 18:31:35.896  INFO 8228 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-03-31 18:31:36.123  INFO 8228 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-03-31 18:31:36.197  INFO 8228 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-03-31 18:31:36.274  INFO 8228 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.2.17.Final}
+2019-03-31 18:31:36.275  INFO 8228 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-03-31 18:31:36.320  INFO 8228 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-03-31 18:31:36.468  INFO 8228 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2019-03-31 18:31:36.722  INFO 8228 --- [restartedMain] o.h.e.j.e.i.LobCreatorBuilderImpl        : HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-03-31 18:31:36.723  INFO 8228 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@3f17397d
+2019-03-31 18:31:37.506  INFO 8228 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-03-31 18:31:38.418 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartController; public com.jz.nebula.entity.Cart com.jz.nebula.controller.CartController.getCart(long)]] with attributes [ROLE_ADMIN]
+2019-03-31 18:31:38.430 DEBUG 8228 --- [restartedMain] o.s.s.a.i.a.MethodSecurityInterceptor    : Validated configuration attributes
+2019-03-31 18:31:38.432 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartController; public com.jz.nebula.entity.Cart com.jz.nebula.controller.CartController.getMyCart()]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.432 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartController; public java.lang.Object com.jz.nebula.controller.CartController.finalizeCart()]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.501 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartItemController; public com.jz.nebula.entity.CartItem com.jz.nebula.controller.CartItemController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.505 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartItemController; public com.jz.nebula.entity.CartItem com.jz.nebula.controller.CartItemController.update(long,com.jz.nebula.entity.CartItem) throws java.lang.Exception]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.507 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartItemController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.CartItemController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.507 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartItemController; public com.jz.nebula.entity.CartItem com.jz.nebula.controller.CartItemController.create(com.jz.nebula.entity.CartItem) throws java.lang.Exception]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.520 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public com.jz.nebula.entity.Order com.jz.nebula.controller.OrderController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.522 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public org.springframework.hateoas.PagedResources com.jz.nebula.controller.OrderController.all(org.springframework.data.domain.Pageable,org.springframework.web.util.UriComponentsBuilder,javax.servlet.http.HttpServletResponse,org.springframework.data.web.PagedResourcesAssembler)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.522 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public com.jz.nebula.entity.Order com.jz.nebula.controller.OrderController.update(long,com.jz.nebula.entity.Order)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.523 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.OrderController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.523 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public com.jz.nebula.entity.Order com.jz.nebula.controller.OrderController.create(com.jz.nebula.entity.Order)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.574 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.PaymentController; public java.lang.Object com.jz.nebula.controller.PaymentController.finalise() throws java.lang.Exception]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.575 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.PaymentController; public java.lang.Object com.jz.nebula.controller.PaymentController.create(com.jz.nebula.entity.Payment) throws java.lang.Exception]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.605 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public com.jz.nebula.entity.ProductCategory com.jz.nebula.controller.ProductCategoryController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.606 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public org.springframework.hateoas.PagedResources com.jz.nebula.controller.ProductCategoryController.all(org.springframework.data.domain.Pageable,org.springframework.web.util.UriComponentsBuilder,javax.servlet.http.HttpServletResponse,org.springframework.data.web.PagedResourcesAssembler)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.607 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public com.jz.nebula.entity.ProductCategory com.jz.nebula.controller.ProductCategoryController.update(long,com.jz.nebula.entity.ProductCategory)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.607 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.ProductCategoryController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.608 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public com.jz.nebula.entity.ProductCategory com.jz.nebula.controller.ProductCategoryController.create(com.jz.nebula.entity.ProductCategory)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.617 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public com.jz.nebula.entity.Product com.jz.nebula.controller.ProductController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.618 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public org.springframework.hateoas.PagedResources com.jz.nebula.controller.ProductController.all(org.springframework.data.domain.Pageable,org.springframework.web.util.UriComponentsBuilder,javax.servlet.http.HttpServletResponse,org.springframework.data.web.PagedResourcesAssembler)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.619 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public com.jz.nebula.entity.Product com.jz.nebula.controller.ProductController.update(long,com.jz.nebula.entity.Product)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.619 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.ProductController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.619 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public com.jz.nebula.entity.Product com.jz.nebula.controller.ProductController.create(com.jz.nebula.entity.Product)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.645 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public com.jz.nebula.entity.Shipper com.jz.nebula.controller.ShipperController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.646 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public org.springframework.hateoas.PagedResources com.jz.nebula.controller.ShipperController.all(org.springframework.data.domain.Pageable,org.springframework.web.util.UriComponentsBuilder,javax.servlet.http.HttpServletResponse,org.springframework.data.web.PagedResourcesAssembler)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.646 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public com.jz.nebula.entity.Shipper com.jz.nebula.controller.ShipperController.update(long,com.jz.nebula.entity.Shipper)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.647 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.ShipperController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.647 DEBUG 8228 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public com.jz.nebula.entity.Shipper com.jz.nebula.controller.ShipperController.create(com.jz.nebula.entity.Shipper)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:31:38.782 DEBUG 8228 --- [restartedMain] eGlobalAuthenticationAutowiredConfigurer : Eagerly initializing {webSecurityConfig=com.jz.nebula.WebSecurityConfig$$EnhancerBySpringCGLIB$$be705d19@13a2b3df}
+2019-03-31 18:31:38.855 DEBUG 8228 --- [restartedMain] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'permitAll', for Ant [pattern='/auth/signin']
+2019-03-31 18:31:38.856 DEBUG 8228 --- [restartedMain] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'authenticated', for any request
+2019-03-31 18:31:38.858 DEBUG 8228 --- [restartedMain] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2019-03-31 18:31:38.858 DEBUG 8228 --- [restartedMain] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2019-03-31 18:31:38.862  INFO 8228 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2bed981f, org.springframework.security.web.context.SecurityContextPersistenceFilter@70a11be1, org.springframework.security.web.header.HeaderWriterFilter@7934cb3e, org.springframework.security.web.authentication.logout.LogoutFilter@7248dd3c, com.jz.nebula.jwt.JwtTokenFilter@647a5f5f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27b7e095, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@57f41120, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1f0fab1a, org.springframework.security.web.session.SessionManagementFilter@5b55aec2, org.springframework.security.web.access.ExceptionTranslationFilter@1e3d40a8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@390b479]
+2019-03-31 18:31:39.277  INFO 8228 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-03-31 18:31:40.233  INFO 8228 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-03-31 18:31:40.381  INFO 8228 --- [restartedMain] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2019-03-31 18:31:40.437  INFO 8228 --- [restartedMain] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#75bf0802:0/SimpleConnection@5cc475ef [delegate=amqp://guest@127.0.0.1:5672/, localPort= 51120]
+2019-03-31 18:31:40.516  INFO 8228 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2019-03-31 18:31:40.565  INFO 8228 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2019-03-31 18:31:40.570  INFO 8228 --- [restartedMain] com.jz.nebula.Application                : Started Application in 8.881 seconds (JVM running for 9.623)
+2019-03-31 18:31:57.185  INFO 8228 --- [http-nio-8090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-03-31 18:31:57.186  INFO 8228 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-03-31 18:31:57.204  INFO 8228 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 18 ms
+2019-03-31 18:31:57.220 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 1 of 11 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2019-03-31 18:31:57.221 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 2 of 11 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2019-03-31 18:31:57.223 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 3 of 11 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2019-03-31 18:31:57.225 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 4 of 11 in additional filter chain; firing Filter: 'LogoutFilter'
+2019-03-31 18:31:57.226 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', GET]
+2019-03-31 18:31:57.226 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'POST /auth/signin' doesn't match 'GET /logout'
+2019-03-31 18:31:57.226 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', POST]
+2019-03-31 18:31:57.226 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/auth/signin'; against '/logout'
+2019-03-31 18:31:57.226 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', PUT]
+2019-03-31 18:31:57.226 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'POST /auth/signin' doesn't match 'PUT /logout'
+2019-03-31 18:31:57.226 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', DELETE]
+2019-03-31 18:31:57.226 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'POST /auth/signin' doesn't match 'DELETE /logout'
+2019-03-31 18:31:57.227 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.web.util.matcher.OrRequestMatcher  : No matches found
+2019-03-31 18:31:57.227 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 5 of 11 in additional filter chain; firing Filter: 'JwtTokenFilter'
+2019-03-31 18:31:57.229 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 6 of 11 in additional filter chain; firing Filter: 'RequestCacheAwareFilter'
+2019-03-31 18:31:57.229 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 7 of 11 in additional filter chain; firing Filter: 'SecurityContextHolderAwareRequestFilter'
+2019-03-31 18:31:57.230 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 8 of 11 in additional filter chain; firing Filter: 'AnonymousAuthenticationFilter'
+2019-03-31 18:31:57.231 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Populated SecurityContextHolder with anonymous token: 'org.springframework.security.authentication.AnonymousAuthenticationToken@568d081c: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS'
+2019-03-31 18:31:57.232 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 9 of 11 in additional filter chain; firing Filter: 'SessionManagementFilter'
+2019-03-31 18:31:57.232 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 10 of 11 in additional filter chain; firing Filter: 'ExceptionTranslationFilter'
+2019-03-31 18:31:57.232 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin at position 11 of 11 in additional filter chain; firing Filter: 'FilterSecurityInterceptor'
+2019-03-31 18:31:57.233 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/auth/signin'; against '/auth/signin'
+2019-03-31 18:31:57.233 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.a.i.FilterSecurityInterceptor    : Secure object: FilterInvocation: URL: /auth/signin; Attributes: [permitAll]
+2019-03-31 18:31:57.233 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.a.i.FilterSecurityInterceptor    : Previously Authenticated: org.springframework.security.authentication.AnonymousAuthenticationToken@568d081c: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS
+2019-03-31 18:31:57.239 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.access.vote.AffirmativeBased       : Voter: org.springframework.security.web.access.expression.WebExpressionVoter@41ba682, returned: 1
+2019-03-31 18:31:57.240 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.a.i.FilterSecurityInterceptor    : Authorization successful
+2019-03-31 18:31:57.240 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.a.i.FilterSecurityInterceptor    : RunAsManager did not change Authentication object
+2019-03-31 18:31:57.240 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.security.web.FilterChainProxy        : /auth/signin reached end of additional filter chain; proceeding with original chain
+2019-03-31 18:31:57.276 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.authentication.ProviderManager     : Authentication attempt using com.jz.nebula.CustomAuthenticationProvider
+2019-03-31 18:31:57.308  INFO 8228 --- [http-nio-8090-exec-1] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-03-31 18:31:57.760 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@7af46c22
+2019-03-31 18:31:57.767 DEBUG 8228 --- [http-nio-8090-exec-1] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
+2019-03-31 18:31:57.768 DEBUG 8228 --- [http-nio-8090-exec-1] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2019-03-31 18:33:28.078  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2019-03-31 18:33:28.512  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2019-03-31 18:33:28.514  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2019-03-31 18:33:29.510  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2019-03-31 18:33:29.512  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2019-03-31 18:33:29.516  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2019-03-31 18:33:29.518  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2019-03-31 18:33:29.519  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2019-03-31 18:33:29.537  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is not active already
+2019-03-31 18:33:29.537  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is not active already
+2019-03-31 18:33:29.537  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is not active already
+2019-03-31 18:33:29.537  INFO 8228 --- [Thread-6] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is not active already
+2019-03-31 18:33:29.549  INFO 8228 --- [Thread-6] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-03-31 18:33:29.572  INFO 8228 --- [Thread-6] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-03-31 18:33:29.575  INFO 8228 --- [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-03-31 18:33:29.621  INFO 8228 --- [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-03-31 18:33:29.884  INFO 8228 --- [restartedMain] com.jz.nebula.Application                : Starting Application on yue-desktop with PID 8228 (/home/yue/Documents/Git/nebula-server-spring/target/classes started by yue in /home/yue/Documents/Git/nebula-server-spring)
+2019-03-31 18:33:29.885  INFO 8228 --- [restartedMain] com.jz.nebula.Application                : No active profile set, falling back to default profiles: default
+2019-03-31 18:33:30.187  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:30.188  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:30.189  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1ms. Found 0 repository interfaces.
+2019-03-31 18:33:30.238  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:30.238  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:30.284  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46ms. Found 10 repository interfaces.
+2019-03-31 18:33:30.288  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:30.288  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:30.296  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.CartItemRepository.
+2019-03-31 18:33:30.297  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.CartRepository.
+2019-03-31 18:33:30.297  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderItemRepository.
+2019-03-31 18:33:30.297  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderRepository.
+2019-03-31 18:33:30.297  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderStatusRepository.
+2019-03-31 18:33:30.298  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ProductCategoryRepository.
+2019-03-31 18:33:30.298  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ProductRepository.
+2019-03-31 18:33:30.298  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ShipperRepository.
+2019-03-31 18:33:30.298  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.UserRepository.
+2019-03-31 18:33:30.299  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.VendorRepository.
+2019-03-31 18:33:30.299  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11ms. Found 0 repository interfaces.
+2019-03-31 18:33:30.395  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$ef1182ea] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.414  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$28a5c4bc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.418  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$c1538cf6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.420  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.421  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@35873d3e' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.425  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$e6282fa8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.429  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration' of type [org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration$$EnhancerBySpringCGLIB$$b7d47be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.430  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'jsr250MethodSecurityMetadataSource' of type [org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.430  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:30.568  INFO 8228 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-03-31 18:33:30.570  INFO 8228 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-03-31 18:33:30.570  INFO 8228 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
+2019-03-31 18:33:30.577 ERROR 8228 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : Error registering Tomcat:j2eeType=WebModule,name=//localhost/api/*,J2EEApplication=none,J2EEServer=none
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.register(LifecycleMBeanBase.java:161) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.initInternal(LifecycleMBeanBase.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase.initInternal(ContainerBase.java:888) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.initInternal(StandardContext.java:6125) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:173) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:j2eeType=WebModule,name=//localhost/api/*,J2EEApplication=none,J2EEServer=none
+	... 53 common frames omitted
+
+2019-03-31 18:33:30.580  WARN 8228 --- [restartedMain] o.a.catalina.util.LifecycleMBeanBase     : Failed to register object [StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[/api/*]] with name [Tomcat:j2eeType=WebModule,name=//localhost/api/*,J2EEApplication=none,J2EEServer=none] during component initialisation
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.register(LifecycleMBeanBase.java:161) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.initInternal(LifecycleMBeanBase.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase.initInternal(ContainerBase.java:888) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.initInternal(StandardContext.java:6125) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:173) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:j2eeType=WebModule,name=//localhost/api/*,J2EEApplication=none,J2EEServer=none
+	... 53 common frames omitted
+
+2019-03-31 18:33:30.584 ERROR 8228 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : Error registering Tomcat:type=WebResourceRoot,host=localhost,context=/api/*
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.register(LifecycleMBeanBase.java:161) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.initInternal(LifecycleMBeanBase.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.webresources.StandardRoot.initInternal(StandardRoot.java:678) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:173) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:4758) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4893) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=WebResourceRoot,host=localhost,context=/api/*
+	... 55 common frames omitted
+
+2019-03-31 18:33:30.587  WARN 8228 --- [restartedMain] o.a.catalina.util.LifecycleMBeanBase     : Failed to register object [org.apache.catalina.webresources.StandardRoot@6950662] with name [Tomcat:type=WebResourceRoot,host=localhost,context=/api/*] during component initialisation
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.register(LifecycleMBeanBase.java:161) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.initInternal(LifecycleMBeanBase.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.webresources.StandardRoot.initInternal(StandardRoot.java:678) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:173) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:4758) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4893) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=WebResourceRoot,host=localhost,context=/api/*
+	... 55 common frames omitted
+
+2019-03-31 18:33:30.590 ERROR 8228 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : Error registering Tomcat:type=WebResourceRoot,host=localhost,context=/api/*,name=Cache
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.register(LifecycleMBeanBase.java:161) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.webresources.StandardRoot.initInternal(StandardRoot.java:680) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:173) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:4758) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4893) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=WebResourceRoot,host=localhost,context=/api/*,name=Cache
+	... 54 common frames omitted
+
+2019-03-31 18:33:30.592  WARN 8228 --- [restartedMain] o.a.catalina.util.LifecycleMBeanBase     : Failed to register object [org.apache.catalina.webresources.Cache@7db43a26] with name [Tomcat:type=WebResourceRoot,host=localhost,context=/api/*,name=Cache] during component initialisation
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.register(LifecycleMBeanBase.java:161) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.webresources.StandardRoot.initInternal(StandardRoot.java:680) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:173) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:4758) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4893) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=WebResourceRoot,host=localhost,context=/api/*,name=Cache
+	... 54 common frames omitted
+
+2019-03-31 18:33:30.595 ERROR 8228 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : Error registering Tomcat:type=Loader,host=localhost,context=/api/*
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.register(LifecycleMBeanBase.java:161) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.initInternal(LifecycleMBeanBase.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:173) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4955) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=Loader,host=localhost,context=/api/*
+	... 53 common frames omitted
+
+2019-03-31 18:33:30.598  WARN 8228 --- [restartedMain] o.a.catalina.util.LifecycleMBeanBase     : Failed to register object [WebappLoader[StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[/api/*]]] with name [Tomcat:type=Loader,host=localhost,context=/api/*] during component initialisation
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.register(LifecycleMBeanBase.java:161) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleMBeanBase.initInternal(LifecycleMBeanBase.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:173) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4955) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=Loader,host=localhost,context=/api/*
+	... 53 common frames omitted
+
+2019-03-31 18:33:30.600 ERROR 8228 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : Error registering Tomcat:type=TomcatEmbeddedWebappClassLoader,host=localhost,context=/api/*
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.loader.WebappLoader.startInternal(WebappLoader.java:407) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4955) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=TomcatEmbeddedWebappClassLoader,host=localhost,context=/api/*
+	... 51 common frames omitted
+
+2019-03-31 18:33:30.601 ERROR 8228 --- [restartedMain] org.apache.catalina.loader.WebappLoader  : LifecycleException 
+
+javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.loader.WebappLoader.startInternal(WebappLoader.java:407) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4955) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=TomcatEmbeddedWebappClassLoader,host=localhost,context=/api/*
+	... 51 common frames omitted
+
+2019-03-31 18:33:30.604 ERROR 8228 --- [restartedMain] org.apache.catalina.core.ContainerBase   : A child container failed during start
+
+java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: start: 
+	at java.base/java.util.concurrent.FutureTask.report(FutureTask.java:122) [na:na]
+	at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:191) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:951) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: org.apache.catalina.LifecycleException: start: 
+	at org.apache.catalina.loader.WebappLoader.startInternal(WebappLoader.java:413) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4955) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) [na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 34 common frames omitted
+Caused by: javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.loader.WebappLoader.startInternal(WebappLoader.java:407) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 43 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=TomcatEmbeddedWebappClassLoader,host=localhost,context=/api/*
+	... 51 common frames omitted
+
+2019-03-31 18:33:30.607 ERROR 8228 --- [restartedMain] org.apache.catalina.core.ContainerBase   : A child container failed during start
+
+java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: A child container failed during start
+	at java.base/java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:191) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:951) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) [spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: org.apache.catalina.LifecycleException: A child container failed during start
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:963) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 26 common frames omitted
+Caused by: java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: start: 
+	at java.base/java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:191) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:951) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 34 common frames omitted
+Caused by: org.apache.catalina.LifecycleException: start: 
+	at org.apache.catalina.loader.WebappLoader.startInternal(WebappLoader.java:413) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4955) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 34 common frames omitted
+Caused by: javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.loader.WebappLoader.startInternal(WebappLoader.java:407) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 43 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=TomcatEmbeddedWebappClassLoader,host=localhost,context=/api/*
+	... 51 common frames omitted
+
+2019-03-31 18:33:30.608  INFO 8228 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-03-31 18:33:30.608  WARN 8228 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+2019-03-31 18:33:30.615  INFO 8228 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-03-31 18:33:30.619 ERROR 8228 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:540) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at com.jz.nebula.Application.main(Application.java:15) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:414) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:174) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	... 13 common frames omitted
+Caused by: org.apache.catalina.LifecycleException: A child container failed during start
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:963) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:261) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:801) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:372) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
+	... 18 common frames omitted
+Caused by: java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: A child container failed during start
+	at java.base/java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:191) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:951) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 26 common frames omitted
+Caused by: org.apache.catalina.LifecycleException: A child container failed during start
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:963) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 26 common frames omitted
+Caused by: java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: start: 
+	at java.base/java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:191) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:951) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 34 common frames omitted
+Caused by: org.apache.catalina.LifecycleException: start: 
+	at org.apache.catalina.loader.WebappLoader.startInternal(WebappLoader.java:413) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4955) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1432) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1422) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:944) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 34 common frames omitted
+Caused by: javax.management.RuntimeOperationsException: null
+	at java.management/com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:412) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1855) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:955) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:890) ~[na:na]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:320) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522) ~[na:na]
+	at org.apache.tomcat.util.modeler.Registry.registerComponent(Registry.java:637) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.catalina.loader.WebappLoader.startInternal(WebappLoader.java:407) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	... 43 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Repository: cannot add mbean for pattern name Tomcat:type=TomcatEmbeddedWebappClassLoader,host=localhost,context=/api/*
+	... 51 common frames omitted
+
+2019-03-31 18:33:36.095  INFO 8228 --- [restartedMain] com.jz.nebula.Application                : Starting Application on yue-desktop with PID 8228 (/home/yue/Documents/Git/nebula-server-spring/target/classes started by yue in /home/yue/Documents/Git/nebula-server-spring)
+2019-03-31 18:33:36.096  INFO 8228 --- [restartedMain] com.jz.nebula.Application                : No active profile set, falling back to default profiles: default
+2019-03-31 18:33:36.370  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:36.370  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:36.371  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0ms. Found 0 repository interfaces.
+2019-03-31 18:33:36.414  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:36.414  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:36.469  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55ms. Found 10 repository interfaces.
+2019-03-31 18:33:36.473  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:36.473  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:36.480  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.CartItemRepository.
+2019-03-31 18:33:36.480  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.CartRepository.
+2019-03-31 18:33:36.480  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderItemRepository.
+2019-03-31 18:33:36.480  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderRepository.
+2019-03-31 18:33:36.481  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderStatusRepository.
+2019-03-31 18:33:36.481  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ProductCategoryRepository.
+2019-03-31 18:33:36.481  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ProductRepository.
+2019-03-31 18:33:36.482  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ShipperRepository.
+2019-03-31 18:33:36.483  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.UserRepository.
+2019-03-31 18:33:36.485  INFO 8228 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.VendorRepository.
+2019-03-31 18:33:36.485  INFO 8228 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12ms. Found 0 repository interfaces.
+2019-03-31 18:33:36.567  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$ef1182ea] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.584  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$28a5c4bc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.589  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$c1538cf6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.591  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.591  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4346d287' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.595  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$e6282fa8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.599  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration' of type [org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration$$EnhancerBySpringCGLIB$$b7d47be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.600  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'jsr250MethodSecurityMetadataSource' of type [org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.600  INFO 8228 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:36.710  INFO 8228 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-03-31 18:33:36.712  INFO 8228 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-03-31 18:33:36.713  INFO 8228 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
+2019-03-31 18:33:36.732  INFO 8228 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/api]  : Initializing Spring embedded WebApplicationContext
+2019-03-31 18:33:36.733  INFO 8228 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 635 ms
+2019-03-31 18:33:36.888  INFO 8228 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2019-03-31 18:33:36.912  INFO 8228 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2019-03-31 18:33:36.923  INFO 8228 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-03-31 18:33:36.944  INFO 8228 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2019-03-31 18:33:37.116  INFO 8228 --- [restartedMain] o.h.e.j.e.i.LobCreatorBuilderImpl        : HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-03-31 18:33:37.116  INFO 8228 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@3f17397d
+2019-03-31 18:33:37.373  INFO 8228 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-03-31 18:33:44.198  INFO 8685 --- [restartedMain] com.jz.nebula.Application                : Starting Application on yue-desktop with PID 8685 (/home/yue/Documents/Git/nebula-server-spring/target/classes started by yue in /home/yue/Documents/Git/nebula-server-spring)
+2019-03-31 18:33:44.202  INFO 8685 --- [restartedMain] com.jz.nebula.Application                : No active profile set, falling back to default profiles: default
+2019-03-31 18:33:44.261  INFO 8685 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-03-31 18:33:44.261  INFO 8685 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-03-31 18:33:45.259  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:45.260  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:45.281  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-03-31 18:33:45.528  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:45.530  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:45.760  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 228ms. Found 10 repository interfaces.
+2019-03-31 18:33:45.771  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-03-31 18:33:45.772  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-31 18:33:45.781  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.CartItemRepository.
+2019-03-31 18:33:45.782  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.CartRepository.
+2019-03-31 18:33:45.783  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderItemRepository.
+2019-03-31 18:33:45.784  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderRepository.
+2019-03-31 18:33:45.785  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.OrderStatusRepository.
+2019-03-31 18:33:45.786  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ProductCategoryRepository.
+2019-03-31 18:33:45.786  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ProductRepository.
+2019-03-31 18:33:45.787  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.ShipperRepository.
+2019-03-31 18:33:45.788  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.UserRepository.
+2019-03-31 18:33:45.789  INFO 8685 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.jz.nebula.dao.VendorRepository.
+2019-03-31 18:33:45.789  INFO 8685 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 0 repository interfaces.
+2019-03-31 18:33:46.365  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$90f4d1ff] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:46.449  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$ca8913d1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:46.500  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$6336dc0b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:46.509  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:46.512  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@1a04e765' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:46.518  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$880b7ebd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:46.530  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration' of type [org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration$$EnhancerBySpringCGLIB$$ad6096d3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:46.536  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'jsr250MethodSecurityMetadataSource' of type [org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:46.537  INFO 8685 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-31 18:33:47.086  INFO 8685 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2019-03-31 18:33:47.128  INFO 8685 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-03-31 18:33:47.128  INFO 8685 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
+2019-03-31 18:33:47.141  INFO 8685 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+2019-03-31 18:33:47.253  INFO 8685 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2019-03-31 18:33:47.254  INFO 8685 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2993 ms
+2019-03-31 18:33:47.641  INFO 8685 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-03-31 18:33:47.891  INFO 8685 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-03-31 18:33:47.976  INFO 8685 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-03-31 18:33:48.069  INFO 8685 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.2.17.Final}
+2019-03-31 18:33:48.072  INFO 8685 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-03-31 18:33:48.116  INFO 8685 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-03-31 18:33:48.274  INFO 8685 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2019-03-31 18:33:48.509  INFO 8685 --- [restartedMain] o.h.e.j.e.i.LobCreatorBuilderImpl        : HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-03-31 18:33:48.511  INFO 8685 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@421d96d0
+2019-03-31 18:33:49.269  INFO 8685 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-03-31 18:33:50.183 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartController; public com.jz.nebula.entity.Cart com.jz.nebula.controller.CartController.getCart(long)]] with attributes [ROLE_ADMIN]
+2019-03-31 18:33:50.194 DEBUG 8685 --- [restartedMain] o.s.s.a.i.a.MethodSecurityInterceptor    : Validated configuration attributes
+2019-03-31 18:33:50.195 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartController; public com.jz.nebula.entity.Cart com.jz.nebula.controller.CartController.getMyCart()]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.196 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartController; public java.lang.Object com.jz.nebula.controller.CartController.finalizeCart()]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.255 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartItemController; public com.jz.nebula.entity.CartItem com.jz.nebula.controller.CartItemController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.258 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartItemController; public com.jz.nebula.entity.CartItem com.jz.nebula.controller.CartItemController.update(long,com.jz.nebula.entity.CartItem) throws java.lang.Exception]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.259 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartItemController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.CartItemController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.260 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.CartItemController; public com.jz.nebula.entity.CartItem com.jz.nebula.controller.CartItemController.create(com.jz.nebula.entity.CartItem) throws java.lang.Exception]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.272 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public com.jz.nebula.entity.Order com.jz.nebula.controller.OrderController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.274 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public org.springframework.hateoas.PagedResources com.jz.nebula.controller.OrderController.all(org.springframework.data.domain.Pageable,org.springframework.web.util.UriComponentsBuilder,javax.servlet.http.HttpServletResponse,org.springframework.data.web.PagedResourcesAssembler)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.275 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public com.jz.nebula.entity.Order com.jz.nebula.controller.OrderController.update(long,com.jz.nebula.entity.Order)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.275 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.OrderController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.275 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.OrderController; public com.jz.nebula.entity.Order com.jz.nebula.controller.OrderController.create(com.jz.nebula.entity.Order)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.323 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.PaymentController; public java.lang.Object com.jz.nebula.controller.PaymentController.finalise() throws java.lang.Exception]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.324 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.PaymentController; public java.lang.Object com.jz.nebula.controller.PaymentController.create(com.jz.nebula.entity.Payment) throws java.lang.Exception]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.349 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public com.jz.nebula.entity.ProductCategory com.jz.nebula.controller.ProductCategoryController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.350 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public org.springframework.hateoas.PagedResources com.jz.nebula.controller.ProductCategoryController.all(org.springframework.data.domain.Pageable,org.springframework.web.util.UriComponentsBuilder,javax.servlet.http.HttpServletResponse,org.springframework.data.web.PagedResourcesAssembler)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.351 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public com.jz.nebula.entity.ProductCategory com.jz.nebula.controller.ProductCategoryController.update(long,com.jz.nebula.entity.ProductCategory)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.351 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.ProductCategoryController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.351 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductCategoryController; public com.jz.nebula.entity.ProductCategory com.jz.nebula.controller.ProductCategoryController.create(com.jz.nebula.entity.ProductCategory)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.361 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public com.jz.nebula.entity.Product com.jz.nebula.controller.ProductController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.362 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public org.springframework.hateoas.PagedResources com.jz.nebula.controller.ProductController.all(org.springframework.data.domain.Pageable,org.springframework.web.util.UriComponentsBuilder,javax.servlet.http.HttpServletResponse,org.springframework.data.web.PagedResourcesAssembler)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.363 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public com.jz.nebula.entity.Product com.jz.nebula.controller.ProductController.update(long,com.jz.nebula.entity.Product)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.363 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.ProductController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.363 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ProductController; public com.jz.nebula.entity.Product com.jz.nebula.controller.ProductController.create(com.jz.nebula.entity.Product)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.392 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public com.jz.nebula.entity.Shipper com.jz.nebula.controller.ShipperController.findById(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.393 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public org.springframework.hateoas.PagedResources com.jz.nebula.controller.ShipperController.all(org.springframework.data.domain.Pageable,org.springframework.web.util.UriComponentsBuilder,javax.servlet.http.HttpServletResponse,org.springframework.data.web.PagedResourcesAssembler)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.394 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public com.jz.nebula.entity.Shipper com.jz.nebula.controller.ShipperController.update(long,com.jz.nebula.entity.Shipper)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.394 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public org.springframework.http.ResponseEntity com.jz.nebula.controller.ShipperController.delete(long)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.394 DEBUG 8685 --- [restartedMain] m.DelegatingMethodSecurityMetadataSource : Caching method [CacheKey[com.jz.nebula.controller.ShipperController; public com.jz.nebula.entity.Shipper com.jz.nebula.controller.ShipperController.create(com.jz.nebula.entity.Shipper)]] with attributes [ROLE_USER, ROLE_VENDOR, ROLE_ADMIN]
+2019-03-31 18:33:50.543 DEBUG 8685 --- [restartedMain] eGlobalAuthenticationAutowiredConfigurer : Eagerly initializing {webSecurityConfig=com.jz.nebula.WebSecurityConfig$$EnhancerBySpringCGLIB$$6053ac2e@349bbc20}
+2019-03-31 18:33:50.623 DEBUG 8685 --- [restartedMain] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'permitAll', for Ant [pattern='/auth/signin']
+2019-03-31 18:33:50.624 DEBUG 8685 --- [restartedMain] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'authenticated', for any request
+2019-03-31 18:33:50.626 DEBUG 8685 --- [restartedMain] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2019-03-31 18:33:50.626 DEBUG 8685 --- [restartedMain] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2019-03-31 18:33:50.630  INFO 8685 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3cbda516, org.springframework.security.web.context.SecurityContextPersistenceFilter@6429afa9, org.springframework.security.web.header.HeaderWriterFilter@58532de6, org.springframework.security.web.authentication.logout.LogoutFilter@315699b1, com.jz.nebula.jwt.JwtTokenFilter@4fc40080, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@59d40559, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@62c54de3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ab3a8df, org.springframework.security.web.session.SessionManagementFilter@792aed1b, org.springframework.security.web.access.ExceptionTranslationFilter@796e2fed, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1ffff481]
+2019-03-31 18:33:51.086  INFO 8685 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-03-31 18:33:52.153  INFO 8685 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-03-31 18:33:52.309  INFO 8685 --- [restartedMain] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2019-03-31 18:33:52.371  INFO 8685 --- [restartedMain] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#62ddd3cf:0/SimpleConnection@b3f5a59 [delegate=amqp://guest@127.0.0.1:5672/, localPort= 51220]
+2019-03-31 18:33:52.460  INFO 8685 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2019-03-31 18:33:52.513  INFO 8685 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path '/api'
+2019-03-31 18:33:52.518  INFO 8685 --- [restartedMain] com.jz.nebula.Application                : Started Application in 8.917 seconds (JVM running for 9.701)
+2019-03-31 18:34:09.681  INFO 8685 --- [http-nio-8090-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-03-31 18:34:09.682  INFO 8685 --- [http-nio-8090-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-03-31 18:34:09.705  INFO 8685 --- [http-nio-8090-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 23 ms
+2019-03-31 18:34:09.722 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 1 of 11 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2019-03-31 18:34:09.723 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 2 of 11 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2019-03-31 18:34:09.725 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 3 of 11 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2019-03-31 18:34:09.728 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 4 of 11 in additional filter chain; firing Filter: 'LogoutFilter'
+2019-03-31 18:34:09.728 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', GET]
+2019-03-31 18:34:09.728 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'POST /auth/signin' doesn't match 'GET /logout'
+2019-03-31 18:34:09.729 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', POST]
+2019-03-31 18:34:09.729 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/auth/signin'; against '/logout'
+2019-03-31 18:34:09.729 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', PUT]
+2019-03-31 18:34:09.729 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'POST /auth/signin' doesn't match 'PUT /logout'
+2019-03-31 18:34:09.729 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', DELETE]
+2019-03-31 18:34:09.729 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'POST /auth/signin' doesn't match 'DELETE /logout'
+2019-03-31 18:34:09.730 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.web.util.matcher.OrRequestMatcher  : No matches found
+2019-03-31 18:34:09.730 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 5 of 11 in additional filter chain; firing Filter: 'JwtTokenFilter'
+2019-03-31 18:34:09.730 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 6 of 11 in additional filter chain; firing Filter: 'RequestCacheAwareFilter'
+2019-03-31 18:34:09.731 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 7 of 11 in additional filter chain; firing Filter: 'SecurityContextHolderAwareRequestFilter'
+2019-03-31 18:34:09.732 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 8 of 11 in additional filter chain; firing Filter: 'AnonymousAuthenticationFilter'
+2019-03-31 18:34:09.734 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Populated SecurityContextHolder with anonymous token: 'org.springframework.security.authentication.AnonymousAuthenticationToken@b535c10f: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS'
+2019-03-31 18:34:09.734 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 9 of 11 in additional filter chain; firing Filter: 'SessionManagementFilter'
+2019-03-31 18:34:09.735 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 10 of 11 in additional filter chain; firing Filter: 'ExceptionTranslationFilter'
+2019-03-31 18:34:09.735 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin at position 11 of 11 in additional filter chain; firing Filter: 'FilterSecurityInterceptor'
+2019-03-31 18:34:09.735 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/auth/signin'; against '/auth/signin'
+2019-03-31 18:34:09.736 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.a.i.FilterSecurityInterceptor    : Secure object: FilterInvocation: URL: /auth/signin; Attributes: [permitAll]
+2019-03-31 18:34:09.736 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.a.i.FilterSecurityInterceptor    : Previously Authenticated: org.springframework.security.authentication.AnonymousAuthenticationToken@b535c10f: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS
+2019-03-31 18:34:09.754 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.access.vote.AffirmativeBased       : Voter: org.springframework.security.web.access.expression.WebExpressionVoter@6c9b986e, returned: 1
+2019-03-31 18:34:09.755 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.a.i.FilterSecurityInterceptor    : Authorization successful
+2019-03-31 18:34:09.755 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.a.i.FilterSecurityInterceptor    : RunAsManager did not change Authentication object
+2019-03-31 18:34:09.755 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.security.web.FilterChainProxy        : /auth/signin reached end of additional filter chain; proceeding with original chain
+2019-03-31 18:34:09.797 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.authentication.ProviderManager     : Authentication attempt using com.jz.nebula.CustomAuthenticationProvider
+2019-03-31 18:34:09.842  INFO 8685 --- [http-nio-8090-exec-2] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-03-31 18:34:10.348 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@609a0225
+2019-03-31 18:34:10.351 DEBUG 8685 --- [http-nio-8090-exec-2] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
+2019-03-31 18:34:10.351 DEBUG 8685 --- [http-nio-8090-exec-2] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2019-03-31 18:34:16.964  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2019-03-31 18:34:17.443  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2019-03-31 18:34:17.446  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2019-03-31 18:34:18.441  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2019-03-31 18:34:18.444  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2019-03-31 18:34:18.446  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2019-03-31 18:34:18.448  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2019-03-31 18:34:18.450  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2019-03-31 18:34:18.470  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is not active already
+2019-03-31 18:34:18.470  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is not active already
+2019-03-31 18:34:18.470  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is not active already
+2019-03-31 18:34:18.471  INFO 8685 --- [Thread-9] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is not active already
+2019-03-31 18:34:18.474  INFO 8685 --- [Thread-9] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-03-31 18:34:18.491  INFO 8685 --- [Thread-9] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-03-31 18:34:18.494  INFO 8685 --- [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-03-31 18:34:18.514  INFO 8685 --- [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
