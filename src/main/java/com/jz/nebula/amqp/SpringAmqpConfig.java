@@ -26,7 +26,7 @@ public class SpringAmqpConfig {
 	public final static String topicQueuePdf = "nebula.topic.pdf";
 	public final static String topicQueueInvoice = "nebula.topic.invoice";
 	public final static String topicExchangeName = "nebula.topic.exchange";
-
+	
 	@Bean
 	public List<Declarable> topicBindings() {
 		Queue topicQueue1 = new Queue(topicQueuePdf, false);
