@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
-@Table(name = "order", schema = "public")
+@Table(name = "orders", schema = "public")
 public class Order implements Serializable {
 
 	/**
