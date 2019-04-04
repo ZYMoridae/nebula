@@ -15,12 +15,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.dao.RoleRepository;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.Role;
@@ -32,13 +35,16 @@ import com.jz.nebula.jwt.JwtTokenProvider;
 public class UserController {
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	RoleRepository roleRepository;
-	
+
 	@Autowired
 	JwtTokenProvider jwtTokenProvider;
-	
+
+	@Autowired
+	private IAuthenticationFacade authenticationFacade;
+
 	@GetMapping("/me")
 	public ResponseEntity<?> currentUser(@AuthenticationPrincipal UserDetails userDetails) {
 		Map<Object, Object> model = new HashMap<>();
@@ -52,6 +58,12 @@ public class UserController {
 		return ok(user);
 	}
 
+	/**
+	 * This is public route
+	 * 
+	 * @param user
+	 * @return
+	 */
 	@PostMapping("")
 	public ResponseEntity<?> createUser(@RequestBody User user) {
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
@@ -63,7 +75,16 @@ public class UserController {
 		List<String> roles = new ArrayList<>();
 		roles.add(Role.ROLE_USER);
 		map.put("token", jwtTokenProvider.createToken(savedUser.getUsername(), roles));
-		
+
 		return ok(map);
 	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) throws Exception {
+		if (id != authenticationFacade.getUser().getId()) {
+			throw new Exception();
+		}
+		return ok(userRepository.save(user));
+	}
+
 }
