@@ -14,29 +14,28 @@ import com.jz.nebula.entity.Shipper;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@TestPropertySource(locations="classpath:test.yml")
+@TestPropertySource(locations = "classpath:test.yml")
 public class ShipperRepositoryIntegrationTest {
- 
-    @Autowired
-    private TestEntityManager entityManager;
- 
-    @Autowired
-    private ShipperRepository shipperRepository;
- 
-    // write test cases here
-    
-    @Test
-    public void findShipperByName() {
-        // given
-        Shipper alex = new Shipper("alex");
-        entityManager.persist(alex);
-        entityManager.flush();
-     
-        // when
-        Shipper found = shipperRepository.findByName(alex.getName());
-     
-        // then
-        assertEquals(found.getName(), alex.getName());
-    }
-}
 
+	@Autowired
+	private TestEntityManager entityManager;
+
+	@Autowired
+	private ShipperRepository shipperRepository;
+
+	// write test cases here
+
+	@Test
+	public void findShipperByName() {
+		// given
+		Shipper alex = new Shipper("alex");
+		entityManager.persist(alex);
+		entityManager.flush();
+
+		// when
+		Shipper found = shipperRepository.findByName(alex.getName());
+
+		// then
+		assertEquals(found.getName(), alex.getName());
+	}
+}
