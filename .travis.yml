@@ -11,3 +11,10 @@ cache:
   directories:
   - $HOME/.m2
   - $HOME/.gradle
+
+notifications:
+  emails:
+    recipients:  
+    - ashzhouyue@gmail.com  
+    on_success: always  
+    on_failure: always
