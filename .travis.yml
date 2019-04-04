@@ -16,6 +16,7 @@ notifications:
   emails:
     recipients:  
     - ashzhouyue@gmail.com
-    - ashzhouyue@yahoo.com  
+    - ashzhouyue@yahoo.com
+    - ashyuezhou@gmail.com  
     on_success: always  
     on_failure: always
