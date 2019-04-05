@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.github.javafaker.Faker;
@@ -28,7 +27,6 @@ import com.jz.nebula.util.MockDataManager;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=Application.class)
-@ActiveProfiles("test")
 public class UserServiceTest {
 	@Mock
 	private UserRepository userRepository;

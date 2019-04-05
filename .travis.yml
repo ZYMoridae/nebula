@@ -3,6 +3,9 @@ language: java
 jdk:
 - oraclejdk8
 
+services:
+- rabbitmq
+
 before_script:
 - sudo redis-server /etc/redis/redis.conf --port 6379 --requirepass '?_TK$czHb9LhyWy8W2G4gZAa@byj8H&4'
 
