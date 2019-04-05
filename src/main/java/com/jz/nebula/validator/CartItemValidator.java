@@ -18,7 +18,7 @@ import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.entity.CartItem;
 import com.jz.nebula.entity.Product;
 
-@Component
+@Component("cartItemValidator")
 public class CartItemValidator implements ValidatorInterface, Serializable {
 
 	private final Logger logger = LogManager.getLogger(CartItemValidator.class);
