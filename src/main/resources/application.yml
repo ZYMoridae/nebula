@@ -37,7 +37,7 @@ spring:
     default-property-inclusion: non_empty 
   
   redis:
-    host: iresdev1.intsrv.net
+#    host: iresdev1.intsrv.net
     host: localhost
     port: 6379
     password: ?_TK$czHb9LhyWy8W2G4gZAa@byj8H&4  
