@@ -8,11 +8,11 @@ import org.springframework.session.web.http.HttpSessionIdResolver;
 
 @Configuration
 @EnableRedisHttpSession
-public class SessionConfig{
+public class SessionConfig {
 
 	@Bean
 	public HttpSessionIdResolver httpSessionIdResolver() {
-		return HeaderHttpSessionIdResolver.xAuthToken(); 
+		return HeaderHttpSessionIdResolver.xAuthToken();
 	}
-	
+
 }

@@ -20,23 +20,22 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 
-
 	@GetMapping(value = "/user/{id}")
 	@RolesAllowed({ Role.ROLE_ADMIN })
 	public @ResponseBody Cart getCart(@PathVariable("id") long id) {
 		return cartService.getCart(id);
 	}
-	
+
 	@GetMapping(value = "/my")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody Cart getMyCart() {
 		return cartService.getMyCart();
 	}
-	
-	@PostMapping(value="/finalise")
+
+	@PostMapping(value = "/finalise")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody Object finalizeCart() {
 		return cartService.cartToOrder();
 	}
-	
+
 }

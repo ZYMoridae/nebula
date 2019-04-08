@@ -41,7 +41,8 @@ public class EmailService implements EmailServiceInterface {
 	}
 
 	@Override
-	public void sendMessageWithAttachment(String from, String to, String subject, String text, String pathToAttachment) {
+	public void sendMessageWithAttachment(String from, String to, String subject, String text,
+			String pathToAttachment) {
 		try {
 			MimeMessage message = emailSender.createMimeMessage();
 			// pass 'true' to the constructor to create a multipart message

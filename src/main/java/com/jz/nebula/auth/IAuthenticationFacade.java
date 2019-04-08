@@ -6,5 +6,6 @@ import com.jz.nebula.entity.User;
 
 public interface IAuthenticationFacade {
 	Authentication getAuthentication();
+
 	User getUser();
 }

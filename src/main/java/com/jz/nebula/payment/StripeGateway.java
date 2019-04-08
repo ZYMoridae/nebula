@@ -61,7 +61,8 @@ public class StripeGateway implements PaymentGateway {
 		return chargedPayment;
 	}
 
-	public synchronized Customer createCustomer(Customer paramCustomer) throws StripeException, InvalidCustomerException {
+	public synchronized Customer createCustomer(Customer paramCustomer)
+			throws StripeException, InvalidCustomerException {
 		Map<String, Object> customerParams = new HashMap<String, Object>();
 		String customerEmail = paramCustomer.getEmail();
 		if (customerEmail == null || customerEmail.isEmpty()) {

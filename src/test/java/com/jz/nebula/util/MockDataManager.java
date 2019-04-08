@@ -9,15 +9,15 @@ package com.jz.nebula.util;
 import com.jz.nebula.entity.User;
 
 public class MockDataManager {
-	
+
 	public static Object getEntityWithFakeData(Class<?> p) {
 		String clazzName = p.getName();
 		Object resInstance = null;
-		
-		if(clazzName == User.class.getName()) {
+
+		if (clazzName == User.class.getName()) {
 			resInstance = getUserInstance();
 		}
-		
+
 //		Field[] fields = p.getDeclaredFields();
 //		System.out.println("******************");
 //		for(Field field : fields) {
@@ -33,15 +33,15 @@ public class MockDataManager {
 //		System.out.println("******************");
 		return resInstance;
 	}
-	
+
 	private static User getUserInstance() {
 		User userInstance = new User();
 		return userInstance;
 	}
-	
+
 //	private static Role getRoleInstance() {
 //		Role roleInstance = new Role();
 //		return roleInstance;
 //	}
-	
+
 }

@@ -26,19 +26,19 @@ import com.jz.nebula.entity.User;
 import com.jz.nebula.util.MockDataManager;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=Application.class)
+@SpringBootTest(classes = Application.class)
 public class UserServiceTest {
 	@Mock
 	private UserRepository userRepository;
-	
+
 	@InjectMocks
 	private UserService userService;
-	
-    @Before
-    public void beforeTests() throws Exception {
-        MockitoAnnotations.initMocks(this);
-    }
-	
+
+	@Before
+	public void beforeTests() throws Exception {
+		MockitoAnnotations.initMocks(this);
+	}
+
 	@Test
 	public void loadUserByUsernameTest() {
 		MockDataManager.getEntityWithFakeData(User.class);
@@ -54,7 +54,7 @@ public class UserServiceTest {
 		user.setPassword("$2a$10$rHx0naos8Q1SEfIRekAkreeedzadMrECNOBaD/Qj3eaj0U5lkZrQS");
 		Optional<User> userOptional = Optional.of(user);
 		when(userRepository.findByUsername("test")).thenReturn(userOptional);
-		
+
 		UserDetails userDetails = userService.loadUserByUsername("test");
 		assertTrue(userDetails != null);
 		assertEquals("test", userDetails.getUsername());

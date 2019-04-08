@@ -15,19 +15,19 @@ import com.jz.nebula.Application;
 import com.jz.nebula.dao.ProductRepository;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=Application.class)
+@SpringBootTest(classes = Application.class)
 public class CartItemValidatorTest {
 	@Mock
 	private ProductRepository productRepository;
-	
+
 	@InjectMocks
 	CartItemValidator cartItemValidator;
-	
-    @Before
-    public void beforeTests() throws Exception {
-        MockitoAnnotations.initMocks(this);
-    }
-	
+
+	@Before
+	public void beforeTests() throws Exception {
+		MockitoAnnotations.initMocks(this);
+	}
+
 	@Test
 	public void carItemValidationTest() {
 		assertTrue(true);
