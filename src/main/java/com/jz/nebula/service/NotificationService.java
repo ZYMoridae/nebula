@@ -11,7 +11,6 @@ import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.controller.NotificationController;
 import com.jz.nebula.dao.NotificationRepository;
 import com.jz.nebula.entity.Notification;
@@ -19,9 +18,6 @@ import com.jz.nebula.entity.Notification;
 @Service
 @Component("notificationService")
 public class NotificationService {
-	@Autowired
-	private IAuthenticationFacade authenticationFacade;
-	
 	@Autowired
 	private NotificationRepository notificationRepository;
 	
@@ -41,7 +37,12 @@ public class NotificationService {
 		if(existingNotification != null) {
 			existingNotification.setBody(notification.getBody());
 		}
-		Notification updatedNotification = notificationRepository.save(existingNotification);
+		Notification updatedNotification = null;
+		if(existingNotification != null) {
+			updatedNotification = notificationRepository.save(existingNotification);
+		}else { 
+			updatedNotification = notificationRepository.save(notification);
+		}
 		return findById(updatedNotification.getId());
 	}
 
