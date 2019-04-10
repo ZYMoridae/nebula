@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -32,9 +33,10 @@ public class ProductController {
 
 	@GetMapping
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody PagedResources<Resource<Product>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-			final HttpServletResponse response, PagedResourcesAssembler<Product> assembler) {
-		return prouductService.findAll(pageable, assembler);
+	public @ResponseBody PagedResources<Resource<Product>> all(@RequestParam String keyword, Pageable pageable,
+			final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+			PagedResourcesAssembler<Product> assembler) {
+		return prouductService.findAll(keyword, pageable, assembler);
 	}
 
 	@GetMapping("/{id}")

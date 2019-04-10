@@ -61,4 +61,9 @@ public class ShipperServiceTest {
 		assertEquals(expectedShipper.getContact(), resShipper.getContact());
 		assertEquals(expectedShipper.getId(), resShipper.getId());
 	}
+	
+	@Test
+	public void deleteByIdTest() {
+		
+	}
 }

@@ -21,8 +21,15 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 
-	public PagedResources<Resource<Product>> findAll(Pageable pageable, PagedResourcesAssembler<Product> assembler) {
-		Page<Product> page = productRepository.findAll(pageable);
+	public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
+			PagedResourcesAssembler<Product> assembler) {
+		Page<Product> page = null;
+		if (keyword == "") {
+			page = productRepository.findAll(pageable);
+		} else {
+			page = productRepository.findByNameContaining(keyword, pageable);
+		}
+
 		PagedResources<Resource<Product>> resources = assembler.toResource(page,
 				linkTo(ProductController.class).slash("/products").withSelfRel());
 		;
