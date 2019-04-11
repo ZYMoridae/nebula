@@ -10,7 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -56,5 +58,15 @@ public class ProductCategoryServiceTest {
 		ProductCategory resProductCategory = productCategoryService.findById(expectedProdctCategory.getId());
 		assertEquals(expectedProdctCategory.getName(), resProductCategory.getName());
 		assertEquals(expectedProdctCategory.getId(), resProductCategory.getId());
+	}
+	
+	@Test
+	public void deleteByIdTest() {
+		Mockito.doAnswer((Answer<?>) invocation -> {
+			Object arg0 = invocation.getArgument(0);
+			assertEquals((long) 1, arg0);
+			return null;
+		}).when(productCategoryRepository).deleteById(Mockito.any(long.class));
+		productCategoryService.delete((long) 1);
 	}
 }

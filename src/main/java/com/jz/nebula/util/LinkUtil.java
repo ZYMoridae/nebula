@@ -15,7 +15,7 @@ public final class LinkUtil {
 	public static final String REL_LAST = "last";
 
 	private LinkUtil() {
-		throw new AssertionError();
+//		throw new AssertionError();
 	}
 
 	//

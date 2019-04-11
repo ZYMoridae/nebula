@@ -10,7 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -64,6 +66,11 @@ public class ShipperServiceTest {
 	
 	@Test
 	public void deleteByIdTest() {
-		
+		Mockito.doAnswer((Answer<?>) invocation -> {
+			Object arg0 = invocation.getArgument(0);
+			assertEquals((long) 1, arg0);
+			return null;
+		}).when(shipperRepository).deleteById(Mockito.any(long.class));
+		shipperService.delete((long) 1);
 	}
 }

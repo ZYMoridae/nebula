@@ -10,7 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -63,5 +65,15 @@ public class NotificationServiceTest {
 		assertEquals(expectedNotification.getUserId(), savedNotification.getUserId());
 		assertEquals(expectedNotification.getStatusId(), savedNotification.getStatusId());
 		assertEquals(expectedNotification.getId(), savedNotification.getId());
+	}
+	
+	@Test
+	public void deleteByIdTest() {
+		Mockito.doAnswer((Answer<?>) invocation -> {
+			Object arg0 = invocation.getArgument(0);
+			assertEquals((long) 1, arg0);
+			return null;
+		}).when(notificationRepository).deleteById(Mockito.any(long.class));
+		notificationService.delete((long) 1);
 	}
 }
