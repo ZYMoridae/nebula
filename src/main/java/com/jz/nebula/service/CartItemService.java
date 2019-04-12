@@ -1,15 +1,23 @@
 package com.jz.nebula.service;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.controller.CartItemController;
 import com.jz.nebula.dao.CartItemRepository;
 import com.jz.nebula.dao.CartRepository;
 //import com.jz.nebula.dao.ProductRepository;
@@ -67,7 +75,23 @@ public class CartItemService {
 				cartItem.getProductId());
 		return optional.isPresent() ? optional.get() : null;
 	}
-
+	
+	/**
+	 * Find cart items by cart id
+	 * 
+	 * @param cartId
+	 * @param pageable
+	 * @param assembler
+	 * @return
+	 */
+	public PagedResources<Resource<CartItem>> findByCartId(long cartId, Pageable pageable, PagedResourcesAssembler<CartItem> assembler) {
+		Page<CartItem> page = cartItemRepository.findByCartId(cartId, pageable);
+		PagedResources<Resource<CartItem>> resources = assembler.toResource(page,
+				linkTo(CartItemController.class).slash("/cart-items").withSelfRel());
+		;
+		return resources;
+	}
+	
 //	private synchronized void updateStock(CartItem cartItem) throws ProductStockException {
 //		Optional<Product> optional = productRepository.findById(cartItem.getProductId()); 
 //		if(optional.isPresent()) {

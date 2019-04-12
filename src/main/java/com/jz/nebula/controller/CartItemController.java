@@ -1,8 +1,13 @@
 package com.jz.nebula.controller;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.jz.nebula.entity.CartItem;
 import com.jz.nebula.entity.Role;
@@ -29,7 +35,24 @@ public class CartItemController {
 	public @ResponseBody CartItem findById(@PathVariable("id") long id) {
 		return cartItemService.findById(id);
 	}
-
+	
+	/**
+	 * This is designed for pagination on shopping cart page
+	 * 
+	 * @param cartId
+	 * @param pageable
+	 * @param uriBuilder
+	 * @param response
+	 * @param assembler
+	 * @return
+	 */
+	@GetMapping("/carts/{id}")
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
+	public @ResponseBody PagedResources<Resource<CartItem>> findByCartId(@PathVariable("id") long cartId, Pageable pageable, final UriComponentsBuilder uriBuilder,
+			final HttpServletResponse response, PagedResourcesAssembler<CartItem> assembler) {
+		return cartItemService.findByCartId(cartId, pageable, assembler);
+	}
+	
 	@PostMapping("")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody CartItem create(@RequestBody CartItem cartItem) throws Exception {
