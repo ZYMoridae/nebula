@@ -34,7 +34,7 @@ public class OrderController {
 
 	@Autowired
 	private MessageProducer messageProducer;
-
+	
 	@GetMapping
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody PagedResources<Resource<Order>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
@@ -47,7 +47,15 @@ public class OrderController {
 	public @ResponseBody Order findById(@PathVariable("id") long id) {
 		return orderService.findById(id);
 	}
-
+	
+	
+	@GetMapping("/users/{id}")
+	@RolesAllowed({Role.ROLE_ADMIN})
+	public @ResponseBody PagedResources<Resource<Order>> all(@PathVariable("id") long id, Pageable pageable, final UriComponentsBuilder uriBuilder,
+			final HttpServletResponse response, PagedResourcesAssembler<Order> assembler) {
+		return orderService.findByUserId(id, pageable, assembler);
+	}	
+	
 	@PostMapping("")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody Order create(@RequestBody Order order) {

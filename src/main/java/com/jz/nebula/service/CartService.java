@@ -1,5 +1,6 @@
 package com.jz.nebula.service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 //import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -24,6 +25,7 @@ import com.jz.nebula.dao.OrderRepository;
 //import com.jz.nebula.entity.Order;
 import com.jz.nebula.entity.Cart;
 import com.jz.nebula.entity.Order;
+import com.jz.nebula.entity.OrderStatus;
 
 @Service
 @Component("cartService")
@@ -60,16 +62,27 @@ public class CartService {
 //	}
 
 	public Cart getCart(long id) {
-
 		return cartRepository.findByUserId(id);
 	}
 
 	public Cart getMyCart() {
 		return cartRepository.findByUserId(authenticationFacade.getUser().getId());
 	}
-
+	
+	private boolean isOneOrderActivated() {
+		List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(this.authenticationFacade.getUser().getId(), OrderStatus.StatusType.PENDING.value);
+		if(orders.size() != 1) {
+			return false;
+		}
+		return true;
+	}
+	
 	@Transactional(rollbackFor = { Exception.class })
-	public Order cartToOrder() {
+	public Order cartToOrder() throws Exception {
+		if(!this.isOneOrderActivated()) {
+			throw new Exception();
+		}
+		
 		Cart cart = getMyCart();
 		Order order = new Order();
 		order.setOrderItems(cart.getCartItems().stream().map(item -> item.toOrderItem()).collect(Collectors.toSet()));

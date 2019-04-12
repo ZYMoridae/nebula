@@ -46,9 +46,9 @@ public class Order implements Serializable {
 	@Column(name = "shipper_id")
 	private Long shipperId;
 
-//	@JsonProperty(access = Access.WRITE_ONLY)
-//	@Column(name = "order_status_id")
-//	private Long orderStatusId;
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@Column(name = "order_status_id")
+	private Long orderStatusId;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "shipper_id", insertable = false, updatable = false)
@@ -59,23 +59,23 @@ public class Order implements Serializable {
 	private Set<OrderItem> orderItems;
 
 	@OneToOne
-	@JoinColumn(name = "order_status_id")
+	@JoinColumn(name = "order_status_id", updatable = false, insertable = false)
 	private OrderStatus orderStatus;
-
+	
 	@Column(name = "created_at", updatable = false, insertable = false)
 	private Date createdAt;
 
 	@Column(name = "updated_at", updatable = false, insertable = false)
 	private Date updatedAt;
 
-//	@JsonIgnore
-//	public Long getOrderStatusId() {
-//		return orderStatusId;
-//	}
-//
-//	public void setOrderStatusId(Long orderStatusId) {
-//		this.orderStatusId = orderStatusId;
-//	}
+	@JsonIgnore
+	public Long getOrderStatusId() {
+		return orderStatusId;
+	}
+
+	public void setOrderStatusId(Long orderStatusId) {
+		this.orderStatusId = orderStatusId;
+	}
 
 	public OrderStatus getOrderStatus() {
 		return orderStatus;

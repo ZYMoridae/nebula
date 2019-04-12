@@ -1,5 +1,6 @@
 package com.jz.nebula.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -57,9 +58,14 @@ public class PaymentService {
 	}
 
 	private Order getMyOrder() {
-		Optional<Order> order = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUser().getId(),
+		List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUser().getId(),
 				OrderStatus.StatusType.PENDING.value);
-		return order.isPresent() ? order.get() : null;
+
+		Order order = null;
+		if(orders.size() == 1) {
+			order = orders.get(0);
+		}
+		return order;
 	}
 
 	private synchronized void updateStock(OrderItem orderItem) throws ProductStockException {
@@ -86,6 +92,9 @@ public class PaymentService {
 	public Object finaliseOrder() throws Exception {
 		Payment payment = new Payment();
 		Order order = this.getMyOrder();
+		if(order == null) {
+			throw new Exception();
+		}
 		Optional<Double> totalAmount = order.getOrderItems().stream().map(item -> item.getAmount()).reduce((x, y) -> x + y);
 		Object charge;
 		order.getOrderItems().stream().forEach(item -> {
@@ -104,6 +113,8 @@ public class PaymentService {
 			payment.setSource("tok_visa");
 			payment.setReceiptEmail(authenticationFacade.getUser().getEmail());
 			charge = this.doPayment(payment);
+			// Update the order status
+			order.setOrderStatusId((long) OrderStatus.StatusType.PAID.value);
 			order = this.updateOrderStatus(order);
 		} else {
 			throw new Exception();

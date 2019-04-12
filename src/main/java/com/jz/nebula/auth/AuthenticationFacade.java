@@ -21,7 +21,6 @@ public class AuthenticationFacade implements IAuthenticationFacade {
 
 	@Override
 	public User getUser() {
-		// TODO Auto-generated method stub
 		return userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
 	}
 }
