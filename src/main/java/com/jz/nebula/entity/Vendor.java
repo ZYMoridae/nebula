@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "vendor_info", schema = "public")
+@Table(name = "user", schema = "public")
 public class Vendor implements Serializable {
 
 	public Vendor() {

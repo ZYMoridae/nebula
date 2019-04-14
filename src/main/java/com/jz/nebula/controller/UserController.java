@@ -66,6 +66,7 @@ public class UserController {
 	 */
 	@PostMapping("")
 	public ResponseEntity<?> createUser(@RequestBody User user) {
+		// TODO: Move logic into user service
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		user.setRole(roleRepository.findByCode(Role.ROLE_USER.replaceAll("ROLE_", "")).get());
 		ObjectMapper oMapper = new ObjectMapper();

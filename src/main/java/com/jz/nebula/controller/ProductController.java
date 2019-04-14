@@ -46,7 +46,7 @@ public class ProductController {
 	}
 
 	@PostMapping("")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
+	@RolesAllowed({ Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody Product create(@RequestBody Product product) {
 		return prouductService.save(product);
 	}

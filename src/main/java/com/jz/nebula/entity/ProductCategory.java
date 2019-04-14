@@ -31,11 +31,11 @@ public class ProductCategory implements Serializable {
 	private String name;
 
 	@JsonIgnore
-	@Column(name = "created_at")
+	@Column(name = "created_at", updatable = false, insertable = false)
 	private Date createdAt;
 
 	@JsonIgnore
-	@Column(name = "updated_at")
+	@Column(name = "updated_at", updatable = false, insertable = false)
 	private Date updatedAt;
 
 	public Long getId() {
