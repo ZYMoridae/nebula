@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,6 +39,10 @@ public class ProductComment implements Serializable{
 	@Column(name = "user_id")
 	private Long usertId;
 	
+	@OneToOne
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	private User user;
+	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "product_id")
 	private Long productId;
@@ -55,6 +60,14 @@ public class ProductComment implements Serializable{
 
 	@Column(name = "updated_at", updatable = false, insertable = false)
 	private Date updatedAt;
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Long getId() {
 		return id;

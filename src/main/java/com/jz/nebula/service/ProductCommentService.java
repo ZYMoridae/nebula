@@ -2,6 +2,8 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,7 +51,8 @@ public class ProductCommentService {
 	}
 	
 	public ProductComment findByProductIdAndParentCommentId(long productId) {
-		return productCommentRepository.findByProductIdAndParentCommentId(productId, 0).get();
+		Optional<ProductComment> optionalProductComment = productCommentRepository.findByProductIdAndParentCommentId(productId, 0);
+		return optionalProductComment.isPresent() ? optionalProductComment.get() : new ProductComment();
 	}
 	
 	public void delete(long id) {
