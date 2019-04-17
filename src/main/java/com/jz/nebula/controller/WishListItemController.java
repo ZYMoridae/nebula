@@ -22,20 +22,21 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.jz.nebula.entity.CartItem;
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.service.CartItemService;
+import com.jz.nebula.entity.WishListItem;
+import com.jz.nebula.service.WishListItemService;
 
 @RestController
-@RequestMapping("/cart-items")
-public class CartItemController {
+@RequestMapping("/wishlist-items")
+public class WishListItemController {
 	@Autowired
-	private CartItemService cartItemService;
+	private WishListItemService wishListItemService;
 
 	@GetMapping("/{id}")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody CartItem findById(@PathVariable("id") long id) {
-		return cartItemService.findById(id);
+	public @ResponseBody WishListItem findById(@PathVariable("id") long id) {
+		return wishListItemService.findById(id);
 	}
-	
+
 	/**
 	 * This is designed for pagination on shopping cart page
 	 * 
@@ -46,42 +47,45 @@ public class CartItemController {
 	 * @param assembler
 	 * @return
 	 */
-	@GetMapping("/carts/{id}")
+	@GetMapping("/wishlists/{id}")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody PagedResources<Resource<CartItem>> findByCartId(@PathVariable("id") long cartId, Pageable pageable, final UriComponentsBuilder uriBuilder,
-			final HttpServletResponse response, PagedResourcesAssembler<CartItem> assembler) {
-		return cartItemService.findByCartId(cartId, pageable, assembler);
+	public @ResponseBody PagedResources<Resource<WishListItem>> findByWishListId(@PathVariable("id") long wishListId,
+			Pageable pageable, final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+			PagedResourcesAssembler<WishListItem> assembler) {
+		return wishListItemService.findByWishListId(wishListId, pageable, assembler);
 	}
-	
+
 	@PostMapping("")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody CartItem create(@RequestBody CartItem cartItem) throws Exception {
-		CartItem savedCartItem = cartItemService.save(cartItem);
-		if (savedCartItem == null) {
+	public @ResponseBody WishListItem create(@RequestBody WishListItem wishListItem) throws Exception {
+		WishListItem savedWishListItem = wishListItemService.save(wishListItem);
+		if (savedWishListItem == null) {
 			// TODO: Create exception
 			throw new Exception();
 		}
-		return savedCartItem;
+		return savedWishListItem;
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody CartItem update(@PathVariable("id") long id, @RequestBody CartItem cartItem) throws Exception {
-		cartItem.setId(id);
-		return cartItemService.save(cartItem);
+	public @ResponseBody WishListItem update(@PathVariable("id") long id, @RequestBody WishListItem wishListItem)
+			throws Exception {
+		wishListItem.setId(id);
+		return wishListItemService.save(wishListItem);
 	}
 
 	@DeleteMapping("/{id}")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody ResponseEntity<?> delete(@PathVariable("id") long id) {
-		cartItemService.delete(id);
+		wishListItemService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@PostMapping("/{id}/towishlistitem")
+
+	@PostMapping("/{id}/tocartitem")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody ResponseEntity<?> toWishListItem(@PathVariable("id") long id) throws Exception {
-		cartItemService.saveToWishList(id);
-		return ResponseEntity.noContent().build();
+	public @ResponseBody CartItem toCartItem(@PathVariable("id") long id, @RequestBody WishListItem wishListItem)
+			throws Exception {
+		wishListItem.setId(id);
+		return wishListItemService.toCartItem(wishListItem);
 	}
 }

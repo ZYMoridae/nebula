@@ -8,4 +8,6 @@ public interface IAuthenticationFacade {
 	Authentication getAuthentication();
 
 	User getUser();
+
+	Long getUserId();
 }

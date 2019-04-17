@@ -14,6 +14,7 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
@@ -26,10 +27,9 @@ import com.jz.nebula.entity.Cart;
 import com.jz.nebula.entity.CartItem;
 //import com.jz.nebula.entity.Product;
 import com.jz.nebula.entity.User;
+import com.jz.nebula.entity.WishListItem;
 //import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.validator.CartItemValidator;
-
-import org.springframework.transaction.annotation.Propagation;
 
 @Service
 @Component("cartItemService")
@@ -49,12 +49,17 @@ public class CartItemService {
 	@Autowired
 	private CartRepository cartRepository;
 
-//	@Autowired
-//	private ProductRepository productRepository;
+	@Autowired
+	private WishListItemService wishListItemService;
 
 	@Autowired
 	private CartItemValidator cartItemValidator;
-
+	
+	/**
+	 * Get current user's cart
+	 * 
+	 * @return
+	 */
 	private Cart getCart() {
 		User user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName()).get();
 		Cart cart = null;
@@ -75,7 +80,7 @@ public class CartItemService {
 				cartItem.getProductId());
 		return optional.isPresent() ? optional.get() : null;
 	}
-	
+
 	/**
 	 * Find cart items by cart id
 	 * 
@@ -84,28 +89,14 @@ public class CartItemService {
 	 * @param assembler
 	 * @return
 	 */
-	public PagedResources<Resource<CartItem>> findByCartId(long cartId, Pageable pageable, PagedResourcesAssembler<CartItem> assembler) {
+	public PagedResources<Resource<CartItem>> findByCartId(long cartId, Pageable pageable,
+			PagedResourcesAssembler<CartItem> assembler) {
 		Page<CartItem> page = cartItemRepository.findByCartId(cartId, pageable);
 		PagedResources<Resource<CartItem>> resources = assembler.toResource(page,
 				linkTo(CartItemController.class).slash("/cart-items").withSelfRel());
 		;
 		return resources;
 	}
-	
-//	private synchronized void updateStock(CartItem cartItem) throws ProductStockException {
-//		Optional<Product> optional = productRepository.findById(cartItem.getProductId()); 
-//		if(optional.isPresent()) {
-//			Product product = optional.get();
-//			AtomicInteger currentStock = new AtomicInteger(product.getUnitsInStock());
-//			currentStock.addAndGet(cartItem.getQuantity() * -1);
-//			if(currentStock.get() < 0) {
-//				throw new ProductStockException();
-//			}
-//			
-//			product.setUnitsInStock(currentStock.get());
-//			productRepository.save(product);
-//		}
-//	}
 
 	/**
 	 * Save cartItem into database
@@ -137,23 +128,44 @@ public class CartItemService {
 			updatedCartItem = cartItemRepository.save(cartItem);
 		}
 
-//		try {
-//			this.updateStock(cartItem);
-//		} catch (ProductStockException e) {
-//			logger.error("product stock update error...");
-//			e.printStackTrace();
-//			return null;
-//		}
-		logger.info("Product with id:[{}] has been added", cartItem.getProductId());
+		logger.info("Product with id:[{}] was added to cart", cartItem.getProductId());
 
 		return findById(updatedCartItem.getId());
 	}
-
+	
+	/**
+	 * Get cart item by id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public CartItem findById(long id) {
 		return cartItemRepository.findById(id).get();
 	}
-
+	
+	/**
+	 * Delete cart item by id
+	 * 
+	 * @param id
+	 */
 	public void delete(long id) {
 		cartItemRepository.deleteById(id);
+	}
+	
+	/**
+	 * Convert cart item to wish list item and save to wishlist
+	 * 
+	 * @param cartItemId
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = { Exception.class })
+	public synchronized void saveToWishList(long cartItemId) throws Exception {
+		CartItem cartItem = findById(cartItemId);
+		WishListItem wishListItem = cartItem.toWishListItem();
+		wishListItemService.save(wishListItem);
+		logger.info("Wishlist item with id:[{}] was saved", wishListItem.getId());
+
+		delete(cartItem.getId());
+		logger.info("Cart item with id:[{}] was deleted", cartItemId);
 	}
 }

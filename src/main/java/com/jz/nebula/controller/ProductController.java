@@ -1,5 +1,8 @@
 package com.jz.nebula.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.jz.nebula.entity.Product;
 import com.jz.nebula.entity.ProductComment;
 import com.jz.nebula.entity.ProductRating;
@@ -75,7 +81,7 @@ public class ProductController {
 		return ResponseEntity.noContent().build();
 	}
 
-	// Product Rating
+	//****** Product Rating ******
 	@GetMapping("/{id}/ratings")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody Object getProductRating(@PathVariable("id") long id) {
@@ -106,7 +112,7 @@ public class ProductController {
 		return ResponseEntity.noContent().build();
 	}
 
-	// Product Comment
+	//****** Product Comment ******
 	@PostMapping("/{id}/comments")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
 	public @ResponseBody ProductComment createProductComment(@PathVariable("id") long id,
@@ -117,8 +123,10 @@ public class ProductController {
 
 	@GetMapping("/{id}/comments")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Object getProductComment(@PathVariable("id") long id) {
-		return productCommentService.findByProductIdAndParentCommentId(id);
+	public @ResponseBody PagedResources<Resource<ProductComment>> getProductComment(@PathVariable("id") long id,
+			Pageable pageable, final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+			PagedResourcesAssembler<ProductComment> assembler) {
+		return productCommentService.findByProductIdAndParentCommentId(id, pageable, assembler);
 	}
 
 	@DeleteMapping("/{id}/comments/{comment_id}")
@@ -128,5 +136,34 @@ public class ProductController {
 		productCommentService.delete(commentId);
 		return ResponseEntity.noContent().build();
 	}
-
+	
+	
+	
+	
+	// This is for streaming JSON test
+	@PostMapping("/streaming")
+	public @ResponseBody Object streamingTest() throws IOException {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		JsonFactory jfactory = new JsonFactory();
+		JsonGenerator jGenerator = jfactory
+		  .createGenerator(stream, JsonEncoding.UTF8);
+		
+		try {
+			jGenerator.writeStartObject();
+			jGenerator.writeStringField("name", "Tom");
+			jGenerator.writeNumberField("age", 25);
+			jGenerator.writeFieldName("address");
+			jGenerator.writeStartArray();
+			jGenerator.writeString("Poland");
+			jGenerator.writeString("5th avenue");
+			jGenerator.writeEndArray();
+			jGenerator.writeEndObject();
+			jGenerator.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return stream.toByteArray();
+	}
 }

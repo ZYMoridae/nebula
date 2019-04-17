@@ -60,9 +60,15 @@ public class CartService {
 //	public void delete(long id) {
 //		orderRepository.deleteById(id);
 //	}
-
-	public Cart getCart(long id) {
-		return cartRepository.findByUserId(id);
+	
+	/**
+	 * Get cart by userId
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Cart getCart(long userId) {
+		return cartRepository.findByUserId(userId);
 	}
 
 	public Cart getMyCart() {
@@ -71,10 +77,11 @@ public class CartService {
 	
 	private boolean isOneOrderActivated() {
 		List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(this.authenticationFacade.getUser().getId(), OrderStatus.StatusType.PENDING.value);
-		if(orders.size() != 1) {
-			return false;
-		}
-		return true;
+		return !(orders.size() != 1);
+//		if(orders.size() != 1) {
+//			return false;
+//		}
+//		return true;
 	}
 	
 	@Transactional(rollbackFor = { Exception.class })

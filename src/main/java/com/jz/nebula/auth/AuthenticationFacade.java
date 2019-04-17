@@ -1,5 +1,7 @@
 package com.jz.nebula.auth;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +23,13 @@ public class AuthenticationFacade implements IAuthenticationFacade {
 
 	@Override
 	public User getUser() {
-		return userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+		Optional<User> userOptional = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		return userOptional.isPresent() ? userOptional.get() : null;
+	}
+
+	@Override
+	public Long getUserId() {
+		User user = getUser();
+		return user == null ? null : user.getId();
 	}
 }
