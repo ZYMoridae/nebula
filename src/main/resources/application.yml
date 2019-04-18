@@ -7,10 +7,8 @@ stripe:
   api:
     key: sk_test_NtqJqdbiZnwPNxKVieFNHcB1
 
+
 spring:
-
-
-
   mail:
     host: smtp.mailtrap.io
     port: 2525

@@ -66,6 +66,11 @@ public class CartItemService {
 		if (user != null) {
 			cart = cartRepository.findByUserId(user.getId());
 		}
+		
+		if(cart == null) {
+			cart = new Cart(authenticationFacade.getUser().getId());
+			cart = cartRepository.save(cart);		
+		}
 		return cart;
 	}
 
@@ -78,6 +83,11 @@ public class CartItemService {
 	private CartItem getItemInCart(CartItem cartItem) {
 		Optional<CartItem> optional = cartItemRepository.findByCartIdAndProductId(cartItem.getCartId(),
 				cartItem.getProductId());
+		if(optional.isPresent()) {
+			logger.info("Cart item with id:[{}] was found", optional.get().getId());
+		}else {
+			logger.info("Cart item was not been found");
+		}
 		return optional.isPresent() ? optional.get() : null;
 	}
 
@@ -113,10 +123,6 @@ public class CartItemService {
 			return null;
 		}
 		Cart cart = getCart();
-		if (cart == null) {
-			cart = new Cart(authenticationFacade.getUser().getId());
-			cart = cartRepository.save(cart);
-		}
 
 		cartItem.setCartId(cart.getId());
 

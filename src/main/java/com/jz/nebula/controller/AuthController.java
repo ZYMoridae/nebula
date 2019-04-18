@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.User;
-//import com.jz.nebula.AuthenticationRequest;
-import com.jz.nebula.jwt.JwtTokenProvider;
+import com.jz.nebula.service.TokenService;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -34,7 +33,7 @@ public class AuthController {
 	AuthenticationManager authenticationManager;
 
 	@Autowired
-	JwtTokenProvider jwtTokenProvider;
+	TokenService jwtTokenProvider;
 
 	@Autowired
 	UserRepository users;
@@ -55,11 +54,12 @@ public class AuthController {
 			String password = actualCredentials[1];
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 			Optional<User> user = this.users.findByUsername(username);
-			String token = jwtTokenProvider.createToken(username, user
+			Map<String, String> tokenMap = jwtTokenProvider.createToken(username, user
 					.orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
 			Map<Object, Object> model = new HashMap<>();
 			model.put("user", user.get());
-			model.put("token", token);
+			model.put("token", tokenMap.get("accessToken"));
+			model.put("refreshToken", tokenMap.get("refreshToken"));
 			return ok(model);
 		} catch (AuthenticationException e) {
 			throw new BadCredentialsException("Invalid username/password supplied");

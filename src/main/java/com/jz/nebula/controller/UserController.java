@@ -28,7 +28,7 @@ import com.jz.nebula.dao.RoleRepository;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
-import com.jz.nebula.jwt.JwtTokenProvider;
+import com.jz.nebula.service.TokenService;
 
 @RestController
 @RequestMapping("/users")
@@ -40,7 +40,7 @@ public class UserController {
 	RoleRepository roleRepository;
 
 	@Autowired
-	JwtTokenProvider jwtTokenProvider;
+	TokenService jwtTokenProvider;
 
 	@Autowired
 	private IAuthenticationFacade authenticationFacade;
@@ -75,7 +75,9 @@ public class UserController {
 		Map<String, Object> map = oMapper.convertValue(savedUser, Map.class);
 		List<String> roles = new ArrayList<>();
 		roles.add(Role.ROLE_USER);
-		map.put("token", jwtTokenProvider.createToken(savedUser.getUsername(), roles));
+		Map<String, String> tokenMap = jwtTokenProvider.createToken(savedUser.getUsername(), roles);
+		map.put("token", tokenMap.get("accessToken"));
+		map.put("refreshToken", tokenMap.get("refreshToken"));
 
 		return ok(map);
 	}

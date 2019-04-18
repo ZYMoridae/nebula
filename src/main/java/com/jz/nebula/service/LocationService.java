@@ -21,6 +21,13 @@ public class LocationService {
 	@Autowired
 	private LocationRepository locationRepository;
 	
+	/**
+	 * Get location by pagination
+	 * 
+	 * @param pageable
+	 * @param assembler
+	 * @return
+	 */
 	public PagedResources<Resource<Location>> findAll(Pageable pageable, PagedResourcesAssembler<Location> assembler) {
 		Page<Location> page = locationRepository.findAll(pageable);
 		PagedResources<Resource<Location>> resources = assembler.toResource(page,
@@ -28,16 +35,33 @@ public class LocationService {
 		;
 		return resources;
 	}
-
+	
+	/**
+	 * Save location
+	 * 
+	 * @param location
+	 * @return
+	 */
 	public Location save(Location location) {
 		Location updatedLocation = locationRepository.save(location);
 		return findById(updatedLocation.getId());
 	}
-
+	
+	/**
+	 * Find location by id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Location findById(long id) {
 		return locationRepository.findById(id).get();
 	}
-
+	
+	/**
+	 * Delete location by id
+	 * 
+	 * @param id
+	 */
 	public void delete(long id) {
 		locationRepository.deleteById(id);
 	}

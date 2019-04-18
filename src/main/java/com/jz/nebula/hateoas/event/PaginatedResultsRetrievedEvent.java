@@ -9,7 +9,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * Event that is fired when a paginated search is performed.
- * <p/>
  * This event object contains all the information needed to create the URL for
  * the paginated results
  * 

@@ -5,10 +5,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-	private JwtTokenProvider jwtTokenProvider;
+import com.jz.nebula.service.TokenService;
 
-	public JwtConfigurer(JwtTokenProvider jwtTokenProvider) {
+public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+	private TokenService jwtTokenProvider;
+
+	public JwtConfigurer(TokenService jwtTokenProvider) {
 		this.jwtTokenProvider = jwtTokenProvider;
 	}
 

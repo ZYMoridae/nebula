@@ -40,56 +40,48 @@ public class CartService {
 	@Autowired
 	private OrderRepository orderRepository;
 
-//	public PagedResources<Resource<Cart>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
-//		Page<Order> page = orderRepository.findAll(pageable);
-//		PagedResources<Resource<Order>> resources = assembler.toResource(page,
-//				linkTo(OrderController.class).slash("/orders").withSelfRel());
-//		;
-//		return resources;
-//	}
-
-//	public Order save(Order order) {
-//		Order updatedOrder = orderRepository.save(order);
-//		return findById(updatedOrder.getId());
-//	}
-
-//	public Order findById(long id) {
-//		return orderRepository.findById(id).get();
-//	}
-//
-//	public void delete(long id) {
-//		orderRepository.deleteById(id);
-//	}
-	
 	/**
 	 * Get cart by userId
 	 * 
-	 * @param id
+	 * @param userId
 	 * @return
 	 */
 	public Cart getCart(long userId) {
 		return cartRepository.findByUserId(userId);
 	}
-
+	
+	/**
+	 * Get current user cart
+	 * 
+	 * @return
+	 */
 	public Cart getMyCart() {
-		return cartRepository.findByUserId(authenticationFacade.getUser().getId());
+		return cartRepository.findByUserId(authenticationFacade.getUserId());
 	}
 	
+	/**
+	 * Check order status
+	 * 
+	 * @return
+	 */
 	private boolean isOneOrderActivated() {
-		List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(this.authenticationFacade.getUser().getId(), OrderStatus.StatusType.PENDING.value);
-		return !(orders.size() != 1);
-//		if(orders.size() != 1) {
-//			return false;
-//		}
-//		return true;
+		List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(this.authenticationFacade.getUser().getId(),
+				OrderStatus.StatusType.PENDING.value);
+		return orders.size() == 1;
 	}
 	
+	/**
+	 * Convert cart to order
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(rollbackFor = { Exception.class })
 	public Order cartToOrder() throws Exception {
-		if(!this.isOneOrderActivated()) {
+		if (!this.isOneOrderActivated()) {
 			throw new Exception();
 		}
-		
+
 		Cart cart = getMyCart();
 		Order order = new Order();
 		order.setOrderItems(cart.getCartItems().stream().map(item -> item.toOrderItem()).collect(Collectors.toSet()));

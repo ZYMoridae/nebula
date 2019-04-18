@@ -137,9 +137,6 @@ public class ProductController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	
-	
-	
 	// This is for streaming JSON test
 	@PostMapping("/streaming")
 	public @ResponseBody Object streamingTest() throws IOException {

@@ -13,14 +13,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import com.jz.nebula.jwt.JwtConfigurer;
-import com.jz.nebula.jwt.JwtTokenProvider;
+import com.jz.nebula.service.TokenService;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	JwtTokenProvider jwtTokenProvider;
+	TokenService jwtTokenProvider;
 
 	@Bean
 	@Override
@@ -31,9 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
+		//TODO: Set csrf enable in the production environment
 		http.httpBasic().disable().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/auth/signin").permitAll().antMatchers(HttpMethod.POST, "/users").permitAll()
+				.antMatchers("/auth/signin").permitAll()
+				.antMatchers(HttpMethod.POST, "/users").permitAll()
+				.antMatchers(HttpMethod.POST, "/token/refresh").permitAll()
 //              .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
 //              .antMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
 				.anyRequest().authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));

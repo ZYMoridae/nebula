@@ -40,7 +40,7 @@ public class WishListItemController {
 	/**
 	 * This is designed for pagination on shopping cart page
 	 * 
-	 * @param cartId
+	 * @param wishListId
 	 * @param pageable
 	 * @param uriBuilder
 	 * @param response
