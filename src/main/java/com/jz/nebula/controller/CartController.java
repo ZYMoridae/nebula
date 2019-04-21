@@ -34,7 +34,13 @@ public class CartController {
 
 	@PostMapping(value = "/finalise")
 	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Object finalizeCart() throws Exception {
+	public @ResponseBody Object finalizeAllCartItems() throws Exception {
+		return cartService.cartToOrder();
+	}
+	
+	@PostMapping(value = "/bulk")
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
+	public @ResponseBody Object finalizeCartItems() throws Exception {
 		return cartService.cartToOrder();
 	}
 

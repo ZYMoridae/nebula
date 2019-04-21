@@ -2,6 +2,9 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import com.jz.nebula.auth.IAuthenticationFacade;
 //import com.jz.nebula.amqp.MessageProducer;
 import com.jz.nebula.controller.OrderController;
 import com.jz.nebula.dao.OrderRepository;
+import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.entity.Order;
 import com.jz.nebula.entity.OrderStatus;
 import com.jz.nebula.entity.Role;
@@ -32,7 +36,10 @@ public class OrderService {
 
 	@Autowired
 	private IAuthenticationFacade authenticationFacade;
-
+	
+	@Autowired
+	private OrderStatusRepository orderStatusRepository;
+	
 //	@Autowired
 //	private MessageProducer messageProducer;
 
@@ -131,5 +138,19 @@ public class OrderService {
 	 */
 	public void delete(long id) {
 		orderRepository.deleteById(id);
+	}
+	
+	public Order getCurrentActivatedOrder() {
+		Order order = null;
+		
+		Optional<OrderStatus> orderStatus = orderStatusRepository.findByName("pending");
+		if(orderStatus.isPresent()) {
+			List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUserId(), orderStatus.get().getId());
+			if(orders.size() == 1) {
+				order = orders.get(0);
+			}
+		}
+		
+		return order;
 	}
 }

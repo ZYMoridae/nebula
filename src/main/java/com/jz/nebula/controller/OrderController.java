@@ -48,6 +48,11 @@ public class OrderController {
 		return orderService.findById(id);
 	}
 	
+	@GetMapping("/my")
+	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
+	public @ResponseBody Order getCurrentActivatedOrder() {
+		return orderService.getCurrentActivatedOrder();
+	}
 	
 	@GetMapping("/users/{id}")
 	@RolesAllowed({Role.ROLE_ADMIN})

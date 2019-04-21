@@ -67,6 +67,19 @@ public class Order implements Serializable {
 
 	@Column(name = "updated_at", updatable = false, insertable = false)
 	private Date updatedAt;
+	
+    // TODO: One to one
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "orders_id", nullable = false)
+	private OrderShippingInfo orderShippingInfo;
+	
+	public OrderShippingInfo getOrderShippingInfo() {
+		return orderShippingInfo;
+	}
+
+	public void setOrderShippingInfo(OrderShippingInfo orderShippingInfo) {
+		this.orderShippingInfo = orderShippingInfo;
+	}
 
 	@JsonIgnore
 	public Long getOrderStatusId() {
