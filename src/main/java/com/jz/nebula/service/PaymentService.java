@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -29,7 +31,8 @@ import com.jz.nebula.payment.PaymentType;
 @Component("paymentService")
 @Transactional
 public class PaymentService {
-
+	private final Logger logger = LogManager.getLogger(PaymentService.class);
+	
 	@Autowired
 	private IAuthenticationFacade authenticationFacade;
 
@@ -80,6 +83,7 @@ public class PaymentService {
 
 			product.setUnitsInStock(currentStock.get());
 			productRepository.save(product);
+			logger.info("Porduct id:[{}] stock was updated", product.getId());
 		}
 	}
 
@@ -113,9 +117,12 @@ public class PaymentService {
 			payment.setSource("tok_visa");
 			payment.setReceiptEmail(authenticationFacade.getUser().getEmail());
 			charge = this.doPayment(payment);
+			logger.info("Order id:[{}] has been charged", order.getId());
+			
 			// Update the order status
 			order.setOrderStatusId((long) OrderStatus.StatusType.PAID.value);
 			order = this.updateOrderStatus(order);
+			logger.info("Order id:[{}] status has been updated", order.getId());
 		} else {
 			throw new Exception();
 		}

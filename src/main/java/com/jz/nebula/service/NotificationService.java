@@ -2,6 +2,8 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,8 @@ import com.jz.nebula.entity.Notification;
 @Service
 @Component("notificationService")
 public class NotificationService {
+	private final Logger logger = LogManager.getLogger(NotificationService.class);
+	
 	@Autowired
 	private NotificationRepository notificationRepository;
 	
@@ -43,6 +47,7 @@ public class NotificationService {
 		}else { 
 			updatedNotification = notificationRepository.save(notification);
 		}
+		logger.info("Notification has been saved");
 		return findById(updatedNotification.getId());
 	}
 

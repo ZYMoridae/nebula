@@ -51,7 +51,7 @@ public class WishListItemService {
 
 	@Autowired
 	private CartItemService cartItemService;
-	
+
 	/**
 	 * Get wish list
 	 * 
@@ -69,7 +69,7 @@ public class WishListItemService {
 		}
 		return wishList;
 	}
-	
+
 	/**
 	 * Get item in wish list
 	 * 
@@ -86,8 +86,8 @@ public class WishListItemService {
 	 * Find wish list items by wish list id
 	 * 
 	 * @param wishListId Wish list Id
-	 * @param pageable Pageable object
-	 * @param assembler PagedResourcesAssembler object
+	 * @param pageable   Pageable object
+	 * @param assembler  PagedResourcesAssembler object
 	 * @return PagedResources object
 	 */
 	public PagedResources<Resource<WishListItem>> findByWishListId(long wishListId, Pageable pageable,
@@ -98,7 +98,7 @@ public class WishListItemService {
 		;
 		return resources;
 	}
-	
+
 	/**
 	 * Save wish list item
 	 * 
@@ -129,7 +129,7 @@ public class WishListItemService {
 
 		return findById(updatedWishListItem.getId());
 	}
-	
+
 	/**
 	 * Find wish list item by id
 	 * 
@@ -139,7 +139,7 @@ public class WishListItemService {
 	public WishListItem findById(long id) {
 		return wishListItemRepository.findById(id).get();
 	}
-	
+
 	/**
 	 * Delete wish list item by id
 	 * 
@@ -148,14 +148,15 @@ public class WishListItemService {
 	public void delete(long id) {
 		wishListItemRepository.deleteById(id);
 	}
-	
+
 	/**
 	 * Convert wish list item to cart item
 	 * 
 	 * @param wishListItem WishListItem object
 	 * @return CartItem object
-	 * @throws Exception Excpetion class
+	 * @throws Exception Exception class
 	 */
+	@Transactional(rollbackFor = { Exception.class })
 	public CartItem toCartItem(WishListItem wishListItem) throws Exception {
 		CartItem cartItem = wishListItem.toCartItem();
 		cartItemService.save(cartItem);

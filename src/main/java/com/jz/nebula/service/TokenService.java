@@ -50,7 +50,6 @@ public class TokenService {
 	
 	@PostConstruct
 	protected void init() {
-//		secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 		secretKey = Keys.hmacShaKeyFor("766e5dc6241769058a9bdae0bec468d9".getBytes());
 	}
 
@@ -58,15 +57,13 @@ public class TokenService {
 		Claims claims = Jwts.claims().setSubject(username);
 		claims.put("roles", roles);
 		Date now = new Date();
-//        Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-		String token = Jwts.builder()//
-				.setClaims(claims)//
-				.setIssuedAt(now)//
-//            .setExpiration(validity)//
-				.signWith(secretKey)//
+		String token = Jwts.builder()
+				.setClaims(claims)
+				.setIssuedAt(now)
+				.signWith(secretKey)
 				.compact();
-//        template.opsForValue().set(username, token);
+
 		template.opsForHash().put(username, username, token);
 		template.expire(username, 15, TimeUnit.MINUTES);
 
@@ -113,14 +110,10 @@ public class TokenService {
 			// TODO: Make expired time configurable
 			template.expire(username, 15, TimeUnit.MINUTES);
 
-//            if (claims.getBody().getExpiration().before(new Date())) {
-//                return false;
-//            }
 			return true;
 		} catch (JwtException | IllegalArgumentException e) {
 			e.printStackTrace();
 			logger.error("Expired or Invalid JWT access token");
-//            throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
 			return false;
 		}
 	}

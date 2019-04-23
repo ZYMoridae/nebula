@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ import com.jz.nebula.entity.OrderStatus;
 @Component("cartService")
 @Transactional
 public class CartService {
+	private final Logger logger = LogManager.getLogger(CartService.class);
+	
 	@Autowired
 	private IAuthenticationFacade authenticationFacade;
 
@@ -32,10 +36,10 @@ public class CartService {
 
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	@Autowired
 	private CartItemService cartItemService;
-	
+
 	/**
 	 * Get cart by userId
 	 * 
@@ -67,26 +71,7 @@ public class CartService {
 	}
 
 	/**
-	 * Convert cart to order
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	@Transactional(rollbackFor = { Exception.class })
-	public Order cartToOrder() throws Exception {
-		if (!this.isOneOrderActivated()) {
-			throw new Exception();
-		}
-
-		Cart cart = getMyCart();
-		Set<OrderItem> orderItems = cart.getCartItems().stream().map(item -> item.toOrderItem()).collect(Collectors.toSet());
-		Order order = this.createOrder(orderItems);
-		
-		return order;
-	}
-	
-	/**
-	 * Create order from cart
+	 * Create order
 	 * 
 	 * @param cart
 	 * @return
@@ -101,16 +86,51 @@ public class CartService {
 		order = orderRepository.save(order);
 		return order;
 	}
-	
+
+	/**
+	 * Check the cart item IDs pass through from front end are in the cart.
+	 * 
+	 * @param cartItemList
+	 * @param cartItemIds
+	 * @return
+	 */
 	private boolean isCartItemsValid(List<CartItem> cartItemList, List<Long> cartItemIds) {
 		List<Long> _cartItemIds = cartItemList.stream().map(item -> item.getId()).collect(Collectors.toList());
 		_cartItemIds.removeAll(cartItemIds);
 
 		return _cartItemIds.size() == 0;
 	}
-	
+
 	/**
-	 * Create order
+	 * Create order from cart. All cart items will be put into order and shipping
+	 * address will be updated through Order UPDATE API. (All these cart items will
+	 * be deleted from cart.) The payment API will be called in the last step.
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = { Exception.class })
+	public Order cartToOrder() throws Exception {
+		if (!this.isOneOrderActivated()) {
+			throw new Exception();
+		}
+
+		Cart cart = getMyCart();
+		Set<OrderItem> orderItems = cart.getCartItems().stream().map(item -> item.toOrderItem())
+				.collect(Collectors.toSet());
+		Order order = this.createOrder(orderItems);
+
+		// If order created successfully, then remove the cart item from cart
+		cartItemService.deleteAll(cart.getCartItems());
+
+		return order;
+	}
+
+	/**
+	 * Create order from cart item list, this is the first step in order process.
+	 * After first step, shipping address will be updated in the second step through
+	 * UPDATE API endpoint. (All these cart items will be deleted from cart.) The
+	 * payment API will be called in the last step.
 	 * 
 	 * @param cartItemList
 	 * @return
@@ -121,25 +141,30 @@ public class CartService {
 		Order order = null;
 		Cart cart = getMyCart();
 		Set<CartItem> persistedCartItems = cart.getCartItems();
-		
+
 		// Cart item validation
 		List<Long> cartItemIds = persistedCartItems.stream().map(item -> item.getId()).collect(Collectors.toList());
-		if (!this.isCartItemsValid(cartItemList, cartItemIds)) return null;
-		
+		if (!this.isCartItemsValid(cartItemList, cartItemIds))
+			return null;
+
 		Map<Long, CartItem> mappedPersistedCartItems = new ConcurrentHashMap<>();
 		persistedCartItems.forEach(item -> mappedPersistedCartItems.put(item.getId(), item));
-		
+
 		// Cart items will be updated
-		List<CartItem> newCartItems = cartItemList.stream().filter(item -> mappedPersistedCartItems.containsKey(item.getId())).collect(Collectors.toList());
+		List<CartItem> newCartItems = cartItemList.stream()
+				.filter(item -> mappedPersistedCartItems.containsKey(item.getId())).collect(Collectors.toList());
 		newCartItems.forEach(item -> mappedPersistedCartItems.get(item.getId()).setQuantity(item.getQuantity()));
+		logger.info("Cart items have been saved");
 		
 		// Create order
 		Set<OrderItem> orderItems = newCartItems.stream().map(item -> item.toOrderItem()).collect(Collectors.toSet());
 		order = this.createOrder(orderItems);
+		logger.info("Order has been created");
 		
-		// If order created successfully, then remove the cart item from cart list
-		newCartItems.forEach(item -> cartItemService.delete(item.getId()));
-		
+		// If order created successfully, then remove the cart item from cart
+		cartItemService.deleteAll(newCartItems);
+
 		return order;
 	}
+
 }

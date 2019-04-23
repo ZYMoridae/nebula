@@ -54,7 +54,7 @@ public class CartItemService {
 
 	@Autowired
 	private CartItemValidator cartItemValidator;
-	
+
 	/**
 	 * Get current user's cart
 	 * 
@@ -66,10 +66,10 @@ public class CartItemService {
 		if (user != null) {
 			cart = cartRepository.findByUserId(user.getId());
 		}
-		
-		if(cart == null) {
+
+		if (cart == null) {
 			cart = new Cart(authenticationFacade.getUser().getId());
-			cart = cartRepository.save(cart);		
+			cart = cartRepository.save(cart);
 		}
 		return cart;
 	}
@@ -83,9 +83,9 @@ public class CartItemService {
 	private CartItem getItemInCart(CartItem cartItem) {
 		Optional<CartItem> optional = cartItemRepository.findByCartIdAndProductId(cartItem.getCartId(),
 				cartItem.getProductId());
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			logger.info("Cart item with id:[{}] was found", optional.get().getId());
-		}else {
+		} else {
 			logger.info("Cart item was not been found");
 		}
 		return optional.isPresent() ? optional.get() : null;
@@ -138,7 +138,7 @@ public class CartItemService {
 
 		return findById(updatedCartItem.getId());
 	}
-	
+
 	/**
 	 * Get cart item by id
 	 * 
@@ -148,7 +148,7 @@ public class CartItemService {
 	public CartItem findById(long id) {
 		return cartItemRepository.findById(id).get();
 	}
-	
+
 	/**
 	 * Delete cart item by id
 	 * 
@@ -157,7 +157,16 @@ public class CartItemService {
 	public void delete(long id) {
 		cartItemRepository.deleteById(id);
 	}
-	
+
+	/**
+	 * Delete cart items
+	 * 
+	 * @param cartItems
+	 */
+	public void deleteAll(Iterable<CartItem> cartItems) {
+		cartItemRepository.deleteAll(cartItems);
+	}
+
 	/**
 	 * Convert cart item to wish list item and save to wishlist
 	 * 

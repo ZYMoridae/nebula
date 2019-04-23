@@ -121,7 +121,7 @@ public class CartItem implements Serializable {
 		orderItem.setUnitPrice(this.product.getPrice());
 		return orderItem;
 	}
-	
+
 	/**
 	 * Convert to WishListItem
 	 * 
