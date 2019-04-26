@@ -41,7 +41,7 @@ public class RedisConfig {
 
 		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHost,
 				redisPort);
-		redisStandaloneConfiguration.setPassword(RedisPassword.of(redisPassword));
+//		redisStandaloneConfiguration.setPassword(RedisPassword.of(redisPassword));
 		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration);
 		return connectionFactory;
 	}
