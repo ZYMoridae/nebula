@@ -1,11 +1,15 @@
 package com.jz.nebula.redis;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
+import org.springframework.data.redis.connection.RedisConfiguration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,6 +20,7 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 //import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 
 import com.jz.nebula.redis.queue.MessagePublisher;
 import com.jz.nebula.redis.queue.RedisMessagePublisher;
@@ -36,13 +41,29 @@ public class RedisConfig {
 	@Value("${spring.redis.password}")
 	private String redisPassword;
 
+	@Value("${spring.redis.cluster.nodes}")
+	private String redisClusterNodes;
+
 	@Bean
 	JedisConnectionFactory jedisConnectionFactory() {
-
-		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHost,
-				redisPort);
+		JedisConnectionFactory connectionFactory = null;
+		RedisConfiguration redisConfiguration;
+		
+		if (redisClusterNodes != null && !redisClusterNodes.equals("")) {
+			String[] nodesArray = redisClusterNodes.split(",");
+			List<String> ndoesList = Arrays.asList(nodesArray);
+			redisConfiguration = new RedisClusterConfiguration(ndoesList);
+		} else {
+			redisConfiguration = new RedisStandaloneConfiguration(redisHost, redisPort);
+		}
+		
 //		redisStandaloneConfiguration.setPassword(RedisPassword.of(redisPassword));
-		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration);
+		if (redisConfiguration instanceof RedisClusterConfiguration) {
+			connectionFactory = new JedisConnectionFactory((RedisClusterConfiguration) redisConfiguration);
+		} else if (redisConfiguration instanceof RedisStandaloneConfiguration) {
+			connectionFactory = new JedisConnectionFactory((RedisStandaloneConfiguration) redisConfiguration);
+		}
+
 		return connectionFactory;
 	}
 
@@ -65,6 +86,11 @@ public class RedisConfig {
 		container.setConnectionFactory(jedisConnectionFactory());
 		container.addMessageListener(messageListener(), topic());
 		return container;
+	}
+
+	@Bean
+	public static ConfigureRedisAction configureRedisAction() {
+		return ConfigureRedisAction.NO_OP;
 	}
 
 	@Bean
