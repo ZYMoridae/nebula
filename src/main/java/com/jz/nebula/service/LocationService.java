@@ -16,7 +16,6 @@ import com.jz.nebula.dao.LocationRepository;
 import com.jz.nebula.entity.Location;
 
 @Service
-@Component("locationService")
 public class LocationService {
 	@Autowired
 	private LocationRepository locationRepository;

@@ -28,7 +28,6 @@ import com.jz.nebula.payment.PaymentGateway;
 import com.jz.nebula.payment.PaymentType;
 
 @Service
-@Component("paymentService")
 @Transactional
 public class PaymentService {
 	private final Logger logger = LogManager.getLogger(PaymentService.class);

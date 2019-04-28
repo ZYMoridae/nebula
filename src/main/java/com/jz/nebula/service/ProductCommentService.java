@@ -19,7 +19,6 @@ import com.jz.nebula.dao.ProductCommentRepository;
 import com.jz.nebula.entity.ProductComment;
 
 @Service
-@Component("productCommentService")
 public class ProductCommentService {
 	private final Logger logger = LogManager.getLogger(ProductCommentService.class);
 

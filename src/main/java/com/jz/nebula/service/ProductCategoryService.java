@@ -16,7 +16,6 @@ import com.jz.nebula.dao.ProductCategoryRepository;
 import com.jz.nebula.entity.ProductCategory;
 
 @Service
-@Component("productCategoryService")
 public class ProductCategoryService {
 	@Autowired
 	private ProductCategoryRepository productCategoryRepository;

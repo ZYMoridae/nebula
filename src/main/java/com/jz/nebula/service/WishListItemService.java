@@ -29,7 +29,6 @@ import com.jz.nebula.entity.WishListItem;
 import com.jz.nebula.validator.WishListItemValidator;
 
 @Service
-@Component("wishListItemService")
 @Transactional(propagation = Propagation.NOT_SUPPORTED, rollbackFor = Exception.class)
 public class WishListItemService {
 	private final Logger logger = LogManager.getLogger(WishListItemService.class);

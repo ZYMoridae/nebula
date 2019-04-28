@@ -18,7 +18,6 @@ import com.jz.nebula.dao.NotificationRepository;
 import com.jz.nebula.entity.Notification;
 
 @Service
-@Component("notificationService")
 public class NotificationService {
 	private final Logger logger = LogManager.getLogger(NotificationService.class);
 	

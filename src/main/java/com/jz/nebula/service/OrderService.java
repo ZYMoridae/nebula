@@ -27,7 +27,6 @@ import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
 
 @Service
-@Component("orderService")
 public class OrderService {
 	private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 

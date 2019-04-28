@@ -9,7 +9,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import com.jz.nebula.payment.StripeProperties;
 
 // Remove SpringBootServletInitializer when change to jar build
-@EnableAutoConfiguration
 @SpringBootApplication
 @EnableConfigurationProperties(StripeProperties.class)
 public class Application extends SpringBootServletInitializer{

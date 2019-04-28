@@ -32,74 +32,77 @@ import com.jz.nebula.redis.queue.RedisMessageSubscriber;
 @PropertySource("classpath:application.yml")
 public class RedisConfig {
 
-	@Value("${spring.redis.host}")
-	private String redisHost;
+    @Value("${spring.redis.host}")
+    private String redisHost;
 
-	@Value("${spring.redis.port}")
-	private int redisPort;
+    @Value("${spring.redis.port}")
+    private int redisPort;
 
-	@Value("${spring.redis.password}")
-	private String redisPassword;
+    @Value("${spring.redis.password}")
+    private String redisPassword;
 
-	@Value("${spring.redis.cluster.nodes}")
-	private String redisClusterNodes;
+    @Value("${spring.redis.cluster.nodes}")
+    private String redisClusterNodes;
 
-	@Bean
-	JedisConnectionFactory jedisConnectionFactory() {
-		JedisConnectionFactory connectionFactory = null;
-		RedisConfiguration redisConfiguration;
-		
-		if (redisClusterNodes != null && !redisClusterNodes.equals("")) {
-			String[] nodesArray = redisClusterNodes.split(",");
-			List<String> ndoesList = Arrays.asList(nodesArray);
-			redisConfiguration = new RedisClusterConfiguration(ndoesList);
-		} else {
-			redisConfiguration = new RedisStandaloneConfiguration(redisHost, redisPort);
-		}
-		
+    @Bean
+    JedisConnectionFactory jedisConnectionFactory() {
+        JedisConnectionFactory connectionFactory = null;
+        RedisConfiguration redisConfiguration;
+
+        if (redisClusterNodes != null && !redisClusterNodes.equals("")) {
+            String[] nodesArray = redisClusterNodes.split(",");
+            List<String> ndoesList = Arrays.asList(nodesArray);
+            redisConfiguration = new RedisClusterConfiguration(ndoesList);
+        } else {
+            redisConfiguration = new RedisStandaloneConfiguration(redisHost, redisPort);
+            if (redisConfiguration instanceof RedisStandaloneConfiguration && !redisPassword.equals("")) {
+                ((RedisStandaloneConfiguration) redisConfiguration).setPassword(redisPassword);
+            }
+        }
+
 //		redisStandaloneConfiguration.setPassword(RedisPassword.of(redisPassword));
-		if (redisConfiguration instanceof RedisClusterConfiguration) {
-			connectionFactory = new JedisConnectionFactory((RedisClusterConfiguration) redisConfiguration);
-		} else if (redisConfiguration instanceof RedisStandaloneConfiguration) {
-			connectionFactory = new JedisConnectionFactory((RedisStandaloneConfiguration) redisConfiguration);
-		}
+        if (redisConfiguration instanceof RedisClusterConfiguration) {
+            connectionFactory = new JedisConnectionFactory((RedisClusterConfiguration) redisConfiguration);
+        } else if (redisConfiguration instanceof RedisStandaloneConfiguration) {
+            connectionFactory = new JedisConnectionFactory((RedisStandaloneConfiguration) redisConfiguration);
+        }
 
-		return connectionFactory;
-	}
+        return connectionFactory;
+    }
 
-	@Bean
-	public RedisTemplate<String, Object> redisTemplate() {
-		final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
-		template.setConnectionFactory(jedisConnectionFactory());
-		template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
-		return template;
-	}
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate() {
+        final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
+        return template;
+    }
 
-	@Bean
-	MessageListenerAdapter messageListener() {
-		return new MessageListenerAdapter(new RedisMessageSubscriber());
-	}
+    @Bean
+    MessageListenerAdapter messageListener() {
+        return new MessageListenerAdapter(new RedisMessageSubscriber());
+    }
 
-	@Bean
-	RedisMessageListenerContainer redisContainer() {
-		final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-		container.setConnectionFactory(jedisConnectionFactory());
-		container.addMessageListener(messageListener(), topic());
-		return container;
-	}
+    @Bean
+    RedisMessageListenerContainer redisContainer() {
+        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(jedisConnectionFactory());
+        container.addMessageListener(messageListener(), topic());
+        return container;
+    }
 
-	@Bean
-	public static ConfigureRedisAction configureRedisAction() {
-		return ConfigureRedisAction.NO_OP;
-	}
+    @Bean
+    public static ConfigureRedisAction configureRedisAction() {
+        return ConfigureRedisAction.NO_OP;
+    }
 
-	@Bean
-	MessagePublisher redisPublisher() {
-		return new RedisMessagePublisher(redisTemplate(), topic());
-	}
+    @Bean
+    MessagePublisher redisPublisher() {
+        return new RedisMessagePublisher(redisTemplate(), topic());
+    }
 
-	@Bean
-	ChannelTopic topic() {
-		return new ChannelTopic("pubsub:queue");
-	}
+    @Bean
+    ChannelTopic topic() {
+        return new ChannelTopic("pubsub:queue");
+    }
 }

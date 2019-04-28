@@ -16,7 +16,6 @@ import com.jz.nebula.dao.ShipperRepository;
 import com.jz.nebula.entity.Shipper;
 
 @Service
-@Component("shipperService")
 public class ShipperService {
 
 	@Autowired

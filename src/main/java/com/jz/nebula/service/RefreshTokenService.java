@@ -30,7 +30,6 @@ import io.jsonwebtoken.security.Keys;
  *
  */
 @Service
-@Component("refreshTokenService")
 public class RefreshTokenService {
 	private Key secretKey;
 

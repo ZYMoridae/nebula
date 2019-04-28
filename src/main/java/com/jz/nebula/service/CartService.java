@@ -23,7 +23,6 @@ import com.jz.nebula.entity.OrderItem;
 import com.jz.nebula.entity.OrderStatus;
 
 @Service
-@Component("cartService")
 @Transactional
 public class CartService {
 	private final Logger logger = LogManager.getLogger(CartService.class);

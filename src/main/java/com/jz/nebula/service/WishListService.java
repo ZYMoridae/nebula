@@ -10,7 +10,6 @@ import com.jz.nebula.dao.WishListRepository;
 import com.jz.nebula.entity.WishList;
 
 @Service
-@Component("wishListService")
 @Transactional
 public class WishListService {
 	@Autowired

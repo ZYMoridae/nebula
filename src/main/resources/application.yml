@@ -41,10 +41,11 @@ spring:
 #      nodes: nebula-redis-1.2g0kc4.0001.apse2.cache.amazonaws.com:6379
 
 #    host: iresdev1.intsrv.net
-    host: nebula-redis-1.2g0kc4.0001.apse2.cache.amazonaws.com
+    host: localhost
+#    host: nebula-redis-1.2g0kc4.0001.apse2.cache.amazonaws.com
     port: 6379
-#    password: ?_TK$czHb9LhyWy8W2G4gZAa@byj8H&4 
-    password: ?_TK$czHb9LhyWy8W2G4gZAabyj8H&4  
+    password: ?_TK$czHb9LhyWy8W2G4gZAa@byj8H&4
+#    password: ?_TK$czHb9LhyWy8W2G4gZAabyj8H&4
     timeout: 0  
     pool:  
       max-active: 8  
@@ -58,8 +59,8 @@ spring:
         enabled: false 
          
   datasource:
-    url: jdbc:postgresql://elebufffalo-nebula-spring.cdtaauatufxe.ap-southeast-2.rds.amazonaws.com:5432/nebula_spring
-#    url: jdbc:postgresql://localhost:5432/nebula_spring
+#    url: jdbc:postgresql://elebufffalo-nebula-spring.cdtaauatufxe.ap-southeast-2.rds.amazonaws.com:5432/nebula_spring
+    url: jdbc:postgresql://localhost:5432/nebula_spring
     username: postgres
     password: postgres
     cachePrepStmts: true

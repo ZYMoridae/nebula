@@ -32,7 +32,6 @@ import com.jz.nebula.entity.WishListItem;
 import com.jz.nebula.validator.CartItemValidator;
 
 @Service
-@Component("cartItemService")
 @Transactional(propagation = Propagation.NOT_SUPPORTED, rollbackFor = Exception.class)
 public class CartItemService {
 	private final Logger logger = LogManager.getLogger(CartItemService.class);

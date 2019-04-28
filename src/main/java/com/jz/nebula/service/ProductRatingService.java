@@ -14,7 +14,6 @@ import com.jz.nebula.entity.ProductRating;
 import com.jz.nebula.entity.User;
 
 @Service
-@Component("productRatingService")
 public class ProductRatingService {
 	@Autowired
 	private ProductRatingRepository productRatingRepository;

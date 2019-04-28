@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.jz.nebula.auth.AuthenticationFacade;
 
 @Service
-@Component("authService")
 public class AuthService {
 
 	@Autowired
