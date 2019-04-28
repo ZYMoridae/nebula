@@ -37,6 +37,7 @@ spring:
   redis:
     cluster:
       nodes:
+#      Ensue in AWS enable the cluster feature
 #      nodes: nebula-redis-1.2g0kc4.0001.apse2.cache.amazonaws.com:6379
 
 #    host: iresdev1.intsrv.net
@@ -58,6 +59,7 @@ spring:
          
   datasource:
     url: jdbc:postgresql://elebufffalo-nebula-spring.cdtaauatufxe.ap-southeast-2.rds.amazonaws.com:5432/nebula_spring
+#    url: jdbc:postgresql://localhost:5432/nebula_spring
     username: postgres
     password: postgres
     cachePrepStmts: true

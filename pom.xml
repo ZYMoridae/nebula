@@ -4,7 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jz.nebula</groupId>
 	<artifactId>nebula-spring</artifactId>
+	<!-- 
 	<packaging>jar</packaging>
+	-->
+	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>nebula-spring</name>
 	<url>http://maven.apache.org</url>
@@ -29,7 +32,14 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<!-- Remove this dependency when package as a jar file -->
+		<dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-starter-tomcat</artifactId>
+		   <scope>provided</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -217,6 +227,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>api</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
