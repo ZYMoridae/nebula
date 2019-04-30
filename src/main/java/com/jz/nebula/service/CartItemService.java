@@ -60,10 +60,10 @@ public class CartItemService {
 	 * @return
 	 */
 	private Cart getCart() {
-		User user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName()).get();
+		Optional<User> userOptional = userRepository.findByUsername(authenticationFacade.getAuthentication().getName());
 		Cart cart = null;
-		if (user != null) {
-			cart = cartRepository.findByUserId(user.getId());
+		if (userOptional.isPresent()) {
+			cart = cartRepository.findByUserId(userOptional.get().getId());
 		}
 
 		if (cart == null) {
@@ -177,7 +177,7 @@ public class CartItemService {
 		CartItem cartItem = findById(cartItemId);
 		WishListItem wishListItem = cartItem.toWishListItem();
 		wishListItemService.save(wishListItem);
-		logger.info("Wishlist item with id:[{}] was saved", wishListItem.getId());
+		logger.info("Wish list item with id:[{}] was saved", wishListItem.getId());
 
 		delete(cartItem.getId());
 		logger.info("Cart item with id:[{}] was deleted", cartItemId);
