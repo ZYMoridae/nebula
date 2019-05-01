@@ -17,35 +17,35 @@ import com.jz.nebula.entity.Product;
 
 @Service
 public class ProductService {
-	@Autowired
-	private ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
-	public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
-			PagedResourcesAssembler<Product> assembler) {
-		Page<Product> page = null;
-		if (keyword == "") {
-			page = productRepository.findAll(pageable);
-		} else {
-			page = productRepository.findByNameContaining(keyword, pageable);
-		}
+    public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
+                                                     PagedResourcesAssembler<Product> assembler) {
+        Page<Product> page = null;
+        if (keyword == "") {
+            page = productRepository.findAll(pageable);
+        } else {
+            page = productRepository.findByNameContaining(keyword, pageable);
+        }
 
-		PagedResources<Resource<Product>> resources = assembler.toResource(page,
-				linkTo(ProductController.class).slash("/products").withSelfRel());
-		;
-		return resources;
-	}
+        PagedResources<Resource<Product>> resources = assembler.toResource(page,
+                linkTo(ProductController.class).slash("/products").withSelfRel());
+        ;
+        return resources;
+    }
 
-	public Product save(Product product) {
-		Product updatedProduct = productRepository.save(product);
+    public Product save(Product product) {
+        Product updatedProduct = productRepository.save(product);
 
-		return findById(updatedProduct.getId());
-	}
+        return findById(updatedProduct.getId());
+    }
 
-	public Product findById(long id) {
-		return productRepository.findById(id).get();
-	}
+    public Product findById(long id) {
+        return productRepository.findById(id).get();
+    }
 
-	public void delete(long id) {
-		productRepository.deleteById(id);
-	}
+    public void delete(long id) {
+        productRepository.deleteById(id);
+    }
 }

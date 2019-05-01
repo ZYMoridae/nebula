@@ -31,136 +31,136 @@ import com.jz.nebula.validator.WishListItemValidator;
 @Service
 @Transactional(propagation = Propagation.NOT_SUPPORTED, rollbackFor = Exception.class)
 public class WishListItemService {
-	private final Logger logger = LogManager.getLogger(WishListItemService.class);
+    private final Logger logger = LogManager.getLogger(WishListItemService.class);
 
-	@Autowired
-	private IAuthenticationFacade authenticationFacade;
+    @Autowired
+    private IAuthenticationFacade authenticationFacade;
 
-	@Autowired
-	private WishListRepository wishListRepository;
+    @Autowired
+    private WishListRepository wishListRepository;
 
-	@Autowired
-	private WishListItemRepository wishListItemRepository;
+    @Autowired
+    private WishListItemRepository wishListItemRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private WishListItemValidator wishListItemValidator;
+    @Autowired
+    private WishListItemValidator wishListItemValidator;
 
-	@Autowired
-	private CartItemService cartItemService;
+    @Autowired
+    private CartItemService cartItemService;
 
-	/**
-	 * Get wish list
-	 * 
-	 * @return
-	 */
-	private WishList getWishList() {
-		User user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName()).get();
-		WishList wishList = null;
-		if (user != null) {
-			wishList = wishListRepository.findByUserId(user.getId());
-		}
-		if (wishList == null) {
-			wishList = new WishList(authenticationFacade.getUser().getId());
-			wishList = wishListRepository.save(wishList);
-		}
-		return wishList;
-	}
+    /**
+     * Get wish list
+     *
+     * @return
+     */
+    private WishList getWishList() {
+        User user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName()).get();
+        WishList wishList = null;
+        if (user != null) {
+            wishList = wishListRepository.findByUserId(user.getId());
+        }
+        if (wishList == null) {
+            wishList = new WishList(authenticationFacade.getUser().getId());
+            wishList = wishListRepository.save(wishList);
+        }
+        return wishList;
+    }
 
-	/**
-	 * Get item in wish list
-	 * 
-	 * @param wishListItem
-	 * @return
-	 */
-	private WishListItem getItemInWishList(WishListItem wishListItem) {
-		Optional<WishListItem> optional = wishListItemRepository
-				.findByWishListIdAndProductId(wishListItem.getWishListId(), wishListItem.getProductId());
-		return optional.isPresent() ? optional.get() : null;
-	}
+    /**
+     * Get item in wish list
+     *
+     * @param wishListItem
+     * @return
+     */
+    private WishListItem getItemInWishList(WishListItem wishListItem) {
+        Optional<WishListItem> optional = wishListItemRepository
+                .findByWishListIdAndProductId(wishListItem.getWishListId(), wishListItem.getProductId());
+        return optional.isPresent() ? optional.get() : null;
+    }
 
-	/**
-	 * Find wish list items by wish list id
-	 * 
-	 * @param wishListId Wish list Id
-	 * @param pageable   Pageable object
-	 * @param assembler  PagedResourcesAssembler object
-	 * @return PagedResources object
-	 */
-	public PagedResources<Resource<WishListItem>> findByWishListId(long wishListId, Pageable pageable,
-			PagedResourcesAssembler<WishListItem> assembler) {
-		Page<WishListItem> page = wishListItemRepository.findByWishListId(wishListId, pageable);
-		PagedResources<Resource<WishListItem>> resources = assembler.toResource(page,
-				linkTo(WishListItemController.class).slash("/wishlist-items").withSelfRel());
-		;
-		return resources;
-	}
+    /**
+     * Find wish list items by wish list id
+     *
+     * @param wishListId Wish list Id
+     * @param pageable   Pageable object
+     * @param assembler  PagedResourcesAssembler object
+     * @return PagedResources object
+     */
+    public PagedResources<Resource<WishListItem>> findByWishListId(long wishListId, Pageable pageable,
+                                                                   PagedResourcesAssembler<WishListItem> assembler) {
+        Page<WishListItem> page = wishListItemRepository.findByWishListId(wishListId, pageable);
+        PagedResources<Resource<WishListItem>> resources = assembler.toResource(page,
+                linkTo(WishListItemController.class).slash("/wishlist-items").withSelfRel());
+        ;
+        return resources;
+    }
 
-	/**
-	 * Save wish list item
-	 * 
-	 * @param wishListItem WishListItem object
-	 * @return WishListItem object
-	 * @throws Exception Exception class
-	 */
-	@Transactional(rollbackFor = { Exception.class })
-	public synchronized WishListItem save(WishListItem wishListItem) throws Exception {
-		boolean isValid = wishListItemValidator.validate(wishListItem);
-		WishListItem updatedWishListItem = null;
-		if (!isValid) {
-			return null;
-		}
-		WishList wishList = getWishList();
+    /**
+     * Save wish list item
+     *
+     * @param wishListItem WishListItem object
+     * @return WishListItem object
+     * @throws Exception Exception class
+     */
+    @Transactional(rollbackFor = {Exception.class})
+    public synchronized WishListItem save(WishListItem wishListItem) throws Exception {
+        boolean isValid = wishListItemValidator.validate(wishListItem);
+        WishListItem updatedWishListItem = null;
+        if (!isValid) {
+            return null;
+        }
+        WishList wishList = getWishList();
 
-		wishListItem.setWishListId(wishList.getId());
+        wishListItem.setWishListId(wishList.getId());
 
-		WishListItem existingWishListItem = getItemInWishList(wishListItem);
-		if (existingWishListItem != null) {
-			existingWishListItem.setQuantity(existingWishListItem.getQuantity() + wishListItem.getQuantity());
-			updatedWishListItem = wishListItemRepository.save(existingWishListItem);
-		} else {
-			updatedWishListItem = wishListItemRepository.save(wishListItem);
-		}
+        WishListItem existingWishListItem = getItemInWishList(wishListItem);
+        if (existingWishListItem != null) {
+            existingWishListItem.setQuantity(existingWishListItem.getQuantity() + wishListItem.getQuantity());
+            updatedWishListItem = wishListItemRepository.save(existingWishListItem);
+        } else {
+            updatedWishListItem = wishListItemRepository.save(wishListItem);
+        }
 
-		logger.info("Product with id:[{}] has been added", wishListItem.getProductId());
+        logger.info("Product with id:[{}] has been added", wishListItem.getProductId());
 
-		return findById(updatedWishListItem.getId());
-	}
+        return findById(updatedWishListItem.getId());
+    }
 
-	/**
-	 * Find wish list item by id
-	 * 
-	 * @param id Wish list item id
-	 * @return WishListItem object
-	 */
-	public WishListItem findById(long id) {
-		return wishListItemRepository.findById(id).get();
-	}
+    /**
+     * Find wish list item by id
+     *
+     * @param id Wish list item id
+     * @return WishListItem object
+     */
+    public WishListItem findById(long id) {
+        return wishListItemRepository.findById(id).get();
+    }
 
-	/**
-	 * Delete wish list item by id
-	 * 
-	 * @param id Wish list item id
-	 */
-	public void delete(long id) {
-		wishListItemRepository.deleteById(id);
-	}
+    /**
+     * Delete wish list item by id
+     *
+     * @param id Wish list item id
+     */
+    public void delete(long id) {
+        wishListItemRepository.deleteById(id);
+    }
 
-	/**
-	 * Convert wish list item to cart item
-	 * 
-	 * @param wishListItem WishListItem object
-	 * @return CartItem object
-	 * @throws Exception Exception class
-	 */
-	@Transactional(rollbackFor = { Exception.class })
-	public CartItem toCartItem(WishListItem wishListItem) throws Exception {
-		CartItem cartItem = wishListItem.toCartItem();
-		cartItemService.save(cartItem);
-		delete(wishListItem.getId());
+    /**
+     * Convert wish list item to cart item
+     *
+     * @param wishListItem WishListItem object
+     * @return CartItem object
+     * @throws Exception Exception class
+     */
+    @Transactional(rollbackFor = {Exception.class})
+    public CartItem toCartItem(WishListItem wishListItem) throws Exception {
+        CartItem cartItem = wishListItem.toCartItem();
+        cartItemService.save(cartItem);
+        delete(wishListItem.getId());
 
-		return cartItemService.findById(cartItem.getId());
-	}
+        return cartItemService.findById(cartItem.getId());
+    }
 }

@@ -1,11 +1,10 @@
 package com.jz.nebula.dao;
 
-import java.util.List;
-
+import com.jz.nebula.entity.ProductRating;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.jz.nebula.entity.ProductRating;
+import java.util.List;
 
-public interface ProductRatingRepository extends PagingAndSortingRepository<ProductRating, Long>{
-	List<ProductRating> findByProductId(long productId);
+public interface ProductRatingRepository extends PagingAndSortingRepository<ProductRating, Long> {
+    List<ProductRating> findByProductId(long productId);
 }

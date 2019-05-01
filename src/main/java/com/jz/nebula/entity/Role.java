@@ -12,39 +12,39 @@ import javax.persistence.Table;
 @Table(name = "role", schema = "public")
 public class Role implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1174975278194660551L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1174975278194660551L;
 
-	public Role() {
-	}
+    public Role() {
+    }
 
-	public final static String ROLE_USER = "ROLE_USER";
+    public final static String ROLE_USER = "ROLE_USER";
 
-	public final static String ROLE_VENDOR = "ROLE_VENDOR";
+    public final static String ROLE_VENDOR = "ROLE_VENDOR";
 
-	public final static String ROLE_ADMIN = "ROLE_ADMIN";
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    public final static String ROLE_ADMIN = "ROLE_ADMIN";
 
-	private String code;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    private String code;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

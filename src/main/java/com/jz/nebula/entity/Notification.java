@@ -21,90 +21,90 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name = "notification", schema = "public")
 public class Notification implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5928329494837900154L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(name = "user_id")
-	private Long userId;
-	
-	@Column(name = "created_at", updatable = false, insertable = false)
-	private Date createdAt;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5928329494837900154L;
 
-	@Column(name = "updated_at", updatable = false, insertable = false)
-	private Date updatedAt;
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "status_id", insertable = false, updatable = false)
-	NotificationStatus notificationStatus;
-	
-	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(name = "status_id")
-	private Long statusId;
-	
-	private String body;
-	
-	@JsonIgnore
-	public Long getStatusId() {
-		return statusId;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public void setStatusId(Long statusId) {
-		this.statusId = statusId;
-	}
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Column(name = "user_id")
+    private Long userId;
 
-	public String getBody() {
-		return body;
-	}
+    @Column(name = "created_at", updatable = false, insertable = false)
+    private Date createdAt;
 
-	public void setBody(String body) {
-		this.body = body;
-	}
+    @Column(name = "updated_at", updatable = false, insertable = false)
+    private Date updatedAt;
 
-	public NotificationStatus getNotificationStatus() {
-		return notificationStatus;
-	}
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", insertable = false, updatable = false)
+    NotificationStatus notificationStatus;
 
-	public void setNotificationStatus(NotificationStatus notificationStatus) {
-		this.notificationStatus = notificationStatus;
-	}
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Column(name = "status_id")
+    private Long statusId;
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    private String body;
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    @JsonIgnore
+    public Long getStatusId() {
+        return statusId;
+    }
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public String getBody() {
+        return body;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	@JsonIgnore
-	public Long getUserId() {
-		return userId;
-	}
+    public NotificationStatus getNotificationStatus() {
+        return notificationStatus;
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    public void setNotificationStatus(NotificationStatus notificationStatus) {
+        this.notificationStatus = notificationStatus;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @JsonIgnore
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

@@ -14,18 +14,18 @@ import com.jz.nebula.entity.User;
 @Service("userDetailsService")
 public class UserService implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Transactional(readOnly = true)
-	@Override
-	public UserDetails loadUserByUsername(String username) {
-		User user = userRepository.findByUsername(username).get();
-		UserBuilder builder = null;
-		builder = org.springframework.security.core.userdetails.User.withUsername(username);
-		builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
-		builder.roles(user.getRole().getCode());
+    @Transactional(readOnly = true)
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByUsername(username).get();
+        UserBuilder builder = null;
+        builder = org.springframework.security.core.userdetails.User.withUsername(username);
+        builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
+        builder.roles(user.getRole().getCode());
 
-		return builder.build();
-	}
+        return builder.build();
+    }
 }

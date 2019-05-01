@@ -15,41 +15,41 @@ import com.jz.nebula.entity.User;
 
 @Service
 public class ProductRatingService {
-	@Autowired
-	private ProductRatingRepository productRatingRepository;
-	
-	@Autowired
-	private AuthenticationFacade authenticationFacade;
-	
-	public ProductRating save(ProductRating productRating) {
-		User user = authenticationFacade.getUser();
-		if(!user.isAdmin()) {
-			productRating.setUsertId(user.getId());
-		}
-		return productRatingRepository.save(productRating);
-	}
+    @Autowired
+    private ProductRatingRepository productRatingRepository;
 
-	public ProductRating findById(long id) {
-		return productRatingRepository.findById(id).get();
-	}
+    @Autowired
+    private AuthenticationFacade authenticationFacade;
 
-	public List<ProductRating> findByProductId(long productId) {
-		List<ProductRating> productRatings = productRatingRepository.findByProductId(productId);
-		return productRatings;
-	}
+    public ProductRating save(ProductRating productRating) {
+        User user = authenticationFacade.getUser();
+        if (!user.isAdmin()) {
+            productRating.setUsertId(user.getId());
+        }
+        return productRatingRepository.save(productRating);
+    }
 
-	public Object getRating(long productId) {
-		Map<Object, Object> ratingObject = new ConcurrentHashMap<>();
-		List<ProductRating> productRatings = findByProductId(productId);
-		double sumRatings = productRatings.stream().map(ele -> ele.getRating()).reduce(0,
-				(ele1, ele2) -> ele1 + ele2);
-		ratingObject.put("rating", String.valueOf(sumRatings / productRatings.size()));
-		ratingObject.put("totalRatingCount", productRatings.size());
-		
-		return ratingObject;
-	}
+    public ProductRating findById(long id) {
+        return productRatingRepository.findById(id).get();
+    }
 
-	public void delete(long id) {
-		productRatingRepository.deleteById(id);
-	}
+    public List<ProductRating> findByProductId(long productId) {
+        List<ProductRating> productRatings = productRatingRepository.findByProductId(productId);
+        return productRatings;
+    }
+
+    public Object getRating(long productId) {
+        Map<Object, Object> ratingObject = new ConcurrentHashMap<>();
+        List<ProductRating> productRatings = findByProductId(productId);
+        double sumRatings = productRatings.stream().map(ele -> ele.getRating()).reduce(0,
+                (ele1, ele2) -> ele1 + ele2);
+        ratingObject.put("rating", String.valueOf(sumRatings / productRatings.size()));
+        ratingObject.put("totalRatingCount", productRatings.size());
+
+        return ratingObject;
+    }
+
+    public void delete(long id) {
+        productRatingRepository.deleteById(id);
+    }
 }

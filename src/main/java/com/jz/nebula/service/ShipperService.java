@@ -18,27 +18,27 @@ import com.jz.nebula.entity.Shipper;
 @Service
 public class ShipperService {
 
-	@Autowired
-	private ShipperRepository shipperRepository;
+    @Autowired
+    private ShipperRepository shipperRepository;
 
-	public PagedResources<Resource<Shipper>> findAll(Pageable pageable, PagedResourcesAssembler<Shipper> assembler) {
-		Page<Shipper> page = shipperRepository.findAll(pageable);
-		PagedResources<Resource<Shipper>> resources = assembler.toResource(page,
-				linkTo(ShipperController.class).slash("/products").withSelfRel());
-		;
-		return resources;
-	}
+    public PagedResources<Resource<Shipper>> findAll(Pageable pageable, PagedResourcesAssembler<Shipper> assembler) {
+        Page<Shipper> page = shipperRepository.findAll(pageable);
+        PagedResources<Resource<Shipper>> resources = assembler.toResource(page,
+                linkTo(ShipperController.class).slash("/products").withSelfRel());
+        ;
+        return resources;
+    }
 
-	public Shipper save(Shipper shipper) {
-		return shipperRepository.save(shipper);
-	}
+    public Shipper save(Shipper shipper) {
+        return shipperRepository.save(shipper);
+    }
 
-	public Shipper findById(long id) {
-		return shipperRepository.findById(id).get();
-	}
+    public Shipper findById(long id) {
+        return shipperRepository.findById(id).get();
+    }
 
-	public void delete(long id) {
-		shipperRepository.deleteById(id);
-	}
+    public void delete(long id) {
+        shipperRepository.deleteById(id);
+    }
 
 }

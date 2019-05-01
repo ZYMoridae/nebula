@@ -20,90 +20,90 @@ import com.stripe.model.Customer;
 
 @Component("stripeGateway")
 public class StripeGateway implements PaymentGateway {
-	@Autowired
-	private StripeProperties properties;
+    @Autowired
+    private StripeProperties properties;
 
-	@Autowired
-	private MessageProducer messageProducer;
+    @Autowired
+    private MessageProducer messageProducer;
 
-	private final Logger logger = LoggerFactory.getLogger(StripeGateway.class);
+    private final Logger logger = LoggerFactory.getLogger(StripeGateway.class);
 
-	public StripeGateway() {
+    public StripeGateway() {
 
-	}
+    }
 
-	@PostConstruct
-	public void loadConfig() {
-		Stripe.apiKey = properties.getApi().getKey();
-	}
+    @PostConstruct
+    public void loadConfig() {
+        Stripe.apiKey = properties.getApi().getKey();
+    }
 
-	private boolean isValidPayment(Payment payment) throws InvalidPaymentException {
-		boolean isValid = false;
-		if (payment.getAmount() <= 0 || payment.getCurrency().isEmpty()) {
-			throw new InvalidPaymentException();
-		}
+    private boolean isValidPayment(Payment payment) throws InvalidPaymentException {
+        boolean isValid = false;
+        if (payment.getAmount() <= 0 || payment.getCurrency().isEmpty()) {
+            throw new InvalidPaymentException();
+        }
 
-		return isValid;
-	}
+        return isValid;
+    }
 
-	@SuppressWarnings("unchecked")
-	private Map<String, Object> constructChargeParams(Payment payment) {
-		ObjectMapper objectMapper = new ObjectMapper();
-		return objectMapper.convertValue(payment, Map.class);
-	}
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> constructChargeParams(Payment payment) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.convertValue(payment, Map.class);
+    }
 
-	private synchronized Charge doStripePayment(Payment payment) throws InvalidPaymentException, StripeException {
-		this.isValidPayment(payment);
-		logger.info("Sending charging request to Stripe...");
-		Charge chargedPayment = Charge.create(this.constructChargeParams(payment));
-		messageProducer.sendMessage("invoice." + chargedPayment.getId());
-		logger.info("Charge success...");
-		return chargedPayment;
-	}
+    private synchronized Charge doStripePayment(Payment payment) throws InvalidPaymentException, StripeException {
+        this.isValidPayment(payment);
+        logger.info("Sending charging request to Stripe...");
+        Charge chargedPayment = Charge.create(this.constructChargeParams(payment));
+        messageProducer.sendMessage("invoice." + chargedPayment.getId());
+        logger.info("Charge success...");
+        return chargedPayment;
+    }
 
-	public synchronized Customer createCustomer(Customer paramCustomer)
-			throws StripeException, InvalidCustomerException {
-		Map<String, Object> customerParams = new HashMap<String, Object>();
-		String customerEmail = paramCustomer.getEmail();
-		if (customerEmail == null || customerEmail.isEmpty()) {
-			throw new InvalidCustomerException();
-		}
-		customerParams.put("email", paramCustomer.getEmail());
-		Customer customer = Customer.create(customerParams);
-		return customer;
-	}
+    public synchronized Customer createCustomer(Customer paramCustomer)
+            throws StripeException, InvalidCustomerException {
+        Map<String, Object> customerParams = new HashMap<String, Object>();
+        String customerEmail = paramCustomer.getEmail();
+        if (customerEmail == null || customerEmail.isEmpty()) {
+            throw new InvalidCustomerException();
+        }
+        customerParams.put("email", paramCustomer.getEmail());
+        Customer customer = Customer.create(customerParams);
+        return customer;
+    }
 
-	public synchronized Customer updateCustomer(Customer paramCustomer, String tokenId)
-			throws InvalidCustomerException, StripeException {
-		Map<String, Object> params = new HashMap<String, Object>();
-		String customerId = paramCustomer.getId();
-		if (customerId == null || customerId.isEmpty()) {
-			throw new InvalidCustomerException();
-		}
-		params.put("source", tokenId);
-		paramCustomer.update(params);
-		return Customer.retrieve(customerId);
-	}
+    public synchronized Customer updateCustomer(Customer paramCustomer, String tokenId)
+            throws InvalidCustomerException, StripeException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        String customerId = paramCustomer.getId();
+        if (customerId == null || customerId.isEmpty()) {
+            throw new InvalidCustomerException();
+        }
+        params.put("source", tokenId);
+        paramCustomer.update(params);
+        return Customer.retrieve(customerId);
+    }
 
-	@Override
-	public Object doPayment(Object paymentInfo) throws InvalidPaymentException, StripeException {
-		return this.doStripePayment((Payment) paymentInfo);
-	}
+    @Override
+    public Object doPayment(Object paymentInfo) throws InvalidPaymentException, StripeException {
+        return this.doStripePayment((Payment) paymentInfo);
+    }
 
-	@Override
-	public String getName() throws Exception {
-		return this.getClass().getName().toLowerCase().replace("gateway", "");
-	}
+    @Override
+    public String getName() throws Exception {
+        return this.getClass().getName().toLowerCase().replace("gateway", "");
+    }
 
-	@Override
-	public Object doRefund(Object refundInfo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Object doRefund(Object refundInfo) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Charge retrieveCharge(String chargeId) throws StripeException {
-		return Charge.retrieve(chargeId);
-	}
+    @Override
+    public Charge retrieveCharge(String chargeId) throws StripeException {
+        return Charge.retrieve(chargeId);
+    }
 
 }

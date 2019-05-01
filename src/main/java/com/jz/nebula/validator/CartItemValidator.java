@@ -21,95 +21,95 @@ import com.jz.nebula.entity.Product;
 @Component("cartItemValidator")
 public class CartItemValidator implements ValidatorInterface, Serializable {
 
-	private final Logger logger = LogManager.getLogger(CartItemValidator.class);
+    private final Logger logger = LogManager.getLogger(CartItemValidator.class);
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1869981127906910401L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1869981127906910401L;
 
-	@Autowired
-	private ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
-	public CartItemValidator() {
+    public CartItemValidator() {
 
-	}
+    }
 
-	private Predicate<Method> filterValidationMethod() {
-		return p -> p.getName().startsWith("is") && p.getAnnotation(Order.class) != null;
-	}
+    private Predicate<Method> filterValidationMethod() {
+        return p -> p.getName().startsWith("is") && p.getAnnotation(Order.class) != null;
+    }
 
-	private int validatorSorter(Method m1, Method m2) {
-		int order1 = m1.getAnnotation(Order.class).value();
-		int order2 = m2.getAnnotation(Order.class).value();
-		if (order1 < order2) {
-			return -1;
-		} else if (order1 > order2) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
+    private int validatorSorter(Method m1, Method m2) {
+        int order1 = m1.getAnnotation(Order.class).value();
+        int order2 = m2.getAnnotation(Order.class).value();
+        if (order1 < order2) {
+            return -1;
+        } else if (order1 > order2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
-	private boolean validateCallback(Method method, CartItem cartItem) {
-		try {
-			boolean conditionValid = (boolean) method.invoke(this, cartItem);
-			return conditionValid;
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			logger.error("Method invoke failed, method name:[{}]", method.getName());
-			e.printStackTrace();
-		}
-		return true;
-	}
+    private boolean validateCallback(Method method, CartItem cartItem) {
+        try {
+            boolean conditionValid = (boolean) method.invoke(this, cartItem);
+            return conditionValid;
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            logger.error("Method invoke failed, method name:[{}]", method.getName());
+            e.printStackTrace();
+        }
+        return true;
+    }
 
-	@Override
-	public boolean validate(Object obj) {
-		AtomicBoolean isValid = new AtomicBoolean(true);
-		CartItem cartItem = null;
-		if (obj instanceof CartItem) {
-			cartItem = (CartItem) obj;
-		}
+    @Override
+    public boolean validate(Object obj) {
+        AtomicBoolean isValid = new AtomicBoolean(true);
+        CartItem cartItem = null;
+        if (obj instanceof CartItem) {
+            cartItem = (CartItem) obj;
+        }
 
-		Method[] allMethods = this.getClass().getDeclaredMethods();
+        Method[] allMethods = this.getClass().getDeclaredMethods();
 
-		final CartItem paramCartItem = cartItem;
+        final CartItem paramCartItem = cartItem;
 
-		Arrays.asList(allMethods).stream().filter(this.filterValidationMethod())
-				.sorted((m1, m2) -> this.validatorSorter(m1, m2))
-				.forEach(method -> isValid.set(isValid.get() && this.validateCallback(method, paramCartItem)));
+        Arrays.asList(allMethods).stream().filter(this.filterValidationMethod())
+                .sorted((m1, m2) -> this.validatorSorter(m1, m2))
+                .forEach(method -> isValid.set(isValid.get() && this.validateCallback(method, paramCartItem)));
 
-		return isValid.get();
-	}
+        return isValid.get();
+    }
 
-	@Order(1)
-	private boolean isProductExist(CartItem cartItem) {
-		long productId = cartItem.getProductId();
-		Optional<Product> optional = productRepository.findById(productId);
-		boolean isPresent = optional.isPresent();
-		if (isPresent) {
-			logger.info("Product with id:[{}] is present", productId);
-		} else {
-			logger.info("Product with id:[{}] is not present", productId);
-		}
+    @Order(1)
+    private boolean isProductExist(CartItem cartItem) {
+        long productId = cartItem.getProductId();
+        Optional<Product> optional = productRepository.findById(productId);
+        boolean isPresent = optional.isPresent();
+        if (isPresent) {
+            logger.info("Product with id:[{}] is present", productId);
+        } else {
+            logger.info("Product with id:[{}] is not present", productId);
+        }
 
-		return isPresent;
-	}
+        return isPresent;
+    }
 
-	@Order(2)
-	private boolean isQuantityValid(CartItem cartItem) {
-		Optional<Product> optional = productRepository.findById(cartItem.getProductId());
-		boolean isValid = true;
+    @Order(2)
+    private boolean isQuantityValid(CartItem cartItem) {
+        Optional<Product> optional = productRepository.findById(cartItem.getProductId());
+        boolean isValid = true;
 
-		if (optional.isPresent()) {
-			Product product = optional.get();
-			isValid = product.getUnitsInStock() >= cartItem.getQuantity();
-			logger.info("Quantity for product id:[{}] is valid", cartItem.getQuantity());
-		} else {
-			isValid = false;
-			logger.info("Product with id:[{}] is not present", cartItem.getProductId());
-		}
+        if (optional.isPresent()) {
+            Product product = optional.get();
+            isValid = product.getUnitsInStock() >= cartItem.getQuantity();
+            logger.info("Quantity for product id:[{}] is valid", cartItem.getQuantity());
+        } else {
+            isValid = false;
+            logger.info("Product with id:[{}] is not present", cartItem.getProductId());
+        }
 
-		return isValid;
-	}
+        return isValid;
+    }
 
 }

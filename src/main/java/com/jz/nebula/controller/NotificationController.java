@@ -28,40 +28,45 @@ import com.jz.nebula.service.NotificationService;
 @RequestMapping("/notifications")
 public class NotificationController {
 
-	@Autowired
-	private NotificationService notificationService;
+    @Autowired
+    private NotificationService notificationService;
 
-	@GetMapping
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody PagedResources<Resource<Notification>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-			final HttpServletResponse response, PagedResourcesAssembler<Notification> assembler) {
-		return notificationService.findAll(pageable, assembler);
-	}
+    @GetMapping
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    PagedResources<Resource<Notification>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                               final HttpServletResponse response, PagedResourcesAssembler<Notification> assembler) {
+        return notificationService.findAll(pageable, assembler);
+    }
 
-	@GetMapping("/{id}")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Notification findById(@PathVariable("id") long id) {
-		return notificationService.findById(id);
-	}
+    @GetMapping("/{id}")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Notification findById(@PathVariable("id") long id) {
+        return notificationService.findById(id);
+    }
 
-	@PostMapping("")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Notification create(@RequestBody Notification notification) {
-		return notificationService.save(notification);
-	}
+    @PostMapping("")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Notification create(@RequestBody Notification notification) {
+        return notificationService.save(notification);
+    }
 
-	@PutMapping("/{id}")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Notification update(@PathVariable("id") long id, @RequestBody Notification notification) {
-		notification.setId(id);
-		return notificationService.save(notification);
-	}
+    @PutMapping("/{id}")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Notification update(@PathVariable("id") long id, @RequestBody Notification notification) {
+        notification.setId(id);
+        return notificationService.save(notification);
+    }
 
-	@DeleteMapping("/{id}")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody ResponseEntity<?> delete(@PathVariable("id") long id) {
-		notificationService.delete(id);
-		return ResponseEntity.noContent().build();
-	}	
-	
+    @DeleteMapping("/{id}")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    ResponseEntity<?> delete(@PathVariable("id") long id) {
+        notificationService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -1,13 +1,12 @@
 package com.jz.nebula.auth;
 
+import com.jz.nebula.entity.User;
 import org.springframework.security.core.Authentication;
 
-import com.jz.nebula.entity.User;
-
 public interface IAuthenticationFacade {
-	Authentication getAuthentication();
+    Authentication getAuthentication();
 
-	User getUser();
+    User getUser();
 
-	Long getUserId();
+    Long getUserId();
 }

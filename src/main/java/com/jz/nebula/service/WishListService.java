@@ -12,17 +12,17 @@ import com.jz.nebula.entity.WishList;
 @Service
 @Transactional
 public class WishListService {
-	@Autowired
-	private IAuthenticationFacade authenticationFacade;
+    @Autowired
+    private IAuthenticationFacade authenticationFacade;
 
-	@Autowired
-	private WishListRepository wishListRepository;
+    @Autowired
+    private WishListRepository wishListRepository;
 
-	public WishList getWishList(long id) {
-		return wishListRepository.findByUserId(id);
-	}
+    public WishList getWishList(long id) {
+        return wishListRepository.findByUserId(id);
+    }
 
-	public WishList getMyWishList() {
-		return wishListRepository.findByUserId(authenticationFacade.getUser().getId());
-	}
+    public WishList getMyWishList() {
+        return wishListRepository.findByUserId(authenticationFacade.getUser().getId());
+    }
 }

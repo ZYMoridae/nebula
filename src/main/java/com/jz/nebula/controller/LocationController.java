@@ -28,40 +28,45 @@ import com.jz.nebula.service.LocationService;
 @RequestMapping("/locations")
 public class LocationController {
 
-	@Autowired
-	private LocationService locationService;
+    @Autowired
+    private LocationService locationService;
 
-	@GetMapping
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody PagedResources<Resource<Location>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-			final HttpServletResponse response, PagedResourcesAssembler<Location> assembler) {
-		return locationService.findAll(pageable, assembler);
-	}
+    @GetMapping
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    PagedResources<Resource<Location>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                           final HttpServletResponse response, PagedResourcesAssembler<Location> assembler) {
+        return locationService.findAll(pageable, assembler);
+    }
 
-	@GetMapping("/{id}")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Location findById(@PathVariable("id") long id) {
-		return locationService.findById(id);
-	}
+    @GetMapping("/{id}")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Location findById(@PathVariable("id") long id) {
+        return locationService.findById(id);
+    }
 
-	@PostMapping("")
-	@RolesAllowed({ Role.ROLE_ADMIN })
-	public @ResponseBody Location create(@RequestBody Location location) {
-		return locationService.save(location);
-	}
+    @PostMapping("")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public @ResponseBody
+    Location create(@RequestBody Location location) {
+        return locationService.save(location);
+    }
 
-	@PutMapping("/{id}")
-	@RolesAllowed({ Role.ROLE_ADMIN })
-	public @ResponseBody Location update(@PathVariable("id") long id, @RequestBody Location location) {
-		location.setId(id);
-		return locationService.save(location);
-	}
+    @PutMapping("/{id}")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public @ResponseBody
+    Location update(@PathVariable("id") long id, @RequestBody Location location) {
+        location.setId(id);
+        return locationService.save(location);
+    }
 
-	@DeleteMapping("/{id}")
-	@RolesAllowed({ Role.ROLE_ADMIN })
-	public @ResponseBody ResponseEntity<?> delete(@PathVariable("id") long id) {
-		locationService.delete(id);
-		return ResponseEntity.noContent().build();
-	}	
-	
+    @DeleteMapping("/{id}")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public @ResponseBody
+    ResponseEntity<?> delete(@PathVariable("id") long id) {
+        locationService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

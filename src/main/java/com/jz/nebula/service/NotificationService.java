@@ -19,42 +19,42 @@ import com.jz.nebula.entity.Notification;
 
 @Service
 public class NotificationService {
-	private final Logger logger = LogManager.getLogger(NotificationService.class);
-	
-	@Autowired
-	private NotificationRepository notificationRepository;
-	
-	public PagedResources<Resource<Notification>> findAll(Pageable pageable, PagedResourcesAssembler<Notification> assembler) {
-		Page<Notification> page = notificationRepository.findAll(pageable);
-		PagedResources<Resource<Notification>> resources = assembler.toResource(page,
-				linkTo(NotificationController.class).slash("/notifications").withSelfRel());
-		;
-		return resources;
-	}
+    private final Logger logger = LogManager.getLogger(NotificationService.class);
 
-	public Notification save(Notification notification) {
-		Notification existingNotification = null;
-		if(notification.getId() != null) {
-			existingNotification = findById(notification.getId());
-		}
-		if(existingNotification != null) {
-			existingNotification.setBody(notification.getBody());
-		}
-		Notification updatedNotification = null;
-		if(existingNotification != null) {
-			updatedNotification = notificationRepository.save(existingNotification);
-		}else { 
-			updatedNotification = notificationRepository.save(notification);
-		}
-		logger.info("Notification has been saved");
-		return findById(updatedNotification.getId());
-	}
+    @Autowired
+    private NotificationRepository notificationRepository;
 
-	public Notification findById(long id) {
-		return notificationRepository.findById(id).get();
-	}
+    public PagedResources<Resource<Notification>> findAll(Pageable pageable, PagedResourcesAssembler<Notification> assembler) {
+        Page<Notification> page = notificationRepository.findAll(pageable);
+        PagedResources<Resource<Notification>> resources = assembler.toResource(page,
+                linkTo(NotificationController.class).slash("/notifications").withSelfRel());
+        ;
+        return resources;
+    }
 
-	public void delete(long id) {
-		notificationRepository.deleteById(id);
-	}
+    public Notification save(Notification notification) {
+        Notification existingNotification = null;
+        if (notification.getId() != null) {
+            existingNotification = findById(notification.getId());
+        }
+        if (existingNotification != null) {
+            existingNotification.setBody(notification.getBody());
+        }
+        Notification updatedNotification = null;
+        if (existingNotification != null) {
+            updatedNotification = notificationRepository.save(existingNotification);
+        } else {
+            updatedNotification = notificationRepository.save(notification);
+        }
+        logger.info("Notification has been saved");
+        return findById(updatedNotification.getId());
+    }
+
+    public Notification findById(long id) {
+        return notificationRepository.findById(id).get();
+    }
+
+    public void delete(long id) {
+        notificationRepository.deleteById(id);
+    }
 }

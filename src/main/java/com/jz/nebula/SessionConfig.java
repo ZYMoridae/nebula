@@ -10,9 +10,9 @@ import org.springframework.session.web.http.HttpSessionIdResolver;
 @EnableRedisHttpSession
 public class SessionConfig {
 
-	@Bean
-	public HttpSessionIdResolver httpSessionIdResolver() {
-		return HeaderHttpSessionIdResolver.xAuthToken();
-	}
+    @Bean
+    public HttpSessionIdResolver httpSessionIdResolver() {
+        return HeaderHttpSessionIdResolver.xAuthToken();
+    }
 
 }

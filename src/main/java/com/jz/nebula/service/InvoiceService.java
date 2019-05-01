@@ -15,38 +15,38 @@ import com.stripe.model.Charge;
 @Component("invoiceService")
 public class InvoiceService {
 
-	private Logger logger = Logger.getLogger(InvoiceService.class);
+    private Logger logger = Logger.getLogger(InvoiceService.class);
 
-	@Autowired
-	PaymentService paymentService;
+    @Autowired
+    PaymentService paymentService;
 
-	@Autowired
-	EmailService emailService;
+    @Autowired
+    EmailService emailService;
 
-	public InvoiceService() {
+    public InvoiceService() {
 
-	}
+    }
 
-	public void saveInvoice(String chargeId) {
-		try {
-			Charge charge = paymentService.getPaymentGatway().retrieveCharge(chargeId);
-			// TODO: Generate pdf file
-			File invoice = null;
+    public void saveInvoice(String chargeId) {
+        try {
+            Charge charge = paymentService.getPaymentGatway().retrieveCharge(chargeId);
+            // TODO: Generate pdf file
+            File invoice = null;
 
-			this.updateDbInovice(charge);
-			this.sendInvoice(invoice);
-		} catch (StripeException e) {
-			logger.error(e);
-			e.printStackTrace();
-		}
-	}
+            this.updateDbInovice(charge);
+            this.sendInvoice(invoice);
+        } catch (StripeException e) {
+            logger.error(e);
+            e.printStackTrace();
+        }
+    }
 
-	private void updateDbInovice(Charge charge) {
-		// TODO: Update purchase info
-	}
+    private void updateDbInovice(Charge charge) {
+        // TODO: Update purchase info
+    }
 
-	private void sendInvoice(File invoice) {
-		// TODO: send invoice
-	}
+    private void sendInvoice(File invoice) {
+        // TODO: send invoice
+    }
 
 }

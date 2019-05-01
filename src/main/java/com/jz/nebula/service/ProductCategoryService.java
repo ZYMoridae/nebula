@@ -17,27 +17,27 @@ import com.jz.nebula.entity.ProductCategory;
 
 @Service
 public class ProductCategoryService {
-	@Autowired
-	private ProductCategoryRepository productCategoryRepository;
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
 
-	public PagedResources<Resource<ProductCategory>> findAll(Pageable pageable,
-			PagedResourcesAssembler<ProductCategory> assembler) {
-		Page<ProductCategory> page = productCategoryRepository.findAll(pageable);
-		PagedResources<Resource<ProductCategory>> resources = assembler.toResource(page,
-				linkTo(ProductCategoryController.class).slash("/product-categories").withSelfRel());
-		;
-		return resources;
-	}
+    public PagedResources<Resource<ProductCategory>> findAll(Pageable pageable,
+                                                             PagedResourcesAssembler<ProductCategory> assembler) {
+        Page<ProductCategory> page = productCategoryRepository.findAll(pageable);
+        PagedResources<Resource<ProductCategory>> resources = assembler.toResource(page,
+                linkTo(ProductCategoryController.class).slash("/product-categories").withSelfRel());
+        ;
+        return resources;
+    }
 
-	public ProductCategory save(ProductCategory productCategory) {
-		return productCategoryRepository.save(productCategory);
-	}
+    public ProductCategory save(ProductCategory productCategory) {
+        return productCategoryRepository.save(productCategory);
+    }
 
-	public ProductCategory findById(long id) {
-		return productCategoryRepository.findById(id).get();
-	}
+    public ProductCategory findById(long id) {
+        return productCategoryRepository.findById(id).get();
+    }
 
-	public void delete(long id) {
-		productCategoryRepository.deleteById(id);
-	}
+    public void delete(long id) {
+        productCategoryRepository.deleteById(id);
+    }
 }

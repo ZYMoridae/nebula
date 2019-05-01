@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class MessageProducer {
 
-	private final RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-	@Autowired
-	public MessageProducer(RabbitTemplate rabbitTemplate) {
-		this.rabbitTemplate = rabbitTemplate;
-	}
+    @Autowired
+    public MessageProducer(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
-	public void sendMessage(String message) {
-		rabbitTemplate.convertAndSend(SpringAmqpConfig.fanoutExchangeName, "", message);
+    public void sendMessage(String message) {
+        rabbitTemplate.convertAndSend(SpringAmqpConfig.fanoutExchangeName, "", message);
 
 //      if(Pattern.matches("^pdf.*", message)) {
 //      	
@@ -26,6 +26,6 @@ public class MessageProducer {
 //      	System.out.println(x);
 //      	rabbitTemplate.convertAndSend(SpringAmqpConfig.topicExchangeName, "invoice." + message, message);
 //      }
-		rabbitTemplate.convertAndSend(SpringAmqpConfig.topicExchangeName, message, message);
-	}
+        rabbitTemplate.convertAndSend(SpringAmqpConfig.topicExchangeName, message, message);
+    }
 }

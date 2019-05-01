@@ -25,142 +25,142 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name = "orders", schema = "public")
 public class Order implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5165402274482950113L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5165402274482950113L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(name = "user_id")
-	private Long userId;
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Column(name = "user_id")
+    private Long userId;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-	private User user;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
 
-	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(name = "shipper_id")
-	private Long shipperId;
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Column(name = "shipper_id")
+    private Long shipperId;
 
-	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(name = "order_status_id")
-	private Long orderStatusId;
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Column(name = "order_status_id")
+    private Long orderStatusId;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "shipper_id", insertable = false, updatable = false)
-	private Shipper shipper;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shipper_id", insertable = false, updatable = false)
+    private Shipper shipper;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "order_id", nullable = false)
-	private Set<OrderItem> orderItems;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Set<OrderItem> orderItems;
 
-	@OneToOne
-	@JoinColumn(name = "order_status_id", updatable = false, insertable = false)
-	private OrderStatus orderStatus;
-	
-	@Column(name = "created_at", updatable = false, insertable = false)
-	private Date createdAt;
+    @OneToOne
+    @JoinColumn(name = "order_status_id", updatable = false, insertable = false)
+    private OrderStatus orderStatus;
 
-	@Column(name = "updated_at", updatable = false, insertable = false)
-	private Date updatedAt;
-	
+    @Column(name = "created_at", updatable = false, insertable = false)
+    private Date createdAt;
+
+    @Column(name = "updated_at", updatable = false, insertable = false)
+    private Date updatedAt;
+
     // TODO: One to one
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "orders_id", nullable = false)
-	private OrderShippingInfo orderShippingInfo;
-	
-	public OrderShippingInfo getOrderShippingInfo() {
-		return orderShippingInfo;
-	}
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "orders_id", nullable = false)
+    private OrderShippingInfo orderShippingInfo;
 
-	public void setOrderShippingInfo(OrderShippingInfo orderShippingInfo) {
-		this.orderShippingInfo = orderShippingInfo;
-	}
+    public OrderShippingInfo getOrderShippingInfo() {
+        return orderShippingInfo;
+    }
 
-	@JsonIgnore
-	public Long getOrderStatusId() {
-		return orderStatusId;
-	}
+    public void setOrderShippingInfo(OrderShippingInfo orderShippingInfo) {
+        this.orderShippingInfo = orderShippingInfo;
+    }
 
-	public void setOrderStatusId(Long orderStatusId) {
-		this.orderStatusId = orderStatusId;
-	}
+    @JsonIgnore
+    public Long getOrderStatusId() {
+        return orderStatusId;
+    }
 
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
-	}
+    public void setOrderStatusId(Long orderStatusId) {
+        this.orderStatusId = orderStatusId;
+    }
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public Set<OrderItem> getOrderItems() {
-		return orderItems;
-	}
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
-	public void setOrderItems(Set<OrderItem> orderItems) {
-		this.orderItems = orderItems;
-	}
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	@JsonIgnore
-	public Long getUserId() {
-		return userId;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    @JsonIgnore
+    public Long getUserId() {
+        return userId;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	@JsonIgnore
-	public Long getShipperId() {
-		return shipperId;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void setShipperId(Long shipperId) {
-		this.shipperId = shipperId;
-	}
+    @JsonIgnore
+    public Long getShipperId() {
+        return shipperId;
+    }
 
-	public Shipper getShipper() {
-		return shipper;
-	}
+    public void setShipperId(Long shipperId) {
+        this.shipperId = shipperId;
+    }
 
-	public void setShipper(Shipper shipper) {
-		this.shipper = shipper;
-	}
+    public Shipper getShipper() {
+        return shipper;
+    }
+
+    public void setShipper(Shipper shipper) {
+        this.shipper = shipper;
+    }
 }

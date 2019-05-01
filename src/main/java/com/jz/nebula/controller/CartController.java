@@ -21,31 +21,35 @@ import com.jz.nebula.service.CartService;
 @RestController
 @RequestMapping("/carts")
 public class CartController {
-	@Autowired
-	private CartService cartService;
+    @Autowired
+    private CartService cartService;
 
-	@GetMapping(value = "/user/{id}")
-	@RolesAllowed({ Role.ROLE_ADMIN })
-	public @ResponseBody Cart getCart(@PathVariable("id") long id) {
-		return cartService.getCart(id);
-	}
+    @GetMapping(value = "/user/{id}")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public @ResponseBody
+    Cart getCart(@PathVariable("id") long id) {
+        return cartService.getCart(id);
+    }
 
-	@GetMapping(value = "/my")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Cart getMyCart() {
-		return cartService.getMyCart();
-	}
+    @GetMapping(value = "/my")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Cart getMyCart() {
+        return cartService.getMyCart();
+    }
 
-	@PostMapping(value = "/finalise")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Object finalizeAllCartItems() throws Exception {
-		return cartService.cartToOrder();
-	}
-	
-	@PostMapping(value = "/bulk")
-	@RolesAllowed({ Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN })
-	public @ResponseBody Object finalizeCartItems(@RequestBody List<CartItem> cartItems) throws Exception {
-		return cartService.cartToOrder(cartItems);
-	}
+    @PostMapping(value = "/finalise")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Object finalizeAllCartItems() throws Exception {
+        return cartService.cartToOrder();
+    }
+
+    @PostMapping(value = "/bulk")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Object finalizeCartItems(@RequestBody List<CartItem> cartItems) throws Exception {
+        return cartService.cartToOrder(cartItems);
+    }
 
 }

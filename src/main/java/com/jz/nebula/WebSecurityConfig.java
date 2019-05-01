@@ -1,10 +1,11 @@
 package com.jz.nebula;
 
+import com.jz.nebula.jwt.JwtConfigurer;
+import com.jz.nebula.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-//import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,35 +13,34 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
-import com.jz.nebula.jwt.JwtConfigurer;
-import com.jz.nebula.service.TokenService;
+//import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	TokenService jwtTokenProvider;
+    @Autowired
+    TokenService jwtTokenProvider;
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
-		//TODO: Set csrf enable in the production environment
-		http.httpBasic().disable().csrf().disable().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/auth/signin").permitAll()
-				.antMatchers(HttpMethod.POST, "/users").permitAll()
-				.antMatchers(HttpMethod.POST, "/token/refresh").permitAll()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
+        //TODO: Set csrf enable in the production environment
+        http.httpBasic().disable().csrf().disable().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .antMatchers("/auth/signin").permitAll()
+                .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .antMatchers(HttpMethod.POST, "/token/refresh").permitAll()
 //              .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
 //              .antMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
-				.anyRequest().authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));
-		// @formatter:on
-	}
+                .anyRequest().authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));
+        // @formatter:on
+    }
 
 }

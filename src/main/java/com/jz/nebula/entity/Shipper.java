@@ -12,51 +12,51 @@ import javax.persistence.Table;
 @Table(name = "shipper", schema = "public")
 public class Shipper implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3952309942343713378L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3952309942343713378L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private String name;
-	private String contact;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+    private String contact;
 
-	public Shipper() {
-	}
+    public Shipper() {
+    }
 
-	public Shipper(String name) {
-		this.name = name;
-	}
+    public Shipper(String name) {
+        this.name = name;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getContact() {
-		return contact;
-	}
+    public String getContact() {
+        return contact;
+    }
 
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("Shipper[id=%d, name='%s']", id, name);
-	}
+    @Override
+    public String toString() {
+        return String.format("Shipper[id=%d, name='%s']", id, name);
+    }
 
 }

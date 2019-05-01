@@ -16,57 +16,57 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "product_category", schema = "public")
 public class ProductCategory implements Serializable {
 
-	public ProductCategory() {
-	}
+    public ProductCategory() {
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7576563878222934393L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7576563878222934393L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String name;
+    private String name;
 
-	@JsonIgnore
-	@Column(name = "created_at", updatable = false, insertable = false)
-	private Date createdAt;
+    @JsonIgnore
+    @Column(name = "created_at", updatable = false, insertable = false)
+    private Date createdAt;
 
-	@JsonIgnore
-	@Column(name = "updated_at", updatable = false, insertable = false)
-	private Date updatedAt;
+    @JsonIgnore
+    @Column(name = "updated_at", updatable = false, insertable = false)
+    private Date updatedAt;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

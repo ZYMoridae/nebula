@@ -30,110 +30,110 @@ import com.jz.nebula.payment.PaymentType;
 @Service
 @Transactional
 public class PaymentService {
-	private final Logger logger = LogManager.getLogger(PaymentService.class);
-	
-	@Autowired
-	private IAuthenticationFacade authenticationFacade;
+    private final Logger logger = LogManager.getLogger(PaymentService.class);
 
-	@Autowired
-	private OrderRepository orderRepository;
+    @Autowired
+    private IAuthenticationFacade authenticationFacade;
 
-	@Autowired
-	private ProductRepository productRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
-	@Autowired
-	private OrderStatusRepository orderStatusRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
-	@Autowired
-	@Qualifier("stripeGateway")
-	private PaymentGateway paymentGateway;
+    @Autowired
+    private OrderStatusRepository orderStatusRepository;
 
-	public PaymentService() {
-	}
+    @Autowired
+    @Qualifier("stripeGateway")
+    private PaymentGateway paymentGateway;
 
-	public PaymentGateway getPaymentGatway() {
-		return paymentGateway;
-	}
+    public PaymentService() {
+    }
 
-	public void setPaymentGatway(PaymentGateway paymentGatway) {
-		this.paymentGateway = paymentGatway;
-	}
+    public PaymentGateway getPaymentGatway() {
+        return paymentGateway;
+    }
 
-	private Order getMyOrder() {
-		List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUser().getId(),
-				OrderStatus.StatusType.PENDING.value);
+    public void setPaymentGatway(PaymentGateway paymentGatway) {
+        this.paymentGateway = paymentGatway;
+    }
 
-		Order order = null;
-		if(orders.size() == 1) {
-			order = orders.get(0);
-		}
-		return order;
-	}
+    private Order getMyOrder() {
+        List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUser().getId(),
+                OrderStatus.StatusType.PENDING.value);
 
-	private synchronized void updateStock(OrderItem orderItem) throws ProductStockException {
-		Optional<Product> optional = productRepository.findById(orderItem.getProductId());
-		if (optional.isPresent()) {
-			Product product = optional.get();
-			AtomicInteger currentStock = new AtomicInteger(product.getUnitsInStock());
-			currentStock.addAndGet(orderItem.getQuantity() * -1);
-			if (currentStock.get() < 0) {
-				throw new ProductStockException();
-			}
+        Order order = null;
+        if (orders.size() == 1) {
+            order = orders.get(0);
+        }
+        return order;
+    }
 
-			product.setUnitsInStock(currentStock.get());
-			productRepository.save(product);
-			logger.info("Porduct id:[{}] stock was updated", product.getId());
-		}
-	}
+    private synchronized void updateStock(OrderItem orderItem) throws ProductStockException {
+        Optional<Product> optional = productRepository.findById(orderItem.getProductId());
+        if (optional.isPresent()) {
+            Product product = optional.get();
+            AtomicInteger currentStock = new AtomicInteger(product.getUnitsInStock());
+            currentStock.addAndGet(orderItem.getQuantity() * -1);
+            if (currentStock.get() < 0) {
+                throw new ProductStockException();
+            }
 
-	private Order updateOrderStatus(Order order) {
-		order.setOrderStatus(orderStatusRepository.findById((long) OrderStatus.StatusType.PAID.value).get());
-		return this.orderRepository.save(order);
-	}
+            product.setUnitsInStock(currentStock.get());
+            productRepository.save(product);
+            logger.info("Porduct id:[{}] stock was updated", product.getId());
+        }
+    }
 
-	@Transactional(rollbackFor = { Exception.class, ProductStockException.class })
-	public Object finaliseOrder() throws Exception {
-		Payment payment = new Payment();
-		Order order = this.getMyOrder();
-		if(order == null) {
-			throw new Exception();
-		}
-		Optional<Double> totalAmount = order.getOrderItems().stream().map(item -> item.getAmount()).reduce((x, y) -> x + y);
-		Object charge;
-		order.getOrderItems().stream().forEach(item -> {
-			try {
-				this.updateStock(item);
-			} catch (ProductStockException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
-		});
+    private Order updateOrderStatus(Order order) {
+        order.setOrderStatus(orderStatusRepository.findById((long) OrderStatus.StatusType.PAID.value).get());
+        return this.orderRepository.save(order);
+    }
 
-		if (totalAmount.isPresent()) {
-			payment.setAmount(totalAmount.get().intValue());
-			payment.setType(PaymentType.CHARGE);
-			payment.setCurrency("aud");
-			payment.setSource("tok_visa");
-			payment.setReceiptEmail(authenticationFacade.getUser().getEmail());
-			charge = this.doPayment(payment);
-			logger.info("Order id:[{}] has been charged", order.getId());
-			
-			// Update the order status
-			order.setOrderStatusId((long) OrderStatus.StatusType.PAID.value);
-			order = this.updateOrderStatus(order);
-			logger.info("Order id:[{}] status has been updated", order.getId());
-		} else {
-			throw new Exception();
-		}
-		Map<String, Object> result = new ConcurrentHashMap<>();
-		result.put("payment", charge);
-		result.put("order", order);
+    @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
+    public Object finaliseOrder() throws Exception {
+        Payment payment = new Payment();
+        Order order = this.getMyOrder();
+        if (order == null) {
+            throw new Exception();
+        }
+        Optional<Double> totalAmount = order.getOrderItems().stream().map(item -> item.getAmount()).reduce((x, y) -> x + y);
+        Object charge;
+        order.getOrderItems().stream().forEach(item -> {
+            try {
+                this.updateStock(item);
+            } catch (ProductStockException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        });
 
-		return result;
-	}
+        if (totalAmount.isPresent()) {
+            payment.setAmount(totalAmount.get().intValue());
+            payment.setType(PaymentType.CHARGE);
+            payment.setCurrency("aud");
+            payment.setSource("tok_visa");
+            payment.setReceiptEmail(authenticationFacade.getUser().getEmail());
+            charge = this.doPayment(payment);
+            logger.info("Order id:[{}] has been charged", order.getId());
 
-	public Object doPayment(Payment payment) throws Exception {
-		return paymentGateway.doPayment(payment);
-	}
+            // Update the order status
+            order.setOrderStatusId((long) OrderStatus.StatusType.PAID.value);
+            order = this.updateOrderStatus(order);
+            logger.info("Order id:[{}] status has been updated", order.getId());
+        } else {
+            throw new Exception();
+        }
+        Map<String, Object> result = new ConcurrentHashMap<>();
+        result.put("payment", charge);
+        result.put("order", order);
+
+        return result;
+    }
+
+    public Object doPayment(Payment payment) throws Exception {
+        return paymentGateway.doPayment(payment);
+    }
 
 }

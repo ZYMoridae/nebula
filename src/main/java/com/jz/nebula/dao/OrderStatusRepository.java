@@ -1,11 +1,10 @@
 package com.jz.nebula.dao;
 
-import java.util.Optional;
-
+import com.jz.nebula.entity.OrderStatus;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.jz.nebula.entity.OrderStatus;
+import java.util.Optional;
 
 public interface OrderStatusRepository extends PagingAndSortingRepository<OrderStatus, Long> {
-	Optional<OrderStatus> findByName(String name);
+    Optional<OrderStatus> findByName(String name);
 }

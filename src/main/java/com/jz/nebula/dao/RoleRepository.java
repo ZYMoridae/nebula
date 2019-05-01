@@ -1,11 +1,10 @@
 package com.jz.nebula.dao;
 
-import java.util.Optional;
-
+import com.jz.nebula.entity.Role;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.jz.nebula.entity.Role;
+import java.util.Optional;
 
 public interface RoleRepository extends PagingAndSortingRepository<Role, Long> {
-	Optional<Role> findByCode(String code);
+    Optional<Role> findByCode(String code);
 }

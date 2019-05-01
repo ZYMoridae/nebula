@@ -8,15 +8,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.jz.nebula.service.TokenService;
 
 public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-	private TokenService jwtTokenProvider;
+    private TokenService jwtTokenProvider;
 
-	public JwtConfigurer(TokenService jwtTokenProvider) {
-		this.jwtTokenProvider = jwtTokenProvider;
-	}
+    public JwtConfigurer(TokenService jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		JwtTokenFilter customFilter = new JwtTokenFilter(jwtTokenProvider);
-		http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
-	}
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        JwtTokenFilter customFilter = new JwtTokenFilter(jwtTokenProvider);
+        http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+    }
 }

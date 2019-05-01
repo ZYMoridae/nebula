@@ -10,11 +10,11 @@ import com.jz.nebula.auth.AuthenticationFacade;
 @Service
 public class AuthService {
 
-	@Autowired
-	AuthenticationFacade authenticationFacade;
-	
-	public boolean verifyUser(String credential) {
-		String encodedCredential = new BCryptPasswordEncoder().encode(credential);
-		return authenticationFacade.getUser().getPassword().equals(encodedCredential);
-	}
+    @Autowired
+    AuthenticationFacade authenticationFacade;
+
+    public boolean verifyUser(String credential) {
+        String encodedCredential = new BCryptPasswordEncoder().encode(credential);
+        return authenticationFacade.getUser().getPassword().equals(encodedCredential);
+    }
 }

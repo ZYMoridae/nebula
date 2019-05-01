@@ -17,41 +17,41 @@ import com.jz.nebula.entity.UserPreference;
 
 public class UserPreferenceService {
 
-	@Autowired
-	private UserPreferenceRepository userPreferenceRepository;
+    @Autowired
+    private UserPreferenceRepository userPreferenceRepository;
 
-	public PagedResources<Resource<UserPreference>> findAll(Pageable pageable,
-			PagedResourcesAssembler<UserPreference> assembler) {
-		Page<UserPreference> page = userPreferenceRepository.findAll(pageable);
+    public PagedResources<Resource<UserPreference>> findAll(Pageable pageable,
+                                                            PagedResourcesAssembler<UserPreference> assembler) {
+        Page<UserPreference> page = userPreferenceRepository.findAll(pageable);
 
-		PagedResources<Resource<UserPreference>> resources = assembler.toResource(page,
-				linkTo(UserPreferenceController.class).slash("/user-preferences").withSelfRel());
-		;
-		return resources;
-	}
+        PagedResources<Resource<UserPreference>> resources = assembler.toResource(page,
+                linkTo(UserPreferenceController.class).slash("/user-preferences").withSelfRel());
+        ;
+        return resources;
+    }
 
-	public UserPreference save(UserPreference userPreference) {
-		UserPreference updatedUserPreference = userPreferenceRepository.save(userPreference);
+    public UserPreference save(UserPreference userPreference) {
+        UserPreference updatedUserPreference = userPreferenceRepository.save(userPreference);
 
-		return findById(updatedUserPreference.getId());
-	}
+        return findById(updatedUserPreference.getId());
+    }
 
-	public UserPreference findById(long id) {
-		return userPreferenceRepository.findById(id).get();
-	}
+    public UserPreference findById(long id) {
+        return userPreferenceRepository.findById(id).get();
+    }
 
-	public void delete(long id) {
-		userPreferenceRepository.deleteById(id);
-	}
-	
-	/**
-	 * Get all user preferences under specific type. e.g. Get all shipping
-	 * addresses for user.
-	 * 
-	 * @param userPreferenceTypeId
-	 * @return
-	 */
-	public List<UserPreference> findByUserPreferenceTypeId(Long userPreferenceTypeId) {
-		return userPreferenceRepository.findByUserPreferenceTypeId(userPreferenceTypeId);
-	}
+    public void delete(long id) {
+        userPreferenceRepository.deleteById(id);
+    }
+
+    /**
+     * Get all user preferences under specific type. e.g. Get all shipping
+     * addresses for user.
+     *
+     * @param userPreferenceTypeId
+     * @return
+     */
+    public List<UserPreference> findByUserPreferenceTypeId(Long userPreferenceTypeId) {
+        return userPreferenceRepository.findByUserPreferenceTypeId(userPreferenceTypeId);
+    }
 }

@@ -1,8 +1,8 @@
 package com.jz.nebula.redis;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.jz.nebula.redis.queue.MessagePublisher;
+import com.jz.nebula.redis.queue.RedisMessagePublisher;
+import com.jz.nebula.redis.queue.RedisMessageSubscriber;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,15 +16,15 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
-//import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-//import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 
-import com.jz.nebula.redis.queue.MessagePublisher;
-import com.jz.nebula.redis.queue.RedisMessagePublisher;
-import com.jz.nebula.redis.queue.RedisMessageSubscriber;
+import java.util.Arrays;
+import java.util.List;
+
+//import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+//import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
 @Configuration
 @ComponentScan("com.jz.nebula")
@@ -43,6 +43,11 @@ public class RedisConfig {
 
     @Value("${spring.redis.cluster.nodes}")
     private String redisClusterNodes;
+
+    @Bean
+    public static ConfigureRedisAction configureRedisAction() {
+        return ConfigureRedisAction.NO_OP;
+    }
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
@@ -89,11 +94,6 @@ public class RedisConfig {
         container.setConnectionFactory(jedisConnectionFactory());
         container.addMessageListener(messageListener(), topic());
         return container;
-    }
-
-    @Bean
-    public static ConfigureRedisAction configureRedisAction() {
-        return ConfigureRedisAction.NO_OP;
     }
 
     @Bean

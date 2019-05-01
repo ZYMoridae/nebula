@@ -1,11 +1,10 @@
 package com.jz.nebula.dao;
 
-import java.util.List;
-
+import com.jz.nebula.entity.UserPreference;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.jz.nebula.entity.UserPreference;
+import java.util.List;
 
 public interface UserPreferenceRepository extends PagingAndSortingRepository<UserPreference, Long> {
-	List<UserPreference> findByUserPreferenceTypeId(Long id);
+    List<UserPreference> findByUserPreferenceTypeId(Long id);
 }
