@@ -55,6 +55,12 @@ public class CartItemController {
         return cartItemService.findByCartId(cartId, pageable, assembler);
     }
 
+    /**
+     *
+     * @param cartItem
+     * @return
+     * @throws Exception
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -67,6 +73,13 @@ public class CartItemController {
         return savedCartItem;
     }
 
+    /**
+     *
+     * @param id
+     * @param cartItem
+     * @return
+     * @throws Exception
+     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -75,6 +88,11 @@ public class CartItemController {
         return cartItemService.save(cartItem);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -83,6 +101,12 @@ public class CartItemController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/{id}/towishlistitem")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

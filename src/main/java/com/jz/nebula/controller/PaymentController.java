@@ -14,6 +14,12 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
+    /**
+     *
+     * @param payment
+     * @return
+     * @throws Exception
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -21,6 +27,11 @@ public class PaymentController {
         return this.paymentService.doPayment(payment);
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/finalise")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

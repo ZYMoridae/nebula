@@ -27,6 +27,14 @@ public class OrderController {
     @Autowired
     private MessageProducer messageProducer;
 
+    /**
+     *
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -35,6 +43,11 @@ public class OrderController {
         return orderService.findAll(pageable, assembler);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -42,6 +55,10 @@ public class OrderController {
         return orderService.findById(id);
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/my")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -49,6 +66,15 @@ public class OrderController {
         return orderService.getCurrentActivatedOrder();
     }
 
+    /**
+     *
+     * @param id
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
     @GetMapping("/users/{id}")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
@@ -57,6 +83,11 @@ public class OrderController {
         return orderService.findByUserId(id, pageable, assembler);
     }
 
+    /**
+     *
+     * @param order
+     * @return
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -64,6 +95,12 @@ public class OrderController {
         return orderService.save(order);
     }
 
+    /**
+     *
+     * @param id
+     * @param order
+     * @return
+     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -72,6 +109,11 @@ public class OrderController {
         return orderService.save(order);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -80,6 +122,10 @@ public class OrderController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     *
+     * @param message
+     */
     @PostMapping(value = "/messages")
     public void sendMessage(@RequestBody String message) {
         messageProducer.sendMessage(message);

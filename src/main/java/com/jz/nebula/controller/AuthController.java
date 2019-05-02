@@ -44,6 +44,11 @@ public class AuthController {
     @Autowired
     UserRepository users;
 
+    /**
+     *
+     * @param headers
+     * @return
+     */
     @PostMapping("/signin")
 //  @RequestBody AuthenticationRequest data, 
     public ResponseEntity<?> signin(@RequestHeader HttpHeaders headers) {
@@ -72,6 +77,11 @@ public class AuthController {
         }
     }
 
+    /**
+     *
+     * @param headers
+     * @return
+     */
     @PostMapping("/verify")
     public ResponseEntity<?> verify(@RequestHeader HttpHeaders headers) {
         String verificationValue = headers.getFirst(VERIFICATION_HEADER);

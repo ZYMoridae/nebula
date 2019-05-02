@@ -2,6 +2,8 @@ package com.jz.nebula;
 
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
+    private final Logger logger = LogManager.getLogger(CustomAuthenticationProvider.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -24,14 +27,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        System.out.println("#########");
-        System.out.println(name);
-
         User user = userRepository.findByUsername(name).get();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if (encoder.matches(password, user.getPassword())) {
-
+            logger.info("User with name:[{}] has been authenticated.", name);
             // use the credentials
             // and authenticate against the third-party system
             return new UsernamePasswordAuthenticationToken(name, password, new ArrayList<>());

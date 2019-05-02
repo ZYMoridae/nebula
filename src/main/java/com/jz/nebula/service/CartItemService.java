@@ -117,7 +117,7 @@ public class CartItemService {
     @Transactional(rollbackFor = {Exception.class})
     public synchronized CartItem save(CartItem cartItem) throws Exception {
         boolean isValid = cartItemValidator.validate(cartItem);
-        CartItem updatedCartItem = null;
+        CartItem updatedCartItem;
         if (!isValid) {
             return null;
         }

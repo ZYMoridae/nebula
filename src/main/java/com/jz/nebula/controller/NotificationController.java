@@ -31,6 +31,14 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
+    /**
+     *
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -39,6 +47,11 @@ public class NotificationController {
         return notificationService.findAll(pageable, assembler);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -46,6 +59,11 @@ public class NotificationController {
         return notificationService.findById(id);
     }
 
+    /**
+     *
+     * @param notification
+     * @return
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -53,6 +71,12 @@ public class NotificationController {
         return notificationService.save(notification);
     }
 
+    /**
+     *
+     * @param id
+     * @param notification
+     * @return
+     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -61,6 +85,11 @@ public class NotificationController {
         return notificationService.save(notification);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

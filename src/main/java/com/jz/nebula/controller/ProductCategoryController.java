@@ -21,6 +21,14 @@ public class ProductCategoryController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
+    /**
+     *
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -30,6 +38,11 @@ public class ProductCategoryController {
         return productCategoryService.findAll(pageable, assembler);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -37,6 +50,11 @@ public class ProductCategoryController {
         return productCategoryService.findById(id);
     }
 
+    /**
+     *
+     * @param productCategory
+     * @return
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -44,6 +62,12 @@ public class ProductCategoryController {
         return productCategoryService.save(productCategory);
     }
 
+    /**
+     *
+     * @param id
+     * @param productCategory
+     * @return
+     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -53,6 +77,11 @@ public class ProductCategoryController {
         return productCategoryService.save(productCategory);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

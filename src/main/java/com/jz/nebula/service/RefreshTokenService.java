@@ -60,7 +60,7 @@ public class RefreshTokenService {
      * @return
      */
     public String createRefreshToken(String username, List<String> roles, Key secretKey) {
-        String refreshToken = null;
+        String refreshToken;
 
         Claims claims = Jwts.claims().setSubject(username + refreshTokenHashKeyPostfix);
         claims.put("roles", roles);

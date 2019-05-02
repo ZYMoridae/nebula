@@ -36,6 +36,15 @@ public class ProductController {
     @Autowired
     private ProductCommentService productCommentService;
 
+    /**
+     *
+     * @param keyword
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -45,6 +54,11 @@ public class ProductController {
         return prouductService.findAll(keyword, pageable, assembler);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -52,6 +66,11 @@ public class ProductController {
         return prouductService.findById(id);
     }
 
+    /**
+     *
+     * @param product
+     * @return
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -59,6 +78,12 @@ public class ProductController {
         return prouductService.save(product);
     }
 
+    /**
+     *
+     * @param id
+     * @param product
+     * @return
+     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -67,6 +92,11 @@ public class ProductController {
         return prouductService.save(product);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -75,7 +105,13 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    //****** Product Rating ******
+    //--------- Product Rating ----------
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}/ratings")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -83,6 +119,12 @@ public class ProductController {
         return productRatingService.getRating(id);
     }
 
+    /**
+     *
+     * @param id
+     * @param productRating
+     * @return
+     */
     @PostMapping("/{id}/ratings")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -92,6 +134,12 @@ public class ProductController {
         return productRatingService.save(productRating);
     }
 
+    /**
+     *
+     * @param productRatingId
+     * @param productRating
+     * @return
+     */
     @PutMapping("/ratings/{product_rating_id}")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
@@ -101,6 +149,11 @@ public class ProductController {
         return productRatingService.save(productRating);
     }
 
+    /**
+     *
+     * @param productRatingId
+     * @return
+     */
     @DeleteMapping("/ratings/{product_rating_id}")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
@@ -110,7 +163,14 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    //****** Product Comment ******
+    //----- Product Comment -----
+
+    /**
+     *
+     * @param id
+     * @param productComment
+     * @return
+     */
     @PostMapping("/{id}/comments")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -120,6 +180,15 @@ public class ProductController {
         return productCommentService.save(productComment);
     }
 
+    /**
+     *
+     * @param id
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
     @GetMapping("/{id}/comments")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -129,6 +198,12 @@ public class ProductController {
         return productCommentService.findByProductIdAndParentCommentId(id, pageable, assembler);
     }
 
+    /**
+     *
+     * @param id
+     * @param commentId
+     * @return
+     */
     @DeleteMapping("/{id}/comments/{comment_id}")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
@@ -139,6 +214,12 @@ public class ProductController {
     }
 
     // This is for streaming JSON test
+
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/streaming")
     public @ResponseBody
     Object streamingTest() throws IOException {

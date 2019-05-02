@@ -19,6 +19,14 @@ public class UserPreferenceController {
     @Autowired
     private UserPreferenceService userPreferenceService;
 
+    /**
+     *
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -27,6 +35,11 @@ public class UserPreferenceController {
         return userPreferenceService.findAll(pageable, assembler);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -34,6 +47,11 @@ public class UserPreferenceController {
         return userPreferenceService.findById(id);
     }
 
+    /**
+     *
+     * @param userPreference
+     * @return
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -41,6 +59,12 @@ public class UserPreferenceController {
         return userPreferenceService.save(userPreference);
     }
 
+    /**
+     *
+     * @param id
+     * @param userPreference
+     * @return
+     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -49,6 +73,11 @@ public class UserPreferenceController {
         return userPreferenceService.save(userPreference);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

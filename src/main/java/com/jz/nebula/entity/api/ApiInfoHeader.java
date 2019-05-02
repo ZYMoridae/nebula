@@ -1,5 +1,6 @@
 package com.jz.nebula.entity.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -50,6 +51,7 @@ public class ApiInfoHeader implements Serializable {
         this.value = value;
     }
 
+    @JsonIgnore
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -58,6 +60,7 @@ public class ApiInfoHeader implements Serializable {
         this.createdAt = createdAt;
     }
 
+    @JsonIgnore
     public Date getUpdatedAt() {
         return updatedAt;
     }

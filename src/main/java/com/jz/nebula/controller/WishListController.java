@@ -14,6 +14,11 @@ public class WishListController {
     @Autowired
     private WishListService wishListService;
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/user/{id}")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
@@ -21,6 +26,10 @@ public class WishListController {
         return wishListService.getWishList(id);
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping(value = "/my")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

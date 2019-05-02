@@ -22,7 +22,7 @@ public class ProductService {
 
     public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
                                                      PagedResourcesAssembler<Product> assembler) {
-        Page<Product> page = null;
+        Page<Product> page;
         if (keyword == "") {
             page = productRepository.findAll(pageable);
         } else {

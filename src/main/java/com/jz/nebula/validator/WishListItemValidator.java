@@ -19,7 +19,7 @@ import com.jz.nebula.entity.Product;
 import com.jz.nebula.entity.WishListItem;
 
 @Component("wishListItemValidator")
-public class WishListItemValidator implements ValidatorInterface, Serializable {
+public class WishListItemValidator extends BaseValidator implements ValidatorInterface, Serializable {
 
     private final Logger logger = LogManager.getLogger(WishListItemValidator.class);
 
@@ -37,18 +37,6 @@ public class WishListItemValidator implements ValidatorInterface, Serializable {
 
     private Predicate<Method> filterValidationMethod() {
         return p -> p.getName().startsWith("is") && p.getAnnotation(Order.class) != null;
-    }
-
-    private int validatorSorter(Method m1, Method m2) {
-        int order1 = m1.getAnnotation(Order.class).value();
-        int order2 = m2.getAnnotation(Order.class).value();
-        if (order1 < order2) {
-            return -1;
-        } else if (order1 > order2) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 
     private boolean validateCallback(Method method, WishListItem wishListItem) {
@@ -81,6 +69,7 @@ public class WishListItemValidator implements ValidatorInterface, Serializable {
         return isValid.get();
     }
 
+    // FIXME: Duplicate logic in other validator
     @Order(1)
     private boolean isProductExist(WishListItem wishListItem) {
         long productId = wishListItem.getProductId();
@@ -95,6 +84,7 @@ public class WishListItemValidator implements ValidatorInterface, Serializable {
         return isPresent;
     }
 
+    // FIXME: Duplicate logic in other validator
     @Order(2)
     private boolean isQuantityValid(WishListItem wishListItem) {
         Optional<Product> optional = productRepository.findById(wishListItem.getProductId());

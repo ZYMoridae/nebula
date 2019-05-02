@@ -19,7 +19,7 @@ import com.jz.nebula.entity.CartItem;
 import com.jz.nebula.entity.Product;
 
 @Component("cartItemValidator")
-public class CartItemValidator implements ValidatorInterface, Serializable {
+public class CartItemValidator extends BaseValidator implements ValidatorInterface, Serializable {
 
     private final Logger logger = LogManager.getLogger(CartItemValidator.class);
 
@@ -37,18 +37,6 @@ public class CartItemValidator implements ValidatorInterface, Serializable {
 
     private Predicate<Method> filterValidationMethod() {
         return p -> p.getName().startsWith("is") && p.getAnnotation(Order.class) != null;
-    }
-
-    private int validatorSorter(Method m1, Method m2) {
-        int order1 = m1.getAnnotation(Order.class).value();
-        int order2 = m2.getAnnotation(Order.class).value();
-        if (order1 < order2) {
-            return -1;
-        } else if (order1 > order2) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 
     private boolean validateCallback(Method method, CartItem cartItem) {

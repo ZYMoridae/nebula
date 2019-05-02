@@ -17,11 +17,17 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Load user from database by username
+     *
+     * @param username
+     * @return
+     */
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByUsername(username).get();
-        UserBuilder builder = null;
+        UserBuilder builder;
         builder = org.springframework.security.core.userdetails.User.withUsername(username);
         builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
         builder.roles(user.getRole().getCode());

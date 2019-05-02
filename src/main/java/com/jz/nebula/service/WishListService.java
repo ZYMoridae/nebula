@@ -18,10 +18,21 @@ public class WishListService {
     @Autowired
     private WishListRepository wishListRepository;
 
+    /**
+     * Get wish list
+     *
+     * @param id
+     * @return
+     */
     public WishList getWishList(long id) {
         return wishListRepository.findByUserId(id);
     }
 
+    /**
+     * Get current user wish list
+     *
+     * @return
+     */
     public WishList getMyWishList() {
         return wishListRepository.findByUserId(authenticationFacade.getUser().getId());
     }

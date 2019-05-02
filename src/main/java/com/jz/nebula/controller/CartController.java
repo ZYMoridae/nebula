@@ -24,6 +24,11 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/user/{id}")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
@@ -31,6 +36,10 @@ public class CartController {
         return cartService.getCart(id);
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping(value = "/my")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -38,6 +47,11 @@ public class CartController {
         return cartService.getMyCart();
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @PostMapping(value = "/finalise")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -45,6 +59,12 @@ public class CartController {
         return cartService.cartToOrder();
     }
 
+    /**
+     *
+     * @param cartItems
+     * @return
+     * @throws Exception
+     */
     @PostMapping(value = "/bulk")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

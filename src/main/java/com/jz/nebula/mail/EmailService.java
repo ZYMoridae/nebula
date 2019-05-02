@@ -19,6 +19,13 @@ public class EmailService implements EmailServiceInterface {
 	@Autowired
 	public JavaMailSender emailSender;
 
+	/**
+	 *
+	 * @param from
+	 * @param to
+	 * @param subject
+	 * @param text
+	 */
 	public void sendSimpleMessage(String from, String to, String subject, String text) {
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();
@@ -33,6 +40,14 @@ public class EmailService implements EmailServiceInterface {
 		}
 	}
 
+	/**
+	 *
+	 * @param from
+	 * @param to
+	 * @param subject
+	 * @param template
+	 * @param templateArgs
+	 */
 	@Override
 	public void sendSimpleMessageUsingTemplate(String from, String to, String subject, SimpleMailMessage template,
 			String... templateArgs) {

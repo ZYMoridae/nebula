@@ -23,6 +23,11 @@ public class WishListItemController {
     @Autowired
     private WishListItemService wishListItemService;
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -49,6 +54,12 @@ public class WishListItemController {
         return wishListItemService.findByWishListId(wishListId, pageable, assembler);
     }
 
+    /**
+     *
+     * @param wishListItem
+     * @return
+     * @throws Exception
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -61,6 +72,13 @@ public class WishListItemController {
         return savedWishListItem;
     }
 
+    /**
+     *
+     * @param id
+     * @param wishListItem
+     * @return
+     * @throws Exception
+     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -70,6 +88,11 @@ public class WishListItemController {
         return wishListItemService.save(wishListItem);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -78,6 +101,13 @@ public class WishListItemController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     *
+     * @param id
+     * @param wishListItem
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/{id}/tocartitem")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

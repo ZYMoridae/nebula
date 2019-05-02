@@ -72,7 +72,7 @@ public class CartService {
     /**
      * Create order
      *
-     * @param cart
+     * @param orderItems
      * @return
      */
     private Order createOrder(Set<OrderItem> orderItems) {
@@ -137,7 +137,7 @@ public class CartService {
      */
     @Transactional(rollbackFor = {Exception.class})
     public Order cartToOrder(List<CartItem> cartItemList) throws Exception {
-        Order order = null;
+        Order order;
         Cart cart = getMyCart();
         Set<CartItem> persistedCartItems = cart.getCartItems();
 

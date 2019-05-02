@@ -31,6 +31,14 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
+    /**
+     *
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -39,6 +47,11 @@ public class LocationController {
         return locationService.findAll(pageable, assembler);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -46,6 +59,11 @@ public class LocationController {
         return locationService.findById(id);
     }
 
+    /**
+     *
+     * @param location
+     * @return
+     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
@@ -53,6 +71,12 @@ public class LocationController {
         return locationService.save(location);
     }
 
+    /**
+     *
+     * @param id
+     * @param location
+     * @return
+     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
@@ -61,6 +85,11 @@ public class LocationController {
         return locationService.save(location);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody

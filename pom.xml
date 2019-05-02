@@ -32,7 +32,7 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Remove this dependency when package as a jar file -->
 		<dependency>
 		   <groupId>org.springframework.boot</groupId>

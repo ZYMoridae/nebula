@@ -82,7 +82,7 @@ public class PaymentService {
 
             product.setUnitsInStock(currentStock.get());
             productRepository.save(product);
-            logger.info("Porduct id:[{}] stock was updated", product.getId());
+            logger.info("Product id:[{}] stock was updated", product.getId());
         }
     }
 

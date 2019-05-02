@@ -15,12 +15,22 @@ public class TokenController {
     @Autowired
     RefreshTokenService refreshTokenService;
 
+    /**
+     *
+     * @param refreshToken
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/refresh")
     public @ResponseBody
     Map<?, ?> refreshToken(@RequestParam String refreshToken) throws Exception {
         return refreshTokenService.refreshToken(refreshToken);
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

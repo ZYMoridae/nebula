@@ -22,12 +22,12 @@ public class ApiInfo {
     @JoinColumn(name = "api_category_id", updatable = false, insertable = false)
     private ApiCategory apiCategory;
 
-    private String reqeust;
+    private String request;
 
     private String response;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="api_info_id", nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "api_info_id", nullable = false)
     private Set<ApiInfoHeader> apiInfoHeaders;
 
     @Column(name = "created_at", updatable = false, insertable = false)
@@ -76,12 +76,12 @@ public class ApiInfo {
         this.apiCategory = apiCategory;
     }
 
-    public String getReqeust() {
-        return reqeust;
+    public String getRequest() {
+        return request;
     }
 
-    public void setReqeust(String reqeust) {
-        this.reqeust = reqeust;
+    public void setRequest(String request) {
+        this.request = request;
     }
 
     public String getResponse() {

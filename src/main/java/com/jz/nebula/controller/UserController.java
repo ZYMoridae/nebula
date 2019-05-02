@@ -38,6 +38,11 @@ public class UserController {
     @Autowired
     private IAuthenticationFacade authenticationFacade;
 
+    /**
+     *
+     * @param userDetails
+     * @return
+     */
     @GetMapping("/me")
     public ResponseEntity<?> currentUser(@AuthenticationPrincipal UserDetails userDetails) {
         Map<Object, Object> model = new HashMap<>();
@@ -75,6 +80,13 @@ public class UserController {
         return ok(map);
     }
 
+    /**
+     *
+     * @param id
+     * @param user
+     * @return
+     * @throws Exception
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) throws Exception {
         if (id != authenticationFacade.getUser().getId()) {

@@ -32,11 +32,20 @@ public class StripeGateway implements PaymentGateway {
 
     }
 
+    /**
+     * Load config
+     */
     @PostConstruct
     public void loadConfig() {
         Stripe.apiKey = properties.getApi().getKey();
     }
 
+    /**
+     *
+     * @param payment
+     * @return
+     * @throws InvalidPaymentException
+     */
     private boolean isValidPayment(Payment payment) throws InvalidPaymentException {
         boolean isValid = false;
         if (payment.getAmount() <= 0 || payment.getCurrency().isEmpty()) {
@@ -46,7 +55,11 @@ public class StripeGateway implements PaymentGateway {
         return isValid;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     *
+     * @param payment
+     * @return
+     */
     private Map<String, Object> constructChargeParams(Payment payment) {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.convertValue(payment, Map.class);
@@ -61,6 +74,13 @@ public class StripeGateway implements PaymentGateway {
         return chargedPayment;
     }
 
+    /**
+     *
+     * @param paramCustomer
+     * @return
+     * @throws StripeException
+     * @throws InvalidCustomerException
+     */
     public synchronized Customer createCustomer(Customer paramCustomer)
             throws StripeException, InvalidCustomerException {
         Map<String, Object> customerParams = new HashMap<String, Object>();
@@ -73,6 +93,14 @@ public class StripeGateway implements PaymentGateway {
         return customer;
     }
 
+    /**
+     *
+     * @param paramCustomer
+     * @param tokenId
+     * @return
+     * @throws InvalidCustomerException
+     * @throws StripeException
+     */
     public synchronized Customer updateCustomer(Customer paramCustomer, String tokenId)
             throws InvalidCustomerException, StripeException {
         Map<String, Object> params = new HashMap<String, Object>();

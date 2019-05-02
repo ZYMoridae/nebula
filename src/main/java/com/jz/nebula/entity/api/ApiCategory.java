@@ -1,5 +1,7 @@
 package com.jz.nebula.entity.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -36,6 +38,7 @@ public class ApiCategory implements Serializable {
         this.name = name;
     }
 
+    @JsonIgnore
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -44,6 +47,7 @@ public class ApiCategory implements Serializable {
         this.createdAt = createdAt;
     }
 
+    @JsonIgnore
     public Date getUpdatedAt() {
         return updatedAt;
     }
