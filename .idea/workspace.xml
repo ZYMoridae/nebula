@@ -6,49 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2cbd913-5727-49ca-ad93-cfdf16f144df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiCategoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiCategoryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoHeaderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiCategoryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/validator/BaseValidator.java" afterDir="false" />
+    <list default="true" id="f2cbd913-5727-49ca-ad93-cfdf16f144df" name="Default Changelist" comment="Add API services">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/CustomAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/CustomAuthenticationProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/LocationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/NotificationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ProductCategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ProductCategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ShipperController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ShipperController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/TokenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/TokenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserPreferenceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserPreferenceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/WishListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/WishListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/WishListItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/WishListItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiCategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiCategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfoHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfoHeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/hibernate/GenericArrayUserType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/hibernate/GenericArrayUserType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/mail/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/mail/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/PaymentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/PaymentType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/StripeGateway.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/StripeGateway.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/RefreshTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/RefreshTokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/validator/CartItemValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/validator/CartItemValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/validator/WishListItemValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/validator/WishListItemValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -76,70 +40,120 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/SessionConfig.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/WishListItemController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1054">
-                  <caret line="104" column="7" selection-start-line="104" selection-start-column="7" selection-end-line="104" selection-end-column="7" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiCategory.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="630">
-                  <caret line="58" selection-start-line="58" selection-end-line="58" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoRepository.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="7" selection-start-line="7" selection-end-line="7" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoHeaderRepository.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="26" selection-start-column="26" selection-end-column="26" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/SessionConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiCategoryController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="833">
+              <caret line="78" column="6" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="36" column="34" lean-forward="true" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="511">
+              <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1123#1124#0" expanded="true" />
+                <element signature="e#1166#1167#0" expanded="true" />
+                <element signature="e#1997#1998#0" expanded="true" />
+                <element signature="e#2243#2244#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiCategoryRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+              <folding>
+                <element signature="e#1071#1072#0" expanded="true" />
+                <element signature="e#1102#1103#0" expanded="true" />
+                <element signature="e#1150#1151#0" expanded="true" />
+                <element signature="e#1190#1191#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sql/migration_1557148164_20190506.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ProductRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="8" column="72" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ProductController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="54" column="5" lean-forward="true" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -167,7 +181,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/InvalidCustomerException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/InvalidPaymentException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/PaymentGateway.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/StripeApiKeyNotFoundException.java" />
@@ -176,14 +189,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/jwt/JwtConfigurer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/jwt/JwtTokenFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/exception/ProductStockException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiCategoryRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoHeaderRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/hibernate/GenericArrayUserType.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfoHeader.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiCategory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/BaseService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiCategoryService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/CustomAuthenticationProvider.java" />
@@ -202,7 +211,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/mail/EmailService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiCategoryController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/AuthController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartItemController.java" />
@@ -218,6 +226,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserPreferenceController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/WishListController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/WishListItemController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiCategoryRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java" />
+        <option value="$PROJECT_DIR$/sql/migration_1557148164_20190506.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfo.java" />
       </list>
     </option>
   </component>
@@ -242,13 +256,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
               <item name="nebula" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
@@ -292,7 +311,44 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
               <item name="payment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
@@ -307,7 +363,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -422,7 +478,13 @@
       <workItem from="1556621400848" duration="5019000" />
       <workItem from="1556700424354" duration="4787000" />
       <workItem from="1556784089493" duration="10051000" />
-      <workItem from="1556799777501" duration="1748000" />
+      <workItem from="1556799777501" duration="2251000" />
+      <workItem from="1556875337473" duration="2789000" />
+      <workItem from="1556926382696" duration="2298000" />
+      <workItem from="1556961670150" duration="899000" />
+      <workItem from="1557011283593" duration="1309000" />
+      <workItem from="1557036675975" duration="4202000" />
+      <workItem from="1557130616553" duration="5036000" />
     </task>
     <task id="LOCAL-00001" summary="Add API entities">
       <created>1556626672008</created>
@@ -438,17 +500,24 @@
       <option name="project" value="LOCAL" />
       <updated>1556713043443</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add API services">
+      <created>1556801566556</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1556801566556</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30314000" />
+    <option name="totallyTimeSpent" value="47350000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="2560" height="1417" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15011914" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15726767" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -459,7 +528,7 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32981133" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32981133" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -530,67 +599,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add API entities" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add API entities" />
+    <MESSAGE value="Add API services" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add API services" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/validator/BaseValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListItemService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
-          <folding>
-            <element signature="e#681#682#0" expanded="true" />
-            <element signature="e#739#740#0" expanded="true" />
-            <element signature="e#837#838#0" expanded="true" />
-            <element signature="e#931#932#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserPreferenceService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="1957" column="18" selection-start-line="1957" selection-start-column="18" selection-end-line="1957" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ShipperService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/RefreshTokenService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -728,19 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="78" column="7" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
-          <folding>
-            <element signature="e#1574#1575#0" expanded="true" />
-            <element signature="e#1624#1625#0" expanded="true" />
-            <element signature="e#1793#1794#0" expanded="true" />
-            <element signature="e#1844#1845#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/StripeProperties.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -782,19 +781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiCategoryController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="78" column="6" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
-          <folding>
-            <element signature="e#1623#1624#0" expanded="true" />
-            <element signature="e#1677#1678#0" expanded="true" />
-            <element signature="e#1923#1924#0" expanded="true" />
-            <element signature="e#1982#1983#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -813,16 +799,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="654">
           <caret line="101" column="22" lean-forward="true" selection-start-line="101" selection-start-column="22" selection-end-line="101" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="77" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -894,21 +870,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="715">
-          <caret line="218" column="7" selection-start-line="218" selection-start-column="7" selection-end-line="218" selection-end-column="7" />
-          <folding>
-            <element signature="e#2166#2167#0" expanded="true" />
-            <element signature="e#2217#2218#0" expanded="true" />
-            <element signature="e#2370#2371#0" expanded="true" />
-            <element signature="e#2422#2423#0" expanded="true" />
-            <element signature="e#3509#3510#0" expanded="true" />
-            <element signature="e#3566#3567#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ShipperController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
@@ -960,17 +921,122 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/SessionConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/WishListItemController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
           <caret line="104" column="7" selection-start-line="104" selection-start-column="7" selection-end-line="104" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiCategory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoHeaderRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="26" selection-start-column="26" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/SessionConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiCategoryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="78" column="6" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ProductController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="54" column="5" lean-forward="true" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ProductRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" column="72" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiCategoryRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ApiInfoRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ApiController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="36" column="34" lean-forward="true" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql/migration_1557148164_20190506.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1123#1124#0" expanded="true" />
+            <element signature="e#1166#1167#0" expanded="true" />
+            <element signature="e#1997#1998#0" expanded="true" />
+            <element signature="e#2243#2244#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+          <folding>
+            <element signature="e#1071#1072#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
+            <element signature="e#1150#1151#0" expanded="true" />
+            <element signature="e#1190#1191#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

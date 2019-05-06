@@ -26,6 +26,9 @@ public class ApiInfo {
 
     private String response;
 
+    @Column(name = "end_point")
+    private String endPoint;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "api_info_id", nullable = false)
     private Set<ApiInfoHeader> apiInfoHeaders;
@@ -35,6 +38,14 @@ public class ApiInfo {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    public String getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(String endPoint) {
+        this.endPoint = endPoint;
+    }
 
     public Set<ApiInfoHeader> getApiInfoHeaders() {
         return apiInfoHeaders;

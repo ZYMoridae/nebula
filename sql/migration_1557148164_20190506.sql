@@ -1,0 +1,1 @@
+SET CLIENT_MIN_MESSAGES = WARNING;BEGIN;    alter table public.api_info add column end_point varchar(200);COMMIT;

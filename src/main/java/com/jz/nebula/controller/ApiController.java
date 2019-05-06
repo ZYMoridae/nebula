@@ -32,9 +32,9 @@ public class ApiController {
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<ApiInfo>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+    PagedResources<Resource<ApiInfo>> all(@RequestParam String categoryName, Pageable pageable, final UriComponentsBuilder uriBuilder,
                                           final HttpServletResponse response, PagedResourcesAssembler<ApiInfo> assembler) {
-        return apiInfoService.findAll(pageable, assembler);
+        return apiInfoService.findAll(categoryName, pageable, assembler);
     }
 
     /**
