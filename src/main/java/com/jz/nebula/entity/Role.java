@@ -26,6 +26,8 @@ public class Role implements Serializable {
 
     public final static String ROLE_ADMIN = "ROLE_ADMIN";
 
+    public final static String ADMIN = "ADMIN";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

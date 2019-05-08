@@ -186,9 +186,6 @@ public class User implements Serializable {
     }
 
     public boolean isAdmin() {
-        if (this.getRoles().contains(Role.ROLE_ADMIN)) {
-            return true;
-        }
-        return false;
+        return this.getRole().getCode().equals(Role.ADMIN);
     }
 }

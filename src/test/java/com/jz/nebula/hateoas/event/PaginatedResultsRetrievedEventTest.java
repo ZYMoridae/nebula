@@ -20,7 +20,7 @@ public class PaginatedResultsRetrievedEventTest {
 
 		PaginatedResultsRetrievedEvent<String> event = new PaginatedResultsRetrievedEvent<String>(parameterClazz, parameterBuilder,
 				parameterResponse, parameterPageToSet, parameterTotalPagesToSet, parameterPageSizeToSet);
-		
+
 		assertEquals(parameterClazz, event.getClazz());
 		assertEquals(parameterBuilder, event.getUriBuilder());
 		assertEquals(parameterResponse, event.getResponse());
