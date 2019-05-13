@@ -28,7 +28,6 @@ public class NotificationService {
         Page<Notification> page = notificationRepository.findAll(pageable);
         PagedResources<Resource<Notification>> resources = assembler.toResource(page,
                 linkTo(NotificationController.class).slash("/notifications").withSelfRel());
-        ;
         return resources;
     }
 
@@ -40,7 +39,7 @@ public class NotificationService {
         if (existingNotification != null) {
             existingNotification.setBody(notification.getBody());
         }
-        Notification updatedNotification = null;
+        Notification updatedNotification;
         if (existingNotification != null) {
             updatedNotification = notificationRepository.save(existingNotification);
         } else {
