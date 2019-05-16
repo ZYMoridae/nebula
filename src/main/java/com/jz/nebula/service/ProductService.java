@@ -15,6 +15,9 @@ import com.jz.nebula.controller.ProductController;
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.entity.Product;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class ProductService {
     @Autowired
@@ -47,5 +50,9 @@ public class ProductService {
 
     public void delete(long id) {
         productRepository.deleteById(id);
+    }
+
+    public List<Product> findByIds(List<Long> ids){
+        return productRepository.findByIdIn(ids);
     }
 }

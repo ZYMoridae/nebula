@@ -23,12 +23,17 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
-    private ProductService prouductService;
+    private ProductService productService;
 
     @Autowired
     private ProductRatingService productRatingService;
@@ -51,7 +56,26 @@ public class ProductController {
     PagedResources<Resource<Product>> all(@RequestParam String keyword, Pageable pageable,
                                           final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
                                           PagedResourcesAssembler<Product> assembler) {
-        return prouductService.findAll(keyword, pageable, assembler);
+        return productService.findAll(keyword, pageable, assembler);
+    }
+
+    /**
+     * TODO: Need to be optimized. Currently, this page mainly for payment page (PaymentOrder component).
+     *
+     * @param params
+     * @return
+     */
+    @PostMapping("/ids")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    List<Product> findByIds(@RequestBody HashMap params) {
+        System.out.println(params.get("ids"));
+        List _ids = (ArrayList) params.get("ids");
+
+        _ids = (ArrayList) _ids.stream().map(item -> Long.valueOf(String.valueOf(item))).collect(Collectors.toList());
+
+
+        return productService.findByIds(_ids);
     }
 
     /**
@@ -63,7 +87,7 @@ public class ProductController {
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Product findById(@PathVariable("id") long id) {
-        return prouductService.findById(id);
+        return productService.findById(id);
     }
 
     /**
@@ -75,7 +99,7 @@ public class ProductController {
     @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Product create(@RequestBody Product product) {
-        return prouductService.save(product);
+        return productService.save(product);
     }
 
     /**
@@ -89,7 +113,7 @@ public class ProductController {
     public @ResponseBody
     Product update(@PathVariable("id") long id, @RequestBody Product product) {
         product.setId(id);
-        return prouductService.save(product);
+        return productService.save(product);
     }
 
     /**
@@ -101,7 +125,7 @@ public class ProductController {
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {
-        prouductService.delete(id);
+        productService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
