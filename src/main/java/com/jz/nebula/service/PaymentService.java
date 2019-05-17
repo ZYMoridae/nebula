@@ -59,6 +59,11 @@ public class PaymentService {
         this.paymentGateway = paymentGatway;
     }
 
+    /**
+     * Get order for current user
+     *
+     * @return
+     */
     private Order getMyOrder() {
         List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUser().getId(),
                 OrderStatus.StatusType.PENDING.value);
@@ -70,6 +75,12 @@ public class PaymentService {
         return order;
     }
 
+    /**
+     * Update stock
+     *
+     * @param orderItem
+     * @throws ProductStockException
+     */
     private synchronized void updateStock(OrderItem orderItem) throws ProductStockException {
         Optional<Product> optional = productRepository.findById(orderItem.getProductId());
         if (optional.isPresent()) {
@@ -86,11 +97,23 @@ public class PaymentService {
         }
     }
 
+    /**
+     * Update order status
+     *
+     * @param order
+     * @return
+     */
     private Order updateOrderStatus(Order order) {
         order.setOrderStatus(orderStatusRepository.findById((long) OrderStatus.StatusType.PAID.value).get());
         return this.orderRepository.save(order);
     }
 
+    /**
+     * Finalise order
+     *
+     * @return
+     * @throws Exception
+     */
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
     public Object finaliseOrder() throws Exception {
         Payment payment = new Payment();
@@ -132,6 +155,13 @@ public class PaymentService {
         return result;
     }
 
+    /**
+     * Do payment
+     *
+     * @param payment
+     * @return
+     * @throws Exception
+     */
     public Object doPayment(Payment payment) throws Exception {
         return paymentGateway.doPayment(payment);
     }

@@ -53,6 +53,13 @@ public class TokenService {
         secretKey = Keys.hmacShaKeyFor("766e5dc6241769058a9bdae0bec468d9".getBytes());
     }
 
+    /**
+     * Create token based on username and roles
+     *
+     * @param username
+     * @param roles
+     * @return
+     */
     public Map<String, String> createToken(String username, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
@@ -75,15 +82,33 @@ public class TokenService {
         return tokenMap;
     }
 
+    /**
+     * Get authentication object according to token
+     *
+     * @param token
+     * @return
+     */
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
+    /**
+     * Get username
+     *
+     * @param token
+     * @return
+     */
     public String getUsername(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Resolve token from request
+     *
+     * @param req
+     * @return
+     */
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
@@ -92,6 +117,12 @@ public class TokenService {
         return null;
     }
 
+    /**
+     * Validate token
+     *
+     * @param token
+     * @return
+     */
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
