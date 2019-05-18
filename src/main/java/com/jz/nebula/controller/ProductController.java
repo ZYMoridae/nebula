@@ -129,7 +129,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    //--------- Product Rating ----------
+    // ------ Product Rating ------
 
     /**
      *
@@ -187,7 +187,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    //----- Product Comment -----
+    // ------ Product Comment ------
 
     /**
      *
