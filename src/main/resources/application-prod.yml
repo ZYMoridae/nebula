@@ -62,7 +62,7 @@ spring:
     url: jdbc:postgresql://elebufffalo-nebula-spring.cdtaauatufxe.ap-southeast-2.rds.amazonaws.com:5432/nebula_spring
 #    url: jdbc:postgresql://localhost:5432/nebula_spring
     username: postgres
-    password: postgres
+    password: rsBuZ8CepeQUkzkS
     cachePrepStmts: true
     prepStmtCacheSize: 250
     prepStmtCacheSqlLimit: 2048
