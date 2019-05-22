@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -42,6 +41,8 @@ public class ProductController {
     private ProductCommentService productCommentService;
 
     /**
+     * Get all products in pagination. This API endpoint should be exposed to public.
+     * TODO: Is it secure enough?
      *
      * @param keyword
      * @param pageable
@@ -51,7 +52,6 @@ public class ProductController {
      * @return
      */
     @GetMapping
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     PagedResources<Resource<Product>> all(@RequestParam String keyword, Pageable pageable,
                                           final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
@@ -74,24 +74,23 @@ public class ProductController {
 
         _ids = (ArrayList) _ids.stream().map(item -> Long.valueOf(String.valueOf(item))).collect(Collectors.toList());
 
-
         return productService.findByIds(_ids);
     }
 
     /**
+     * Get product info according to id. This endpoint should be exposed to public.
+     * TODO: Is it secure enough?
      *
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Product findById(@PathVariable("id") long id) {
         return productService.findById(id);
     }
 
     /**
-     *
      * @param product
      * @return
      */
@@ -103,7 +102,6 @@ public class ProductController {
     }
 
     /**
-     *
      * @param id
      * @param product
      * @return
@@ -117,7 +115,6 @@ public class ProductController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -132,7 +129,6 @@ public class ProductController {
     // ------ Product Rating ------
 
     /**
-     *
      * @param id
      * @return
      */
@@ -144,7 +140,6 @@ public class ProductController {
     }
 
     /**
-     *
      * @param id
      * @param productRating
      * @return
@@ -159,7 +154,6 @@ public class ProductController {
     }
 
     /**
-     *
      * @param productRatingId
      * @param productRating
      * @return
@@ -174,7 +168,6 @@ public class ProductController {
     }
 
     /**
-     *
      * @param productRatingId
      * @return
      */
@@ -190,7 +183,6 @@ public class ProductController {
     // ------ Product Comment ------
 
     /**
-     *
      * @param id
      * @param productComment
      * @return
@@ -205,7 +197,6 @@ public class ProductController {
     }
 
     /**
-     *
      * @param id
      * @param pageable
      * @param uriBuilder
@@ -214,7 +205,6 @@ public class ProductController {
      * @return
      */
     @GetMapping("/{id}/comments")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     PagedResources<Resource<ProductComment>> getProductComment(@PathVariable("id") long id,
                                                                Pageable pageable, final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
@@ -223,7 +213,6 @@ public class ProductController {
     }
 
     /**
-     *
      * @param id
      * @param commentId
      * @return
@@ -240,7 +229,6 @@ public class ProductController {
     // This is for streaming JSON test
 
     /**
-     *
      * @return
      * @throws IOException
      */

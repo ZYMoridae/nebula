@@ -1,21 +1,14 @@
 package com.jz.nebula.service;
 
-import java.security.Key;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.PostConstruct;
-//import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,12 +16,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Key;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+
+//import javax.annotation.Resource;
+//import org.springframework.data.redis.core.ListOperations;
 //import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 
 @Component
 public class TokenService {
@@ -125,6 +124,11 @@ public class TokenService {
      */
     public boolean validateToken(String token) {
         try {
+            // This logic is to suppress exception when public endpoints are accessed
+            if (token.equals("null")) {
+                return false;
+            }
+
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
 
             String username = claims.getBody().getSubject();
@@ -136,7 +140,7 @@ public class TokenService {
                 return false;
             }
 
-            logger.info("Valid token receieved");
+            logger.info("Valid token received");
 
             // TODO: Make expired time configurable
             template.expire(username, 15, TimeUnit.MINUTES);

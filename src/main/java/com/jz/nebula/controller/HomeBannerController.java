@@ -39,11 +39,11 @@ public class HomeBannerController {
     }
 
     /**
+     * [PUBLIC] This provide home banners for front end to use
      *
      * @return
      */
     @GetMapping("/active")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     List<HomeBanner> allActive() {
         return homeBannerService.findAllActive();

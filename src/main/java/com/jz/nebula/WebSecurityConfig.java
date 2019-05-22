@@ -37,6 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/signin").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.POST, "/token/refresh").permitAll()
+                .antMatchers(HttpMethod.GET, "/products").permitAll()
+                .antMatchers(HttpMethod.GET, "/products/{\\d+}").permitAll()
+                .antMatchers(HttpMethod.GET, "/products/{\\d+}/comments").permitAll()
+                .antMatchers(HttpMethod.GET, "/home-banners/active").permitAll()
 //              .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
 //              .antMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
                 .anyRequest().authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));
