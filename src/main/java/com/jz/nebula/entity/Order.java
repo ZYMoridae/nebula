@@ -70,7 +70,7 @@ public class Order implements Serializable {
 
     // TODO: One to one
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "orders_id", nullable = false)
+    @JoinColumn(name = "id")
     private OrderShippingInfo orderShippingInfo;
 
     public OrderShippingInfo getOrderShippingInfo() {

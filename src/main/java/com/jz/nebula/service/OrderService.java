@@ -2,14 +2,20 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
+import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
@@ -21,10 +27,6 @@ import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.controller.OrderController;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
-import com.jz.nebula.entity.Order;
-import com.jz.nebula.entity.OrderStatus;
-import com.jz.nebula.entity.Role;
-import com.jz.nebula.entity.User;
 
 @Service
 public class OrderService {
@@ -39,9 +41,16 @@ public class OrderService {
     @Autowired
     private OrderStatusRepository orderStatusRepository;
 
-//	@Autowired
-//	private MessageProducer messageProducer;
+    @Autowired
+    private ProductService productService;
 
+    /**
+     * Get order by pagination
+     *
+     * @param pageable
+     * @param assembler
+     * @return
+     */
     public PagedResources<Resource<Order>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
         Page<Order> page = orderRepository.findAll(pageable);
         PagedResources<Resource<Order>> resources = assembler.toResource(page,
@@ -100,6 +109,18 @@ public class OrderService {
             logger.info("User with id:[{}] put userId: [{}] in the request", user.getId(), safetyOrder.getUserId());
             safetyOrder.setUserId(user.getId());
         }
+
+        // Check unit price
+        List<Long> orderItemIds = order.getOrderItems().stream().map(item -> item.getId()).collect(Collectors.toList());
+        List<Product> products = productService.findByIds(orderItemIds);
+
+        for(OrderItem orderItem : order.getOrderItems()) {
+            ArrayList<Product> persistedroduct = (ArrayList<Product>) products.stream().filter(item -> item.getId() == orderItem.getProductId()).collect(Collectors.toList());
+            if(persistedroduct.size() > 0) {
+                orderItem.setUnitPrice(persistedroduct.get(0).getPrice());
+            }
+        }
+
         return safetyOrder;
     }
 
@@ -116,6 +137,13 @@ public class OrderService {
         if (isNew) {
             order.setOrderStatusId((long) OrderStatus.StatusType.PENDING.value);
         }
+
+        User currentUser = authenticationFacade.getUser();
+
+        if(!currentUser.isAdmin()) {
+            order.setUserId(currentUser.getId());
+        }
+
         Order updatedOrder = orderRepository.save(order);
         return findById(updatedOrder.getId());
     }
