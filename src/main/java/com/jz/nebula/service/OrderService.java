@@ -1,32 +1,29 @@
 package com.jz.nebula.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.controller.OrderController;
+import com.jz.nebula.dao.OrderRepository;
+import com.jz.nebula.dao.OrderShippingInfoRepository;
+import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.jz.nebula.auth.IAuthenticationFacade;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 //import com.jz.nebula.amqp.MessageProducer;
-import com.jz.nebula.controller.OrderController;
-import com.jz.nebula.dao.OrderRepository;
-import com.jz.nebula.dao.OrderStatusRepository;
 
 @Service
 public class OrderService {
@@ -34,6 +31,9 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderShippingInfoRepository orderShippingInfoRepository;
 
     @Autowired
     private IAuthenticationFacade authenticationFacade;
@@ -110,14 +110,18 @@ public class OrderService {
             safetyOrder.setUserId(user.getId());
         }
 
-        // Check unit price
-        List<Long> orderItemIds = order.getOrderItems().stream().map(item -> item.getId()).collect(Collectors.toList());
-        List<Product> products = productService.findByIds(orderItemIds);
+        Order persistedOrder = this.findById(order.getId());
 
-        for(OrderItem orderItem : order.getOrderItems()) {
-            ArrayList<Product> persistedroduct = (ArrayList<Product>) products.stream().filter(item -> item.getId() == orderItem.getProductId()).collect(Collectors.toList());
-            if(persistedroduct.size() > 0) {
-                orderItem.setUnitPrice(persistedroduct.get(0).getPrice());
+        if (persistedOrder == null) {
+            // Check unit price
+            List<Long> orderItemIds = order.getOrderItems().stream().map(item -> item.getId()).collect(Collectors.toList());
+            List<Product> products = productService.findByIds(orderItemIds);
+
+            for (OrderItem orderItem : order.getOrderItems()) {
+                ArrayList<Product> persistedroduct = (ArrayList<Product>) products.stream().filter(item -> item.getId() == orderItem.getProductId()).collect(Collectors.toList());
+                if (persistedroduct.size() > 0) {
+                    orderItem.setUnitPrice(persistedroduct.get(0).getPrice());
+                }
             }
         }
 
@@ -140,7 +144,7 @@ public class OrderService {
 
         User currentUser = authenticationFacade.getUser();
 
-        if(!currentUser.isAdmin()) {
+        if (!currentUser.isAdmin()) {
             order.setUserId(currentUser.getId());
         }
 
@@ -179,5 +183,10 @@ public class OrderService {
         }
 
         return order;
+    }
+
+
+    public OrderShippingInfo saveShippingInfo(OrderShippingInfo orderShippingInfo) {
+        return orderShippingInfoRepository.save(orderShippingInfo);
     }
 }

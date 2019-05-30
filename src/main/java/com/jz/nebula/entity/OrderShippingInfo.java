@@ -1,14 +1,8 @@
 package com.jz.nebula.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "order_shipping_info", schema = "public")
@@ -43,6 +37,17 @@ public class OrderShippingInfo implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    @Column(name = "orders_id")
+    private Long ordersId;
+
+    public Long getOrdersId() {
+        return ordersId;
+    }
+
+    public void setOrdersId(Long ordersId) {
+        this.ordersId = ordersId;
+    }
 
     public Long getId() {
         return id;

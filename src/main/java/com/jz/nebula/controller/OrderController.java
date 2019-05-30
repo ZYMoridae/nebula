@@ -2,6 +2,7 @@ package com.jz.nebula.controller;
 
 import com.jz.nebula.amqp.MessageProducer;
 import com.jz.nebula.entity.Order;
+import com.jz.nebula.entity.OrderShippingInfo;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ public class OrderController {
     private MessageProducer messageProducer;
 
     /**
-     *
      * @param pageable
      * @param uriBuilder
      * @param response
@@ -44,7 +44,6 @@ public class OrderController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -56,7 +55,6 @@ public class OrderController {
     }
 
     /**
-     *
      * @return
      */
     @GetMapping("/my")
@@ -67,7 +65,6 @@ public class OrderController {
     }
 
     /**
-     *
      * @param id
      * @param pageable
      * @param uriBuilder
@@ -84,7 +81,6 @@ public class OrderController {
     }
 
     /**
-     *
      * @param order
      * @return
      */
@@ -96,7 +92,6 @@ public class OrderController {
     }
 
     /**
-     *
      * @param id
      * @param order
      * @return
@@ -110,7 +105,6 @@ public class OrderController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -122,8 +116,21 @@ public class OrderController {
         return ResponseEntity.noContent().build();
     }
 
+
     /**
-     *
+     * @param orderShippingInfo
+     * @return
+     */
+    @PostMapping("/{id}/shipping-info")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    OrderShippingInfo createOrderShippingInfo(@PathVariable("id") long id, @RequestBody OrderShippingInfo orderShippingInfo) {
+        orderShippingInfo.setOrdersId(id);
+        return orderService.saveShippingInfo(orderShippingInfo);
+    }
+
+
+    /**
      * @param message
      */
     @PostMapping(value = "/messages")

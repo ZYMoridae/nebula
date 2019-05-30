@@ -1,25 +1,13 @@
 package com.jz.nebula.entity;
 
-import java.io.Serializable;
-import java.sql.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders", schema = "public")
@@ -68,18 +56,17 @@ public class Order implements Serializable {
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
 
-    // TODO: One to one
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
-    private OrderShippingInfo orderShippingInfo;
-
-    public OrderShippingInfo getOrderShippingInfo() {
-        return orderShippingInfo;
-    }
-
-    public void setOrderShippingInfo(OrderShippingInfo orderShippingInfo) {
-        this.orderShippingInfo = orderShippingInfo;
-    }
+////    // TODO: One to one
+////    @OneToOne(mappedBy = "orders", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private OrderShippingInfo orderShippingInfo;
+////
+//    public OrderShippingInfo getOrderShippingInfo() {
+//        return orderShippingInfo;
+//    }
+//
+//    public void setOrderShippingInfo(OrderShippingInfo orderShippingInfo) {
+//        this.orderShippingInfo = orderShippingInfo;
+//    }
 
     @JsonIgnore
     public Long getOrderStatusId() {
