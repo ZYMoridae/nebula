@@ -110,7 +110,11 @@ public class OrderService {
             safetyOrder.setUserId(user.getId());
         }
 
-        Order persistedOrder = this.findById(order.getId());
+        Order persistedOrder = null;
+
+        if(order.getId() != null) {
+            persistedOrder = this.findById(order.getId());
+        }
 
         if (persistedOrder == null) {
             // Check unit price

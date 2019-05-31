@@ -108,6 +108,6 @@ public class OrderItem implements Serializable {
     }
 
     public double getAmount() {
-        return (double) this.quantity * this.unitPrice * 100;
+        return (double) this.quantity * this.product.getPrice() * 100;
     }
 }
