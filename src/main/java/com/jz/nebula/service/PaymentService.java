@@ -1,31 +1,26 @@
 package com.jz.nebula.service;
 
+import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.dao.OrderRepository;
+import com.jz.nebula.dao.OrderStatusRepository;
+import com.jz.nebula.dao.ProductRepository;
+import com.jz.nebula.entity.*;
+import com.jz.nebula.entity.payment.PaymentMethodInfo;
+import com.jz.nebula.exception.ProductStockException;
+import com.jz.nebula.payment.PaymentGateway;
+import com.jz.nebula.payment.PaymentType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.jz.nebula.auth.IAuthenticationFacade;
-import com.jz.nebula.dao.OrderRepository;
-import com.jz.nebula.dao.OrderStatusRepository;
-import com.jz.nebula.dao.ProductRepository;
-import com.jz.nebula.entity.Order;
-import com.jz.nebula.entity.OrderItem;
-import com.jz.nebula.entity.OrderStatus;
-import com.jz.nebula.entity.Payment;
-import com.jz.nebula.entity.Product;
-import com.jz.nebula.exception.ProductStockException;
-import com.jz.nebula.payment.PaymentGateway;
-import com.jz.nebula.payment.PaymentType;
 
 @Service
 @Transactional
@@ -115,7 +110,7 @@ public class PaymentService {
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
-    public Object finaliseOrder() throws Exception {
+    public Object finaliseOrder(PaymentMethodInfo paymentMethodInfo) throws Exception {
         Payment payment = new Payment();
         Order order = this.getMyOrder();
         if (order == null) {
@@ -138,7 +133,8 @@ public class PaymentService {
             payment.setCurrency("aud");
             payment.setSource("tok_visa");
             payment.setReceiptEmail(authenticationFacade.getUser().getEmail());
-            charge = this.doPayment(payment);
+
+            charge = this.doPayment(payment, paymentMethodInfo);
             logger.info("Order id:[{}] has been charged", order.getId());
 
             // Update the order status
@@ -162,8 +158,8 @@ public class PaymentService {
      * @return
      * @throws Exception
      */
-    public Object doPayment(Payment payment) throws Exception {
-        return paymentGateway.doPayment(payment);
+    public Object doPayment(Payment payment, PaymentMethodInfo paymentMethodInfo) throws Exception {
+        return paymentGateway.doPayment(payment, paymentMethodInfo);
     }
 
 }

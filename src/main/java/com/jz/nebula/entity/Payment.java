@@ -2,6 +2,7 @@ package com.jz.nebula.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jz.nebula.entity.payment.PaymentMethodInfo;
 import com.jz.nebula.payment.PaymentType;
 
 public class Payment {

@@ -1,22 +1,21 @@
 package com.jz.nebula.payment;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jz.nebula.amqp.MessageProducer;
+import com.jz.nebula.entity.Payment;
+import com.jz.nebula.entity.payment.CreditCard;
+import com.jz.nebula.entity.payment.PaymentMethodInfo;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jz.nebula.amqp.MessageProducer;
-import com.jz.nebula.entity.Payment;
-import com.stripe.Stripe;
-import com.stripe.exception.StripeException;
-import com.stripe.model.Charge;
-import com.stripe.model.Customer;
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component("stripeGateway")
 public class StripeGateway implements PaymentGateway {
@@ -41,7 +40,6 @@ public class StripeGateway implements PaymentGateway {
     }
 
     /**
-     *
      * @param payment
      * @return
      * @throws InvalidPaymentException
@@ -56,7 +54,6 @@ public class StripeGateway implements PaymentGateway {
     }
 
     /**
-     *
      * @param payment
      * @return
      */
@@ -65,17 +62,64 @@ public class StripeGateway implements PaymentGateway {
         return objectMapper.convertValue(payment, Map.class);
     }
 
-    private synchronized Charge doStripePayment(Payment payment) throws InvalidPaymentException, StripeException {
+    private synchronized Charge doStripePayment(Payment payment, PaymentMethodInfo paymentMethodInfo) throws InvalidPaymentException, StripeException {
         this.isValidPayment(payment);
         logger.info("Sending charging request to Stripe...");
+//        Token token = this.createPaymentMethod(paymentMethodInfo);
+
+        // FIXME: Change token id
+//        payment.setSource(token.getId());
+
+        payment.setSource("tok_visa");
+
         Charge chargedPayment = Charge.create(this.constructChargeParams(payment));
         messageProducer.sendMessage("invoice." + chargedPayment.getId());
         logger.info("Charge success...");
         return chargedPayment;
     }
 
+
+
+    private boolean validateCreditCard(CreditCard creditCard) {
+        boolean isValid = true;
+
+        //TODO: cc validation
+
+        return isValid;
+    }
+
+
+    private synchronized Token createPaymentMethod(PaymentMethodInfo paymentMethodInfo) throws StripeException, InvalidPaymentException {
+        Token token = null;
+
+        if(paymentMethodInfo != null) {
+            CreditCard creditCard = paymentMethodInfo.getCreditCard();
+
+            Map<String, Object> tokenParams = new HashMap<>();
+            Map<String, Object> cardParams = new HashMap<>();
+            cardParams.put("number", creditCard.getCardNumber());
+
+            String expiry = creditCard.getExpiry().substring(0, 4);
+            if(expiry.length() != 4) {
+                throw new InvalidPaymentException();
+            }
+
+            String expiryMonth = expiry.substring(0, 2);
+            String expiryYear = expiry.substring(2, 4);
+
+            cardParams.put("exp_month", Integer.valueOf(expiryMonth));
+            cardParams.put("exp_year", Integer.valueOf("20" + expiryYear));
+            cardParams.put("cvc", creditCard.getCvv());
+            tokenParams.put("card", cardParams);
+
+            token = token.create(tokenParams);
+        }
+
+        return token;
+    }
+
+
     /**
-     *
      * @param paramCustomer
      * @return
      * @throws StripeException
@@ -94,7 +138,6 @@ public class StripeGateway implements PaymentGateway {
     }
 
     /**
-     *
      * @param paramCustomer
      * @param tokenId
      * @return
@@ -114,8 +157,8 @@ public class StripeGateway implements PaymentGateway {
     }
 
     @Override
-    public Object doPayment(Object paymentInfo) throws InvalidPaymentException, StripeException {
-        return this.doStripePayment((Payment) paymentInfo);
+    public Object doPayment(Object paymentInfo, Object paymentMethodInfo) throws InvalidPaymentException, StripeException {
+        return this.doStripePayment((Payment) paymentInfo, (PaymentMethodInfo) paymentMethodInfo);
     }
 
     @Override
