@@ -13,8 +13,12 @@ import javax.persistence.Table;
 //import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "product_meta", schema = "public")
 public class ProductMeta implements Serializable {
 
@@ -38,48 +42,4 @@ public class ProductMeta implements Serializable {
     @JsonIgnore
     @Column(name = "updated_at")
     private Date updatedAt;
-
-//  @ManyToOne
-//  @JoinColumn(name="product_id", insert="false" update="false")
-//  private Product product;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
