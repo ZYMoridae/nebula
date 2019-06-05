@@ -19,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -42,6 +44,12 @@ public class PaymentService {
     @Autowired
     @Qualifier("stripeGateway")
     private PaymentGateway paymentGateway;
+
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private CartItemService cartItemService;
 
     public PaymentService() {
     }
@@ -118,6 +126,8 @@ public class PaymentService {
         }
         Optional<Double> totalAmount = order.getOrderItems().stream().map(item -> item.getAmount()).reduce((x, y) -> x + y);
         Object charge;
+
+        // Update order stock
         order.getOrderItems().stream().forEach(item -> {
             try {
                 this.updateStock(item);
@@ -141,6 +151,9 @@ public class PaymentService {
             order.setOrderStatusId((long) OrderStatus.StatusType.PAID.value);
             order = this.updateOrderStatus(order);
             logger.info("Order id:[{}] status has been updated", order.getId());
+
+            // Delete product from shopping cart
+            this.deleteCartItems(order.getOrderItems());
         } else {
             throw new Exception();
         }
@@ -150,6 +163,26 @@ public class PaymentService {
 
         return result;
     }
+
+    /**
+     * Delete product from shopping cart after order finalised
+     *
+     * @param finalisedOrderItems
+     */
+    public void deleteCartItems(Set<OrderItem> finalisedOrderItems) {
+        Cart cart = this.cartService.getMyCart();
+
+        Set<CartItem> cartItems = cart.getCartItems();
+
+        List<Long> finalisedOrderItemsId = finalisedOrderItems.stream().map(orderItem -> orderItem.getProductId()).collect(Collectors.toList());
+
+        for (CartItem cartItem : cartItems) {
+            if(finalisedOrderItemsId.contains(cartItem.getProductId())) {
+                cartItemService.delete(cartItem.getId());
+            }
+        }
+    }
+
 
     /**
      * Do payment
