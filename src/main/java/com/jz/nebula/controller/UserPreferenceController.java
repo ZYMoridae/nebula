@@ -15,6 +15,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 
+@RestController
+@RequestMapping("/preferences")
 public class UserPreferenceController {
     @Autowired
     private UserShippingPreferenceService userShippingPreferenceService;
@@ -27,7 +29,7 @@ public class UserPreferenceController {
      * @param assembler
      * @return
      */
-    @GetMapping
+    @GetMapping("/shippings")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     PagedResources<Resource<UserShippingPreference>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
@@ -40,7 +42,7 @@ public class UserPreferenceController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+    @GetMapping("/shippings/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     UserShippingPreference findById(@PathVariable("id") long id) {
@@ -52,7 +54,7 @@ public class UserPreferenceController {
      * @param userShippingPreference
      * @return
      */
-    @PostMapping("")
+    @PostMapping("/shippings")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     UserShippingPreference create(@RequestBody UserShippingPreference userShippingPreference) {
@@ -65,7 +67,7 @@ public class UserPreferenceController {
      * @param userShippingPreference
      * @return
      */
-    @PutMapping("/{id}")
+    @PutMapping("/shippings/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     UserShippingPreference update(@PathVariable("id") long id, @RequestBody UserShippingPreference userShippingPreference) {
@@ -78,7 +80,7 @@ public class UserPreferenceController {
      * @param id
      * @return
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/shippings/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {

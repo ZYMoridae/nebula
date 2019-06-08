@@ -38,4 +38,18 @@ public class PaymentController {
         return this.paymentService.finaliseOrder(paymentMethodInfo);
     }
 
+    /**
+     *
+     * @param id
+     * @param paymentMethodInfo
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/{id}/finalise")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Object finaliseById(@PathVariable("id") long id, @RequestBody PaymentMethodInfo paymentMethodInfo) throws Exception {
+        return this.paymentService.finaliseOrder(id, paymentMethodInfo);
+    }
+
 }

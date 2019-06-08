@@ -112,6 +112,24 @@ public class PaymentService {
     }
 
     /**
+     * Finalise order by id
+     *
+     * @param id
+     * @param paymentMethodInfo
+     * @return
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
+    public Object finaliseOrder(Long id, PaymentMethodInfo paymentMethodInfo) throws Exception {
+        Optional<Order> order = orderRepository.findById(id);
+        if(!order.isPresent()) {
+            throw new Exception();
+        }
+        return this.processOrder(order.get(), paymentMethodInfo);
+    }
+
+
+    /**
      * Finalise order
      *
      * @return
@@ -119,11 +137,27 @@ public class PaymentService {
      */
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
     public Object finaliseOrder(PaymentMethodInfo paymentMethodInfo) throws Exception {
-        Payment payment = new Payment();
         Order order = this.getMyOrder();
         if (order == null) {
             throw new Exception();
         }
+
+        return this.processOrder(order, paymentMethodInfo);
+    }
+
+    /**
+     *
+     * @param order
+     * @param paymentMethodInfo
+     * @return
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
+    protected Object processOrder(Order order, PaymentMethodInfo paymentMethodInfo) throws Exception{
+        Payment payment = new Payment();
+        Map<String, Object> result = new ConcurrentHashMap<>();
+
+
         Optional<Double> totalAmount = order.getOrderItems().stream().map(item -> item.getAmount()).reduce((x, y) -> x + y);
         Object charge;
 
@@ -157,12 +191,13 @@ public class PaymentService {
         } else {
             throw new Exception();
         }
-        Map<String, Object> result = new ConcurrentHashMap<>();
+
         result.put("payment", charge);
         result.put("order", order);
 
         return result;
     }
+
 
     /**
      * Delete product from shopping cart after order finalised
