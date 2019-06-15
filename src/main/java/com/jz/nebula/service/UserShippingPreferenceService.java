@@ -13,9 +13,11 @@ import org.springframework.hateoas.Resource;
 
 import com.jz.nebula.controller.UserPreferenceController;
 import com.jz.nebula.dao.UserShippingPreferenceRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserShippingPreferenceService {
 
     @Autowired

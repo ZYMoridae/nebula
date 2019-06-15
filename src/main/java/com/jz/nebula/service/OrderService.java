@@ -52,7 +52,14 @@ public class OrderService {
      * @return
      */
     public PagedResources<Resource<Order>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
-        Page<Order> page = orderRepository.findAll(pageable);
+        Page<Order> page;
+        User user = authenticationFacade.getUser();
+        if(user.isAdmin()) {
+            page = orderRepository.findByUserId(user.getId(), pageable);
+        }else {
+            page = orderRepository.findAll(pageable);
+        }
+
         PagedResources<Resource<Order>> resources = assembler.toResource(page,
                 linkTo(OrderController.class).slash("/orders").withSelfRel());
         ;
@@ -69,7 +76,7 @@ public class OrderService {
      */
     public PagedResources<Resource<Order>> findByUserId(long id, Pageable pageable,
                                                         PagedResourcesAssembler<Order> assembler) {
-        Page<Order> page = orderRepository.findAll(pageable);
+        Page<Order> page = orderRepository.findByUserId(id, pageable);
         PagedResources<Resource<Order>> resources = assembler.toResource(page,
                 linkTo(OrderController.class).slash("/orders").withSelfRel());
         ;
