@@ -52,18 +52,27 @@ public class WishListItemService {
     private CartItemService cartItemService;
 
     /**
+     * Get authenticated user
+     *
+     * @return
+     */
+    private User getAuthenticatedUser() {
+        return authenticationFacade.getUser();
+    }
+
+    /**
      * Get wish list
      *
      * @return
      */
     private WishList getWishList() {
-        User user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName()).get();
+        User user = getAuthenticatedUser();
         WishList wishList = null;
         if (user != null) {
             wishList = wishListRepository.findByUserId(user.getId());
         }
         if (wishList == null) {
-            wishList = new WishList(authenticationFacade.getUser().getId());
+            wishList = new WishList(user.getId());
             wishList = wishListRepository.save(wishList);
         }
         return wishList;
@@ -108,7 +117,7 @@ public class WishListItemService {
     @Transactional(rollbackFor = {Exception.class})
     public synchronized WishListItem save(WishListItem wishListItem) throws Exception {
         boolean isValid = wishListItemValidator.validate(wishListItem);
-        WishListItem updatedWishListItem = null;
+        WishListItem updatedWishListItem;
         if (!isValid) {
             return null;
         }

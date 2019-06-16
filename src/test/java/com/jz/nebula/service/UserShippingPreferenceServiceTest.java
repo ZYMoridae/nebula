@@ -29,6 +29,8 @@ public class UserShippingPreferenceServiceTest {
     @InjectMocks
     private UserShippingPreferenceService userShippingPreferenceService;
 
+    private UserShippingPreference expectedUserPreference;
+
     @Before
     public void beforeTests() {
         MockitoAnnotations.initMocks(this);
@@ -40,8 +42,6 @@ public class UserShippingPreferenceServiceTest {
         returnedUserPreference.setId((long) 1);
         this.expectedUserPreference = returnedUserPreference;
     }
-
-    private UserShippingPreference expectedUserPreference;
 
     @Test
     public void saveTest() {

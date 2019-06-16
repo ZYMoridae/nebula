@@ -7,12 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2cbd913-5727-49ca-ad93-cfdf16f144df" name="Default Changelist" comment="Add API services">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/WishListItemServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/d018535e-a7f4-459f-b27a-1bba75e85269.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d018535e-a7f4-459f-b27a-1bba75e85269.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserShippingPreferenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserShippingPreferenceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserShippingPreferenceServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserShippingPreferenceServiceTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -62,10 +61,19 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserShippingPreferenceService.java">
+            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListService.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
+                <state relative-caret-position="90">
+                  <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserShippingPreferenceServiceTest.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="645">
+                  <caret line="61" column="76" selection-start-line="61" selection-start-column="76" selection-end-line="61" selection-end-column="76" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -74,61 +82,19 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/PaymentService.java">
+            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListItemService.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="900">
-                  <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/OrderService.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="450">
-                  <caret line="30" selection-start-line="30" selection-end-line="30" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1020">
-                  <caret line="68" column="28" selection-end-line="87" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/resources/application-prod.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1050">
-                  <caret line="70" selection-end-line="86" />
+                <state relative-caret-position="1098">
+                  <caret line="156" column="13" selection-start-line="156" selection-start-column="13" selection-end-line="156" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/pom.xml">
+            <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="30">
-                  <caret line="60" selection-start-line="60" selection-end-line="60" selection-end-column="31" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/resources/application.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="930">
-                  <caret line="62" column="28" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
+                <state relative-caret-position="270">
+                  <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
                 </state>
               </provider>
             </entry>
@@ -140,17 +106,38 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/OrderController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="350">
+                <state relative-caret-position="495">
                   <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="315">
                   <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/service/WishListItemServiceTest.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="585">
+                  <caret line="39" selection-start-line="39" selection-end-line="39" selection-end-column="30" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/auth/AuthenticationFacadeTest.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="675">
+                  <caret line="68" selection-start-line="68" selection-end-line="70" selection-end-column="41" />
                 </state>
               </provider>
             </entry>
@@ -202,8 +189,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/ApiInfoHeader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiCategoryService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ApiInfoService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/api/SwaggerConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/SwaggerConfigRepository.java" />
@@ -240,7 +225,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/ProductMeta.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/OrderStatus.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/UserShippingPreferenceRepository.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserShippingPreferenceServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/PaymentService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/PaymentController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserPreferenceController.java" />
@@ -253,6 +237,9 @@
         <option value="$PROJECT_DIR$/src/main/resources/application-dev.yml" />
         <option value="$PROJECT_DIR$/src/test/resources/application.yml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserShippingPreferenceServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListItemService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/WishListItemServiceTest.java" />
       </list>
     </option>
   </component>
@@ -276,17 +263,14 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
               <item name="nebula" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nebula" type="462c0819:PsiDirectoryNode" />
-              <item name="sql" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
@@ -413,6 +397,15 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nebula-spring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="nebula" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -426,8 +419,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -461,51 +452,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat9">
-    <configuration name="NotificationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nebula-spring" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jz.nebula.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.jz.nebula.service" />
-      <option name="MAIN_CLASS_NAME" value="com.jz.nebula.service.NotificationServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RedisMessageSubscriberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nebula-spring" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jz.nebula.redis.queue.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.jz.nebula.redis.queue" />
-      <option name="MAIN_CLASS_NAME" value="com.jz.nebula.redis.queue.RedisMessageSubscriberTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SwaggerConfigServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nebula-spring" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jz.nebula.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.jz.nebula.service" />
-      <option name="MAIN_CLASS_NAME" value="com.jz.nebula.service.SwaggerConfigServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="UserShippingPreferenceServiceTest.saveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nebula-spring" />
       <extension name="coverage">
@@ -517,6 +463,53 @@
       <option name="PACKAGE_NAME" value="com.jz.nebula.service" />
       <option name="MAIN_CLASS_NAME" value="com.jz.nebula.service.UserShippingPreferenceServiceTest" />
       <option name="METHOD_NAME" value="saveTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WishListItemServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nebula-spring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jz.nebula.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jz.nebula.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jz.nebula.service.WishListItemServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WishListItemServiceTest.findByIdTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nebula-spring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jz.nebula.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jz.nebula.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jz.nebula.service.WishListItemServiceTest" />
+      <option name="METHOD_NAME" value="findByIdTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WishListItemServiceTest.getWishListTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nebula-spring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jz.nebula.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jz.nebula.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jz.nebula.service.WishListItemServiceTest" />
+      <option name="METHOD_NAME" value="getWishListTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -610,11 +603,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WishListItemServiceTest" />
+        <item itemvalue="JUnit.WishListItemServiceTest.findByIdTest" />
+        <item itemvalue="JUnit.WishListItemServiceTest.getWishListTest" />
         <item itemvalue="Spring Boot.Application" />
         <item itemvalue="JUnit.UserShippingPreferenceServiceTest.saveTest" />
-        <item itemvalue="JUnit.SwaggerConfigServiceTest" />
-        <item itemvalue="JUnit.NotificationServiceTest" />
-        <item itemvalue="JUnit.RedisMessageSubscriberTest" />
       </list>
     </recent_temporary>
   </component>
@@ -678,7 +671,8 @@
       <workItem from="1560328137129" duration="2956000" />
       <workItem from="1560414837739" duration="2061000" />
       <workItem from="1560509743058" duration="466000" />
-      <workItem from="1560556432408" duration="1570000" />
+      <workItem from="1560556432408" duration="5109000" />
+      <workItem from="1560641825504" duration="2581000" />
     </task>
     <task id="LOCAL-00001" summary="Add API entities">
       <created>1556626672008</created>
@@ -705,39 +699,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="LocationServiceTest - 2019.05.10 at 21h 39m 27s.xml">
-      <configuration name="LocationServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="LocationServiceTest - 2019.05.10 at 21h 41m 20s.xml">
-      <configuration name="LocationServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="LocationServiceTest - 2019.05.10 at 21h 41m 56s.xml">
-      <configuration name="LocationServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="RedisMessageSubscriberTest - 2019.05.10 at 21h 42m 19s.xml">
-      <configuration name="RedisMessageSubscriberTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NotificationServiceTest - 2019.05.10 at 21h 43m 44s.xml">
-      <configuration name="NotificationServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NotificationServiceTest - 2019.05.10 at 21h 46m 29s.xml">
-      <configuration name="NotificationServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NotificationServiceTest - 2019.05.11 at 14h 04m 59s.xml">
-      <configuration name="NotificationServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SwaggerConfigServiceTest - 2019.05.11 at 14h 11m 06s.xml">
-      <configuration name="SwaggerConfigServiceTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UserShippingPreferenceServiceTest_saveTest - 2019.06.03 at 21h 20m 09s.xml">
       <configuration name="UserShippingPreferenceServiceTest.saveTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="UserShippingPreferenceServiceTest_saveTest - 2019.06.03 at 21h 21m 54s.xml">
       <configuration name="UserShippingPreferenceServiceTest.saveTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="WishListItemServiceTest_getWishListTest - 2019.06.15 at 11h 03m 59s.xml">
+      <configuration name="WishListItemServiceTest.getWishListTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WishListItemServiceTest_getWishListTest - 2019.06.15 at 11h 04m 46s.xml">
+      <configuration name="WishListItemServiceTest.getWishListTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WishListItemServiceTest_getWishListTest - 2019.06.15 at 11h 05m 27s.xml">
+      <configuration name="WishListItemServiceTest.getWishListTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WishListItemServiceTest_getWishListTest - 2019.06.15 at 11h 06m 07s.xml">
+      <configuration name="WishListItemServiceTest.getWishListTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WishListItemServiceTest_getWishListTest - 2019.06.15 at 11h 06m 45s.xml">
+      <configuration name="WishListItemServiceTest.getWishListTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WishListItemServiceTest_getWishListTest - 2019.06.15 at 11h 07m 39s.xml">
+      <configuration name="WishListItemServiceTest.getWishListTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WishListItemServiceTest_findByIdTest - 2019.06.15 at 11h 25m 02s.xml">
+      <configuration name="WishListItemServiceTest.findByIdTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WishListItemServiceTest - 2019.06.15 at 11h 25m 15s.xml">
+      <configuration name="WishListItemServiceTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182033000" />
+    <option name="totallyTimeSpent" value="188153000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -752,7 +746,7 @@
     <frame x="0" y="23" width="2880" height="1597" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20225511" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20366456" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -763,7 +757,7 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956812" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49929526" weight="0.33887044" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49929526" visible="true" weight="0.33887044" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49964765" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -933,74 +927,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/com/stripe/stripe-java/10.0.2/stripe-java-10.0.2.jar!/com/stripe/model/PaymentMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="121" column="49" selection-start-line="121" selection-start-column="49" selection-end-line="121" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2805">
-          <caret line="219" column="41" selection-start-line="219" selection-start-column="40" selection-end-line="219" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/payment/CreditCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/HomeBanner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/payment/PaymentMethodInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartItemService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="83" selection-start-line="83" selection-end-line="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ProductService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="e#1622#1623#0" expanded="true" />
-            <element signature="e#1681#1682#0" expanded="true" />
-            <element signature="e#1817#1818#0" expanded="true" />
-            <element signature="e#1873#1874#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.1.3.RELEASE/spring-aop-5.1.3.RELEASE-sources.jar!/org/springframework/aop/framework/JdkDynamicAopProxy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2925">
@@ -1012,13 +938,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/TokenService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="72" column="32" selection-start-line="72" selection-start-column="32" selection-end-line="72" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -1154,13 +1073,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/auth/AuthenticationFacade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/payment/PaymentGateway.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1172,16 +1084,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="543">
           <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserShippingPreferenceServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="46" lean-forward="true" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1212,68 +1114,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/OrderRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-test.yml" />
+    <entry file="file://$PROJECT_DIR$/src/test/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        <state relative-caret-position="930">
+          <caret line="62" column="28" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserService.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserShippingPreferenceService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/PaymentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/OrderController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/OrderService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-test.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1095">
-          <caret line="73" column="21" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        <state relative-caret-position="1128">
+          <caret line="211" column="44" lean-forward="true" selection-start-line="211" selection-start-column="44" selection-end-line="211" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -1291,17 +1143,144 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/application.yml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/TokenService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="62" column="28" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
+        <state relative-caret-position="705">
+          <caret line="72" column="32" selection-start-line="72" selection-start-column="32" selection-end-line="72" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/OrderService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="60" selection-start-line="60" selection-end-line="60" selection-end-column="31" />
+        <state relative-caret-position="450">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/PaymentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserShippingPreferenceService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/auth/IAuthenticationFacade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/redis/queue/RedisMessageSubscriberTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/auth/AuthenticationFacade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/OrderRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserShippingPreferenceServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="61" column="76" selection-start-line="61" selection-start-column="76" selection-end-line="61" selection-end-column="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/OrderController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/auth/AuthenticationFacadeTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="68" selection-start-line="68" selection-end-line="70" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jz/nebula/service/WishListItemServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="39" selection-start-line="39" selection-end-line="39" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/service/WishListItemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1098">
+          <caret line="156" column="13" selection-start-line="156" selection-start-column="13" selection-end-line="156" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
         </state>
       </provider>
     </entry>
