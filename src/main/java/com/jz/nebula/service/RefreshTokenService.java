@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
+import com.jz.nebula.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -59,11 +60,11 @@ public class RefreshTokenService {
      * @param secretKey
      * @return
      */
-    public String createRefreshToken(String username, List<String> roles, Key secretKey) {
+    public String createRefreshToken(String username, List<Role> roles, Key secretKey) {
         String refreshToken;
 
         Claims claims = Jwts.claims().setSubject(username + refreshTokenHashKeyPostfix);
-        claims.put("roles", roles);
+        claims.put("roles", roles.stream().map(role -> role.getId()).toArray());
         Date now = new Date();
 
         refreshToken = Jwts.builder().setClaims(claims).setIssuedAt(now).signWith(secretKey).compact();

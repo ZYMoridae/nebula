@@ -3,9 +3,13 @@ package com.jz.nebula.controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.DatatypeConverter;
 
+import com.jz.nebula.service.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +34,8 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     private static String VERIFICATION_HEADER = "X-VERIFICATION";
 
     @Autowired
@@ -64,11 +70,15 @@ public class AuthController {
             String username = actualCredentials[0];
             String password = actualCredentials[1];
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            Optional<User> user = this.users.findByUsername(username);
-            Map<String, String> tokenMap = jwtTokenProvider.createToken(username, user
-                    .orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
+            Optional<User> userOptional = this.users.findByUsername(username);
+
+            Map<String, String> tokenMap = jwtTokenProvider.createToken(username, userOptional
+                    .orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList()));
             Map<Object, Object> resultMap = new HashMap<>();
-            resultMap.put("user", user.get());
+            User user = userOptional.get();
+            user.setRoles(user.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList()));
+
+            resultMap.put("user", user);
             resultMap.put("token", tokenMap.get("accessToken"));
             resultMap.put("refreshToken", tokenMap.get("refreshToken"));
             return ok(resultMap);

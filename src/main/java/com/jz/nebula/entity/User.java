@@ -1,26 +1,15 @@
 package com.jz.nebula.entity;
 
-import java.io.Serializable;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import lombok.Builder;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user", schema = "public")
@@ -33,9 +22,9 @@ public class User implements Serializable {
     public User() {
     }
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @Builder.Default
+//    private List<String> roles = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,9 +39,12 @@ public class User implements Serializable {
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    Role role;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    Set<UserRole> userRoles;
+
+    @Transient
+    List<Role> roles;
 
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;
@@ -144,19 +136,31 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
+//    public Role getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(Role role) {
+//        this.role = role;
+//    }
+
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+//        this.roles = userRoles.stream().map(userRole -> userRole.getRole()).collect(Collectors.toList());
     }
 
-    public List<String> getRoles() {
+//    @JsonIgnore
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+//    @JsonIgnore
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -185,7 +189,8 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    // FIXME:
     public boolean isAdmin() {
-        return this.getRole().getCode().equals(Role.ADMIN);
+        return this.getUserRoles().stream().map(userRole -> userRole.getRole().getCode()).collect(Collectors.toList()).contains(Role.ADMIN);
     }
 }

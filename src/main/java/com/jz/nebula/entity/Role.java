@@ -1,12 +1,11 @@
 package com.jz.nebula.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "role", schema = "public")
@@ -27,6 +26,8 @@ public class Role implements Serializable {
     public final static String ROLE_ADMIN = "ROLE_ADMIN";
 
     public final static String ADMIN = "ADMIN";
+
+    public final static String[] DEFAULT_USER_GROUP = {"ROLE_ADMIN", "ROLE_USER", "ROLE_VENDOR"};
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

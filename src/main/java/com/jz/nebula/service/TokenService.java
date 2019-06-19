@@ -1,5 +1,6 @@
 package com.jz.nebula.service;
 
+import com.jz.nebula.entity.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -59,9 +60,9 @@ public class TokenService {
      * @param roles
      * @return
      */
-    public Map<String, String> createToken(String username, List<String> roles) {
+    public Map<String, String> createToken(String username, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", roles);
+        claims.put("roles", roles.stream().map(role -> role.getId()).toArray());
         Date now = new Date();
 
         String token = Jwts.builder()
