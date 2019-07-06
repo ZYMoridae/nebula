@@ -100,7 +100,7 @@ public class OrderService {
      * @return
      */
     private boolean isUser(User user) {
-        return user.getRoles().contains(Role.ROLE_USER);
+        return user.getUserRoles().stream().map(userRole -> userRole.getRole()).map(role -> role.getCode()).collect(Collectors.toList()).contains("USER");
     }
 
     /**
@@ -155,9 +155,9 @@ public class OrderService {
 
         User currentUser = authenticationFacade.getUser();
 
-        if (!currentUser.isAdmin()) {
+//        if (!currentUser.isAdmin()) {
             order.setUserId(currentUser.getId());
-        }
+//        }
 
         Order updatedOrder = orderRepository.save(order);
         return findById(updatedOrder.getId());

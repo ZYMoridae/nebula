@@ -62,7 +62,7 @@ run_sql(){
     echo $sql_file_path
 
     echo "Success"
-#    psql "postgres://$spring_datasource_username:$spring_datasource_password@$stripped_string" -f "$sql_file_path"
+    psql "postgres://$spring_datasource_username:$spring_datasource_password@$stripped_string" -f "$sql_file_path"
 }
 
 echo "------------------------------------------------"

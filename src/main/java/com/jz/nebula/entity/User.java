@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user", schema = "public")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable {
     /**
      *
@@ -154,12 +155,12 @@ public class User implements Serializable {
 //        this.roles = userRoles.stream().map(userRole -> userRole.getRole()).collect(Collectors.toList());
     }
 
-//    @JsonIgnore
+    //    @JsonIgnore
     public List<Role> getRoles() {
         return roles;
     }
 
-//    @JsonIgnore
+    //    @JsonIgnore
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
