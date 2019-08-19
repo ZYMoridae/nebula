@@ -1,3 +1,4 @@
+dist: trusty
 language: java
 # use Java 8
 jdk:
