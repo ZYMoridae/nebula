@@ -101,7 +101,7 @@ public class CartService {
     }
 
     /**
-     * Create order from cart. All cart items will be put into order and shipping
+     * Create order from cart. All cart items will be put into order and logistics
      * address will be updated through Order UPDATE API. (All these cart items will
      * be deleted from cart.) The payment API will be called in the last step.
      *
@@ -127,7 +127,7 @@ public class CartService {
 
     /**
      * Create order from cart item list, this is the first step in order process.
-     * After first step, shipping address will be updated in the second step through
+     * After first step, logistics address will be updated in the second step through
      * UPDATE API endpoint. (All these cart items will be deleted from cart.) The
      * payment API will be called in the last step.
      *
@@ -153,12 +153,12 @@ public class CartService {
         List<CartItem> newCartItems = cartItemList.stream()
                 .filter(item -> mappedPersistedCartItems.containsKey(item.getId())).collect(Collectors.toList());
         newCartItems.forEach(item -> mappedPersistedCartItems.get(item.getId()).setQuantity(item.getQuantity()));
-        logger.info("Cart items have been saved");
+        logger.info("cartToOrder::cart items have been saved");
 
         // Create order
         Set<OrderItem> orderItems = newCartItems.stream().map(item -> item.toOrderItem()).collect(Collectors.toSet());
         order = this.createOrder(orderItems);
-        logger.info("Order has been created");
+        logger.info("cartToOrder::order has been created");
 
         // If order created successfully, then remove the cart item from cart
         cartItemService.deleteAll(newCartItems);

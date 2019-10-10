@@ -1,8 +1,8 @@
 package com.jz.nebula.controller;
 
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.entity.UserShippingPreference;
-import com.jz.nebula.service.UserShippingPreferenceService;
+import com.jz.nebula.entity.UserLogisticsPreference;
+import com.jz.nebula.service.UserLogisticsPreferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/preferences")
 public class UserPreferenceController {
     @Autowired
-    private UserShippingPreferenceService userShippingPreferenceService;
+    private UserLogisticsPreferenceService userLogisticsPreferenceService;
 
     /**
      *
@@ -29,12 +29,12 @@ public class UserPreferenceController {
      * @param assembler
      * @return
      */
-    @GetMapping("/shippings")
+    @GetMapping("/logistics")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<UserShippingPreference>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                                         final HttpServletResponse response, PagedResourcesAssembler<UserShippingPreference> assembler) {
-        return userShippingPreferenceService.findAll(pageable, assembler);
+    PagedResources<Resource<UserLogisticsPreference>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                                          final HttpServletResponse response, PagedResourcesAssembler<UserLogisticsPreference> assembler) {
+        return userLogisticsPreferenceService.findAll(pageable, assembler);
     }
 
     /**
@@ -42,49 +42,49 @@ public class UserPreferenceController {
      * @param id
      * @return
      */
-    @GetMapping("/shippings/{id}")
+    @GetMapping("/logistics/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    UserShippingPreference findById(@PathVariable("id") long id) {
-        return userShippingPreferenceService.findById(id);
+    UserLogisticsPreference findById(@PathVariable("id") long id) {
+        return userLogisticsPreferenceService.findById(id);
     }
 
     /**
      *
-     * @param userShippingPreference
+     * @param userLogisticsPreference
      * @return
      */
-    @PostMapping("/shippings")
+    @PostMapping("/logistics")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    UserShippingPreference create(@RequestBody UserShippingPreference userShippingPreference) {
-        return userShippingPreferenceService.save(userShippingPreference);
-    }
-
-    /**
-     *
-     * @param id
-     * @param userShippingPreference
-     * @return
-     */
-    @PutMapping("/shippings/{id}")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    public @ResponseBody
-    UserShippingPreference update(@PathVariable("id") long id, @RequestBody UserShippingPreference userShippingPreference) {
-        userShippingPreference.setId(id);
-        return userShippingPreferenceService.save(userShippingPreference);
+    UserLogisticsPreference create(@RequestBody UserLogisticsPreference userLogisticsPreference) {
+        return userLogisticsPreferenceService.save(userLogisticsPreference);
     }
 
     /**
      *
      * @param id
+     * @param userLogisticsPreference
      * @return
      */
-    @DeleteMapping("/shippings/{id}")
+    @PutMapping("/logistics/{id}")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    UserLogisticsPreference update(@PathVariable("id") long id, @RequestBody UserLogisticsPreference userLogisticsPreference) {
+        userLogisticsPreference.setId(id);
+        return userLogisticsPreferenceService.save(userLogisticsPreference);
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/logistics/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {
-        userShippingPreferenceService.delete(id);
+        userLogisticsPreferenceService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

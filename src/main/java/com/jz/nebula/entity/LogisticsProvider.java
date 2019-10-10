@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "shipper", schema = "public")
-public class Shipper implements Serializable {
+public class LogisticsProvider implements Serializable {
 
     /**
      *
@@ -23,10 +23,10 @@ public class Shipper implements Serializable {
     private String name;
     private String contact;
 
-    public Shipper() {
+    public LogisticsProvider() {
     }
 
-    public Shipper(String name) {
+    public LogisticsProvider(String name) {
         this.name = name;
     }
 
@@ -56,7 +56,7 @@ public class Shipper implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Shipper[id=%d, name='%s']", id, name);
+        return String.format("LogisticsProvider[id=%d, name='%s']", id, name);
     }
 
 }

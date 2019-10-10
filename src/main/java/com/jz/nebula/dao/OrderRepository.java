@@ -11,4 +11,6 @@ public interface OrderRepository extends PagingAndSortingRepository<Order, Long>
     Page<Order> findByUserId(long userId, Pageable pageable);
 
     List<Order> findByUserIdAndOrderStatusId(long userId, long orderStatusId);
+
+    void deleteByIdIn(List<Long> ids);
 }

@@ -1,9 +1,7 @@
 package com.jz.nebula.controller;
 
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.entity.Shipper;
 import com.jz.nebula.entity.api.SwaggerConfig;
-import com.jz.nebula.service.ShipperService;
 import com.jz.nebula.service.SwaggerConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

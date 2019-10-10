@@ -74,9 +74,9 @@ BEGIN;
 	      ON UPDATE NO ACTION ON DELETE NO ACTION
 	);
 	
-	DROP TABLE IF EXISTS public.shipper;
+	DROP TABLE IF EXISTS public.logisticsProvider;
 	
-	CREATE TABLE public.shipper
+	CREATE TABLE public.logisticsProvider
 	(
 	  id serial,
 	  name text NOT NULL,
@@ -130,7 +130,7 @@ BEGIN;
 	  shipper_id integer NOT NULL,
 	  CONSTRAINT order_pkey PRIMARY KEY (id),
 	  CONSTRAINT order_shipper_id_fkey FOREIGN KEY (shipper_id)
-	      REFERENCES public.shipper (id) MATCH SIMPLE
+	      REFERENCES public.logisticsProvider (id) MATCH SIMPLE
 	      ON UPDATE NO ACTION ON DELETE NO ACTION,
 	  CONSTRAINT order_user_id_fkey FOREIGN KEY (user_id)
 	      REFERENCES public.user (id) MATCH SIMPLE

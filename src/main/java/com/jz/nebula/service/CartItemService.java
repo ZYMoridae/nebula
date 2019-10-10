@@ -83,9 +83,9 @@ public class CartItemService {
         Optional<CartItem> optional = cartItemRepository.findByCartIdAndProductId(cartItem.getCartId(),
                 cartItem.getProductId());
         if (optional.isPresent()) {
-            logger.info("Cart item with id:[{}] was found", optional.get().getId());
+            logger.info("getItemInCart::cart item with id:[{}] was found", optional.get().getId());
         } else {
-            logger.info("Cart item was not been found");
+            logger.info("getItemInCart::cart item was not been found");
         }
         return optional.isPresent() ? optional.get() : null;
     }
@@ -133,7 +133,7 @@ public class CartItemService {
             updatedCartItem = cartItemRepository.save(cartItem);
         }
 
-        logger.info("Product with id:[{}] was added to cart", cartItem.getProductId());
+        logger.info("saveCartItem::product with id:[{}] was added to cart", cartItem.getProductId());
 
         return findById(updatedCartItem.getId());
     }
@@ -177,9 +177,9 @@ public class CartItemService {
         CartItem cartItem = findById(cartItemId);
         WishListItem wishListItem = cartItem.toWishListItem();
         wishListItemService.save(wishListItem);
-        logger.info("Wish list item with id:[{}] was saved", wishListItem.getId());
+        logger.info("saveToWishList::wish list item with id:[{}] was saved", wishListItem.getId());
 
         delete(cartItem.getId());
-        logger.info("Cart item with id:[{}] was deleted", cartItemId);
+        logger.info("saveToWishList::cart item with id:[{}] was deleted", cartItemId);
     }
 }

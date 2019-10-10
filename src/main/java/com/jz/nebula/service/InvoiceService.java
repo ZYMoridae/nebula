@@ -27,6 +27,11 @@ public class InvoiceService {
 
     }
 
+    /**
+     * Save invoice
+     *
+     * @param chargeId
+     */
     public void saveInvoice(String chargeId) {
         try {
             Charge charge = paymentService.getPaymentGatway().retrieveCharge(chargeId);

@@ -1,8 +1,8 @@
 package com.jz.nebula.controller;
 
+import com.jz.nebula.entity.LogisticsProvider;
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.entity.Shipper;
-import com.jz.nebula.service.ShipperService;
+import com.jz.nebula.service.LogisticsProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
-@RequestMapping("/shippers")
-public class ShipperController {
+@RequestMapping("/logistics-provider")
+public class LogisticsProviderController {
     @Autowired
-    private ShipperService shipperService;
+    private LogisticsProviderService logisticsProviderService;
 
     /**
      *
@@ -33,9 +33,9 @@ public class ShipperController {
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<Shipper>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                          final HttpServletResponse response, PagedResourcesAssembler<Shipper> assembler) {
-        return shipperService.findAll(pageable, assembler);
+    PagedResources<Resource<LogisticsProvider>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                                    final HttpServletResponse response, PagedResourcesAssembler<LogisticsProvider> assembler) {
+        return logisticsProviderService.findAll(pageable, assembler);
     }
 
     /**
@@ -46,34 +46,34 @@ public class ShipperController {
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Shipper findById(@PathVariable("id") long id) {
-        return shipperService.findById(id);
+    LogisticsProvider findById(@PathVariable("id") long id) {
+        return logisticsProviderService.findById(id);
     }
 
     /**
      *
-     * @param shipper
+     * @param logisticsProvider
      * @return
      */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Shipper create(@RequestBody Shipper shipper) {
-        return shipperService.save(shipper);
+    LogisticsProvider create(@RequestBody LogisticsProvider logisticsProvider) {
+        return logisticsProviderService.save(logisticsProvider);
     }
 
     /**
      *
      * @param id
-     * @param shipper
+     * @param logisticsProvider
      * @return
      */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Shipper update(@PathVariable("id") long id, @RequestBody Shipper shipper) {
-        shipper.setId(id);
-        return shipperService.save(shipper);
+    LogisticsProvider update(@PathVariable("id") long id, @RequestBody LogisticsProvider logisticsProvider) {
+        logisticsProvider.setId(id);
+        return logisticsProviderService.save(logisticsProvider);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ShipperController {
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {
-        shipperService.delete(id);
+        logisticsProviderService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

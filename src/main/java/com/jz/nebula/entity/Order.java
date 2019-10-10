@@ -40,7 +40,7 @@ public class Order implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "shipper_id", insertable = false, updatable = false)
-    private Shipper shipper;
+    private LogisticsProvider logisticsProvider;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", nullable = false)
@@ -58,13 +58,13 @@ public class Order implements Serializable {
 
 ////    // TODO: One to one
 ////    @OneToOne(mappedBy = "orders", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private OrderShippingInfo orderShippingInfo;
+//    private OrderLogisticsInfo orderShippingInfo;
 ////
-//    public OrderShippingInfo getOrderShippingInfo() {
+//    public OrderLogisticsInfo getOrderShippingInfo() {
 //        return orderShippingInfo;
 //    }
 //
-//    public void setOrderShippingInfo(OrderShippingInfo orderShippingInfo) {
+//    public void setOrderShippingInfo(OrderLogisticsInfo orderShippingInfo) {
 //        this.orderShippingInfo = orderShippingInfo;
 //    }
 
@@ -143,11 +143,11 @@ public class Order implements Serializable {
         this.shipperId = shipperId;
     }
 
-    public Shipper getShipper() {
-        return shipper;
+    public LogisticsProvider getLogisticsProvider() {
+        return logisticsProvider;
     }
 
-    public void setShipper(Shipper shipper) {
-        this.shipper = shipper;
+    public void setLogisticsProvider(LogisticsProvider logisticsProvider) {
+        this.logisticsProvider = logisticsProvider;
     }
 }

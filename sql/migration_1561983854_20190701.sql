@@ -1,1 +1,0 @@
-SET CLIENT_MIN_MESSAGES = WARNING;BEGIN;    DROP TABLE IF EXISTS public.teacher;    CREATE TABLE public.teacher    (        id serial,        user_id int NOT NULL REFERENCES "user"(id),        intro text,        CONSTRAINT teacher_pkey PRIMARY KEY (id)    );COMMIT;

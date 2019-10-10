@@ -25,6 +25,8 @@ public class Role implements Serializable {
 
     public final static String ROLE_ADMIN = "ROLE_ADMIN";
 
+    public final static String ROLE_TEACHER = "ROLE_TEACHER";
+
     public final static String ADMIN = "ADMIN";
 
     public final static String[] DEFAULT_USER_GROUP = {"ROLE_ADMIN", "ROLE_USER", "ROLE_VENDOR"};

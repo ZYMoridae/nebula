@@ -75,11 +75,13 @@ public class UserService implements UserDetailsService {
         user.setRoles(rolesList);
         ObjectMapper oMapper = new ObjectMapper();
         User savedUser = userRepository.save(user);
+        logger.debug("createUser::user saved");
 
         UserRole userRole = new UserRole();
         userRole.setRoleId(normalUser.getId());
         userRole.setUserId(savedUser.getId());
         userRolesRepository.save(userRole);
+        logger.debug("createUser::user role saved");
 
         // Find user by id again to get user roles
         savedUser = userRepository.findById(savedUser.getId()).get();

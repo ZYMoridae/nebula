@@ -2,8 +2,8 @@ package com.jz.nebula.service;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.controller.OrderController;
+import com.jz.nebula.dao.OrderLogisticsInfoRepository;
 import com.jz.nebula.dao.OrderRepository;
-import com.jz.nebula.dao.OrderShippingInfoRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.entity.*;
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private OrderShippingInfoRepository orderShippingInfoRepository;
+    private OrderLogisticsInfoRepository orderLogisticsInfoRepository;
 
     @Autowired
     private IAuthenticationFacade authenticationFacade;
@@ -54,9 +54,9 @@ public class OrderService {
     public PagedResources<Resource<Order>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
         Page<Order> page;
         User user = authenticationFacade.getUser();
-        if(user.isAdmin()) {
+        if (user.isAdmin()) {
             page = orderRepository.findByUserId(user.getId(), pageable);
-        }else {
+        } else {
             page = orderRepository.findAll(pageable);
         }
 
@@ -113,13 +113,13 @@ public class OrderService {
         Order safetyOrder = order;
         User user = this.authenticationFacade.getUser();
         if (isUser(user) && safetyOrder.getUserId() != null) {
-            logger.info("User with id:[{}] put userId: [{}] in the request", user.getId(), safetyOrder.getUserId());
+            logger.info("preProcessingOrder::user with id:[{}] put userId: [{}] in the request", user.getId(), safetyOrder.getUserId());
             safetyOrder.setUserId(user.getId());
         }
 
         Order persistedOrder = null;
 
-        if(order.getId() != null) {
+        if (order.getId() != null) {
             persistedOrder = this.findById(order.getId());
         }
 
@@ -156,7 +156,7 @@ public class OrderService {
         User currentUser = authenticationFacade.getUser();
 
 //        if (!currentUser.isAdmin()) {
-            order.setUserId(currentUser.getId());
+        order.setUserId(currentUser.getId());
 //        }
 
         Order updatedOrder = orderRepository.save(order);
@@ -196,8 +196,24 @@ public class OrderService {
         return order;
     }
 
+    /**
+     * @param orderLogisticsInfo
+     * @return
+     */
+    public OrderLogisticsInfo saveLogisticsInfo(OrderLogisticsInfo orderLogisticsInfo) {
+        return orderLogisticsInfoRepository.save(orderLogisticsInfo);
+    }
 
-    public OrderShippingInfo saveShippingInfo(OrderShippingInfo orderShippingInfo) {
-        return orderShippingInfoRepository.save(orderShippingInfo);
+    /**
+     * @return
+     */
+    public boolean refund() {
+        return false;
+    }
+
+    /***************** Admin Functionality **********************/
+
+    public void deleteByIds(List<Long> ids) {
+        orderRepository.deleteByIdIn(ids);
     }
 }

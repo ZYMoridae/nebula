@@ -45,7 +45,7 @@ public class NotificationService {
         } else {
             updatedNotification = notificationRepository.save(notification);
         }
-        logger.info("Notification has been saved");
+        logger.info("saveNotification::notification has been saved");
         return findById(updatedNotification.getId());
     }
 

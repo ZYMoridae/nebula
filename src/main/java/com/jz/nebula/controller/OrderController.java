@@ -2,7 +2,7 @@ package com.jz.nebula.controller;
 
 import com.jz.nebula.amqp.MessageProducer;
 import com.jz.nebula.entity.Order;
-import com.jz.nebula.entity.OrderShippingInfo;
+import com.jz.nebula.entity.OrderLogisticsInfo;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,15 +118,15 @@ public class OrderController {
 
 
     /**
-     * @param orderShippingInfo
+     * @param orderLogisticsInfo
      * @return
      */
-    @PostMapping("/{id}/shipping-info")
+    @PostMapping("/{id}/logistics")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    OrderShippingInfo createOrderShippingInfo(@PathVariable("id") long id, @RequestBody OrderShippingInfo orderShippingInfo) {
-        orderShippingInfo.setOrdersId(id);
-        return orderService.saveShippingInfo(orderShippingInfo);
+    OrderLogisticsInfo createOrderLogisticsInfo(@PathVariable("id") long id, @RequestBody OrderLogisticsInfo orderLogisticsInfo) {
+        orderLogisticsInfo.setOrdersId(id);
+        return orderService.saveLogisticsInfo(orderLogisticsInfo);
     }
 
 

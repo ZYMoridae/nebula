@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "user_shipping_preference", schema = "public")
-public class UserShippingPreference implements Serializable {
+public class UserLogisticsPreference implements Serializable {
 
     /**
      *

@@ -3,7 +3,7 @@ package com.jz.nebula.service;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import com.jz.nebula.auth.AuthenticationFacade;
-import com.jz.nebula.entity.UserShippingPreference;
+import com.jz.nebula.entity.UserLogisticsPreference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,37 +12,37 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 
 import com.jz.nebula.controller.UserPreferenceController;
-import com.jz.nebula.dao.UserShippingPreferenceRepository;
+import com.jz.nebula.dao.UserLogisticsPreferenceRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserShippingPreferenceService {
+public class UserLogisticsPreferenceService {
 
     @Autowired
-    private UserShippingPreferenceRepository userPreferenceRepository;
+    private UserLogisticsPreferenceRepository userPreferenceRepository;
 
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
-    public PagedResources<Resource<UserShippingPreference>> findAll(Pageable pageable,
-                                                                               PagedResourcesAssembler<UserShippingPreference> assembler) {
-        Page<UserShippingPreference> page = userPreferenceRepository.findAll(pageable);
+    public PagedResources<Resource<UserLogisticsPreference>> findAll(Pageable pageable,
+                                                                     PagedResourcesAssembler<UserLogisticsPreference> assembler) {
+        Page<UserLogisticsPreference> page = userPreferenceRepository.findAll(pageable);
 
-        PagedResources<Resource<UserShippingPreference>> resources = assembler.toResource(page,
+        PagedResources<Resource<UserLogisticsPreference>> resources = assembler.toResource(page,
                 linkTo(UserPreferenceController.class).slash("/user-preferences").withSelfRel());
         ;
         return resources;
     }
 
-    public UserShippingPreference save(UserShippingPreference userPreference) {
-        UserShippingPreference updatedUserPreference = userPreferenceRepository.save(userPreference);
+    public UserLogisticsPreference save(UserLogisticsPreference userPreference) {
+        UserLogisticsPreference updatedUserPreference = userPreferenceRepository.save(userPreference);
 
         return findById(updatedUserPreference.getId());
     }
 
-    public UserShippingPreference findById(long id) {
+    public UserLogisticsPreference findById(long id) {
         return userPreferenceRepository.findById(id).get();
     }
 
@@ -55,7 +55,7 @@ public class UserShippingPreferenceService {
      *
      * @return
      */
-    public List<UserShippingPreference> findByUserId() {
+    public List<UserLogisticsPreference> findByUserId() {
         return userPreferenceRepository.findByUserId(authenticationFacade.getUserId());
     }
 

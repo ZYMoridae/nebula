@@ -6,7 +6,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "order_shipping_info", schema = "public")
-public class OrderShippingInfo implements Serializable {
+public class OrderLogisticsInfo implements Serializable {
 
     /**
      *

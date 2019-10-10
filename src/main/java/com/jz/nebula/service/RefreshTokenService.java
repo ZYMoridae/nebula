@@ -49,6 +49,7 @@ public class RefreshTokenService {
 
     @PostConstruct
     protected void init() {
+        // TODO: Move the hash key to config file
         secretKey = Keys.hmacShaKeyFor("766e5dc6241769058a9bdae0bec468d9".getBytes());
     }
 

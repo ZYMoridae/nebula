@@ -36,6 +36,8 @@ public class TokenService {
 
     private Key secretKey;
 
+    private int expiredMinutes = 15;
+
     @Value("${security.jwt.token.expire-length:3600000}")
     private long validityInMilliseconds = 3600000; // 1h
 
@@ -51,6 +53,14 @@ public class TokenService {
     @PostConstruct
     protected void init() {
         secretKey = Keys.hmacShaKeyFor("766e5dc6241769058a9bdae0bec468d9".getBytes());
+    }
+
+    public int getExpiredMinutes() {
+        return expiredMinutes;
+    }
+
+    public void setExpiredMinutes(int expiredMinutes) {
+        this.expiredMinutes = expiredMinutes;
     }
 
     /**
@@ -72,12 +82,13 @@ public class TokenService {
                 .compact();
 
         template.opsForHash().put(username, username, token);
-        template.expire(username, 15, TimeUnit.MINUTES);
+        template.expire(username, this.expiredMinutes, TimeUnit.MINUTES);
 
         String refreshToken = refreshTokenService.createRefreshToken(username, roles, secretKey);
         Map<String, String> tokenMap = new ConcurrentHashMap<>();
         tokenMap.put("accessToken", token);
         tokenMap.put("refreshToken", refreshToken);
+        logger.debug("createToken::access token and refresh token created");
 
         return tokenMap;
     }
@@ -127,6 +138,7 @@ public class TokenService {
         try {
             // This logic is to suppress exception when public endpoints are accessed
             if (token.equals("null")) {
+                logger.warn("validateToken::Token is not provided");
                 return false;
             }
 
@@ -135,21 +147,20 @@ public class TokenService {
             String username = claims.getBody().getSubject();
             Object redisToken = template.opsForHash().get(username, username);
 
-            logger.info("The redis access token is: [{}]", redisToken);
+            logger.info("validateToken::Redis access token: [{}]", redisToken);
 
             if (redisToken == null || !token.equals(redisToken)) {
                 return false;
             }
 
-            logger.info("Valid token received");
+            logger.info("validateToken::Valid token received");
 
-            // TODO: Make expired time configurable
-            template.expire(username, 15, TimeUnit.MINUTES);
+            template.expire(username, this.expiredMinutes, TimeUnit.MINUTES);
 
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             e.printStackTrace();
-            logger.error("Expired or Invalid JWT access token");
+            logger.error("validateToken::Expired or Invalid JWT access token");
             return false;
         }
     }

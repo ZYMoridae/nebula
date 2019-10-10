@@ -43,7 +43,7 @@ public class ProductCommentService {
             productComment.setParentCommentId((long) 0);
         }
         ProductComment savedComment = productCommentRepository.save(productComment);
-        logger.info("Comment with id:[{}] was saved", savedComment.getId());
+        logger.info("saveComment::Comment with id:[{}] was saved", savedComment.getId());
         return savedComment;
     }
 
@@ -61,6 +61,6 @@ public class ProductCommentService {
 
     public void delete(long id) {
         productCommentRepository.deleteById(id);
-        logger.info("Comment with id:[{}] was deleted", id);
+        logger.info("deleteComment::Comment with id:[{}] was deleted", id);
     }
 }

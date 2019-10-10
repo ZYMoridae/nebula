@@ -96,7 +96,7 @@ public class PaymentService {
 
             product.setUnitsInStock(currentStock.get());
             productRepository.save(product);
-            logger.info("Product id:[{}] stock was updated", product.getId());
+            logger.info("updateStock::Product id:[{}] stock was updated", product.getId());
         }
     }
 
