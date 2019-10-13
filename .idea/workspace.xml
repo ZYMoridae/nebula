@@ -7,87 +7,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2cbd913-5727-49ca-ad93-cfdf16f144df" name="Default Changelist" comment="Add API services">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/NewsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/TeacherMetaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/TeacherSubscriptionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/News.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/StockKeepingUnit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/teacher/TeacherMeta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/teacher/TeacherSubscription.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/NewsFeedingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/SKUService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/NewsSearchParameter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/bytedance/ByteDanceInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/bytedance/SearchParameter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/bytedance/ToutiaoCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/bytedance/ToutiaoImageItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/bytedance/ToutiaoNews.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/bytedance/ToutiaoResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/netease/NeteaseCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/netease/NeteaseInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/netease/NeteaseNewsItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/channel/netease/NeteaseResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/elasticsearch/ElasticSearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d018535e-a7f4-459f-b27a-1bba75e85269.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d018535e-a7f4-459f-b27a-1bba75e85269.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql/nebula.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/SKUController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/sku/SkuAttributeCategoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/sku/SkuAttributeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/sku/SkuRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/sku/SkuAttribute.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/sku/SkuAttributeCategory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/controller/ShipperController.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/controller/ShipperController.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/controller/class-use/ShipperController.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/controller/class-use/ShipperController.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/dao/ShipperRepositoryIntegrationTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/dao/ShipperRepositoryIntegrationTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/dao/class-use/ShipperRepository.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/dao/class-use/ShipperRepository.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/dao/class-use/ShipperRepositoryIntegrationTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/dao/class-use/ShipperRepositoryIntegrationTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/entity/Order.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/entity/Order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/entity/Shipper.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/entity/Shipper.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/entity/class-use/Shipper.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/entity/class-use/Shipper.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/service/ShipperService.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/service/ShipperService.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/jz/nebula/service/class-use/ShipperService.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/jz/nebula/service/class-use/ShipperService.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-17.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-17.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-19.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-19.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/serialized-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/serialized-form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/migration_1549578245_20190208.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/migration_1549578245_20190208.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/migration_1561983854_20190701.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/migration_1557148164_20190506.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/migration_1557148164_20190506.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/migration_1557545052_20190511.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/migration_1557545052_20190511.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/migration_1558140538_20190518.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/migration_1558140538_20190518.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/migration_1560937735_20190619.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/migration_1560937735_20190619.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/migration_1561877052_20190630.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/migration_1561877052_20190630.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/migration_1567811415_20190907.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/migration_1567811415_20190907.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/migration_1568029128_20190909.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/migration_1568029128_20190909.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/ShipperController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/LogisticsProviderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/SwaggerConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/SwaggerConfigController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserPreferenceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/UserPreferenceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/OrderShippingInfoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/OrderLogisticsInfoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/ShipperRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/LogisticsProviderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/TeacherRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/TeacherRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/UserShippingPreferenceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/UserLogisticsPreferenceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/WishListItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/dao/WishListItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/OrderShippingInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/OrderLogisticsInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/Shipper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/LogisticsProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/UserShippingPreference.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/UserLogisticsPreference.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/teacher/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/teacher/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/InvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/NotificationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ProductCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ProductCommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/RefreshTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/RefreshTokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/ShipperService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/LogisticsProviderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/TeacherService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserShippingPreferenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/UserLogisticsPreferenceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/StockKeepingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/entity/sku/Sku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/SKUService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jz/nebula/service/SkuService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/shipper/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/shipper/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/jz/nebula/dao/ShipperRepositoryIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/jz/nebula/dao/LogisticsProviderRepositoryIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/ShipperServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/LogisticsProviderServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserShippingPreferenceServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/jz/nebula/service/UserLogisticsPreferenceServiceTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,8 +62,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -520,7 +463,10 @@
       <workItem from="1570523017611" duration="598000" />
       <workItem from="1570529805837" duration="3765000" />
       <workItem from="1570609213006" duration="1081000" />
-      <workItem from="1570692052358" duration="3899000" />
+      <workItem from="1570692052358" duration="4087000" />
+      <workItem from="1570785714232" duration="598000" />
+      <workItem from="1570834862239" duration="13790000" />
+      <workItem from="1570919712351" duration="8147000" />
     </task>
     <task id="LOCAL-00001" summary="Add API entities">
       <created>1556626672008</created>
@@ -620,7 +566,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/AuthController.java</url>
-          <line>72</line>
+          <line>77</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -633,7 +579,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/AuthController.java</url>
-          <line>74</line>
+          <line>79</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -646,12 +592,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/AuthController.java</url>
-          <line>80</line>
+          <line>85</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jz/nebula/WebSecurityConfig.java</url>
-          <line>47</line>
+          <line>55</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -671,7 +617,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jz/nebula/controller/CartController.java</url>
-          <line>35</line>
+          <line>38</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

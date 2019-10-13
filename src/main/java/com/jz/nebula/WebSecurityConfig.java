@@ -43,6 +43,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/products/{\\d+}/comments").permitAll()
                 .antMatchers(HttpMethod.GET, "/home-banners/active").permitAll()
                 .antMatchers(HttpMethod.GET, "/news").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                // Below is for the Swagger path by pass
+                .antMatchers("/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll()
 //              .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
 //              .antMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
                 .anyRequest().authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));

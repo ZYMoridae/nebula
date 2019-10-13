@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.xml.bind.DatatypeConverter;
 
 import com.jz.nebula.service.OrderService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/auth")
+@Api(value = "authentication")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
@@ -51,12 +54,14 @@ public class AuthController {
     UserRepository users;
 
     /**
+     * Sign in the Nebula API with Basic Auth
      *
      * @param headers
      * @return
      */
     @PostMapping("/signin")
-//  @RequestBody AuthenticationRequest data, 
+    @ApiOperation(value = "Sign in Nebula API", response = ResponseEntity.class)
+//  @RequestBody AuthenticationRequest data,
     public ResponseEntity<?> signin(@RequestHeader HttpHeaders headers) {
         try {
             String authValue = headers.getFirst(HttpHeaders.AUTHORIZATION);
@@ -88,11 +93,13 @@ public class AuthController {
     }
 
     /**
+     * Verify the authentication
      *
      * @param headers
      * @return
      */
     @PostMapping("/verify")
+    @ApiOperation(value = "Verify the authentication", response = ResponseEntity.class)
     public ResponseEntity<?> verify(@RequestHeader HttpHeaders headers) {
         String verificationValue = headers.getFirst(VERIFICATION_HEADER);
         String credential = new String(DatatypeConverter.parseBase64Binary(verificationValue));
