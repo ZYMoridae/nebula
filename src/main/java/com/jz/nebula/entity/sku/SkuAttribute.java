@@ -27,7 +27,7 @@ public class SkuAttribute implements Serializable {
     private Long skuAttributeCategoryId;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sku_attribute_category_id", referencedColumnName = "id")
+    @JoinColumn(name = "sku_attribute_category_id", referencedColumnName = "id", insertable = false, updatable = false)
     private SkuAttributeCategory skuAttributeCategory;
 
     private String value;

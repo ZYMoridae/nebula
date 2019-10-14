@@ -24,13 +24,14 @@ public class SKUController {
     }
 
     @GetMapping("/{id}")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Sku findById(@PathVariable("id") long id) {
         return skuService.find(id);
     }
 
     @PutMapping("/{id}")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Sku update(@PathVariable("id") long id, @RequestBody Sku sku) {
         sku.setId(id);
@@ -38,10 +39,12 @@ public class SKUController {
     }
 
     @DeleteMapping("/{id}")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {
         skuService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }
