@@ -3,21 +3,13 @@ package com.jz.nebula.entity.order;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.jz.nebula.entity.product.Product;
+import com.jz.nebula.entity.sku.Sku;
 
 @Entity
 @Table(name = "order_item", schema = "public")
@@ -44,6 +36,13 @@ public class OrderItem implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
+
+    @Column(name = "sku_code")
+    private String skuCode;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sku_code", insertable = false, updatable = false)
+    private Sku sku;
 
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;
@@ -112,6 +111,22 @@ public class OrderItem implements Serializable {
         return (double) this.quantity * this.product.getPrice() * 100;
     }
 
+    public Sku getSku() {
+        return sku;
+    }
+
+    public void setSku(Sku sku) {
+        this.sku = sku;
+    }
+
+    public String getSkuCode() {
+        return skuCode;
+    }
+
+    public void setSkuCode(String skuCode) {
+        this.skuCode = skuCode;
+    }
+
     @Override
     public String toString() {
         return "OrderItem{" +
@@ -120,6 +135,8 @@ public class OrderItem implements Serializable {
                 ", productId=" + productId +
                 ", quantity=" + quantity +
                 ", product=" + product +
+                ", skuCode='" + skuCode + '\'' +
+                ", sku=" + sku +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

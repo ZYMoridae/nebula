@@ -614,6 +614,7 @@ CREATE TABLE public.order_operate_history
     updated_at      timestamp without time zone DEFAULT now()
 );
 
+ALTER TABLE order_item ADD COLUMN sku_code character varying(50) NOT NULL REFERENCES "sku" (sku_code);
 
 
 COMMIT;

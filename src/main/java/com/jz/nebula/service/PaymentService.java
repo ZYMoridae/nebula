@@ -4,12 +4,14 @@ import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.ProductRepository;
+import com.jz.nebula.dao.sku.SkuRepository;
 import com.jz.nebula.entity.*;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderItem;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.payment.PaymentMethodInfo;
 import com.jz.nebula.entity.product.Product;
+import com.jz.nebula.entity.sku.Sku;
 import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.payment.PaymentGateway;
 import com.jz.nebula.payment.PaymentType;
@@ -44,6 +46,9 @@ public class PaymentService {
 
     @Autowired
     private OrderStatusRepository orderStatusRepository;
+
+    @Autowired
+    private SkuRepository skuRepository;
 
     @Autowired
     @Qualifier("stripeGateway")
@@ -83,24 +88,24 @@ public class PaymentService {
     }
 
     /**
-     * Update stock
+     * Update stock. We will update the SKU based on the sku code stored in side order item.
      *
      * @param orderItem
      * @throws ProductStockException
      */
     private synchronized void updateStock(OrderItem orderItem) throws ProductStockException {
-        Optional<Product> optional = productRepository.findById(orderItem.getProductId());
-        if (optional.isPresent()) {
-            Product product = optional.get();
-            AtomicInteger currentStock = new AtomicInteger(product.getUnitsInStock());
+        Optional<Sku> skuOptional = skuRepository.findBySkuCode(orderItem.getSkuCode());
+        if (skuOptional.isPresent()) {
+            Sku sku = skuOptional.get();
+            AtomicInteger currentStock = new AtomicInteger(sku.getStock());
             currentStock.addAndGet(orderItem.getQuantity() * -1);
-            if (currentStock.get() < 0) {
+            if(currentStock.get() < 0) {
                 throw new ProductStockException();
             }
 
-            product.setUnitsInStock(currentStock.get());
-            productRepository.save(product);
-            logger.info("updateStock::Product id:[{}] stock was updated", product.getId());
+            sku.setStock(currentStock.get());
+            skuRepository.save(sku);
+            logger.info("updateStock::Sku code:[{}] stock was updated", sku.getSkuCode());
         }
     }
 
@@ -149,6 +154,16 @@ public class PaymentService {
         return this.processOrder(order, paymentMethodInfo);
     }
 
+    private Optional getTotalAmount(Order order) {
+        Optional<Double> totalAmount = order.getOrderItems().stream().map(item -> item.getAmount()).reduce((x, y) -> x + y);
+        logger.debug("getTotalAmount:: order id: [{}] with total amount [{]]", order.getId(), totalAmount);
+
+        // TODO: Currency mapping. e.g. USD => AUD, CNY => AUD
+
+        // TODO: Put markup fee or credit surcharge here
+        return totalAmount;
+    }
+
     /**
      * @param order
      * @param paymentMethodInfo
@@ -160,8 +175,7 @@ public class PaymentService {
         Payment payment = new Payment();
         Map<String, Object> result = new ConcurrentHashMap<>();
 
-
-        Optional<Double> totalAmount = order.getOrderItems().stream().map(item -> item.getAmount()).reduce((x, y) -> x + y);
+        Optional<Double> totalAmount = getTotalAmount(order);
         Object charge;
 
         // Update order stock
