@@ -67,4 +67,14 @@ public class NotificationStatus implements Serializable {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return "NotificationStatus{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

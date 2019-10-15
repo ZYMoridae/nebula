@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.jz.nebula.entity.order.OrderItem;
+import com.jz.nebula.entity.product.Product;
 
 @Entity
 @Table(name = "cart_item", schema = "public")
@@ -132,5 +134,18 @@ public class CartItem implements Serializable {
         wishListItem.setProductId(this.productId);
         wishListItem.setQuantity(this.quantity);
         return wishListItem;
+    }
+
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", cartId=" + cartId +
+                ", product=" + product +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

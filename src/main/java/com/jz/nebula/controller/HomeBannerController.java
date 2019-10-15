@@ -23,7 +23,6 @@ public class HomeBannerController {
     private HomeBannerService homeBannerService;
 
     /**
-     *
      * @param pageable
      * @param uriBuilder
      * @param response
@@ -50,7 +49,6 @@ public class HomeBannerController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -62,7 +60,6 @@ public class HomeBannerController {
     }
 
     /**
-     *
      * @param homeBanner
      * @return
      */
@@ -74,7 +71,6 @@ public class HomeBannerController {
     }
 
     /**
-     *
      * @param id
      * @param homeBanner
      * @return
@@ -88,7 +84,6 @@ public class HomeBannerController {
     }
 
     /**
-     *
      * @param id
      * @return
      */

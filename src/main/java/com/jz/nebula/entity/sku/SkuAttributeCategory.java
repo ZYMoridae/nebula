@@ -24,4 +24,14 @@ public class SkuAttributeCategory implements Serializable {
 
     @Column(name = "updated_at", insertable = false)
     private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "SkuAttributeCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

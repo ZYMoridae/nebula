@@ -22,7 +22,6 @@ public class UserPreferenceController {
     private UserLogisticsPreferenceService userLogisticsPreferenceService;
 
     /**
-     *
      * @param pageable
      * @param uriBuilder
      * @param response
@@ -38,7 +37,6 @@ public class UserPreferenceController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -50,7 +48,6 @@ public class UserPreferenceController {
     }
 
     /**
-     *
      * @param userLogisticsPreference
      * @return
      */
@@ -62,7 +59,6 @@ public class UserPreferenceController {
     }
 
     /**
-     *
      * @param id
      * @param userLogisticsPreference
      * @return
@@ -76,7 +72,6 @@ public class UserPreferenceController {
     }
 
     /**
-     *
      * @param id
      * @return
      */

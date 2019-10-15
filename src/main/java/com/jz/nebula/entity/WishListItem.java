@@ -16,7 +16,12 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.jz.nebula.entity.product.Product;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "wish_list_item", schema = "public")
 public class WishListItem implements Serializable {
@@ -50,66 +55,28 @@ public class WishListItem implements Serializable {
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public Long getWishListId() {
-        return wishListId;
-    }
-
-    public void setWishListId(Long wishListId) {
-        this.wishListId = wishListId;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
+    /**
+     * Wish list item to cart item
+     *
+     * @return
+     */
     public CartItem toCartItem() {
         CartItem cartItem = new CartItem();
         cartItem.setProductId(this.productId);
         cartItem.setQuantity(this.quantity);
         return cartItem;
+    }
+
+    @Override
+    public String toString() {
+        return "WishListItem{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", wishListId=" + wishListId +
+                ", product=" + product +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

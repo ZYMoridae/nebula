@@ -36,4 +36,17 @@ public class TeacherMeta implements Serializable {
 
     @Column(name = "avatar")
     private String avatar;
+
+    @Override
+    public String toString() {
+        return "TeacherMeta{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", intro='" + intro + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 }

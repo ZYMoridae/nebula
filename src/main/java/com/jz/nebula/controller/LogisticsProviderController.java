@@ -23,7 +23,6 @@ public class LogisticsProviderController {
     private LogisticsProviderService logisticsProviderService;
 
     /**
-     *
      * @param pageable
      * @param uriBuilder
      * @param response
@@ -39,7 +38,6 @@ public class LogisticsProviderController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -51,7 +49,6 @@ public class LogisticsProviderController {
     }
 
     /**
-     *
      * @param logisticsProvider
      * @return
      */
@@ -63,7 +60,6 @@ public class LogisticsProviderController {
     }
 
     /**
-     *
      * @param id
      * @param logisticsProvider
      * @return
@@ -77,7 +73,6 @@ public class LogisticsProviderController {
     }
 
     /**
-     *
      * @param id
      * @return
      */

@@ -1,4 +1,4 @@
-package com.jz.nebula.entity;
+package com.jz.nebula.entity.order;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -20,6 +20,31 @@ import lombok.Setter;
 @Table(name = "order_status", schema = "public")
 public class OrderStatus implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6849443038191417463L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    @JsonIgnore
+    @Column(name = "created_at")
+    private Date createdAt;
+    @JsonIgnore
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "OrderStatus{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
+
     public enum StatusType {
         PENDING(1), PAID(2), REFUND(3);
 
@@ -29,23 +54,4 @@ public class OrderStatus implements Serializable {
             this.value = value;
         }
     }
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6849443038191417463L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    @JsonIgnore
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @JsonIgnore
-    @Column(name = "updated_at")
-    private Date updatedAt;
 }

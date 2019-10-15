@@ -15,19 +15,17 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.jz.nebula.dao.ProductRepository;
-import com.jz.nebula.entity.Product;
+import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.entity.WishListItem;
 
 @Component("wishListItemValidator")
 public class WishListItemValidator extends BaseValidator implements ValidatorInterface, Serializable {
 
-    private final Logger logger = LogManager.getLogger(WishListItemValidator.class);
-
     /**
      *
      */
     private static final long serialVersionUID = 1869981127906910401L;
-
+    private final Logger logger = LogManager.getLogger(WishListItemValidator.class);
     @Autowired
     private ProductRepository productRepository;
 

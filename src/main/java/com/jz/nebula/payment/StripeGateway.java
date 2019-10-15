@@ -19,13 +19,11 @@ import java.util.Map;
 
 @Component("stripeGateway")
 public class StripeGateway implements PaymentGateway {
+    private final Logger logger = LoggerFactory.getLogger(StripeGateway.class);
     @Autowired
     private StripeProperties properties;
-
     @Autowired
     private MessageProducer messageProducer;
-
-    private final Logger logger = LoggerFactory.getLogger(StripeGateway.class);
 
     public StripeGateway() {
 
@@ -79,7 +77,6 @@ public class StripeGateway implements PaymentGateway {
     }
 
 
-
     private boolean validateCreditCard(CreditCard creditCard) {
         boolean isValid = true;
 
@@ -92,7 +89,7 @@ public class StripeGateway implements PaymentGateway {
     private synchronized Token createPaymentMethod(PaymentMethodInfo paymentMethodInfo) throws StripeException, InvalidPaymentException {
         Token token = null;
 
-        if(paymentMethodInfo != null) {
+        if (paymentMethodInfo != null) {
             CreditCard creditCard = paymentMethodInfo.getCreditCard();
 
             Map<String, Object> tokenParams = new HashMap<>();
@@ -100,7 +97,7 @@ public class StripeGateway implements PaymentGateway {
             cardParams.put("number", creditCard.getCardNumber());
 
             String expiry = creditCard.getExpiry().substring(0, 4);
-            if(expiry.length() != 4) {
+            if (expiry.length() != 4) {
                 throw new InvalidPaymentException();
             }
 

@@ -1,6 +1,6 @@
 package com.jz.nebula.dao;
 
-import com.jz.nebula.entity.Order;
+import com.jz.nebula.entity.order.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

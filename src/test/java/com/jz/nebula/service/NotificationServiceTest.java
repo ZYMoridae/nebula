@@ -24,56 +24,56 @@ import com.jz.nebula.entity.NotificationStatus;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class NotificationServiceTest {
-	@Mock
-	private NotificationRepository notificationRepository;
+    @Mock
+    private NotificationRepository notificationRepository;
 
-	@InjectMocks
-	private NotificationService notificationService;
+    @InjectMocks
+    private NotificationService notificationService;
 
-	private Notification expectedNotification;
+    private Notification expectedNotification;
 
-	@Before
-	public void beforeTests() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		Notification returnedNotification = new Notification();
-		NotificationStatus notificationStatus = new NotificationStatus();
-		notificationStatus.setId((long) 1);
-		notificationStatus.setCode("UNREAD");
+    @Before
+    public void beforeTests() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        Notification returnedNotification = new Notification();
+        NotificationStatus notificationStatus = new NotificationStatus();
+        notificationStatus.setId((long) 1);
+        notificationStatus.setCode("UNREAD");
 
-		returnedNotification.setUserId((long) 1);
-		returnedNotification.setId((long) 1);
-		returnedNotification.setNotificationStatus(notificationStatus);
-		returnedNotification.setStatusId(notificationStatus.getId());
-		returnedNotification.setBody("test");
-		this.expectedNotification = returnedNotification;
-	}
+        returnedNotification.setUserId((long) 1);
+        returnedNotification.setId((long) 1);
+        returnedNotification.setNotificationStatus(notificationStatus);
+        returnedNotification.setStatusId(notificationStatus.getId());
+        returnedNotification.setBody("test");
+        this.expectedNotification = returnedNotification;
+    }
 
-	@Test
-	public void createNotificationTest() {
-		Notification parameterNotification = new Notification();
-		parameterNotification.setBody("test");
-		parameterNotification.setUserId((long) 1);
-		parameterNotification.setStatusId((long) 1);
+    @Test
+    public void createNotificationTest() {
+        Notification parameterNotification = new Notification();
+        parameterNotification.setBody("test");
+        parameterNotification.setUserId((long) 1);
+        parameterNotification.setStatusId((long) 1);
 
-		Optional<Notification> optionalNotification = Optional.of(expectedNotification);
+        Optional<Notification> optionalNotification = Optional.of(expectedNotification);
 
-		when(notificationRepository.findById((long) 1)).thenReturn(optionalNotification);
+        when(notificationRepository.findById((long) 1)).thenReturn(optionalNotification);
 
-		when(notificationRepository.save(parameterNotification)).thenReturn(expectedNotification);
-		Notification savedNotification = notificationService.save(parameterNotification);
-		assertEquals(expectedNotification.getBody(), savedNotification.getBody());
-		assertEquals(expectedNotification.getUserId(), savedNotification.getUserId());
-		assertEquals(expectedNotification.getStatusId(), savedNotification.getStatusId());
-		assertEquals(expectedNotification.getId(), savedNotification.getId());
-	}
+        when(notificationRepository.save(parameterNotification)).thenReturn(expectedNotification);
+        Notification savedNotification = notificationService.save(parameterNotification);
+        assertEquals(expectedNotification.getBody(), savedNotification.getBody());
+        assertEquals(expectedNotification.getUserId(), savedNotification.getUserId());
+        assertEquals(expectedNotification.getStatusId(), savedNotification.getStatusId());
+        assertEquals(expectedNotification.getId(), savedNotification.getId());
+    }
 
-	@Test
-	public void deleteByIdTest() {
-		Mockito.doAnswer((Answer<?>) invocation -> {
-			Object arg0 = invocation.getArgument(0);
-			assertEquals((long) 1, arg0);
-			return null;
-		}).when(notificationRepository).deleteById(Mockito.any(long.class));
-		notificationService.delete((long) 1);
-	}
+    @Test
+    public void deleteByIdTest() {
+        Mockito.doAnswer((Answer<?>) invocation -> {
+            Object arg0 = invocation.getArgument(0);
+            assertEquals((long) 1, arg0);
+            return null;
+        }).when(notificationRepository).deleteById(Mockito.any(long.class));
+        notificationService.delete((long) 1);
+    }
 }

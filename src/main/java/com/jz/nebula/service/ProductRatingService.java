@@ -5,12 +5,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.auth.AuthenticationFacade;
 import com.jz.nebula.dao.ProductRatingRepository;
-import com.jz.nebula.entity.ProductRating;
+import com.jz.nebula.entity.product.ProductRating;
 import com.jz.nebula.entity.User;
 
 @Service

@@ -36,22 +36,35 @@ public class UserLogisticsPreference implements Serializable {
     @Column(name = "user_id")
     private Long userId;
 
-
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
-
     private String address1;
 
     private String address2;
 
-    @Column(name="post_code")
+    @Column(name = "post_code")
     private String postCode;
 
     private String email;
 
     private String phone;
+
+    @Override
+    public String toString() {
+        return "UserLogisticsPreference{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address1='" + address1 + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", postCode='" + postCode + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }

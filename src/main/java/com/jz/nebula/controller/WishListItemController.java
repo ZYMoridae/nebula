@@ -24,7 +24,6 @@ public class WishListItemController {
     private WishListItemService wishListItemService;
 
     /**
-     *
      * @param id
      * @return
      */
@@ -55,7 +54,6 @@ public class WishListItemController {
     }
 
     /**
-     *
      * @param wishListItem
      * @return
      * @throws Exception
@@ -73,7 +71,6 @@ public class WishListItemController {
     }
 
     /**
-     *
      * @param id
      * @param wishListItem
      * @return
@@ -89,7 +86,6 @@ public class WishListItemController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -102,7 +98,6 @@ public class WishListItemController {
     }
 
     /**
-     *
      * @param id
      * @param wishListItem
      * @return

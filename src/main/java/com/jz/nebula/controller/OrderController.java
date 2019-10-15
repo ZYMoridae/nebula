@@ -1,8 +1,8 @@
 package com.jz.nebula.controller;
 
 import com.jz.nebula.amqp.MessageProducer;
-import com.jz.nebula.entity.Order;
-import com.jz.nebula.entity.OrderLogisticsInfo;
+import com.jz.nebula.entity.order.Order;
+import com.jz.nebula.entity.order.OrderLogisticsInfo;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.jz.nebula.entity;
+package com.jz.nebula.entity.product;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -16,27 +16,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "product_category", schema = "public")
 public class ProductCategory implements Serializable {
 
-    public ProductCategory() {
-    }
-
     /**
      *
      */
     private static final long serialVersionUID = -7576563878222934393L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     @JsonIgnore
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;
-
     @JsonIgnore
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    public ProductCategory() {
+    }
 
     public Long getId() {
         return id;
@@ -68,5 +64,15 @@ public class ProductCategory implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

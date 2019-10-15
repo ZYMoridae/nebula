@@ -32,7 +32,6 @@ public class LocationController {
     private LocationService locationService;
 
     /**
-     *
      * @param pageable
      * @param uriBuilder
      * @param response
@@ -48,7 +47,6 @@ public class LocationController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -60,7 +58,6 @@ public class LocationController {
     }
 
     /**
-     *
      * @param location
      * @return
      */
@@ -72,7 +69,6 @@ public class LocationController {
     }
 
     /**
-     *
      * @param id
      * @param location
      * @return
@@ -86,7 +82,6 @@ public class LocationController {
     }
 
     /**
-     *
      * @param id
      * @return
      */

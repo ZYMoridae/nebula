@@ -8,12 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.controller.ProductCategoryController;
 import com.jz.nebula.dao.ProductCategoryRepository;
-import com.jz.nebula.entity.ProductCategory;
+import com.jz.nebula.entity.product.ProductCategory;
 
 @Service
 public class ProductCategoryService {

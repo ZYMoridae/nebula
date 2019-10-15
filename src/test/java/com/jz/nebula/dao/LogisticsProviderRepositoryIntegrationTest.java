@@ -14,25 +14,25 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataJpaTest
 public class LogisticsProviderRepositoryIntegrationTest {
 
-	@Autowired
-	private TestEntityManager entityManager;
+    @Autowired
+    private TestEntityManager entityManager;
 
-	@Autowired
-	private LogisticsProviderRepository logisticsProviderRepository;
+    @Autowired
+    private LogisticsProviderRepository logisticsProviderRepository;
 
-	// write test cases here
+    // write test cases here
 
-	@Test
-	public void findShipperByName() {
-		// given
-		LogisticsProvider alex = new LogisticsProvider("alex");
-		entityManager.persist(alex);
-		entityManager.flush();
+    @Test
+    public void findShipperByName() {
+        // given
+        LogisticsProvider alex = new LogisticsProvider("alex");
+        entityManager.persist(alex);
+        entityManager.flush();
 
-		// when
-		LogisticsProvider found = logisticsProviderRepository.findByName(alex.getName());
+        // when
+        LogisticsProvider found = logisticsProviderRepository.findByName(alex.getName());
 
-		// then
-		assertEquals(found.getName(), alex.getName());
-	}
+        // then
+        assertEquals(found.getName(), alex.getName());
+    }
 }

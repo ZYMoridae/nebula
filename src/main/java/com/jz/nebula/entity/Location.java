@@ -1,5 +1,8 @@
 package com.jz.nebula.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -10,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "location", schema = "public")
 public class Location implements Serializable {
@@ -39,59 +44,16 @@ public class Location implements Serializable {
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getStateCode() {
-        return stateCode;
-    }
-
-    public void setStateCode(String stateCode) {
-        this.stateCode = stateCode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPostCode() {
-        return postCode;
-    }
-
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", countryCode='" + countryCode + '\'' +
+                ", stateCode='" + stateCode + '\'' +
+                ", name='" + name + '\'' +
+                ", postCode='" + postCode + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

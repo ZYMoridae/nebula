@@ -34,4 +34,18 @@ public class HomeBanner {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "HomeBanner{" +
+                "id=" + id +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", link='" + link + '\'' +
+                ", active=" + active +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

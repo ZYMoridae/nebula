@@ -12,4 +12,12 @@ public class PaymentMethodInfo {
     private String paymentType;
 
     private CreditCard creditCard;
+
+    @Override
+    public String toString() {
+        return "PaymentMethodInfo{" +
+                "paymentType='" + paymentType + '\'' +
+                ", creditCard=" + creditCard +
+                '}';
+    }
 }

@@ -16,18 +16,16 @@ import org.springframework.stereotype.Component;
 
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.entity.CartItem;
-import com.jz.nebula.entity.Product;
+import com.jz.nebula.entity.product.Product;
 
 @Component("cartItemValidator")
 public class CartItemValidator extends BaseValidator implements ValidatorInterface, Serializable {
-
-    private final Logger logger = LogManager.getLogger(CartItemValidator.class);
 
     /**
      *
      */
     private static final long serialVersionUID = 1869981127906910401L;
-
+    private final Logger logger = LogManager.getLogger(CartItemValidator.class);
     @Autowired
     private ProductRepository productRepository;
 

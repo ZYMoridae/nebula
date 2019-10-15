@@ -36,4 +36,17 @@ public class TeacherSubscription implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "TeacherSubscription{" +
+                "id=" + id +
+                ", teacherId=" + teacherId +
+                ", userId=" + userId +
+                ", startedAt=" + startedAt +
+                ", expiredAt=" + expiredAt +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

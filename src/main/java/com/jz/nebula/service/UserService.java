@@ -106,7 +106,7 @@ public class UserService implements UserDetailsService {
         Map<Object, Object> model = new HashMap<>();
         model.put("username", userDetails.getUsername());
         model.put("roles", userDetails.getAuthorities().stream().map(a -> a.getAuthority())
-            .collect(toList()));
+                .collect(toList()));
 
         User user = userRepository.findByUsername(userDetails.getUsername()).get();
 

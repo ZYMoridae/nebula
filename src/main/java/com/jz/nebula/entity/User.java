@@ -19,51 +19,37 @@ public class User implements Serializable {
      *
      */
     private static final long serialVersionUID = -7813183948065034220L;
-
-    public User() {
-    }
-
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @Builder.Default
-//    private List<String> roles = new ArrayList<>();
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "email")
-    private String email;
-
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private String password;
-
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     Set<UserRole> userRoles;
 
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @Builder.Default
+//    private List<String> roles = new ArrayList<>();
     @Transient
     List<Role> roles;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "username")
+    private String username;
+    @Column(name = "email")
+    private String email;
+    @JsonProperty(access = Access.WRITE_ONLY)
+    private String password;
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;
-
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
-
     private String telephone;
-
     private String address1;
-
     private String address2;
-
     private String firstname;
-
     private String lastname;
-
     private String gender;
+
+    public User() {
+    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -193,5 +179,25 @@ public class User implements Serializable {
     // FIXME:
     public boolean isAdmin() {
         return this.getUserRoles().stream().map(userRole -> userRole.getRole().getCode()).collect(Collectors.toList()).contains(Role.ADMIN);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", userRoles=" + userRoles +
+                ", roles=" + roles +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", telephone='" + telephone + '\'' +
+                ", address1='" + address1 + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }

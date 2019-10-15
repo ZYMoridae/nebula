@@ -1,4 +1,4 @@
-package com.jz.nebula.entity;
+package com.jz.nebula.entity.order;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -127,5 +127,22 @@ public class OrderLogisticsInfo implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderLogisticsInfo{" +
+                "id=" + id +
+                ", address1='" + address1 + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", postCode='" + postCode + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", ordersId=" + ordersId +
+                '}';
     }
 }

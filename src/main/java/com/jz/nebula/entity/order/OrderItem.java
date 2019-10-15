@@ -1,4 +1,4 @@
-package com.jz.nebula.entity;
+package com.jz.nebula.entity.order;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.jz.nebula.entity.product.Product;
 
 @Entity
 @Table(name = "order_item", schema = "public")
@@ -109,5 +110,18 @@ public class OrderItem implements Serializable {
 
     public double getAmount() {
         return (double) this.quantity * this.product.getPrice() * 100;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", unitPrice=" + unitPrice +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", product=" + product +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

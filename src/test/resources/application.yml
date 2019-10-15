@@ -26,32 +26,32 @@ spring:
     host: localhost
   jackson:
     mapper:
-      DEFAULT_VIEW_INCLUSION: true 
-    serialization: 
+      DEFAULT_VIEW_INCLUSION: true
+    serialization:
       indent_output: true
       WRITE_DATES_AS_TIMESTAMPS: false
     deserialization:
       FAIL_ON_IGNORED_PROPERTIES: false
       FAIL_ON_UNKNOWN_PROPERTIES: false
       ACCEPT_SINGLE_VALUE_AS_ARRAY: true
-    default-property-inclusion: non_empty 
-  
+    default-property-inclusion: non_empty
+
   redis:
-#    host: iresdev1.intsrv.net
+    #    host: iresdev1.intsrv.net
     host: localhost
     port: 6379
-    password: ?_TK$czHb9LhyWy8W2G4gZAa@byj8H&4  
-    timeout: 0  
-    pool:  
-      max-active: 8  
-      max-wait: -1  
-      max-idle: 8  
-      min-idle: 0  
-      
-  management:  
-    health:  
-      redis:  
-        enabled: false 
+    password: ?_TK$czHb9LhyWy8W2G4gZAa@byj8H&4
+    timeout: 0
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+
+  management:
+    health:
+      redis:
+        enabled: false
 
   datasource:
     url: jdbc:h2:mem:nebula_spring;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -62,15 +62,15 @@ spring:
     prepStmtCacheSqlLimit: 2048
     useServerPrepStmts: true
     driver-class-name: org.h2.Driver
-    
-    
+
+
   jpa:
     openInView: false
     show_sql: true
-#    generate-ddl: true
-#    hibernate:
-#      ddl-auto: create
-#      ddl-auto: create-drop
+    #    generate-ddl: true
+    #    hibernate:
+    #      ddl-auto: create
+    #      ddl-auto: create-drop
     properties:
       # fixes Caused by: java.sql.SQLFeatureNotSupportedException: Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
       hibernate.jdbc.lob.non_contextual_creation: true

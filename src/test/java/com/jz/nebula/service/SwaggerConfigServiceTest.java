@@ -28,6 +28,7 @@ public class SwaggerConfigServiceTest {
 
     @InjectMocks
     private SwaggerConfigService swaggerConfigService;
+    private SwaggerConfig expectedSwaggerConfig;
 
     @Before
     public void beforeTests() throws Exception {
@@ -38,8 +39,6 @@ public class SwaggerConfigServiceTest {
         returnedswaggerConfig.setId((long) 1);
         this.expectedSwaggerConfig = returnedswaggerConfig;
     }
-
-    private SwaggerConfig expectedSwaggerConfig;
 
     @Test
     public void saveTest() {

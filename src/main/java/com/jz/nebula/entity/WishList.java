@@ -16,7 +16,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "wish_list", schema = "public")
 public class WishList implements Serializable {
@@ -45,27 +49,12 @@ public class WishList implements Serializable {
         this.userId = userId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Set<WishListItem> getWishListItems() {
-        return wishListItems;
-    }
-
-    public void setWishListItems(Set<WishListItem> wishListItems) {
-        this.wishListItems = wishListItems;
+    @Override
+    public String toString() {
+        return "WishList{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", wishListItems=" + wishListItems +
+                '}';
     }
 }

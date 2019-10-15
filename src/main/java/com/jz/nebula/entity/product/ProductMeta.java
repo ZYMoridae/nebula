@@ -1,4 +1,4 @@
-package com.jz.nebula.entity;
+package com.jz.nebula.entity.product;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -42,4 +42,15 @@ public class ProductMeta implements Serializable {
     @JsonIgnore
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "ProductMeta{" +
+                "id=" + id +
+                ", key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

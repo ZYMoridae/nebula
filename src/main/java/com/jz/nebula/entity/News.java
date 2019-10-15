@@ -14,11 +14,20 @@ public class News {
     private String intro;
 
     public News() {
-        
+
     }
 
     public News(String title, String imgUrl) {
         this.title = title;
         this.imgUrl = imgUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "title='" + title + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", intro='" + intro + '\'' +
+                '}';
     }
 }

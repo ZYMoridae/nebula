@@ -6,6 +6,11 @@ import com.jz.nebula.dao.OrderLogisticsInfoRepository;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.entity.*;
+import com.jz.nebula.entity.order.Order;
+import com.jz.nebula.entity.order.OrderItem;
+import com.jz.nebula.entity.order.OrderLogisticsInfo;
+import com.jz.nebula.entity.order.OrderStatus;
+import com.jz.nebula.entity.product.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +105,7 @@ public class OrderService {
      * @return
      */
     private boolean isUser(User user) {
-        return user.getUserRoles().stream().map(userRole -> userRole.getRole()).map(role -> role.getCode()).collect(Collectors.toList()).contains("USER");
+        return user.getUserRoles().stream().map(userRole -> userRole.getRole()).map(role -> role.getCode()).collect(Collectors.toList()).contains(Role.USER);
     }
 
     /**
@@ -129,9 +134,9 @@ public class OrderService {
             List<Product> products = productService.findByIds(orderItemIds);
 
             for (OrderItem orderItem : order.getOrderItems()) {
-                ArrayList<Product> persistedroduct = (ArrayList<Product>) products.stream().filter(item -> item.getId() == orderItem.getProductId()).collect(Collectors.toList());
-                if (persistedroduct.size() > 0) {
-                    orderItem.setUnitPrice(persistedroduct.get(0).getPrice());
+                ArrayList<Product> persistedProduct = (ArrayList<Product>) products.stream().filter(item -> item.getId() == orderItem.getProductId()).collect(Collectors.toList());
+                if (persistedProduct.size() > 0) {
+                    orderItem.setUnitPrice(persistedProduct.get(0).getPrice());
                 }
             }
         }
@@ -188,9 +193,9 @@ public class OrderService {
         Optional<OrderStatus> orderStatus = orderStatusRepository.findByName("pending");
         if (orderStatus.isPresent()) {
             List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUserId(), orderStatus.get().getId());
-            if (orders.size() == 1) {
-                order = orders.get(0);
-            }
+//            if (orders.size() == 1) {
+            order = orders.get(0);
+//            }
         }
 
         return order;

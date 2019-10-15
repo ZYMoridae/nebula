@@ -1,5 +1,8 @@
 package com.jz.nebula.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -8,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "shipper", schema = "public")
 public class LogisticsProvider implements Serializable {
@@ -30,33 +35,12 @@ public class LogisticsProvider implements Serializable {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
     @Override
     public String toString() {
-        return String.format("LogisticsProvider[id=%d, name='%s']", id, name);
+        return "LogisticsProvider{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", contact='" + contact + '\'' +
+                '}';
     }
-
 }

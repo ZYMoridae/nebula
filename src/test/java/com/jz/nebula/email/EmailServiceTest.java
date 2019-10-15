@@ -24,54 +24,54 @@ import com.jz.nebula.mail.EmailService;
 @SpringBootTest(classes = Application.class)
 public class EmailServiceTest {
 
-	@Mock
-	private JavaMailSender emailSender;
+    @Mock
+    private JavaMailSender emailSender;
 
-	@InjectMocks
-	private EmailService emailService;
+    @InjectMocks
+    private EmailService emailService;
 
-	@Test
-	public void sendSimpleMessageTest() {
-		String from = "testFrom";
-		String to = "testTo";
-		String subject = "testSubject";
-		String text = "testText";
-		String[] expected = new String[] {to};
-		Mockito.doAnswer((Answer<?>) invocation -> {
-			SimpleMailMessage message = (SimpleMailMessage) invocation.getArgument(0);
+    @Test
+    public void sendSimpleMessageTest() {
+        String from = "testFrom";
+        String to = "testTo";
+        String subject = "testSubject";
+        String text = "testText";
+        String[] expected = new String[]{to};
+        Mockito.doAnswer((Answer<?>) invocation -> {
+            SimpleMailMessage message = (SimpleMailMessage) invocation.getArgument(0);
 
-			assertEquals(from, message.getFrom());
-			assertArrayEquals(expected, message.getTo());
-			assertEquals(subject, message.getSubject());
-			assertEquals(text, message.getText());
-			return null;
-		}).when(emailSender).send(Mockito.any(SimpleMailMessage.class));
+            assertEquals(from, message.getFrom());
+            assertArrayEquals(expected, message.getTo());
+            assertEquals(subject, message.getSubject());
+            assertEquals(text, message.getText());
+            return null;
+        }).when(emailSender).send(Mockito.any(SimpleMailMessage.class));
 
-		emailService.sendSimpleMessage(from, to, subject, text);
-	}
+        emailService.sendSimpleMessage(from, to, subject, text);
+    }
 
-	@Test
-	public void sendSimpleMessageUsingTemplateTest() {
-		String from = "testFrom";
-		String to = "testTo";
-		String subject = "testSubject";
-		String text = "testText";
-		String[] expected = new String[] {to};
-		SimpleMailMessage template = new SimpleMailMessage();
-		template.setText(text);
+    @Test
+    public void sendSimpleMessageUsingTemplateTest() {
+        String from = "testFrom";
+        String to = "testTo";
+        String subject = "testSubject";
+        String text = "testText";
+        String[] expected = new String[]{to};
+        SimpleMailMessage template = new SimpleMailMessage();
+        template.setText(text);
 
-		Mockito.doAnswer((Answer<?>) invocation -> {
-			SimpleMailMessage message = (SimpleMailMessage) invocation.getArgument(0);
+        Mockito.doAnswer((Answer<?>) invocation -> {
+            SimpleMailMessage message = (SimpleMailMessage) invocation.getArgument(0);
 
-			assertEquals(from, message.getFrom());
-			assertArrayEquals(expected, message.getTo());
-			assertEquals(subject, message.getSubject());
-			assertEquals(text, message.getText());
-			return null;
-		}).when(emailSender).send(Mockito.any(SimpleMailMessage.class));
+            assertEquals(from, message.getFrom());
+            assertArrayEquals(expected, message.getTo());
+            assertEquals(subject, message.getSubject());
+            assertEquals(text, message.getText());
+            return null;
+        }).when(emailSender).send(Mockito.any(SimpleMailMessage.class));
 
-		emailService.sendSimpleMessageUsingTemplate(from, to, subject, template);
-	}
+        emailService.sendSimpleMessageUsingTemplate(from, to, subject, template);
+    }
 
 //	@Test
 //	public void sendMessageWithAttachmentTest() {

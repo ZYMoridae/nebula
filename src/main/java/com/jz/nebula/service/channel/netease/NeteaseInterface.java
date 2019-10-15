@@ -29,6 +29,12 @@ public class NeteaseInterface implements Callable {
 
     private SearchParameter searchParameter;
 
+    public NeteaseInterface(String pageEndpoint, SearchParameter searchParameter) {
+        this.pageEndpoint = pageEndpoint;
+        this.isReturnRawFormat = false;
+        this.searchParameter = searchParameter;
+    }
+
     public SearchParameter getSearchParameter() {
         return searchParameter;
     }
@@ -59,12 +65,6 @@ public class NeteaseInterface implements Callable {
 
     public void setReturnRawFormat(boolean returnRawFormat) {
         isReturnRawFormat = returnRawFormat;
-    }
-
-    public NeteaseInterface(String pageEndpoint, SearchParameter searchParameter) {
-        this.pageEndpoint = pageEndpoint;
-        this.isReturnRawFormat = false;
-        this.searchParameter = searchParameter;
     }
 
     @Override

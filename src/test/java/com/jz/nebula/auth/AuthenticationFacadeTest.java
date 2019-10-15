@@ -26,55 +26,55 @@ import com.jz.nebula.Application;
 import com.jz.nebula.dao.UserRepository;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ SecurityContextHolder.class })
+@PrepareForTest({SecurityContextHolder.class})
 @SpringBootTest(classes = Application.class)
 public class AuthenticationFacadeTest {
-	@Mock
-	private UserRepository userRepository;
-	
-	@InjectMocks
-	private AuthenticationFacade authenticationFacade;
-	
-	@Test
-	public void getAuthenticationTest() {
-		PowerMockito.mockStatic(SecurityContextHolder.class);
-		Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
-		User fakeUserDetails = new User("test", "test", authorities);
-		
-		Authentication expectedAuthentication = new TestingAuthenticationToken(fakeUserDetails, "test");
-		
-		SecurityContextImpl mockSecurityContextImpl = PowerMockito.mock(SecurityContextImpl.class);
-		
-		when(mockSecurityContextImpl.getAuthentication()).thenReturn(expectedAuthentication);
-		when(SecurityContextHolder.getContext()).thenReturn(mockSecurityContextImpl);
-		
-		Authentication returnedAuthentication = authenticationFacade.getAuthentication();
-		assertEquals(expectedAuthentication.getPrincipal(), returnedAuthentication.getPrincipal());
-		assertEquals(expectedAuthentication.getCredentials(), returnedAuthentication.getCredentials());
-	}
-	
-	@Test
-	public void getUserTest() {
-		PowerMockito.mockStatic(SecurityContextHolder.class);
-		Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
-		User fakeUserDetails = new User("test", "test", authorities);
-		
-		Authentication expectedAuthentication = new TestingAuthenticationToken(fakeUserDetails, "test");
-		
-		SecurityContextImpl mockSecurityContextImpl = PowerMockito.mock(SecurityContextImpl.class);
-		
-		when(mockSecurityContextImpl.getAuthentication()).thenReturn(expectedAuthentication);
-		when(SecurityContextHolder.getContext()).thenReturn(mockSecurityContextImpl);
-		
-		com.jz.nebula.entity.User expectedUser = new com.jz.nebula.entity.User();
-		expectedUser.setUsername("test");
-		expectedUser.setPassword("test");
-		Optional<com.jz.nebula.entity.User> optionalUser = Optional.of(expectedUser);
-		when(userRepository.findByUsername("test")).thenReturn(optionalUser);
-		
-		
-		com.jz.nebula.entity.User returnedUser = authenticationFacade.getUser();
-		assertEquals(expectedUser.getUsername(), returnedUser.getUsername());
-		assertEquals(expectedUser.getPassword(), returnedUser.getPassword());		
-	}
+    @Mock
+    private UserRepository userRepository;
+
+    @InjectMocks
+    private AuthenticationFacade authenticationFacade;
+
+    @Test
+    public void getAuthenticationTest() {
+        PowerMockito.mockStatic(SecurityContextHolder.class);
+        Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
+        User fakeUserDetails = new User("test", "test", authorities);
+
+        Authentication expectedAuthentication = new TestingAuthenticationToken(fakeUserDetails, "test");
+
+        SecurityContextImpl mockSecurityContextImpl = PowerMockito.mock(SecurityContextImpl.class);
+
+        when(mockSecurityContextImpl.getAuthentication()).thenReturn(expectedAuthentication);
+        when(SecurityContextHolder.getContext()).thenReturn(mockSecurityContextImpl);
+
+        Authentication returnedAuthentication = authenticationFacade.getAuthentication();
+        assertEquals(expectedAuthentication.getPrincipal(), returnedAuthentication.getPrincipal());
+        assertEquals(expectedAuthentication.getCredentials(), returnedAuthentication.getCredentials());
+    }
+
+    @Test
+    public void getUserTest() {
+        PowerMockito.mockStatic(SecurityContextHolder.class);
+        Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
+        User fakeUserDetails = new User("test", "test", authorities);
+
+        Authentication expectedAuthentication = new TestingAuthenticationToken(fakeUserDetails, "test");
+
+        SecurityContextImpl mockSecurityContextImpl = PowerMockito.mock(SecurityContextImpl.class);
+
+        when(mockSecurityContextImpl.getAuthentication()).thenReturn(expectedAuthentication);
+        when(SecurityContextHolder.getContext()).thenReturn(mockSecurityContextImpl);
+
+        com.jz.nebula.entity.User expectedUser = new com.jz.nebula.entity.User();
+        expectedUser.setUsername("test");
+        expectedUser.setPassword("test");
+        Optional<com.jz.nebula.entity.User> optionalUser = Optional.of(expectedUser);
+        when(userRepository.findByUsername("test")).thenReturn(optionalUser);
+
+
+        com.jz.nebula.entity.User returnedUser = authenticationFacade.getUser();
+        assertEquals(expectedUser.getUsername(), returnedUser.getUsername());
+        assertEquals(expectedUser.getPassword(), returnedUser.getPassword());
+    }
 }

@@ -32,7 +32,6 @@ public class NotificationController {
     private NotificationService notificationService;
 
     /**
-     *
      * @param pageable
      * @param uriBuilder
      * @param response
@@ -48,7 +47,6 @@ public class NotificationController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -60,7 +58,6 @@ public class NotificationController {
     }
 
     /**
-     *
      * @param notification
      * @return
      */
@@ -72,7 +69,6 @@ public class NotificationController {
     }
 
     /**
-     *
      * @param id
      * @param notification
      * @return
@@ -86,7 +82,6 @@ public class NotificationController {
     }
 
     /**
-     *
      * @param id
      * @return
      */

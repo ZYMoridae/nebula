@@ -16,48 +16,46 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailService implements EmailServiceInterface {
 
-	@Autowired
-	public JavaMailSender emailSender;
+    @Autowired
+    public JavaMailSender emailSender;
 
-	/**
-	 *
-	 * @param from
-	 * @param to
-	 * @param subject
-	 * @param text
-	 */
-	public void sendSimpleMessage(String from, String to, String subject, String text) {
-		try {
-			SimpleMailMessage message = new SimpleMailMessage();
-			message.setFrom(from);
-			message.setTo(to);
-			message.setSubject(subject);
-			message.setText(text);
+    /**
+     * @param from
+     * @param to
+     * @param subject
+     * @param text
+     */
+    public void sendSimpleMessage(String from, String to, String subject, String text) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(text);
 
-			emailSender.send(message);
-		} catch (MailException exception) {
-			exception.printStackTrace();
-		}
-	}
+            emailSender.send(message);
+        } catch (MailException exception) {
+            exception.printStackTrace();
+        }
+    }
 
-	/**
-	 *
-	 * @param from
-	 * @param to
-	 * @param subject
-	 * @param template
-	 * @param templateArgs
-	 */
-	@Override
-	public void sendSimpleMessageUsingTemplate(String from, String to, String subject, SimpleMailMessage template,
-			String... templateArgs) {
-		String text = template.getText();
-		sendSimpleMessage(from, to, subject, text);
-	}
+    /**
+     * @param from
+     * @param to
+     * @param subject
+     * @param template
+     * @param templateArgs
+     */
+    @Override
+    public void sendSimpleMessageUsingTemplate(String from, String to, String subject, SimpleMailMessage template,
+                                               String... templateArgs) {
+        String text = template.getText();
+        sendSimpleMessage(from, to, subject, text);
+    }
 
-	@Override
-	public void sendMessageWithAttachment(String from, String to, String subject, String text,
-			String pathToAttachment) {
+    @Override
+    public void sendMessageWithAttachment(String from, String to, String subject, String text,
+                                          String pathToAttachment) {
 //		try {
 //			MimeMessage message = emailSender.createMimeMessage();
 //			// pass 'true' to the constructor to create a multipart message
@@ -75,5 +73,5 @@ public class EmailService implements EmailServiceInterface {
 //		} catch (MessagingException e) {
 //			e.printStackTrace();
 //		}
-	}
+    }
 }

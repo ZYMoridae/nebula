@@ -28,20 +28,20 @@ import com.jz.nebula.util.MockDataManager;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class UserServiceTest {
-	@Mock
-	private UserRepository userRepository;
+    @Mock
+    private UserRepository userRepository;
 
-	@InjectMocks
-	private UserService userService;
+    @InjectMocks
+    private UserService userService;
 
-	@Before
-	public void beforeTests() throws Exception {
-		MockitoAnnotations.initMocks(this);
-	}
+    @Before
+    public void beforeTests() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
-	@Test
-	public void loadUserByUsernameTest() {
-		assertTrue(true);
+    @Test
+    public void loadUserByUsernameTest() {
+        assertTrue(true);
 //		MockDataManager.getEntityWithFakeData(User.class);
 //		Faker faker = new Faker();
 //		User user = new User();
@@ -59,5 +59,5 @@ public class UserServiceTest {
 //		UserDetails userDetails = userService.loadUserByUsername("test");
 //		assertTrue(userDetails != null);
 //		assertEquals("test", userDetails.getUsername());
-	}
+    }
 }

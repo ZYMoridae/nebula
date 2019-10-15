@@ -1,4 +1,4 @@
-package com.jz.nebula.entity;
+package com.jz.nebula.entity.product;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -91,5 +91,17 @@ public class ProductRating implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductRating{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", usertId=" + usertId +
+                ", rating=" + rating +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +17,9 @@ import com.jz.nebula.dao.CartRepository;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.entity.Cart;
 import com.jz.nebula.entity.CartItem;
-import com.jz.nebula.entity.Order;
-import com.jz.nebula.entity.OrderItem;
-import com.jz.nebula.entity.OrderStatus;
+import com.jz.nebula.entity.order.Order;
+import com.jz.nebula.entity.order.OrderItem;
+import com.jz.nebula.entity.order.OrderStatus;
 
 @Service
 @Transactional

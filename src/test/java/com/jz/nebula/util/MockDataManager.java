@@ -6,17 +6,18 @@ package com.jz.nebula.util;
 //import org.springframework.util.StringUtils;
 
 //import com.jz.nebula.entity.Role;
+
 import com.jz.nebula.entity.User;
 
 public class MockDataManager {
 
-	public static Object getEntityWithFakeData(Class<?> p) {
-		String clazzName = p.getName();
-		Object resInstance = null;
+    public static Object getEntityWithFakeData(Class<?> p) {
+        String clazzName = p.getName();
+        Object resInstance = null;
 
-		if (clazzName == User.class.getName()) {
-			resInstance = getUserInstance();
-		}
+        if (clazzName == User.class.getName()) {
+            resInstance = getUserInstance();
+        }
 
 //		Field[] fields = p.getDeclaredFields();
 //		System.out.println("******************");
@@ -31,13 +32,13 @@ public class MockDataManager {
 //			}
 //		}
 //		System.out.println("******************");
-		return resInstance;
-	}
+        return resInstance;
+    }
 
-	private static User getUserInstance() {
-		User userInstance = new User();
-		return userInstance;
-	}
+    private static User getUserInstance() {
+        User userInstance = new User();
+        return userInstance;
+    }
 
 //	private static Role getRoleInstance() {
 //		Role roleInstance = new Role();

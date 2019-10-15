@@ -18,68 +18,67 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.jz.nebula.Application;
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.entity.CartItem;
-import com.jz.nebula.entity.Product;
+import com.jz.nebula.entity.product.Product;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class CartItemValidatorTest {
-	@Mock
-	private ProductRepository productRepository;
+    @InjectMocks
+    CartItemValidator cartItemValidator;
+    @Mock
+    private ProductRepository productRepository;
 
-	@InjectMocks
-	CartItemValidator cartItemValidator;
+    @Before
+    public void beforeTests() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
-	@Before
-	public void beforeTests() throws Exception {
-		MockitoAnnotations.initMocks(this);
-	}
+    @Test
+    public void isProductExistTrueTest() {
+        CartItem parameterCartItem = new CartItem();
+        parameterCartItem.setProductId((long) 1);
+        parameterCartItem.setQuantity(3);
 
-	@Test
-	public void isProductExistTrueTest() {
-		CartItem parameterCartItem = new CartItem();
-		parameterCartItem.setProductId((long) 1);
-		parameterCartItem.setQuantity(3);
+        Product returnedProduct = new Product();
+        returnedProduct.setUnitsInStock(5);
+        Optional<Product> optional = Optional.of(returnedProduct);
+        when(productRepository.findById((long) 1)).thenReturn(optional);
 
-		Product returnedProduct = new Product();
-		returnedProduct.setUnitsInStock(5);
-		Optional<Product> optional = Optional.of(returnedProduct);
-		when(productRepository.findById((long) 1)).thenReturn(optional);
+        boolean isExist = cartItemValidator.validate(parameterCartItem);
 
-		boolean isExist = cartItemValidator.validate(parameterCartItem);
-
-		assertTrue(isExist);
-	}
+        assertTrue(isExist);
+    }
 
 
-	@Test
-	public void isProductNotExistTest() {
-		CartItem parameterCartItem = new CartItem();
-		parameterCartItem.setProductId((long) 1);
-		parameterCartItem.setQuantity(3);
+    @Test
+    public void isProductNotExistTest() {
+        CartItem parameterCartItem = new CartItem();
+        parameterCartItem.setProductId((long) 1);
+        parameterCartItem.setQuantity(3);
 
-		Product returnedProduct = new Product();
-		returnedProduct.setUnitsInStock(5);
-		Optional<Product> optional = Optional.ofNullable(null);
-		when(productRepository.findById((long) 1)).thenReturn(optional);
+        Product returnedProduct = new Product();
+        returnedProduct.setUnitsInStock(5);
+        Optional<Product> optional = Optional.ofNullable(null);
+        when(productRepository.findById((long) 1)).thenReturn(optional);
 
-		boolean isExist = cartItemValidator.validate(parameterCartItem);
+        boolean isExist = cartItemValidator.validate(parameterCartItem);
 
-		assertTrue(!isExist);
-	}
+        assertTrue(!isExist);
+    }
 
-	@Test
-	public void isQuantityInvalidTest() {
-		CartItem parameterCartItem = new CartItem();
-		parameterCartItem.setProductId((long) 1);
-		parameterCartItem.setQuantity(3);
+    @Test
+    public void isQuantityInvalidTest() {
+        CartItem parameterCartItem = new CartItem();
+        parameterCartItem.setProductId((long) 1);
+        parameterCartItem.setQuantity(3);
 
-		Product returnedProduct = new Product();
-		returnedProduct.setUnitsInStock(1);
-		Optional<Product> optional = Optional.of(returnedProduct);
-		when(productRepository.findById((long) 1)).thenReturn(optional);
+        Product returnedProduct = new Product();
+        returnedProduct.setUnitsInStock(1);
+        Optional<Product> optional = Optional.of(returnedProduct);
+        when(productRepository.findById((long) 1)).thenReturn(optional);
 
-		boolean isExist = cartItemValidator.validate(parameterCartItem);
+        boolean isExist = cartItemValidator.validate(parameterCartItem);
 
-		assertTrue(!isExist);
-	}
+        assertTrue(!isExist);
+    }
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-@Table(name="swagger_config", schema = "public")
+@Table(name = "swagger_config", schema = "public")
 public class SwaggerConfig implements Serializable {
 
     @Id

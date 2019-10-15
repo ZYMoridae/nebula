@@ -23,7 +23,6 @@ public class SwaggerConfigController {
     private SwaggerConfigService swaggerConfigService;
 
     /**
-     *
      * @param pageable
      * @param uriBuilder
      * @param response
@@ -39,7 +38,6 @@ public class SwaggerConfigController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -51,7 +49,6 @@ public class SwaggerConfigController {
     }
 
     /**
-     *
      * @param swaggerConfig
      * @return
      */
@@ -63,7 +60,6 @@ public class SwaggerConfigController {
     }
 
     /**
-     *
      * @param id
      * @param swaggerConfig
      * @return
@@ -77,7 +73,6 @@ public class SwaggerConfigController {
     }
 
     /**
-     *
      * @param id
      * @return
      */

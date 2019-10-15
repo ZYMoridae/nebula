@@ -23,18 +23,18 @@ public class ToutiaoResponse {
     public void sanitizeUrl() {
         UrlValidator urlValidator = new UrlValidator();
 
-        for(ToutiaoNews toutiaoNews : this.data) {
-            if(!urlValidator.isValid(toutiaoNews.getImageUrl())) {
+        for (ToutiaoNews toutiaoNews : this.data) {
+            if (!urlValidator.isValid(toutiaoNews.getImageUrl())) {
                 toutiaoNews.setImageUrl("https:" + toutiaoNews.getImageUrl());
             }
 
-            if(!urlValidator.isValid(toutiaoNews.getMediaAvatarUrl())) {
+            if (!urlValidator.isValid(toutiaoNews.getMediaAvatarUrl())) {
                 toutiaoNews.setMediaAvatarUrl("https:" + toutiaoNews.getMediaAvatarUrl());
             }
 
-            if(!Objects.isNull(toutiaoNews.getImageList())) {
+            if (!Objects.isNull(toutiaoNews.getImageList())) {
                 for (ToutiaoImageItem toutiaoImageItem : toutiaoNews.getImageList()) {
-                    if(!urlValidator.isValid(toutiaoImageItem.getUrl())) {
+                    if (!urlValidator.isValid(toutiaoImageItem.getUrl())) {
                         toutiaoImageItem.setUrl("https:" + toutiaoImageItem.getUrl());
                     }
                 }

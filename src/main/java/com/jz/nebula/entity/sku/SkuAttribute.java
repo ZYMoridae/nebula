@@ -19,7 +19,7 @@ public class SkuAttribute implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="sku_code")
+    @Column(name = "sku_code")
     private String skuCode;
 
     @JsonProperty(access = Access.WRITE_ONLY)
@@ -37,4 +37,17 @@ public class SkuAttribute implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "SkuAttribute{" +
+                "id=" + id +
+                ", skuCode='" + skuCode + '\'' +
+                ", skuAttributeCategoryId=" + skuAttributeCategoryId +
+                ", skuAttributeCategory=" + skuAttributeCategory +
+                ", value='" + value + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

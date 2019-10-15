@@ -25,25 +25,19 @@ public class Notification implements Serializable {
      *
      */
     private static final long serialVersionUID = 5928329494837900154L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @JsonProperty(access = Access.WRITE_ONLY)
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "created_at", updatable = false, insertable = false)
-    private Date createdAt;
-
-    @Column(name = "updated_at", updatable = false, insertable = false)
-    private Date updatedAt;
-
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id", insertable = false, updatable = false)
     NotificationStatus notificationStatus;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Column(name = "user_id")
+    private Long userId;
+    @Column(name = "created_at", updatable = false, insertable = false)
+    private Date createdAt;
+    @Column(name = "updated_at", updatable = false, insertable = false)
+    private Date updatedAt;
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name = "status_id")
     private Long statusId;
@@ -106,5 +100,18 @@ public class Notification implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", notificationStatus=" + notificationStatus +
+                ", statusId=" + statusId +
+                ", body='" + body + '\'' +
+                '}';
     }
 }

@@ -15,7 +15,6 @@ public class WishListController {
     private WishListService wishListService;
 
     /**
-     *
      * @param id
      * @return
      */
@@ -27,7 +26,6 @@ public class WishListController {
     }
 
     /**
-     *
      * @return
      */
     @GetMapping(value = "/my")

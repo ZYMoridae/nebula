@@ -1,6 +1,6 @@
 package com.jz.nebula.dao;
 
-import com.jz.nebula.entity.OrderStatus;
+import com.jz.nebula.entity.order.OrderStatus;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Optional;

@@ -31,10 +31,8 @@ import io.jsonwebtoken.security.Keys;
  */
 @Service
 public class RefreshTokenService {
-    private Key secretKey;
-
     private final String refreshTokenHashKeyPostfix = ".refresh.token";
-
+    private Key secretKey;
     @Autowired
     private RedisTemplate<String, String> template;
 

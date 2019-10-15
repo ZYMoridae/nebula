@@ -34,6 +34,16 @@ public class ElasticSearchService {
 
     private HttpHost[] httpHosts;
 
+    @Autowired
+    public ElasticSearchService() {
+        this.client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
+    }
+
+    public ElasticSearchService(HttpHost[] httpHosts) {
+        this.httpHosts = httpHosts;
+        this.client = new RestHighLevelClient(RestClient.builder(httpHosts));
+    }
+
     public RestHighLevelClient getClient() {
         return client;
     }
@@ -48,16 +58,6 @@ public class ElasticSearchService {
 
     public void setHttpHosts(HttpHost[] httpHosts) {
         this.httpHosts = httpHosts;
-    }
-
-    @Autowired
-    public ElasticSearchService() {
-        this.client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
-    }
-
-    public ElasticSearchService(HttpHost[] httpHosts) {
-        this.httpHosts = httpHosts;
-        this.client = new RestHighLevelClient(RestClient.builder(httpHosts));
     }
 
     /**

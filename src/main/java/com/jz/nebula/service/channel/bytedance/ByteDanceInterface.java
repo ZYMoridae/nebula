@@ -32,6 +32,12 @@ public class ByteDanceInterface implements Callable {
     private boolean isReturnRawFormat;
 
 
+    public ByteDanceInterface(String pageEndpoint, SearchParameter searchParameter) {
+        this.pageEndpoint = pageEndpoint;
+        this.searchParameter = searchParameter;
+        this.isReturnRawFormat = false;
+    }
+
     public String getPageEndpoint() {
         return pageEndpoint;
     }
@@ -55,13 +61,6 @@ public class ByteDanceInterface implements Callable {
     public void setReturnRawFormat(boolean returnRawFormat) {
         isReturnRawFormat = returnRawFormat;
     }
-
-    public ByteDanceInterface(String pageEndpoint, SearchParameter searchParameter) {
-        this.pageEndpoint = pageEndpoint;
-        this.searchParameter = searchParameter;
-        this.isReturnRawFormat = false;
-    }
-
 
     @Override
     public Object call() throws Exception {
@@ -88,11 +87,11 @@ public class ByteDanceInterface implements Callable {
 
         List<ToutiaoNews> toutiaoNewsList = toutiaoResponse.getData();
 
-        if(this.isReturnRawFormat) {
+        if (this.isReturnRawFormat) {
             return toutiaoNewsList;
         }
 
-        for(ToutiaoNews toutiaoNews : toutiaoNewsList) {
+        for (ToutiaoNews toutiaoNews : toutiaoNewsList) {
             News news = new News();
             news.setTitle(toutiaoNews.getTitle());
             news.setImgUrl(toutiaoNews.getImageUrl());
@@ -104,7 +103,6 @@ public class ByteDanceInterface implements Callable {
     }
 
     /**
-     *
      * @return
      */
     private String buildSearchUrl() {

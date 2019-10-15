@@ -44,4 +44,19 @@ public class Sku implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "Sku{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", skuCode='" + skuCode + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", skuAttributes=" + skuAttributes +
+                ", createdUserId=" + createdUserId +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

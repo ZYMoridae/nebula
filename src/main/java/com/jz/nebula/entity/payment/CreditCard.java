@@ -13,4 +13,14 @@ public class CreditCard {
     private String expiry;
 
     private String cvv;
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "cardNumber='" + cardNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", expiry='" + expiry + '\'' +
+                ", cvv='" + cvv + '\'' +
+                '}';
+    }
 }

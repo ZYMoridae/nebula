@@ -1,4 +1,4 @@
-package com.jz.nebula.entity;
+package com.jz.nebula.entity.product;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.jz.nebula.entity.User;
 
 @Entity
 @Table(name = "product_comment", schema = "public")
@@ -133,5 +134,20 @@ public class ProductComment implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductComment{" +
+                "id=" + id +
+                ", body='" + body + '\'' +
+                ", usertId=" + usertId +
+                ", user=" + user +
+                ", productId=" + productId +
+                ", parentCommentId=" + parentCommentId +
+                ", childrenComments=" + childrenComments +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

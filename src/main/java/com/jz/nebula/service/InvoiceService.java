@@ -15,13 +15,11 @@ import com.stripe.model.Charge;
 @Component("invoiceService")
 public class InvoiceService {
 
-    private Logger logger = Logger.getLogger(InvoiceService.class);
-
     @Autowired
     PaymentService paymentService;
-
     @Autowired
     EmailService emailService;
+    private Logger logger = Logger.getLogger(InvoiceService.class);
 
     public InvoiceService() {
 

@@ -64,4 +64,16 @@ public class Payment {
     public void setReceiptEmail(String receiptEmail) {
         this.receiptEmail = receiptEmail;
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "amount=" + amount +
+                ", description='" + description + '\'' +
+                ", currency='" + currency + '\'' +
+                ", receiptEmail='" + receiptEmail + '\'' +
+                ", source='" + source + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

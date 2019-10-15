@@ -25,7 +25,7 @@ import com.jz.nebula.dao.CartRepository;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.Cart;
 import com.jz.nebula.entity.CartItem;
-//import com.jz.nebula.entity.Product;
+//import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.WishListItem;
 //import com.jz.nebula.exception.ProductStockException;

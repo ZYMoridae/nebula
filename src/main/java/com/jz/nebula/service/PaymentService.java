@@ -5,7 +5,11 @@ import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.entity.*;
+import com.jz.nebula.entity.order.Order;
+import com.jz.nebula.entity.order.OrderItem;
+import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.payment.PaymentMethodInfo;
+import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.payment.PaymentGateway;
 import com.jz.nebula.payment.PaymentType;
@@ -71,10 +75,10 @@ public class PaymentService {
         List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUser().getId(),
                 OrderStatus.StatusType.PENDING.value);
 
-        Order order = null;
-        if (orders.size() == 1) {
-            order = orders.get(0);
-        }
+        Order order = orders.get(0);
+//        if (orders.size() == 1) {
+//            order = ;
+//        }
         return order;
     }
 
@@ -122,7 +126,7 @@ public class PaymentService {
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
     public Object finaliseOrder(Long id, PaymentMethodInfo paymentMethodInfo) throws Exception {
         Optional<Order> order = orderRepository.findById(id);
-        if(!order.isPresent()) {
+        if (!order.isPresent()) {
             throw new Exception();
         }
         return this.processOrder(order.get(), paymentMethodInfo);
@@ -146,14 +150,13 @@ public class PaymentService {
     }
 
     /**
-     *
      * @param order
      * @param paymentMethodInfo
      * @return
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
-    protected Object processOrder(Order order, PaymentMethodInfo paymentMethodInfo) throws Exception{
+    protected Object processOrder(Order order, PaymentMethodInfo paymentMethodInfo) throws Exception {
         Payment payment = new Payment();
         Map<String, Object> result = new ConcurrentHashMap<>();
 
@@ -212,7 +215,7 @@ public class PaymentService {
         List<Long> finalisedOrderItemsId = finalisedOrderItems.stream().map(orderItem -> orderItem.getProductId()).collect(Collectors.toList());
 
         for (CartItem cartItem : cartItems) {
-            if(finalisedOrderItemsId.contains(cartItem.getProductId())) {
+            if (finalisedOrderItemsId.contains(cartItem.getProductId())) {
                 cartItemService.delete(cartItem.getId());
             }
         }

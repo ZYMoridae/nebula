@@ -1,8 +1,10 @@
-package com.jz.nebula.entity;
+package com.jz.nebula.entity.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.jz.nebula.entity.LogisticsProvider;
+import com.jz.nebula.entity.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -55,6 +57,8 @@ public class Order implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+
 
 ////    // TODO: One to one
 ////    @OneToOne(mappedBy = "orders", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -149,5 +153,21 @@ public class Order implements Serializable {
 
     public void setLogisticsProvider(LogisticsProvider logisticsProvider) {
         this.logisticsProvider = logisticsProvider;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", user=" + user +
+                ", shipperId=" + shipperId +
+                ", orderStatusId=" + orderStatusId +
+                ", logisticsProvider=" + logisticsProvider +
+                ", orderItems=" + orderItems +
+                ", orderStatus=" + orderStatus +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

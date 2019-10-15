@@ -41,7 +41,7 @@ public class RedisConfig {
     @Value("${spring.redis.password}")
     private String redisPassword;
 
-//    TODO: Find out why this config loading caused the testing failed
+    //    TODO: Find out why this config loading caused the testing failed
 //    @Value("${spring.redis.cluster.nodes}")
     private String redisClusterNodes;
 

@@ -1,6 +1,6 @@
 package com.jz.nebula.controller;
 
-import com.jz.nebula.entity.ProductCategory;
+import com.jz.nebula.entity.product.ProductCategory;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ public class ProductCategoryController {
     private ProductCategoryService productCategoryService;
 
     /**
-     *
      * @param pageable
      * @param uriBuilder
      * @param response
@@ -39,7 +38,6 @@ public class ProductCategoryController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -51,7 +49,6 @@ public class ProductCategoryController {
     }
 
     /**
-     *
      * @param productCategory
      * @return
      */
@@ -63,7 +60,6 @@ public class ProductCategoryController {
     }
 
     /**
-     *
      * @param id
      * @param productCategory
      * @return
@@ -78,7 +74,6 @@ public class ProductCategoryController {
     }
 
     /**
-     *
      * @param id
      * @return
      */

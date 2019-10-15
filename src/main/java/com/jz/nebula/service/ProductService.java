@@ -8,14 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.controller.ProductController;
 import com.jz.nebula.dao.ProductRepository;
-import com.jz.nebula.entity.Product;
+import com.jz.nebula.entity.product.Product;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -52,7 +50,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public List<Product> findByIds(List<Long> ids){
+    public List<Product> findByIds(List<Long> ids) {
         return productRepository.findByIdIn(ids);
     }
 }

@@ -15,14 +15,14 @@ import com.jz.nebula.Application;
 @SpringBootTest(classes = Application.class)
 public class RedisMessageSubscriberTest {
 
-	@Test
-	public void onMessageTest() {
-		RedisMessageSubscriber subscriber = new RedisMessageSubscriber();
-		String testMessage = "test";
-		Message message = new DefaultMessage(testMessage.getBytes(), testMessage.getBytes());
+    @Test
+    public void onMessageTest() {
+        RedisMessageSubscriber subscriber = new RedisMessageSubscriber();
+        String testMessage = "test";
+        Message message = new DefaultMessage(testMessage.getBytes(), testMessage.getBytes());
 
-		subscriber.onMessage(message, testMessage.getBytes());
-		assertEquals(1, RedisMessageSubscriber.messageList.size());
-	}
+        subscriber.onMessage(message, testMessage.getBytes());
+        assertEquals(1, RedisMessageSubscriber.messageList.size());
+    }
 
 }

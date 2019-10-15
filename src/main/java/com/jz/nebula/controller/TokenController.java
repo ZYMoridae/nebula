@@ -20,7 +20,6 @@ public class TokenController {
     TokenService tokenService;
 
     /**
-     *
      * @param refreshToken
      * @return
      * @throws Exception
@@ -32,7 +31,6 @@ public class TokenController {
     }
 
     /**
-     *
      * @return
      */
     @GetMapping

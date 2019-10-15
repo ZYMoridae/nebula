@@ -31,11 +31,9 @@ import java.util.concurrent.FutureTask;
 @Service
 @Transactional(propagation = Propagation.NOT_SUPPORTED, rollbackFor = Exception.class)
 public class NewsFeedingService {
+    private final Logger logger = LogManager.getLogger(NewsFeedingService.class);
     @Autowired
     ElasticSearchService elasticSearchService;
-
-    private final Logger logger = LogManager.getLogger(NewsFeedingService.class);
-
     private int threadPoolCount = 4;
 
     public int getThreadPoolCount() {
