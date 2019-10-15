@@ -5,12 +5,15 @@ import com.jz.nebula.controller.OrderController;
 import com.jz.nebula.dao.OrderLogisticsInfoRepository;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
+import com.jz.nebula.dao.sku.SkuRepository;
 import com.jz.nebula.entity.*;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderItem;
 import com.jz.nebula.entity.order.OrderLogisticsInfo;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.product.Product;
+import com.jz.nebula.entity.sku.Sku;
+import com.jz.nebula.exception.SkuOutOfStockException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +52,9 @@ public class OrderService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private SkuRepository skuRepository;
 
     /**
      * Get order by pagination
@@ -114,7 +121,7 @@ public class OrderService {
      * @param order
      * @return
      */
-    private Order preProcessing(Order order) {
+    private synchronized Order preProcessing(Order order) throws SkuOutOfStockException {
         Order safetyOrder = order;
         User user = this.authenticationFacade.getUser();
         if (isUser(user) && safetyOrder.getUserId() != null) {
@@ -129,11 +136,19 @@ public class OrderService {
         }
 
         if (persistedOrder == null) {
-            // Check unit price
             List<Long> orderItemIds = order.getOrderItems().stream().map(item -> item.getId()).collect(Collectors.toList());
-            List<Product> products = productService.findByIds(orderItemIds);
+            List<Sku> skus = skuRepository.findByIdIn(orderItemIds);
 
+            List<Product> products = productService.findByIds(orderItemIds);
             for (OrderItem orderItem : order.getOrderItems()) {
+                // Check order item id
+                ArrayList<Sku> persistedSku = (ArrayList<Sku>) skus.stream().filter(item -> item.getSkuCode() == orderItem.getSkuCode()).collect(Collectors.toList());
+                if (persistedSku.size() > 0 && persistedSku.get(0).getStock() < orderItem.getQuantity()) {
+                    logger.debug("preProcessing::sku code:[{}] out of stock", persistedSku.get(0).getSkuCode());
+                    throw new SkuOutOfStockException();
+                }
+
+                // Check unit price
                 ArrayList<Product> persistedProduct = (ArrayList<Product>) products.stream().filter(item -> item.getId() == orderItem.getProductId()).collect(Collectors.toList());
                 if (persistedProduct.size() > 0) {
                     orderItem.setUnitPrice(persistedProduct.get(0).getPrice());
@@ -150,7 +165,8 @@ public class OrderService {
      * @param order
      * @return
      */
-    public Order save(Order order) {
+    @Transactional(rollbackFor = {Exception.class})
+    public Order save(Order order) throws SkuOutOfStockException {
         order = preProcessing(order);
         boolean isNew = this.isNewOrder(order);
 

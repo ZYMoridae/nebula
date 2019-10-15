@@ -1,5 +1,6 @@
 package com.jz.nebula.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.DatatypeConverter;
 
 import com.jz.nebula.service.OrderService;
+import com.jz.nebula.service.ReceiptingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -53,6 +55,9 @@ public class AuthController {
     @Autowired
     UserRepository users;
 
+    @Autowired
+    ReceiptingService receiptingService;
+
     /**
      * Sign in the Nebula API with Basic Auth
      *
@@ -86,8 +91,11 @@ public class AuthController {
             resultMap.put("user", user);
             resultMap.put("token", tokenMap.get("accessToken"));
             resultMap.put("refreshToken", tokenMap.get("refreshToken"));
+
+            receiptingService.autoReceipting(null);
+
             return ok(resultMap);
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException | IOException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
     }

@@ -4,6 +4,7 @@ import com.jz.nebula.amqp.MessageProducer;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderLogisticsInfo;
 import com.jz.nebula.entity.Role;
+import com.jz.nebula.exception.SkuOutOfStockException;
 import com.jz.nebula.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -87,7 +88,7 @@ public class OrderController {
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Order create(@RequestBody Order order) {
+    Order create(@RequestBody Order order) throws SkuOutOfStockException {
         return orderService.save(order);
     }
 
@@ -99,7 +100,7 @@ public class OrderController {
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Order update(@PathVariable("id") long id, @RequestBody Order order) {
+    Order update(@PathVariable("id") long id, @RequestBody Order order) throws SkuOutOfStockException {
         order.setId(id);
         return orderService.save(order);
     }
