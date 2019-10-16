@@ -36,7 +36,7 @@ import com.jz.nebula.service.TokenService;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @Api(value = "authentication")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -92,7 +92,7 @@ public class AuthController {
             resultMap.put("token", tokenMap.get("accessToken"));
             resultMap.put("refreshToken", tokenMap.get("refreshToken"));
 
-            receiptingService.autoReceipting(null);
+//            receiptingService.autoReceipting(null);
 
             return ok(resultMap);
         } catch (AuthenticationException | IOException e) {
