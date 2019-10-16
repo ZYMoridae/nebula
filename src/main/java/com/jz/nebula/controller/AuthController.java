@@ -95,7 +95,7 @@ public class AuthController {
 //            receiptingService.autoReceipting(null);
 
             return ok(resultMap);
-        } catch (AuthenticationException) {
+        } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
     }
