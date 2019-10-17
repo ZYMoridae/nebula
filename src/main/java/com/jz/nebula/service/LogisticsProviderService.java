@@ -12,7 +12,7 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
 
-import com.jz.nebula.controller.LogisticsProviderController;
+import com.jz.nebula.controller.api.LogisticsProviderController;
 
 @Service
 public class LogisticsProviderService {

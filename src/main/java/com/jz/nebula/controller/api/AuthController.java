@@ -1,6 +1,5 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -8,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.DatatypeConverter;
 
-import com.jz.nebula.service.OrderService;
 import com.jz.nebula.service.ReceiptingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,7 +34,7 @@ import com.jz.nebula.service.TokenService;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/sso")
 @Api(value = "authentication")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -64,7 +62,7 @@ public class AuthController {
      * @param headers
      * @return
      */
-    @PostMapping("/signin")
+    @PostMapping("/authorize")
     @ApiOperation(value = "Sign in Nebula API", response = ResponseEntity.class)
 //  @RequestBody AuthenticationRequest data,
     public ResponseEntity<?> signin(@RequestHeader HttpHeaders headers) {

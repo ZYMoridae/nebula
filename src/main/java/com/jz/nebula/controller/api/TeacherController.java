@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.teacher.TeacherMeta;
@@ -12,7 +12,7 @@ import javax.annotation.security.RolesAllowed;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/teachers")
+@RequestMapping("/api/teachers")
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;

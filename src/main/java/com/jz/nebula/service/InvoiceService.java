@@ -32,7 +32,7 @@ public class InvoiceService {
      */
     public void saveInvoice(String chargeId) {
         try {
-            Charge charge = paymentService.getPaymentGatway().retrieveCharge(chargeId);
+            Charge charge = paymentService.getPaymentGateway().retrieveCharge(chargeId);
             // TODO: Generate pdf file
             File invoice = null;
 

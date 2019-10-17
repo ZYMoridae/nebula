@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
@@ -20,16 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.jz.nebula.entity.Notification;
+import com.jz.nebula.entity.Location;
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.service.NotificationService;
+import com.jz.nebula.service.LocationService;
 
 @RestController
-@RequestMapping("/notifications")
-public class NotificationController {
+@RequestMapping("/api/locations")
+public class LocationController {
 
     @Autowired
-    private NotificationService notificationService;
+    private LocationService locationService;
 
     /**
      * @param pageable
@@ -41,9 +41,9 @@ public class NotificationController {
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<Notification>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                               final HttpServletResponse response, PagedResourcesAssembler<Notification> assembler) {
-        return notificationService.findAll(pageable, assembler);
+    PagedResources<Resource<Location>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                           final HttpServletResponse response, PagedResourcesAssembler<Location> assembler) {
+        return locationService.findAll(pageable, assembler);
     }
 
     /**
@@ -53,32 +53,32 @@ public class NotificationController {
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Notification findById(@PathVariable("id") long id) {
-        return notificationService.findById(id);
+    Location findById(@PathVariable("id") long id) {
+        return locationService.findById(id);
     }
 
     /**
-     * @param notification
+     * @param location
      * @return
      */
     @PostMapping("")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
-    Notification create(@RequestBody Notification notification) {
-        return notificationService.save(notification);
+    Location create(@RequestBody Location location) {
+        return locationService.save(location);
     }
 
     /**
      * @param id
-     * @param notification
+     * @param location
      * @return
      */
     @PutMapping("/{id}")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
-    Notification update(@PathVariable("id") long id, @RequestBody Notification notification) {
-        notification.setId(id);
-        return notificationService.save(notification);
+    Location update(@PathVariable("id") long id, @RequestBody Location location) {
+        location.setId(id);
+        return locationService.save(location);
     }
 
     /**
@@ -86,10 +86,10 @@ public class NotificationController {
      * @return
      */
     @DeleteMapping("/{id}")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {
-        notificationService.delete(id);
+        locationService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

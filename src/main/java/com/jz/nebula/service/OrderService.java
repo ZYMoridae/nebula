@@ -1,7 +1,7 @@
 package com.jz.nebula.service;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
-import com.jz.nebula.controller.OrderController;
+import com.jz.nebula.controller.api.OrderController;
 import com.jz.nebula.dao.OrderLogisticsInfoRepository;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;

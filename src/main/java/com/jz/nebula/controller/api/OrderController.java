@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.amqp.MessageProducer;
 import com.jz.nebula.entity.order.Order;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 //import com.jz.nebula.amqp.MessageProducer;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
     @Autowired
     private OrderService orderService;

@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.Payment;
 import com.jz.nebula.entity.Role;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.security.RolesAllowed;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/api/payments")
 public class PaymentController {
     @Autowired
     private PaymentService paymentService;

@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.WishList;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.security.RolesAllowed;
 
 @RestController
-@RequestMapping("/wishlists")
+@RequestMapping("/api/wishlists")
 public class WishListController {
     @Autowired
     private WishListService wishListService;

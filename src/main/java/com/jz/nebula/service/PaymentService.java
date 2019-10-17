@@ -63,12 +63,12 @@ public class PaymentService {
     public PaymentService() {
     }
 
-    public PaymentGateway getPaymentGatway() {
+    public PaymentGateway getPaymentGateway() {
         return paymentGateway;
     }
 
-    public void setPaymentGatway(PaymentGateway paymentGatway) {
-        this.paymentGateway = paymentGatway;
+    public void setPaymentGateway(PaymentGateway paymentGateway) {
+        this.paymentGateway = paymentGateway;
     }
 
     /**
@@ -99,9 +99,7 @@ public class PaymentService {
             Sku sku = skuOptional.get();
             AtomicInteger currentStock = new AtomicInteger(sku.getStock());
             currentStock.addAndGet(orderItem.getQuantity() * -1);
-            if(currentStock.get() < 0) {
-                throw new ProductStockException();
-            }
+            if(currentStock.get() < 0) throw new ProductStockException();
 
             sku.setStock(currentStock.get());
             skuRepository.save(sku);
@@ -139,7 +137,7 @@ public class PaymentService {
 
 
     /**
-     * Finalise order
+     * Finalise order and rollback when encounter a exception
      *
      * @return
      * @throws Exception
@@ -147,10 +145,7 @@ public class PaymentService {
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
     public Object finaliseOrder(PaymentMethodInfo paymentMethodInfo) throws Exception {
         Order order = this.getMyOrder();
-        if (order == null) {
-            throw new Exception();
-        }
-
+        if (order == null) throw new Exception();
         return this.processOrder(order, paymentMethodInfo);
     }
 
@@ -191,6 +186,8 @@ public class PaymentService {
         if (totalAmount.isPresent()) {
             payment.setAmount(totalAmount.get().intValue());
             payment.setType(PaymentType.CHARGE);
+
+            // TODO: Need to be changed for currency
             payment.setCurrency("aud");
             payment.setSource("tok_visa");
             payment.setReceiptEmail(authenticationFacade.getUser().getEmail());

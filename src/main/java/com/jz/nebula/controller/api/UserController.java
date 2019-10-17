@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.dao.UserRepository;
@@ -15,7 +15,7 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     UserRepository userRepository;

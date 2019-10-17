@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.RefreshTokenService;
@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/token")
 public class TokenController {
     @Autowired
     RefreshTokenService refreshTokenService;

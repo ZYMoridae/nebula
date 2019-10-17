@@ -1,6 +1,6 @@
 package com.jz.nebula.service;
 
-import com.jz.nebula.controller.NotificationController;
+import com.jz.nebula.controller.api.NotificationController;
 import com.jz.nebula.dao.HomeBannerRepository;
 import com.jz.nebula.entity.HomeBanner;
 import org.apache.logging.log4j.LogManager;

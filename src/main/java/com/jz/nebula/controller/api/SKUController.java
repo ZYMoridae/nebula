@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.sku.Sku;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.security.RolesAllowed;
 
 @RestController
-@RequestMapping("/skus")
+@RequestMapping("/api/skus")
 public class SKUController {
 
     @Autowired

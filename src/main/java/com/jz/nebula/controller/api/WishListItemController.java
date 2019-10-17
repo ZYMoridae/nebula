@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.CartItem;
 import com.jz.nebula.entity.Role;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
-@RequestMapping("/wishlist-items")
+@RequestMapping("/api/wishlist-items")
 public class WishListItemController {
     @Autowired
     private WishListItemService wishListItemService;

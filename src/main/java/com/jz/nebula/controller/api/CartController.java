@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.CartService;
 
 @RestController
-@RequestMapping("/carts")
+@RequestMapping("/api/carts")
 @Api(value = "carts")
 public class CartController {
     @Autowired

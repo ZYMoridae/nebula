@@ -12,13 +12,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
-import com.jz.nebula.controller.WishListItemController;
+import com.jz.nebula.controller.api.WishListItemController;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.dao.WishListItemRepository;
 import com.jz.nebula.dao.WishListRepository;

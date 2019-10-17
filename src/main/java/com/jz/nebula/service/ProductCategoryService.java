@@ -10,7 +10,7 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
 
-import com.jz.nebula.controller.ProductCategoryController;
+import com.jz.nebula.controller.api.ProductCategoryController;
 import com.jz.nebula.dao.ProductCategoryRepository;
 import com.jz.nebula.entity.product.ProductCategory;
 

@@ -2,7 +2,7 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
-import com.jz.nebula.controller.SwaggerConfigController;
+import com.jz.nebula.controller.api.SwaggerConfigController;
 import com.jz.nebula.dao.SwaggerConfigRepository;
 import com.jz.nebula.entity.api.SwaggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;

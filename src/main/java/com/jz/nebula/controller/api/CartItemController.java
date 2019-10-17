@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +28,7 @@ import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.CartItemService;
 
 @RestController
-@RequestMapping("/cart-items")
+@RequestMapping("/api/cart-items")
 @Api(value = "cartitem")
 public class CartItemController {
     @Autowired

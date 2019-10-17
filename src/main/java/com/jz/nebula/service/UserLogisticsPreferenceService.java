@@ -11,7 +11,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 
-import com.jz.nebula.controller.UserPreferenceController;
+import com.jz.nebula.controller.api.UserPreferenceController;
 import com.jz.nebula.dao.UserLogisticsPreferenceRepository;
 import org.springframework.stereotype.Service;
 

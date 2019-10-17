@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/cms/home")
-public class HomeController {
+public class HomeController extends BaseController{
 
     @GetMapping("")
     public String login(Model model) {

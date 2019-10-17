@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.News;
 import com.jz.nebula.entity.Role;
@@ -11,7 +11,7 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
-@RequestMapping("/news")
+@RequestMapping("/api/news")
 public class NewsController {
     @Autowired
     private NewsFeedingService newsFeedingService;

@@ -1,4 +1,4 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.api.SwaggerConfig;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
-@RequestMapping("/swg-configs")
+@RequestMapping("/api/swg-configs")
 public class SwaggerConfigController {
     @Autowired
     private SwaggerConfigService swaggerConfigService;

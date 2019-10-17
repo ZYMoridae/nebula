@@ -24,7 +24,7 @@ public class LoginController {
 
     @PostMapping("")
     public String loginSubmit(@ModelAttribute User user) {
-        if(authService.authenticate(user.getEmail(), user.getPassword())) {
+        if(authService.authenticate(user.getUsername(), user.getPassword())) {
             return "redirect:/cms/home";
         }else {
             return "login/login";

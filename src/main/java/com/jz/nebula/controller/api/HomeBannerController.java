@@ -1,8 +1,8 @@
-package com.jz.nebula.controller;
+package com.jz.nebula.controller.api;
 
-import com.jz.nebula.entity.LogisticsProvider;
+import com.jz.nebula.entity.HomeBanner;
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.service.LogisticsProviderService;
+import com.jz.nebula.service.HomeBannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -14,13 +14,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
-
+import java.util.List;
 
 @RestController
-@RequestMapping("/logistics-provider")
-public class LogisticsProviderController {
+@RequestMapping("/api/home-banners")
+public class HomeBannerController {
     @Autowired
-    private LogisticsProviderService logisticsProviderService;
+    private HomeBannerService homeBannerService;
 
     /**
      * @param pageable
@@ -32,9 +32,20 @@ public class LogisticsProviderController {
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<LogisticsProvider>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                                    final HttpServletResponse response, PagedResourcesAssembler<LogisticsProvider> assembler) {
-        return logisticsProviderService.findAll(pageable, assembler);
+    PagedResources<Resource<HomeBanner>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                             final HttpServletResponse response, PagedResourcesAssembler<HomeBanner> assembler) {
+        return homeBannerService.findAll(pageable, assembler);
+    }
+
+    /**
+     * [PUBLIC] This provide home banners for front end to use
+     *
+     * @return
+     */
+    @GetMapping("/active")
+    public @ResponseBody
+    List<HomeBanner> allActive() {
+        return homeBannerService.findAllActive();
     }
 
     /**
@@ -44,32 +55,32 @@ public class LogisticsProviderController {
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    LogisticsProvider findById(@PathVariable("id") long id) {
-        return logisticsProviderService.findById(id);
+    HomeBanner findById(@PathVariable("id") long id) {
+        return homeBannerService.findById(id);
     }
 
     /**
-     * @param logisticsProvider
+     * @param homeBanner
      * @return
      */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    LogisticsProvider create(@RequestBody LogisticsProvider logisticsProvider) {
-        return logisticsProviderService.save(logisticsProvider);
+    HomeBanner create(@RequestBody HomeBanner homeBanner) {
+        return homeBannerService.save(homeBanner);
     }
 
     /**
      * @param id
-     * @param logisticsProvider
+     * @param homeBanner
      * @return
      */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    LogisticsProvider update(@PathVariable("id") long id, @RequestBody LogisticsProvider logisticsProvider) {
-        logisticsProvider.setId(id);
-        return logisticsProviderService.save(logisticsProvider);
+    HomeBanner update(@PathVariable("id") long id, @RequestBody HomeBanner homeBanner) {
+        homeBanner.setId(id);
+        return homeBannerService.save(homeBanner);
     }
 
     /**
@@ -80,7 +91,7 @@ public class LogisticsProviderController {
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {
-        logisticsProviderService.delete(id);
+        homeBannerService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

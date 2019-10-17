@@ -10,10 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.jz.nebula.controller.NotificationController;
+import com.jz.nebula.controller.api.NotificationController;
 import com.jz.nebula.dao.NotificationRepository;
 import com.jz.nebula.entity.Notification;
 
