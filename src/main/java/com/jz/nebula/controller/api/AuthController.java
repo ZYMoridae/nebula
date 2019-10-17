@@ -63,9 +63,9 @@ public class AuthController {
      * @return
      */
     @PostMapping("/authorize")
-    @ApiOperation(value = "Sign in Nebula API", response = ResponseEntity.class)
+    @ApiOperation(value = "authorize Nebula api", response = ResponseEntity.class)
 //  @RequestBody AuthenticationRequest data,
-    public ResponseEntity<?> signin(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<?> authorize(@RequestHeader HttpHeaders headers) {
         try {
             String authValue = headers.getFirst(HttpHeaders.AUTHORIZATION);
             String credentials = authValue.substring("Basic".length()).trim();

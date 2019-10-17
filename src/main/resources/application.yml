@@ -9,7 +9,7 @@ stripe:
 
 logging:
   level:
-#    ROOT: DEBUG
+    #    ROOT: DEBUG
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     com.jz.nebula: DEBUG

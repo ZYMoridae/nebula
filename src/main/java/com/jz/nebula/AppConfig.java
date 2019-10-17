@@ -1,7 +1,5 @@
 package com.jz.nebula;
 
-
-import com.jz.nebula.interceptor.CmsRouteInterceptor;
 import com.jz.nebula.interceptor.RouteInterceptor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +13,5 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RouteInterceptor());
-        // Only intercept CMS path
-        registry.addInterceptor(new CmsRouteInterceptor()).addPathPatterns("/cms/**").excludePathPatterns("/cms/login");
     }
 }
