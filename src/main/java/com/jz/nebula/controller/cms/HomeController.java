@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/cms/home")
-public class HomeController extends BaseController{
+public class HomeController extends BaseController {
 
     private final Logger logger = LogManager.getLogger(HomeController.class);
 
@@ -22,6 +22,8 @@ public class HomeController extends BaseController{
     @GetMapping("")
     public String login(Model model) {
         logger.debug("login:: authentication name [{}]", authenticationFacade.getAuthentication().getName());
+        model.addAttribute("isUserLogin", authenticationFacade.isUserLogin());
+        model.addAttribute("user", authenticationFacade.getUser());
         return "home";
     }
 }

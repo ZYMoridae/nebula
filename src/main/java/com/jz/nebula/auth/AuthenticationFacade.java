@@ -3,6 +3,7 @@ package com.jz.nebula.auth;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -30,5 +31,15 @@ public class AuthenticationFacade implements IAuthenticationFacade {
     public Long getUserId() {
         User user = getUser();
         return user == null ? null : user.getId();
+    }
+
+    /**
+     * Check user login status
+     *
+     * @return
+     */
+    public boolean isUserLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken);
     }
 }

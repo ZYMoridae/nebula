@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Spring Security Example</title>
-</head>
-<body>
-<h1>Welcome!</h1>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorator="~{fragments/layout}">
 
-<p>This is Nebula API</p>
-</body>
+<div layout:fragment="content">
+
+    <div th:if="${isUserLogin} == true">
+        <div th:replace="fragments/app_bar :: app_bar" th:with="user=${user}"></div>
+    </div>
+
+</div>
 </html>
