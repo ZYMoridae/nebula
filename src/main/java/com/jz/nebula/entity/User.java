@@ -23,7 +23,7 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     Set<UserRole> userRoles;
 
-    //    @ElementCollection(fetch = FetchType.EAGER)
+//    @ElementCollection(fetch = FetchType.EAGER)
 //    @Builder.Default
 //    private List<String> roles = new ArrayList<>();
     @Transient

@@ -99,7 +99,7 @@ public class PaymentService {
             Sku sku = skuOptional.get();
             AtomicInteger currentStock = new AtomicInteger(sku.getStock());
             currentStock.addAndGet(orderItem.getQuantity() * -1);
-            if (currentStock.get() < 0) throw new ProductStockException();
+            if(currentStock.get() < 0) throw new ProductStockException();
 
             sku.setStock(currentStock.get());
             skuRepository.save(sku);
