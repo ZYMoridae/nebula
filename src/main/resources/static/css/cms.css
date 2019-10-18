@@ -12,6 +12,11 @@
     color: white;
 }
 
+.nebula-icon {
+    font-family: 'Nanum Brush Script', cursive !important;
+    font-size: 32px;
+}
+
 .login-bg-animation {
     position: absolute;
     left: 0;
