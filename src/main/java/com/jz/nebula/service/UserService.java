@@ -7,10 +7,13 @@ import com.jz.nebula.dao.UserRolesRepository;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.UserRole;
+import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.util.Security;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,10 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -118,5 +118,13 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByUsername(userDetails.getUsername()).get();
 
         return user;
+    }
+
+    public List<User> findAll(Pageable pageable) {
+        logger.debug("findAll:: pageNumber:[{}], pageSize: [{}]", pageable.getPageNumber(), pageable.getPageSize());
+        Page<User> pageUsers = userRepository.findAll(pageable);
+        List<User> users = new ArrayList<>();
+        pageUsers.iterator().forEachRemaining(users::add);
+        return users;
     }
 }

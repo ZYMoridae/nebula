@@ -1,74 +1,185 @@
-.login-container {
-    color: white;
+/*.login-container {*/
+/*    color: white;*/
+/*}*/
+
+/*.login-container button[type=submit] {*/
+/*    width: 100%;*/
+/*}*/
+
+/*.login-container .hero {*/
+/*    font-family: 'Nanum Brush Script', cursive !important;*/
+/*    font-size: 70px !important;*/
+/*    color: white;*/
+/*}*/
+
+/*.nebula-icon {*/
+/*    font-family: 'Nanum Brush Script', cursive !important;*/
+/*    font-size: 32px;*/
+/*}*/
+
+/*.login-bg-animation {*/
+/*    position: absolute;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    z-index: -1;*/
+/*    height: 100vh;*/
+/*    color: #fff;*/
+/*    background: linear-gradient(-45deg, #005c99, #003d66, #23a6d5, #4db8ff);*/
+/*    background-size: 400% 400%;*/
+/*    !*-webkit-animation: Gradient 10s ease infinite;*!*/
+/*    !*-moz-animation: Gradient 10s ease infinite;*!*/
+/*    !*animation: Gradient 10s ease infinite;*!*/
+/*}*/
+
+/*@-webkit-keyframes Gradient {*/
+/*    0% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*    50% {*/
+/*        background-position: 100% 50%;*/
+/*    }*/
+/*    100% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*}*/
+
+/*@-moz-keyframes Gradient {*/
+/*    0% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*    50% {*/
+/*        background-position: 100% 50%;*/
+/*    }*/
+/*    100% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*}*/
+
+/*@keyframes Gradient {*/
+/*    0% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*    50% {*/
+/*        background-position: 100% 50%;*/
+/*    }*/
+/*    100% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 600px) {*/
+/*    .login-container {*/
+/*        padding-left: 40px;*/
+/*    }*/
+/*}*/
+
+
+body {
+    font-size: .875rem;
 }
 
-.login-container button[type=submit] {
-    width: 100%;
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
 }
 
-.login-container .hero {
-    font-family: 'Nanum Brush Script', cursive !important;
-    font-size: 70px !important;
-    color: white;
-}
+/*
+ * Sidebar
+ */
 
-.nebula-icon {
-    font-family: 'Nanum Brush Script', cursive !important;
-    font-size: 32px;
-}
-
-.login-bg-animation {
-    position: absolute;
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    z-index: -1;
-    height: 100vh;
+    z-index: 99; /* Behind the navbar */
+    padding: 48px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+    }
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+}
+
+.sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+    color: inherit;
+}
+
+.sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+}
+
+/*
+ * Content
+ */
+
+[role="main"] {
+    padding-top: 48px; /* Space for fixed navbar */
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-brand {
+    /*padding-top: .75rem;*/
+    /*padding-bottom: .75rem;*/
+    font-size: 1rem;
+    /*background-color: rgba(0, 0, 0, .25);*/
+    /*box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);*/
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.form-control-dark {
     color: #fff;
-    background: linear-gradient(-45deg, #005c99, #003d66, #23a6d5, #4db8ff);
-    background-size: 400% 400%;
-    /*-webkit-animation: Gradient 10s ease infinite;*/
-    /*-moz-animation: Gradient 10s ease infinite;*/
-    /*animation: Gradient 10s ease infinite;*/
+    border-radius: 3px !important;
+    /*background-color: rgba(255, 255, 255, .1);*/
+    /*border-color: rgba(255, 255, 255, .1);*/
 }
 
-@-webkit-keyframes Gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
-@-moz-keyframes Gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-@keyframes Gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .login-container {
-        padding-left: 40px;
-    }
+.fix-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
 }
