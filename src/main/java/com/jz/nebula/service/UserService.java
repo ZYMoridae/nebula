@@ -8,6 +8,7 @@ import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.UserRole;
 import com.jz.nebula.entity.product.Product;
+import com.jz.nebula.util.PageableHelper;
 import com.jz.nebula.util.Security;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -120,11 +121,63 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public List<User> findAll(Pageable pageable) {
+    /**
+     * TODO: Need to be optimized
+     *
+     * @param pageable
+     * @return
+     */
+    public HashMap<String, Object> findAll(Pageable pageable) {
         logger.debug("findAll:: pageNumber:[{}], pageSize: [{}]", pageable.getPageNumber(), pageable.getPageSize());
-        Page<User> pageUsers = userRepository.findAll(pageable);
+        Page<User> pageUsers = userRepository.findAllByOrderByIdAsc(pageable);
         List<User> users = new ArrayList<>();
         pageUsers.iterator().forEachRemaining(users::add);
-        return users;
+
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("users", users);
+        res.put("totalPages", pageUsers.getTotalPages());
+        res.put("pageNumber", pageable.getPageNumber());
+        res.put("pageSize", pageable.getPageSize());
+        res.put("path", "/cms/user/management");
+
+        List<Integer> pageNumberArray = PageableHelper.getPageNumberArray(pageUsers.getTotalPages(), pageable.getPageNumber());
+        res.put("pageNumberArray", pageNumberArray);
+
+        HashMap<String, Integer> prevNextInfo = PageableHelper.getPrevAndNextIndex(pageNumberArray, pageable.getPageNumber());
+
+        res.put("prevIndex", prevNextInfo.get("prev"));
+        res.put("nextIndex", prevNextInfo.get("next"));
+
+
+        List<Integer> perPageOptions = new ArrayList<>();
+        perPageOptions.add(10);
+        perPageOptions.add(30);
+        perPageOptions.add(50);
+
+        res.put("perPageOptions", perPageOptions);
+
+        return res;
+    }
+
+    /**
+     * Find user by id
+     *
+     * @param id
+     * @return
+     */
+    public User findById(long id) {
+        return userRepository.findById(id).get();
+    }
+
+    /**
+     * Save user
+     *
+     * @param user
+     * @return
+     */
+    public User save(User user) {
+        logger.debug("save:: id [{}]", user.getId());
+        userRepository.save(user);
+        return findById(user.getId());
     }
 }

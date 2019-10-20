@@ -29,19 +29,12 @@ public class Role implements Serializable {
      *
      */
     private static final long serialVersionUID = 1174975278194660551L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String code;
 
     public Role() {
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                '}';
     }
 }

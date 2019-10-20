@@ -41,7 +41,7 @@
 <!--</nav>-->
 
 
-<nav th:if="${user} != null" th:fragment="app_bar" class="navbar navbar-expand-lg navbar-dark bg-primary fix-top"
+<nav th:if="${currentUser} != null" th:fragment="app_bar" class="navbar navbar-expand-lg navbar-dark bg-primary fix-top"
      xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <link th:href="@{/css/cms.css}" rel="stylesheet"/>
@@ -50,7 +50,7 @@
 <!--    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
     <ul class="navbar-nav px-3" style="flex-direction: row-reverse;width: 100%;">
         <li class="nav-item text-nowrap">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${'Morning, ' + user.username}">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${'Morning, ' + currentUser.username}">
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: auto;">
                 <a class="dropdown-item" href="#">Action</a>

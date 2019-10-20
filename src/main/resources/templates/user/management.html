@@ -3,46 +3,108 @@
       xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorator="~{fragments/base_fragment}">
 
-<div th:replace="fragments :: appBar(user=user, isUserLogin=isUserLogin)"></div>
+<div th:replace="fragments :: appBar(currentUser=currentUser, isUserLogin=isUserLogin)"></div>
 
 <div layout:fragment="content2">
 
     <h1>User Management</h1>
 
-    <table class="table" style="font-weight: inherit;font-size: 14px;">
+    <table class="table" style="font-weight: inherit;font-size: 14px;margin-top: 30px;">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
+            <th scopr="col"></th>
         </tr>
         </thead>
         <tbody>
-        <th:block th:each="user : ${users}">
+        <th:block th:each="user : ${data.users}">
             <tr>
                 <th scope="row" th:text="${user.id}">...</th>
                 <td th:text="${user.username}">...</td>
                 <td th:text="${user.email}">...</td>
                 <td th:text="${user.telephone}">...</td>
+                <td>
+                    <a th:href="${'/cms/user/' + user.id + '/show'}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
             </tr>
         </th:block>
         </tbody>
     </table>
 
     <nav aria-label="Page navigation example">
+
+
         <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
             <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+                <a class="page-link"
+                   th:href="${data.prevIndex == -1 ? '#' : (data.path + '?page=' + data.prevIndex + '&size=' + data.pageSize)}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
             </li>
+
+            <!--            <th:block th:each="i: ${#numbers.sequence(0, data.totalPages - 1)}">-->
+            <th:block th:if="${data.pageNumberArray[0]} > 0">
+                <li class="page-item">
+                    <a class="page-link" style="border-top: 0px;border-bottom: 0px;">
+                        ...
+                    </a>
+                </li>
+            </th:block>
+            <th:block th:each="i: ${data.pageNumberArray}">
+
+                <li th:class="${'page-item ' + (i == data.pageNumber ? 'active' : '')}" class="page-item active"><a
+                        class="page-link" th:href="${data.path + '?page=' + i + '&size=' + data.pageSize}"
+                        th:text="${i + 1}"></a></li>
+            </th:block>
+
+            <th:block th:if="${data.pageNumberArray[data.pageNumberArray.size() - 1]} < ${data.totalPages - 1}">
+                <li class="page-item">
+                    <a class="page-link" style="border-top: 0px;border-bottom: 0px;">
+                        ...
+                    </a>
+                </li>
+            </th:block>
+
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="${data.nextIndex == -1 ? '#' : (data.path + '?page=' + data.nextIndex + '&size=' + data.pageSize)}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+
+            <div style="display: inline-flex;margin-left: 30px;">
+                <select class="form-control" id="pageSelect" th:value="${data.pageSize}">
+                    <th:block th:each="option: ${data.perPageOptions}">
+                        <option th:value="${option}" th:text="${option}"
+                                th:selected="${option == data.pageSize}"></option>
+                    </th:block>
+                </select>
+                <div style="white-space: nowrap;padding-top: 0.45rem;padding-left: 0.45rem;padding-right: 0.45rem;">
+                    per page
+                </div>
+            </div>
         </ul>
     </nav>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            $('#pageSelect').change(function () {
+                var basePath = /*[[${data.path + \'?page=\' + data.pageNumber + \'&size=\'}]]*/;
+                window.location.href = basePath + $(this).val();
+            });
+        });
+        /*]]>*/
+    </script>
+
 
 </div>
 </html>

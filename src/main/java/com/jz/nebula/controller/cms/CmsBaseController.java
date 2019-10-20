@@ -20,6 +20,6 @@ public class CmsBaseController {
     public void setSessionHeader(Model model) {
         logger.debug("login:: authentication name [{}]", authenticationFacade.getAuthentication().getName());
         model.addAttribute("isUserLogin", authenticationFacade.isUserLogin());
-        model.addAttribute("user", authenticationFacade.getUser());
+        model.addAttribute("currentUser", authenticationFacade.getUser());
     }
 }

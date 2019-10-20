@@ -19,8 +19,10 @@ public class User implements Serializable {
      *
      */
     private static final long serialVersionUID = -7813183948065034220L;
+
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(targetEntity = UserRole.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     Set<UserRole> userRoles;
 
 //    @ElementCollection(fetch = FetchType.EAGER)
@@ -188,8 +190,6 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", userRoles=" + userRoles +
-                ", roles=" + roles +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", telephone='" + telephone + '\'' +

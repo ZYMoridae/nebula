@@ -16,11 +16,11 @@ public class UserRole implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+//    User user;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Role.class)
     @JoinColumn(name = "role_id", insertable = false, updatable = false)
     Role role;
 
@@ -32,14 +32,14 @@ public class UserRole implements Serializable {
     @Column(name = "role_id")
     private Long roleId;
 
-    @Override
-    public String toString() {
-        return "UserRole{" +
-                "id=" + id +
-                ", user=" + user +
-                ", role=" + role +
-                ", userId=" + userId +
-                ", roleId=" + roleId +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "UserRole{" +
+//                "id=" + id +
+//                ", user=" + user +
+//                ", role=" + role +
+//                ", userId=" + userId +
+//                ", roleId=" + roleId +
+//                '}';
+//    }
 }

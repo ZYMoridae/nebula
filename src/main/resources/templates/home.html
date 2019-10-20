@@ -3,7 +3,7 @@
       xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorator="~{fragments/base_fragment}">
 
-<div th:replace="fragments :: appBar(user=user, isUserLogin=isUserLogin)"></div>
+<div th:replace="fragments :: appBar(currentUser=currentUser, isUserLogin=isUserLogin)"></div>
 
 <div layout:fragment="content2">
 
