@@ -28,6 +28,12 @@ public class CmsUserController extends CmsBaseController {
         return "user/show";
     }
 
+    @GetMapping("/new")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "user/new";
+    }
+
     @PostMapping("/{id}/edit")
     public String edit(@PathVariable("id") long id, @ModelAttribute User user) {
         user.setId(id);
@@ -50,5 +56,11 @@ public class CmsUserController extends CmsBaseController {
 
         userService.save(persistedUser);
         return "redirect:/cms/user/" + user.getId() + "/show";
+    }
+
+    @PostMapping("/create")
+    public String create(@ModelAttribute User user) {
+        User persistedUser = userService.save(user);
+        return "redirect:/cms/user/" + persistedUser.getId() + "/show";
     }
 }
