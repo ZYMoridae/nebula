@@ -7,7 +7,20 @@
 
 <div layout:fragment="content2">
 
-    <h1>User Management</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1>User Management</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button id="new-btn" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                New
+            </button>
+        </div>
+    </div>
+
 
     <table class="table" style="font-weight: inherit;font-size: 14px;margin-top: 30px;">
         <thead>
@@ -101,6 +114,10 @@
                 var basePath = /*[[${data.path + \'?page=\' + data.pageNumber + \'&size=\'}]]*/;
                 window.location.href = basePath + $(this).val();
             });
+        });
+
+        $('#new-btn').click(function () {
+            window.location.href = '/cms/user/new';
         });
         /*]]>*/
     </script>

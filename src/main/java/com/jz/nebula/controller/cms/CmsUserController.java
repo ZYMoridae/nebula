@@ -5,6 +5,7 @@ import com.jz.nebula.entity.UserRole;
 import com.jz.nebula.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +61,11 @@ public class CmsUserController extends CmsBaseController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute User user) {
+
+        String encodedCredential = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(encodedCredential);
         User persistedUser = userService.save(user);
+
         return "redirect:/cms/user/" + persistedUser.getId() + "/show";
     }
 }

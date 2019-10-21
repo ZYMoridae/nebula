@@ -9,71 +9,9 @@
 
     <h1>User Management</h1>
 
-    <form class="form-show" action="#" th:action="@{/cms/user/{id}/edit(id=${user.id})}" th:object="${user}" method="post">
-        <!--        <h1 class="hero">-->
-        <!--            NEBULA-->
-        <!--        </h1>-->
-        <!--            <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
-        <!--            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>-->
-        <div class="form-group">
-            <label for="inputId">Id</label>
-            <input type="text" id="inputId" class="form-control" placeholder="Id" required autofocus disabled
-                   th:field="*{id}">
-        </div>
-
-        <div class="form-group">
-            <label for="inputUsername">Username</label>
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
-                   th:field="*{username}">
-        </div>
-        <div class="form-group">
-            <label for="inputEmail">Email</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email" required th:field="*{email}">
-        </div>
-        <div class="form-group">
-            <label for="inputTelephone">Telephone</label>
-            <input type="text" id="inputTelephone" class="form-control" placeholder="Telephone" required
-                   th:field="*{telephone}">
-        </div>
-
-        <div class="form-group">
-            <label for="inputAddress1">Address1</label>
-            <input type="text" id="inputAddress1" class="form-control" placeholder="Address1" required
-                   th:field="*{address1}">
-        </div>
-
-        <div class="form-group">
-            <label for="inputAddress2">Address2</label>
-            <input type="text" id="inputAddress2" class="form-control" placeholder="Address2" required
-                   th:field="*{address2}">
-        </div>
-
-        <div class="form-group">
-            <label for="inputFirstName">First Name</label>
-            <input type="text" id="inputFirstName" class="form-control" placeholder="First Name" required
-                   th:field="*{firstname}">
-        </div>
-
-        <div class="form-group">
-            <label for="inputListName">Last Name</label>
-            <input type="text" id="inputListName" class="form-control" placeholder="Last Name" required
-                   th:field="*{lastname}">
-        </div>
-
-        <div class="form-group">
-            <label for="inputGender">Gender</label>
-            <input type="text" id="inputGender" class="form-control" placeholder="Gender" required
-                   th:field="*{gender}">
-        </div>
-
-        <!--        <div class="checkbox mb-3">-->
-        <!--            <label>-->
-        <!--                <input type="checkbox" value="remember-me"> Remember me-->
-        <!--            </label>-->
-        <!--        </div>-->
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+    <form class="form-show" action="#" th:action="@{/cms/user/{id}/edit(id=${user.id})}" th:object="${user}" method="post" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="user_form">
+        <div th:insert="user/form :: user_form" th:with="user=${user}"></div>
     </form>
-
 
 </div>
 </html>

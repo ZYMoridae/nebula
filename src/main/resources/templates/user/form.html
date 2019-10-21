@@ -1,0 +1,107 @@
+<div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="user_form" class="container">
+    <!--        <h1 class="hero">-->
+    <!--            NEBULA-->
+    <!--        </h1>-->
+    <!--            <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+    <!--            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>-->
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inputId">Id</label>
+                <input type="text" id="inputId" class="form-control" placeholder="Id" required autofocus disabled
+                       th:field="*{id}">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
+                       th:field="*{username}">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email" required
+                       th:field="*{email}">
+            </div>
+        </div>
+    </div>
+
+    <th:block th:if="${action} == 'create'">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+                           th:field="*{password}">
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inputFirstName">First Name</label>
+                <input type="text" id="inputFirstName" class="form-control" placeholder="First Name" required
+                       th:field="*{firstname}">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inputListName">Last Name</label>
+                <input type="text" id="inputListName" class="form-control" placeholder="Last Name" required
+                       th:field="*{lastname}">
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inputGender">Gender</label>
+                <input type="text" id="inputGender" class="form-control" placeholder="Gender" required
+                       th:field="*{gender}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="inputTelephone">Telephone</label>
+                <input type="text" id="inputTelephone" class="form-control" placeholder="Telephone" required
+                       th:field="*{telephone}">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="inputAddress1">Address1</label>
+                <input type="text" id="inputAddress1" class="form-control" placeholder="Address1" required
+                       th:field="*{address1}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="inputAddress2">Address2</label>
+                <input type="text" id="inputAddress2" class="form-control" placeholder="Address2" required
+                       th:field="*{address2}">
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+</div>
