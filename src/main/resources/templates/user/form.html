@@ -5,6 +5,12 @@
     <!--            <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
     <!--            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>-->
 
+    <style>
+        .badge {
+            padding: .5rem 1rem;
+        }
+    </style>
+
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -30,19 +36,6 @@
             </div>
         </div>
     </div>
-
-    <th:block th:if="${action} == 'create'">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
-                           th:field="*{password}">
-                </div>
-            </div>
-        </div>
-    </th:block>
-
 
     <div class="row">
         <div class="col-md-4">
@@ -70,6 +63,18 @@
             </div>
         </div>
     </div>
+
+    <th:block th:if="${action} == 'create'">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+                           th:field="*{password}">
+                </div>
+            </div>
+        </div>
+    </th:block>
 
     <div class="row">
         <div class="col-md-12">
@@ -102,20 +107,21 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">
         <div class="col-md-12">
 
-                <div class="form-group">
-                    <label >Role</label>
-                    <div>
-<!--                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">-->
-                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">
-                            <span class="badge badge-pill badge-primary" th:text="*{userRoles[__${iterationStatus.index}__].role.code}"></span>
-                        </th:block>
-                    </div>
-<!--                    <input type="text" id="inputRole" class="form-control" placeholder="Role" required disabled-->
-<!--                           th:field="*{userRoles[__${iterationStatus.index}__].role.code}">-->
+            <div class="form-group">
+                <label>Role</label>
+                <div>
+                    <!--                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">-->
+                    <th:block th:each="userRole,iterationStatus : *{userRoles}">
+                                                <span class="badge badge-pill badge-primary"
+                                                      th:text="*{userRoles[__${iterationStatus.index}__].role.code}"></span>
+                    </th:block>
                 </div>
+                <!--                    <input type="text" id="inputRole" class="form-control" placeholder="Role" required disabled-->
+                <!--                           th:field="*{userRoles[__${iterationStatus.index}__].role.code}">-->
+            </div>
 
         </div>
     </div>
@@ -123,7 +129,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <button class="btn btn-sm btn-primary btn-block" type="submit">Save</button>
+            <button class="btn btn-md btn-primary btn-block" type="submit">Save</button>
         </div>
     </div>
 </div>

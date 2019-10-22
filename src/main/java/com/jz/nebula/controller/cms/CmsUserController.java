@@ -79,6 +79,7 @@ public class CmsUserController extends CmsBaseController {
         userRole.setUserId(persistedUser.getId());
         userRole.setRoleId(roleRepository.findByCode("USER").get().getId());
         userRolesRepository.save(userRole);
+        logger.debug("create:: user role created");
 
         return "redirect:/cms/user/" + persistedUser.getId() + "/show";
     }

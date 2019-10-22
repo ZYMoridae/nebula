@@ -7,9 +7,10 @@
 
 <div layout:fragment="content2">
 
-    <h1>User Management</h1>
+    <h2>Edit User</h2>
 
-    <form class="form-show" action="#" th:action="@{/cms/user/{id}/edit(id=${user.id})}" th:object="${user}" method="post" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="user_form">
+    <form class="form-show" action="#" th:action="@{/cms/user/{id}/edit(id=${user.id})}" th:object="${user}"
+          method="post" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="user_form">
         <div th:insert="user/form :: user_form" th:with="user=${user}"></div>
     </form>
 

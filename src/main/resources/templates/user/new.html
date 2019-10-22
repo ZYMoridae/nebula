@@ -7,7 +7,7 @@
 
 <div layout:fragment="content2">
 
-    <h1>New User</h1>
+    <h2>New User</h2>
 
     <form class="form-show" action="#" th:action="@{/cms/user/create}" th:object="${user}" method="post">
         <div th:insert="user/form :: user_form" th:with="user=${user}, action=${'create'}"></div>
