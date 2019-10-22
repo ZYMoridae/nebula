@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="user_form" class="container">
+<div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="user_form">
     <!--        <h1 class="hero">-->
     <!--            NEBULA-->
     <!--        </h1>-->
@@ -6,7 +6,7 @@
     <!--            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>-->
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="inputId">Id</label>
                 <input type="text" id="inputId" class="form-control" placeholder="Id" required autofocus disabled
@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="inputUsername">Username</label>
                 <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="inputEmail">Email</label>
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email" required
@@ -32,7 +32,6 @@
     </div>
 
     <th:block th:if="${action} == 'create'">
-
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
@@ -46,7 +45,7 @@
 
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="inputFirstName">First Name</label>
                 <input type="text" id="inputFirstName" class="form-control" placeholder="First Name" required
@@ -54,7 +53,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="inputListName">Last Name</label>
                 <input type="text" id="inputListName" class="form-control" placeholder="Last Name" required
@@ -63,7 +62,7 @@
         </div>
 
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="inputGender">Gender</label>
                 <input type="text" id="inputGender" class="form-control" placeholder="Gender" required
@@ -103,5 +102,28 @@
         </div>
     </div>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+    <div class="row">
+        <div class="col-md-12">
+
+                <div class="form-group">
+                    <label >Role</label>
+                    <div>
+<!--                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">-->
+                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">
+                            <span class="badge badge-pill badge-primary" th:text="*{userRoles[__${iterationStatus.index}__].role.code}"></span>
+                        </th:block>
+                    </div>
+<!--                    <input type="text" id="inputRole" class="form-control" placeholder="Role" required disabled-->
+<!--                           th:field="*{userRoles[__${iterationStatus.index}__].role.code}">-->
+                </div>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Save</button>
+        </div>
+    </div>
 </div>

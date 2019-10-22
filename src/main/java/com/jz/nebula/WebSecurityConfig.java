@@ -24,11 +24,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
-//import org.springframework.http.HttpMethod;
 @Configuration
-@EnableWebSecurity(debug = false)
+@EnableWebSecurity
 public class WebSecurityConfig {
 
+    /**
+     * For API route
+     */
     @Order(2)
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
@@ -46,11 +48,9 @@ public class WebSecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             logger.debug("ApiSecurityConfiguration:: entered");
-//            // @formatter:off
-//            //TODO: Set csrf enable in the production environment
+            //TODO: Set csrf enable in the production environment
             http.antMatcher("/api/**").httpBasic().disable().csrf().disable().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-//                    .antMatchers(HttpMethod.GET, "/").permitAll()
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/api/sso/authorize").permitAll()
@@ -70,10 +70,12 @@ public class WebSecurityConfig {
                             "/swagger-ui.html",
                             "/webjars/**").permitAll()
                     .antMatchers("/api/**").authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));
-            // @formatter:on
         }
     }
 
+    /**
+     * Below WebSecurityConfig is for CMS route
+     */
     @Order(1)
     @Configuration
     class CmsSecurityConfiguration extends WebSecurityConfigurerAdapter {

@@ -1,5 +1,7 @@
 package com.jz.nebula.controller.cms;
 
+import com.jz.nebula.dao.RoleRepository;
+import com.jz.nebula.dao.UserRolesRepository;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.UserRole;
 import com.jz.nebula.service.UserService;
@@ -16,6 +18,12 @@ public class CmsUserController extends CmsBaseController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRolesRepository userRolesRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @GetMapping("/management")
     public String login(Pageable pageable, Model model) {
@@ -65,6 +73,12 @@ public class CmsUserController extends CmsBaseController {
         String encodedCredential = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encodedCredential);
         User persistedUser = userService.save(user);
+
+        // FIXME: Due to the reason of nested model saving problem, we create user role and save it manually
+        UserRole userRole = new UserRole();
+        userRole.setUserId(persistedUser.getId());
+        userRole.setRoleId(roleRepository.findByCode("USER").get().getId());
+        userRolesRepository.save(userRole);
 
         return "redirect:/cms/user/" + persistedUser.getId() + "/show";
     }
