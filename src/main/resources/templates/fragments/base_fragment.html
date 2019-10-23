@@ -13,7 +13,8 @@
     <div layout:fragment="appBar">
         <div th:text="${isUserLogin}"></div>
         <div th:text="${currentUser.id}"></div>
-        <div th:replace="fragments/app_bar :: app_bar" th:if="${isUserLogin} == true" th:with="currentUser=${currentUser}"></div>
+        <div th:replace="fragments/app_bar :: app_bar" th:if="${isUserLogin} == true"
+             th:with="currentUser=${currentUser}"></div>
     </div>
 
     <div class="container-fluid">
@@ -28,7 +29,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-label="user" th:href="@{'/cms/user/management'}">
+                            <a class="nav-link" data-label="user" th:href="@{'/cms/user'}">
                                 <span data-feather="file"></span>
                                 Users
                             </a>
@@ -99,16 +100,25 @@
             <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
             <script>
                 feather.replace();
-                $(document).ready(function(){
-                    var path = window.location.pathname;
 
+                function getCmsPath() {
+                    let path = window.location.pathname;
+
+                    let splittedPath = path.split('/');
+                    let relativePath = '';
+                    for (let i = 0; i < splittedPath.length; i += 1) {
+                        if (splittedPath[i] == 'cms' && splittedPath[i + 1] != null) {
+                            relativePath = splittedPath[i + 1];
+                        }
+                    }
+                    return relativePath;
+                }
+
+
+                $(document).ready(function () {
                     $('.nav .nav-link').removeClass('active');
 
-                    if(path.startsWith('/cms/user')) {
-                        $('.nav-link[data-label=user]').addClass('active');
-                    }else {
-                        $('.nav-link[data-label=home]').addClass('active');
-                    }
+                    $('.nav-link[data-label=' + getCmsPath() + ']').addClass('active');
                 });
             </script>
 

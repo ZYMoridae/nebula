@@ -6,8 +6,7 @@
 <div th:replace="fragments :: appBar(currentUser=currentUser, isUserLogin=isUserLogin)"></div>
 
 <div layout:fragment="content2">
-
-    <h2>Edit User</h2>
+    <h4 class="h4">Edit User</h4>
 
     <form class="form-show" action="#" th:action="@{/cms/user/{id}/edit(id=${user.id})}" th:object="${user}"
           method="post" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="user_form">

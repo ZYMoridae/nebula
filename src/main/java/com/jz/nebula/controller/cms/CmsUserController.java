@@ -2,6 +2,7 @@ package com.jz.nebula.controller.cms;
 
 import com.jz.nebula.dao.RoleRepository;
 import com.jz.nebula.dao.UserRolesRepository;
+import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.UserRole;
 import com.jz.nebula.service.UserService;
@@ -11,6 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/cms/user")
@@ -25,10 +30,10 @@ public class CmsUserController extends CmsBaseController {
     @Autowired
     RoleRepository roleRepository;
 
-    @GetMapping("/management")
+    @GetMapping("")
     public String login(Pageable pageable, Model model) {
         model.addAttribute("data", userService.findAll(pageable));
-        return "user/management";
+        return "user/index";
     }
 
     @GetMapping("/{id}/show")
@@ -46,12 +51,27 @@ public class CmsUserController extends CmsBaseController {
 
     @PostMapping("/{id}/edit")
     public String edit(@PathVariable("id") long id, @ModelAttribute User user, @RequestParam("userRoleArray") String userRoleArray) {
-        // FIXME: For user role we need to manually updated, need to figure out how to update nested object
-        String[] userRole = userRoleArray.split(",");
-
         user.setId(id);
         logger.debug("edit:: [{}]", user.getId());
         User persistedUser = userService.findById(id);
+
+        // FIXME: For user role we need to manually updated, need to figure out how to update nested object
+        List<String> userRole = Arrays.asList(userRoleArray.split(","));
+
+        List<Role> allRoles = new ArrayList<>();
+
+        roleRepository.findAll().iterator().forEachRemaining(allRoles::add);
+        List<Role> userRoles = new ArrayList<>();
+
+        allRoles.stream().forEach(roleItem -> {
+            if (userRole.contains(roleItem.getCode())) {
+                userRoles.add(roleItem);
+            }
+        });
+
+        userService.updateUserRole(persistedUser, userRoles);
+
+        persistedUser = userService.findById(id);
 
         /**
          * FIXME: [2019-10-20] If use default save, will get error

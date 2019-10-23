@@ -138,7 +138,7 @@ public class UserService implements UserDetailsService {
         res.put("totalPages", pageUsers.getTotalPages());
         res.put("pageNumber", pageable.getPageNumber());
         res.put("pageSize", pageable.getPageSize());
-        res.put("path", "/cms/user/management");
+        res.put("path", "/cms/user");
 
         List<Integer> pageNumberArray = PageableHelper.getPageNumberArray(pageUsers.getTotalPages(), pageable.getPageNumber());
         res.put("pageNumberArray", pageNumberArray);
@@ -179,5 +179,44 @@ public class UserService implements UserDetailsService {
         logger.debug("save:: id [{}]", user.getId());
         userRepository.save(user);
         return findById(user.getId());
+    }
+
+
+    public void updateUserRole(User persistedUser, List<Role> updateRoles) {
+        List<String> persistedRoleCode = persistedUser.getUserRoles().stream().map(userRole -> userRole.getRole().getCode()).collect(toList());
+        List<String> updateRoleCode = updateRoles.stream().map(userRole -> userRole.getCode()).collect(toList());
+
+        List<String> roleToBeDelete = new ArrayList<>();
+        List<String> roleToBeInsert = new ArrayList<>();
+
+        List<String> intersection = persistedRoleCode.stream().filter(updateRoleCode::contains).collect(toList());
+        persistedRoleCode.stream().forEach(userRoleCode -> {
+            if (!intersection.contains(userRoleCode)) {
+                roleToBeDelete.add(userRoleCode);
+            }
+        });
+
+        updateRoleCode.stream().forEach(userRoleCode -> {
+            if (!intersection.contains(userRoleCode)) {
+                roleToBeInsert.add(userRoleCode);
+            }
+        });
+
+
+        persistedUser.getUserRoles().stream().forEach(userRole -> {
+            if (roleToBeDelete.contains(userRole.getRole().getCode())) {
+                userRolesRepository.delete(userRole);
+            }
+        });
+
+        updateRoles.stream().forEach(role -> {
+            if (roleToBeInsert.contains(role.getCode())) {
+                UserRole userRole = new UserRole();
+                userRole.setRoleId(role.getId());
+                userRole.setUserId(persistedUser.getId());
+                userRolesRepository.save(userRole);
+            }
+        });
+
     }
 }
