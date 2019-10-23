@@ -33,7 +33,8 @@ public class CmsUserController extends CmsBaseController {
 
     @GetMapping("/{id}/show")
     public String show(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userService.findById(id));
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
         return "user/show";
     }
 
@@ -44,7 +45,10 @@ public class CmsUserController extends CmsBaseController {
     }
 
     @PostMapping("/{id}/edit")
-    public String edit(@PathVariable("id") long id, @ModelAttribute User user) {
+    public String edit(@PathVariable("id") long id, @ModelAttribute User user, @RequestParam("userRoleArray") String userRoleArray) {
+        // FIXME: For user role we need to manually updated, need to figure out how to update nested object
+        String[] userRole = userRoleArray.split(",");
+
         user.setId(id);
         logger.debug("edit:: [{}]", user.getId());
         User persistedUser = userService.findById(id);
@@ -62,6 +66,8 @@ public class CmsUserController extends CmsBaseController {
         persistedUser.setFirstname(user.getFirstname());
         persistedUser.setLastname(user.getLastname());
         persistedUser.setGender(user.getGender());
+
+//        user.getUserRoles().stream().forEach(userRole -> {logger.debug("edit:: user role [{}]", userRole.getRole().getId());});
 
         userService.save(persistedUser);
         return "redirect:/cms/user/" + user.getId() + "/show";

@@ -9,6 +9,9 @@
         .badge {
             padding: .5rem 1rem;
         }
+        .select2 {
+            width: 100% !important;
+        }
     </style>
 
     <div class="row">
@@ -107,29 +110,59 @@
         </div>
     </div>
 
-    <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">
-        <div class="col-md-12">
+<!--    <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">-->
+<!--        <div class="col-md-12">-->
 
+<!--            <div class="form-group">-->
+<!--                <label>Role</label>-->
+<!--                <div>-->
+<!--                    &lt;!&ndash;                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">&ndash;&gt;-->
+<!--                    <th:block th:each="userRole,iterationStatus : *{userRoles}">-->
+<!--                                                <span class="badge badge-pill badge-primary"-->
+<!--                                                      th:text="*{userRoles[__${iterationStatus.index}__].role.code}"></span>-->
+<!--                    </th:block>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;                    <input type="text" id="inputRole" class="form-control" placeholder="Role" required disabled&ndash;&gt;-->
+<!--                &lt;!&ndash;                           th:field="*{userRoles[__${iterationStatus.index}__].role.code}">&ndash;&gt;-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Role</label>
-                <div>
-                    <!--                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">-->
+                <select class="role-select" name="userRoleArray" multiple="multiple">
                     <th:block th:each="userRole,iterationStatus : *{userRoles}">
-                                                <span class="badge badge-pill badge-primary"
-                                                      th:text="*{userRoles[__${iterationStatus.index}__].role.code}"></span>
+                        <option th:value="*{userRoles[__${iterationStatus.index}__].role.code}" th:text="*{userRoles[__${iterationStatus.index}__].role.code}">Alabama</option>
                     </th:block>
-                </div>
-                <!--                    <input type="text" id="inputRole" class="form-control" placeholder="Role" required disabled-->
-                <!--                           th:field="*{userRoles[__${iterationStatus.index}__].role.code}">-->
+                </select>
             </div>
 
         </div>
     </div>
 
-
-    <div class="row">
+    <div class="row" style="margin-top: 5px;">
         <div class="col-md-6">
             <button class="btn btn-md btn-primary btn-block" type="submit">Save</button>
         </div>
     </div>
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            var userRoles = /*[[${user.userRoles}]]*/;
+
+            console.log(userRoles);
+
+            $('.role-select').select2().val(userRoles.map(function(item){return item.role.code;})).trigger('change');
+        })
+        /*]]>*/
+    </script>
+
+    <script>
+;
+    </script>
 </div>
