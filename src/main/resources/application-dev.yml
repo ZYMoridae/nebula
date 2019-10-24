@@ -40,8 +40,8 @@ spring:
     #      Ensue in AWS enable the cluster feature
     #      nodes: nebula-redis-1.2g0kc4.0001.apse2.cache.amazonaws.com:6379
 
-#    host: iresdev1.intsrv.net
-    host: localhost
+    host: iresdev1.intsrv.net
+#    host: localhost
     #    host: nebula-redis-1.2g0kc4.0001.apse2.cache.amazonaws.com
     port: 6379
     password: ?_TK$czHb9LhyWy8W2G4gZAa@byj8H&4

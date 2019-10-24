@@ -22,3 +22,6 @@ spring:
   profiles:
     active: "dev"
 #    active: "prod"
+  data:
+    rest:
+      default-page-size: 10

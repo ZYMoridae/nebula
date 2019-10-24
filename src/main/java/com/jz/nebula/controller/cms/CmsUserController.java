@@ -31,7 +31,7 @@ public class CmsUserController extends CmsBaseController {
     RoleRepository roleRepository;
 
     @GetMapping("")
-    public String login(Pageable pageable, Model model) {
+    public String index(Pageable pageable, Model model) {
         model.addAttribute("data", userService.findAll(pageable));
         return "user/index";
     }

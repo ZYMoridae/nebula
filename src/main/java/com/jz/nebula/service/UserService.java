@@ -7,19 +7,13 @@ import com.jz.nebula.dao.UserRolesRepository;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.UserRole;
-import com.jz.nebula.entity.product.Product;
-import com.jz.nebula.util.PageableHelper;
-import com.jz.nebula.util.Security;
+import com.jz.nebula.util.pagination.CmsPagination;
+import com.jz.nebula.util.pagination.CmsPaginationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -127,36 +120,9 @@ public class UserService implements UserDetailsService {
      * @param pageable
      * @return
      */
-    public HashMap<String, Object> findAll(Pageable pageable) {
-        logger.debug("findAll:: pageNumber:[{}], pageSize: [{}]", pageable.getPageNumber(), pageable.getPageSize());
-        Page<User> pageUsers = userRepository.findAllByOrderByIdAsc(pageable);
-        List<User> users = new ArrayList<>();
-        pageUsers.iterator().forEachRemaining(users::add);
-
-        HashMap<String, Object> res = new HashMap<>();
-        res.put("users", users);
-        res.put("totalPages", pageUsers.getTotalPages());
-        res.put("pageNumber", pageable.getPageNumber());
-        res.put("pageSize", pageable.getPageSize());
-        res.put("path", "/cms/user");
-
-        List<Integer> pageNumberArray = PageableHelper.getPageNumberArray(pageUsers.getTotalPages(), pageable.getPageNumber());
-        res.put("pageNumberArray", pageNumberArray);
-
-        HashMap<String, Integer> prevNextInfo = PageableHelper.getPrevAndNextIndex(pageNumberArray, pageable.getPageNumber());
-
-        res.put("prevIndex", prevNextInfo.get("prev"));
-        res.put("nextIndex", prevNextInfo.get("next"));
-
-
-        List<Integer> perPageOptions = new ArrayList<>();
-        perPageOptions.add(10);
-        perPageOptions.add(30);
-        perPageOptions.add(50);
-
-        res.put("perPageOptions", perPageOptions);
-
-        return res;
+    public CmsPagination findAll(Pageable pageable) {
+        CmsPaginationHelper<User> userCmsPaginationHelper = new CmsPaginationHelper<>();
+        return userCmsPaginationHelper.getCmsPagination(pageable, userRepository.findAllByOrderByIdAsc(pageable), "/cms/user");
     }
 
     /**
@@ -181,7 +147,13 @@ public class UserService implements UserDetailsService {
         return findById(user.getId());
     }
 
-
+    /**
+     * FIXME: Can be improved
+     * Update user role
+     *
+     * @param persistedUser
+     * @param updateRoles
+     */
     public void updateUserRole(User persistedUser, List<Role> updateRoles) {
         List<String> persistedRoleCode = persistedUser.getUserRoles().stream().map(userRole -> userRole.getRole().getCode()).collect(toList());
         List<String> updateRoleCode = updateRoles.stream().map(userRole -> userRole.getCode()).collect(toList());
@@ -217,6 +189,5 @@ public class UserService implements UserDetailsService {
                 userRolesRepository.save(userRole);
             }
         });
-
     }
 }

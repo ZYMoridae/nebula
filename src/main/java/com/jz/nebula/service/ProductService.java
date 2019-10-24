@@ -36,6 +36,11 @@ public class ProductService {
         return resources;
     }
 
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+
     public Product save(Product product) {
         Product updatedProduct = productRepository.save(product);
 
