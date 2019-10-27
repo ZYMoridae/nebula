@@ -12,6 +12,15 @@ import java.util.stream.IntStream;
 public class CmsPaginationHelper<T> {
     private final static Logger logger = LogManager.getLogger(CmsPaginationHelper.class);
 
+    private List perPageOptions;
+
+    public CmsPaginationHelper() {
+        perPageOptions = new ArrayList();
+        perPageOptions.add(10);
+        perPageOptions.add(30);
+        perPageOptions.add(50);
+    }
+
     /**
      * Get page number array
      *
@@ -78,9 +87,16 @@ public class CmsPaginationHelper<T> {
         return prevNextInfo;
     }
 
+    /**
+     * Get pagination
+     *
+     * @param pageable
+     * @param pageData
+     * @param resourcePath
+     * @return
+     */
     public CmsPagination getCmsPagination(Pageable pageable, Page<T> pageData, String resourcePath) {
         logger.debug("findAll:: pageNumber:[{}], pageSize: [{}]", pageable.getPageNumber(), pageable.getPageSize());
-//        Page<User> pageUsers = userRepository.findAllByOrderByIdAsc(pageable);
         List<T> dataList = new ArrayList<>();
         pageData.iterator().forEachRemaining(dataList::add);
 
@@ -92,21 +108,24 @@ public class CmsPaginationHelper<T> {
         cmsPagination.setPageSize(pageable.getPageSize());
         cmsPagination.setPath(resourcePath);
 
-        List pageNumberArray = CmsPaginationHelper.getPageNumberArray(pageData.getTotalPages(), pageable.getPageNumber());
+        List pageNumberArray = getPageNumberArray(pageData.getTotalPages(), pageable.getPageNumber());
         cmsPagination.setPageNumberArray(pageNumberArray);
 
-        HashMap<String, Integer> prevNextInfo = CmsPaginationHelper.getPrevAndNextIndex(pageNumberArray, pageable.getPageNumber());
+        HashMap<String, Integer> prevNextInfo = getPrevAndNextIndex(pageNumberArray, pageable.getPageNumber());
 
         cmsPagination.setPrevIndex(prevNextInfo.get("prev"));
         cmsPagination.setNextIndex(prevNextInfo.get("next"));
 
-        List<Integer> perPageOptions = new ArrayList<>();
-        perPageOptions.add(10);
-        perPageOptions.add(30);
-        perPageOptions.add(50);
-
         cmsPagination.setPerPageOptions(perPageOptions);
+
         return cmsPagination;
     }
 
+    public List getPerPageOptions() {
+        return perPageOptions;
+    }
+
+    public void setPerPageOptions(List perPageOptions) {
+        this.perPageOptions = perPageOptions;
+    }
 }

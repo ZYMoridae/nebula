@@ -6,7 +6,7 @@
 <div th:replace="fragments :: appBar(currentUser=currentUser, isUserLogin=isUserLogin)"></div>
 
 <div layout:fragment="content2">
-    <h4 class="h4">New User</h4>
+    <h4 class="h4 pt-3 pb-2 mb-3">New User</h4>
 
     <form class="form-show" action="#" th:action="@{/cms/user/create}" th:object="${user}" method="post">
         <div th:insert="user/form :: user_form" th:with="user=${user}, action=${'create'}"></div>

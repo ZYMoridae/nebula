@@ -1,5 +1,6 @@
 package com.jz.nebula.entity.sku;
 
+import com.jz.nebula.entity.product.Product;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -30,10 +34,15 @@ public class Sku implements Serializable {
 
     private int stock;
 
+    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Product product;
+
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sku_code", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name = "sku_code", referencedColumnName="sku_code", updatable = false, insertable = false)
     @ApiModelProperty(notes = "Stock keeping unit attributes. Normally has more than one attribute.")
-    private Set<SkuAttribute> skuAttributes;
+    private Set<SkuAttribute> skuAttributes = new HashSet<>();
 
     @Column(name = "created_user_id")
     @ApiModelProperty(notes = "The user created the stock keeping unit")
@@ -44,6 +53,10 @@ public class Sku implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    public List<SkuAttribute> getSkuAttributesAsList(){
+        return new ArrayList<SkuAttribute>(skuAttributes);
+    }
 
     @Override
     public String toString() {

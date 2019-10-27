@@ -15,4 +15,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     Page<Product> findByNameContaining(@Param("keyword") String keyword, Pageable pageable);
 
     List<Product> findByIdIn(List<Long> ids);
+
+    Page<Product> findAllByOrderByIdAsc(Pageable pageable);
 }

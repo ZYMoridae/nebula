@@ -2,8 +2,8 @@ package com.jz.nebula.entity.product;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.jz.nebula.entity.Vendor;
 import com.jz.nebula.entity.sku.Sku;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "product", schema = "public")
@@ -60,7 +64,7 @@ public class Product implements Serializable {
     @JoinColumn(name = "product_id", nullable = false)
     private Set<ProductMeta> productMetas;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private ProductCategory productCategory;
 
@@ -70,9 +74,34 @@ public class Product implements Serializable {
 
     private String description;
 
+    /**
+     * NOTE: Add fetch mode subselect to skus
+     * https://stackoverflow.com/questions/5737747/entity-manager-returns-duplicate-copies-of-a-onetomany-related-entity
+     */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", nullable = false, insertable = false, updatable = false)
-    private Set<Sku> skus;
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @Fetch(FetchMode.SUBSELECT)
+    private Collection<Sku> skus = new ArrayList<>();
+
+    public Collection<Sku> getSkus() {
+//        HashMap<String, Sku> dedupedList = new HashMap<>();
+//        this.skus.stream().forEach(sku -> {
+//            if(!dedupedList.containsKey(sku.getSkuCode())) {
+//                dedupedList.put(sku.getSkuCode(), sku);
+//            }
+//        });
+//        ArrayList<Sku> _list = new ArrayList<>(dedupedList.values());
+//        return this.skus.stream().distinct().collect(Collectors.toList());
+        return this.skus;
+    }
+
+    public void setSkus(Collection<Sku> skus) {
+        this.skus = skus;
+    }
+
+    public List<Sku> getSkusAsList(){
+        return new ArrayList<Sku>(skus);
+    }
 
     public Product() {
     }

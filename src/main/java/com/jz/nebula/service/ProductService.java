@@ -2,6 +2,8 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import com.jz.nebula.util.pagination.CmsPagination;
+import com.jz.nebula.util.pagination.CmsPaginationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,8 +38,16 @@ public class ProductService {
         return resources;
     }
 
-    public Page<Product> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    /**
+     * Find all products by pageable
+     *
+     * @param pageable
+     * @return
+     */
+    public CmsPagination findAll(Pageable pageable) {
+        CmsPaginationHelper<Product> cmsPaginationHelper = new CmsPaginationHelper<>();
+        Page<Product> pageProduct = productRepository.findAllByOrderByIdAsc(pageable);
+        return cmsPaginationHelper.getCmsPagination(pageable, pageProduct, "/cms/product");
     }
 
 

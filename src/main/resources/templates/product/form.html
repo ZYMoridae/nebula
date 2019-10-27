@@ -1,0 +1,137 @@
+<div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="product_form">
+    <!--        <h1 class="hero">-->
+    <!--            NEBULA-->
+    <!--        </h1>-->
+    <!--            <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+    <!--            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>-->
+
+    <style>
+        .badge {
+            padding: .5rem 1rem;
+        }
+
+        .select2 {
+            width: 100% !important;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="inputId">Id</label>
+                <input type="text" id="inputId" class="form-control" placeholder="Id" required autofocus disabled
+                       th:field="*{id}">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="inputName">Name</label>
+                <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus
+                       th:field="*{name}">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="inputProductCategory">Product Category</label>
+                <input type="text" id="inputProductCategory" class="form-control" placeholder="Product Category"
+                       required
+                       th:field="*{productCategory.name}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row" th:if="*{skus != null && #lists.size(skus) > 0}">
+        <div th:text="*{#lists.size(skus)}"></div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <h6 class="h6 pb-2 border-bottom">Sku</h6>
+                <!--            <div class="row">-->
+                <!--                &lt;!&ndash;            <div class="col-md-12">&ndash;&gt;-->
+                <!--                <div class="form-group">-->
+                <!--                    <h5 class="h5">Sku</h5>-->
+                <!--                </div>-->
+                <!--                &lt;!&ndash;            </div>&ndash;&gt;-->
+                <!--            </div>-->
+<!--                <div class="row">-->
+                    <th:block th:each="sku, iterationStatus : *{skus}">
+                        <div class="p-3" style="border-radius: 5px;background-color: #f3f3f3;">
+<!--                            <label th:text="*{'Sku ' + skus[__${iterationStatus.index}__].id}"></label>-->
+                            <input type="text" class="form-control" placeholder="Sku Code" required hidden
+                                   th:field="*{skus[__${iterationStatus.index}__].id}">
+                            <label th:text="*{'Sku ' + skus[__${iterationStatus.index}__].id}"></label>
+                            <input type="text" class="form-control" placeholder="Sku Code" required hidden
+                                   th:field="*{skus[__${iterationStatus.index}__].skuCode}">
+                            <label>Stock</label>
+                            <input type="text" class="form-control" placeholder="Stock" required
+                                   th:field="*{skus[__${iterationStatus.index}__].stock}">
+                            <label>Price</label>
+                            <input type="text" class="form-control" placeholder="Price" required
+                                   th:field="*{skus[__${iterationStatus.index}__].price}">
+
+                            <input type="text" class="form-control" placeholder="Product Id" required hidden
+                                   th:field="*{skus[__${iterationStatus.index}__].productId}" th:value="${product.id}">
+
+                            <input type="text" class="form-control" placeholder="Create User Id" required hidden
+                                   th:field="*{skus[__${iterationStatus.index}__].createdUserId}">
+
+                            <div class="p-3" style="border-radius: 5px;background-color: #f3f3f3;">
+                                <th:block th:each="skuAttribute, iterationStatus2 : *{skus[__${iterationStatus.index}__].skuAttributes}">
+                                    <label th:text="${'Sku Attribute ' + (iterationStatus2.index + 1)}"></label>
+                                    <input type="text" class="form-control" placeholder="Price" required
+                                           th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].value}">
+
+                                    <label>Sku Category</label>
+                                    <input type="text" class="form-control" placeholder="Price" required
+                                           th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].skuAttributeCategory.name}">
+                                </th:block>
+                            </div>
+
+                        </div>
+                    </th:block>
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+
+
+    <!--    <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">-->
+    <!--        <div class="col-md-12">-->
+
+    <!--            <div class="form-group">-->
+    <!--                <label>Role</label>-->
+    <!--                <div>-->
+    <!--                    &lt;!&ndash;                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">&ndash;&gt;-->
+    <!--                    <th:block th:each="userRole,iterationStatus : *{userRoles}">-->
+    <!--                                                <span class="badge badge-pill badge-primary"-->
+    <!--                                                      th:text="*{userRoles[__${iterationStatus.index}__].role.code}"></span>-->
+    <!--                    </th:block>-->
+    <!--                </div>-->
+    <!--                &lt;!&ndash;                    <input type="text" id="inputRole" class="form-control" placeholder="Role" required disabled&ndash;&gt;-->
+    <!--                &lt;!&ndash;                           th:field="*{userRoles[__${iterationStatus.index}__].role.code}">&ndash;&gt;-->
+    <!--            </div>-->
+
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <!--    <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">-->
+    <!--        <div class="col-md-6">-->
+    <!--            <div class="form-group">-->
+    <!--                <label>Role</label>-->
+    <!--                <select class="role-select" name="userRoleArray" multiple="multiple">-->
+    <!--                    <th:block th:each="userRole,iterationStatus : *{userRoles}">-->
+    <!--                        <option th:value="*{userRoles[__${iterationStatus.index}__].role.code}" th:text="*{userRoles[__${iterationStatus.index}__].role.code}">Alabama</option>-->
+    <!--                    </th:block>-->
+    <!--                </select>-->
+    <!--            </div>-->
+
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <div class="row" style="margin-top: 5px;">
+        <div class="col-md-6">
+            <button class="btn btn-md btn-primary btn-block" type="submit">Save</button>
+        </div>
+    </div>
+</div>
