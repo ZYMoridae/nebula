@@ -19,9 +19,16 @@ public class ProductCategoryService {
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
 
-    public PagedResources<Resource<ProductCategory>> findAll(Pageable pageable,
+    public PagedResources<Resource<ProductCategory>> findAll(String keyword, Pageable pageable,
                                                              PagedResourcesAssembler<ProductCategory> assembler) {
-        Page<ProductCategory> page = productCategoryRepository.findAll(pageable);
+
+        Page<ProductCategory> page;
+        if (keyword == null || keyword == "") {
+            page = productCategoryRepository.findAll(pageable);
+        } else {
+            page = productCategoryRepository.findByNameContaining(keyword, pageable);
+        }
+
         PagedResources<Resource<ProductCategory>> resources = assembler.toResource(page,
                 linkTo(ProductCategoryController.class).slash("/product-categories").withSelfRel());
         ;

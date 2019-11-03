@@ -3,7 +3,10 @@ package com.jz.nebula.controller.api;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.service.RefreshTokenService;
 import com.jz.nebula.service.TokenService;
+import com.jz.nebula.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -18,6 +21,9 @@ public class TokenController {
 
     @Autowired
     TokenService tokenService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * @param refreshToken
@@ -49,13 +55,23 @@ public class TokenController {
      * @param token
      * @return
      */
-    @GetMapping("/{token}")
+    @GetMapping("/{token}/alive")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Map<String, Boolean> isTokenAlive(@PathVariable("token") String token) {
         Map<String, Boolean> resultMap = new ConcurrentHashMap<>();
         Boolean isTokenAlive = tokenService.validateToken(token);
         resultMap.put("isTokenAlive", isTokenAlive);
+        return resultMap;
+    }
+
+    @GetMapping("/{token}/admin-validation")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    Map<String, Boolean> isAdminToken(@PathVariable("token") String token, @AuthenticationPrincipal UserDetails userDetails) {
+        Map<String, Boolean> resultMap = new ConcurrentHashMap<>();
+        Boolean isAdminToken = tokenService.isAdminToken(token, userService.getCurrentUser(userDetails));
+        resultMap.put("isAdminToken", isAdminToken);
         return resultMap;
     }
 }

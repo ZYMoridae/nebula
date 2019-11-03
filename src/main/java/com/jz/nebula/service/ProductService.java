@@ -26,7 +26,7 @@ public class ProductService {
     public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
                                                      PagedResourcesAssembler<Product> assembler) {
         Page<Product> page;
-        if (keyword == "") {
+        if (keyword == null || keyword == "") {
             page = productRepository.findAll(pageable);
         } else {
             page = productRepository.findByNameContaining(keyword, pageable);
@@ -34,7 +34,7 @@ public class ProductService {
 
         PagedResources<Resource<Product>> resources = assembler.toResource(page,
                 linkTo(ProductController.class).slash("/products").withSelfRel());
-        ;
+
         return resources;
     }
 

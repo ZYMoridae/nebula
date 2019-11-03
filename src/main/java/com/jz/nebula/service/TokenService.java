@@ -1,6 +1,7 @@
 package com.jz.nebula.service;
 
 import com.jz.nebula.entity.Role;
+import com.jz.nebula.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -20,11 +21,14 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 //import javax.annotation.Resource;
 //import org.springframework.data.redis.core.ListOperations;
@@ -161,6 +165,34 @@ public class TokenService {
         } catch (JwtException | IllegalArgumentException e) {
             e.printStackTrace();
             logger.error("validateToken::Expired or Invalid JWT access token");
+            return false;
+        }
+    }
+
+    public boolean isAdminToken(String token, User currentUser) {
+        try {
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+
+            String username = claims.getBody().getSubject();
+
+            if(username != currentUser.getUsername()) {
+                logger.warn("isAdminToken:: authorization failed");
+                return false;
+            }
+
+            if(!validateToken(token)) {
+                logger.warn("isAdminToken:: token expired in Redis");
+                return false;
+            }
+
+            if(!currentUser.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList()).contains(Role.ROLE_ADMIN)) {
+                return false;
+            }
+
+            return true;
+        }catch (JwtException | IllegalArgumentException e) {
+            e.printStackTrace();
+            logger.error("isAdminToken::admin token validate error");
             return false;
         }
     }

@@ -69,8 +69,14 @@ public class WebSecurityConfig {
                             "/configuration/security",
                             "/swagger-ui.html",
                             "/webjars/**").permitAll()
-                    .antMatchers("/api/**").authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));
+                    .anyRequest().authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));
         }
+//
+//        @Override
+//        public void configure(WebSecurity web) throws Exception {
+//            web.ignoring()
+//                    .antMatchers("/api/sso/authorize", "/api/users", "/api/token/refresh", "/api/products", "/api/products/{\\d+}", "/api/products/{\\d+}/comments", "/api/home-banners/active", "/api/news");
+//        }
     }
 
     /**

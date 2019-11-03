@@ -31,10 +31,10 @@ public class ProductCategoryController {
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<ProductCategory>> all(Pageable pageable,
+    PagedResources<Resource<ProductCategory>> all(@RequestParam String keyword, Pageable pageable,
                                                   final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
                                                   PagedResourcesAssembler<ProductCategory> assembler) {
-        return productCategoryService.findAll(pageable, assembler);
+        return productCategoryService.findAll(keyword, pageable, assembler);
     }
 
     /**

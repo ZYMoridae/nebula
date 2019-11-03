@@ -80,7 +80,7 @@ public class Product implements Serializable {
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
-    @Fetch(FetchMode.SUBSELECT)
+//    @Fetch(FetchMode.SUBSELECT)
     private Collection<Sku> skus = new ArrayList<>();
 
     public Collection<Sku> getSkus() {
@@ -99,9 +99,9 @@ public class Product implements Serializable {
         this.skus = skus;
     }
 
-    public List<Sku> getSkusAsList(){
-        return new ArrayList<Sku>(skus);
-    }
+//    public List<Sku> getSkusAsList(){
+//        return new ArrayList<Sku>(skus);
+//    }
 
     public Product() {
     }

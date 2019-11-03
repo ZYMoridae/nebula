@@ -34,10 +34,6 @@ public class Sku implements Serializable {
 
     private int stock;
 
-    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Product product;
-
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "sku_code", referencedColumnName="sku_code", updatable = false, insertable = false)
