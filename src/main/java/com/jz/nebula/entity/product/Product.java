@@ -81,9 +81,12 @@ public class Product implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
 //    @Fetch(FetchMode.SUBSELECT)
-    private Collection<Sku> skus = new ArrayList<>();
+    private Set<Sku> skus;
 
-    public Collection<Sku> getSkus() {
+    public Product() {
+    }
+
+    public Set<Sku> getSkus() {
 //        HashMap<String, Sku> dedupedList = new HashMap<>();
 //        this.skus.stream().forEach(sku -> {
 //            if(!dedupedList.containsKey(sku.getSkuCode())) {
@@ -95,15 +98,12 @@ public class Product implements Serializable {
         return this.skus;
     }
 
-    public void setSkus(Collection<Sku> skus) {
-        this.skus = skus;
-    }
-
 //    public List<Sku> getSkusAsList(){
 //        return new ArrayList<Sku>(skus);
 //    }
 
-    public Product() {
+    public void setSkus(Set<Sku> skus) {
+        this.skus = skus;
     }
 
     public String getDescription() {

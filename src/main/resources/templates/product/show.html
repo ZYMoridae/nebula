@@ -1,15 +1,15 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html layout:decorator="~{fragments/base_fragment}"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.w3.org/1999/xhtml"
-      layout:decorator="~{fragments/base_fragment}">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 
 <div th:replace="fragments :: appBar(currentUser=currentUser, isUserLogin=isUserLogin)"></div>
 
 <div layout:fragment="content2">
     <h4 class="h4 pt-3 pb-2 mb-3">Edit Product</h4>
 
-    <form class="form-show" action="#" th:action="@{/cms/product/{id}/edit(id=${product.id})}" th:object="${product}"
-          method="post" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="product_form">
+    <form action="#" class="form-show" method="post" th:action="@{/cms/product/{id}/edit(id=${product.id})}"
+          th:fragment="product_form" th:object="${product}" xmlns:th="http://www.w3.org/1999/xhtml">
         <div th:insert="product/form :: product_form" th:with="product=${product}"></div>
     </form>
 

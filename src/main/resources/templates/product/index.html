@@ -1,7 +1,7 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html layout:decorator="~{fragments/base_fragment}"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.w3.org/1999/xhtml"
-      layout:decorator="~{fragments/base_fragment}">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 
 <div th:replace="fragments :: appBar(currentUser=currentUser, isUserLogin=isUserLogin)"></div>
 
@@ -11,7 +11,7 @@
         <h4 class="h4">Product Management</h4>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <button id="new-btn" class="btn btn-sm btn-outline-secondary">New</button>
+                <button class="btn btn-sm btn-outline-secondary" id="new-btn">New</button>
                 <!--                <button class="btn btn-sm btn-outline-secondary">Export</button>-->
             </div>
             <!--            <button  class="btn btn-sm btn-outline-secondary dropdown-toggle">-->
@@ -55,9 +55,9 @@
         <ul class="pagination justify-content-center">
 
             <li class="page-item">
-                <a class="page-link"
-                   th:href="${data.prevIndex == -1 ? '#' : (data.path + '?page=' + data.prevIndex + '&size=' + data.pageSize)}"
-                   aria-label="Previous">
+                <a aria-label="Previous"
+                   class="page-link"
+                   th:href="${data.prevIndex == -1 ? '#' : (data.path + '?page=' + data.prevIndex + '&size=' + data.pageSize)}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -72,7 +72,7 @@
             </th:block>
             <th:block th:each="i: ${data.pageNumberArray}">
 
-                <li th:class="${'page-item ' + (i == data.pageNumber ? 'active' : '')}" class="page-item active"><a
+                <li class="page-item active" th:class="${'page-item ' + (i == data.pageNumber ? 'active' : '')}"><a
                         class="page-link" th:href="${data.path + '?page=' + i + '&size=' + data.pageSize}"
                         th:text="${i + 1}"></a></li>
             </th:block>
@@ -86,9 +86,9 @@
             </th:block>
 
             <li class="page-item">
-                <a class="page-link"
-                   th:href="${data.nextIndex == -1 ? '#' : (data.path + '?page=' + data.nextIndex + '&size=' + data.pageSize)}"
-                   aria-label="Next">
+                <a aria-label="Next"
+                   class="page-link"
+                   th:href="${data.nextIndex == -1 ? '#' : (data.path + '?page=' + data.nextIndex + '&size=' + data.pageSize)}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -96,8 +96,8 @@
             <div style="display: inline-flex;margin-left: 30px;">
                 <select class="form-control" id="pageSelect" th:value="${data.pageSize}">
                     <th:block th:each="option: ${data.perPageOptions}">
-                        <option th:value="${option}" th:text="${option}"
-                                th:selected="${option == data.pageSize}"></option>
+                        <option th:selected="${option == data.pageSize}" th:text="${option}"
+                                th:value="${option}"></option>
                     </th:block>
                 </select>
                 <div style="white-space: nowrap;padding-top: 0.45rem;padding-left: 0.45rem;padding-right: 0.45rem;">

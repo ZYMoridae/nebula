@@ -1,19 +1,19 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html layout:decorator="~{fragments/layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.w3.org/1999/xhtml"
-      layout:decorator="~{fragments/layout}">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 
 
 <div layout:fragment="content">
 
     <head>
-        <link th:href="@{/css/cms.css}" rel="stylesheet"/>
+        <link rel="stylesheet" th:href="@{/css/cms.css}"/>
     </head>
 
     <div layout:fragment="appBar">
         <div th:text="${isUserLogin}"></div>
         <div th:text="${currentUser.id}"></div>
-        <div th:replace="fragments/app_bar :: app_bar" th:if="${isUserLogin} == true"
+        <div th:if="${isUserLogin} == true" th:replace="fragments/app_bar :: app_bar"
              th:with="currentUser=${currentUser}"></div>
     </div>
 
@@ -122,7 +122,7 @@
                 });
             </script>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
                 <div layout:fragment="content2"></div>
             </main>
 

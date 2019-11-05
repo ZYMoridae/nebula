@@ -40,7 +40,7 @@ spring:
     #      Ensue in AWS enable the cluster feature
     #      nodes: nebula-redis-1.2g0kc4.0001.apse2.cache.amazonaws.com:6379
 
-#    host: iresdev1.intsrv.net
+    #    host: iresdev1.intsrv.net
     host: localhost
     #    host: nebula-redis-1.2g0kc4.0001.apse2.cache.amazonaws.com
     port: 6379
@@ -68,7 +68,25 @@ spring:
     prepStmtCacheSqlLimit: 2048
     useServerPrepStmts: true
     driver-class-name: org.postgresql.Driver
-
+    druid:
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: admin
+        login-password: admin
+        allow: 127.0.0.1
+      filter:
+        stat:
+          db-type: postgresql
+          log-slow-sql: true
+          slow-sql-millis: 5000
+      use-global-data-source-stat: true
+      filters: stat, wall, logback
 
   jpa:
     openInView: false

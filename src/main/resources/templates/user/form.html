@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="user_form">
+<div th:fragment="user_form" xmlns:th="http://www.w3.org/1999/xhtml">
     <!--        <h1 class="hero">-->
     <!--            NEBULA-->
     <!--        </h1>-->
@@ -9,6 +9,7 @@
         .badge {
             padding: .5rem 1rem;
         }
+
         .select2 {
             width: 100% !important;
         }
@@ -18,24 +19,24 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputId">Id</label>
-                <input type="text" id="inputId" class="form-control" placeholder="Id" required autofocus disabled
-                       th:field="*{id}">
+                <input autofocus class="form-control" disabled id="inputId" placeholder="Id" required th:field="*{id}"
+                       type="text">
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputUsername">Username</label>
-                <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
-                       th:field="*{username}">
+                <input autofocus class="form-control" id="inputUsername" placeholder="Username" required th:field="*{username}"
+                       type="text">
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputEmail">Email</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email" required
-                       th:field="*{email}">
+                <input class="form-control" id="inputEmail" placeholder="Email" required th:field="*{email}"
+                       type="email">
             </div>
         </div>
     </div>
@@ -44,16 +45,16 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputFirstName">First Name</label>
-                <input type="text" id="inputFirstName" class="form-control" placeholder="First Name" required
-                       th:field="*{firstname}">
+                <input class="form-control" id="inputFirstName" placeholder="First Name" required th:field="*{firstname}"
+                       type="text">
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputListName">Last Name</label>
-                <input type="text" id="inputListName" class="form-control" placeholder="Last Name" required
-                       th:field="*{lastname}">
+                <input class="form-control" id="inputListName" placeholder="Last Name" required th:field="*{lastname}"
+                       type="text">
             </div>
         </div>
 
@@ -61,8 +62,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputGender">Gender</label>
-                <input type="text" id="inputGender" class="form-control" placeholder="Gender" required
-                       th:field="*{gender}">
+                <input class="form-control" id="inputGender" placeholder="Gender" required th:field="*{gender}"
+                       type="text">
             </div>
         </div>
     </div>
@@ -72,8 +73,8 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="inputPassword">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
-                           th:field="*{password}">
+                    <input class="form-control" id="inputPassword" placeholder="Password" required th:field="*{password}"
+                           type="password">
                 </div>
             </div>
         </div>
@@ -83,8 +84,8 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="inputTelephone">Telephone</label>
-                <input type="text" id="inputTelephone" class="form-control" placeholder="Telephone" required
-                       th:field="*{telephone}">
+                <input class="form-control" id="inputTelephone" placeholder="Telephone" required th:field="*{telephone}"
+                       type="text">
             </div>
         </div>
     </div>
@@ -94,8 +95,8 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="inputAddress1">Address1</label>
-                <input type="text" id="inputAddress1" class="form-control" placeholder="Address1" required
-                       th:field="*{address1}">
+                <input class="form-control" id="inputAddress1" placeholder="Address1" required th:field="*{address1}"
+                       type="text">
             </div>
         </div>
     </div>
@@ -104,38 +105,40 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="inputAddress2">Address2</label>
-                <input type="text" id="inputAddress2" class="form-control" placeholder="Address2" required
-                       th:field="*{address2}">
+                <input class="form-control" id="inputAddress2" placeholder="Address2" required th:field="*{address2}"
+                       type="text">
             </div>
         </div>
     </div>
 
-<!--    <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">-->
-<!--        <div class="col-md-12">-->
+    <!--    <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">-->
+    <!--        <div class="col-md-12">-->
 
-<!--            <div class="form-group">-->
-<!--                <label>Role</label>-->
-<!--                <div>-->
-<!--                    &lt;!&ndash;                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">&ndash;&gt;-->
-<!--                    <th:block th:each="userRole,iterationStatus : *{userRoles}">-->
-<!--                                                <span class="badge badge-pill badge-primary"-->
-<!--                                                      th:text="*{userRoles[__${iterationStatus.index}__].role.code}"></span>-->
-<!--                    </th:block>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                    <input type="text" id="inputRole" class="form-control" placeholder="Role" required disabled&ndash;&gt;-->
-<!--                &lt;!&ndash;                           th:field="*{userRoles[__${iterationStatus.index}__].role.code}">&ndash;&gt;-->
-<!--            </div>-->
+    <!--            <div class="form-group">-->
+    <!--                <label>Role</label>-->
+    <!--                <div>-->
+    <!--                    &lt;!&ndash;                        <th:block  th:each="userRole,iterationStatus : *{userRoles}">&ndash;&gt;-->
+    <!--                    <th:block th:each="userRole,iterationStatus : *{userRoles}">-->
+    <!--                                                <span class="badge badge-pill badge-primary"-->
+    <!--                                                      th:text="*{userRoles[__${iterationStatus.index}__].role.code}"></span>-->
+    <!--                    </th:block>-->
+    <!--                </div>-->
+    <!--                &lt;!&ndash;                    <input type="text" id="inputRole" class="form-control" placeholder="Role" required disabled&ndash;&gt;-->
+    <!--                &lt;!&ndash;                           th:field="*{userRoles[__${iterationStatus.index}__].role.code}">&ndash;&gt;-->
+    <!--            </div>-->
 
-<!--        </div>-->
-<!--    </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
     <div class="row" th:if="*{userRoles != null && #lists.size(userRoles) > 0}">
         <div class="col-md-6">
             <div class="form-group">
                 <label>Role</label>
-                <select class="role-select" name="userRoleArray" multiple="multiple">
+                <select class="role-select" multiple="multiple" name="userRoleArray">
                     <th:block th:each="userRole,iterationStatus : *{userRoles}">
-                        <option th:value="*{userRoles[__${iterationStatus.index}__].role.code}" th:text="*{userRoles[__${iterationStatus.index}__].role.code}">Alabama</option>
+                        <option th:text="*{userRoles[__${iterationStatus.index}__].role.code}"
+                                th:value="*{userRoles[__${iterationStatus.index}__].role.code}">Alabama
+                        </option>
                     </th:block>
                 </select>
             </div>
@@ -152,17 +155,19 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/
-        $(document).ready(function() {
+        $(document).ready(function () {
             var userRoles = /*[[${user.userRoles}]]*/;
 
             console.log(userRoles);
 
-            $('.role-select').select2().val(userRoles.map(function(item){return item.role.code;})).trigger('change');
+            $('.role-select').select2().val(userRoles.map(function (item) {
+                return item.role.code;
+            })).trigger('change');
         })
         /*]]>*/
     </script>
 
     <script>
-;
+        ;
     </script>
 </div>

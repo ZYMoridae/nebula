@@ -1,24 +1,26 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html layout:decorator="~{fragments/layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.w3.org/1999/xhtml"
-      layout:decorator="~{fragments/layout}">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 
 <div layout:fragment="content" style="width: 100%;">
     <head>
-        <link th:href="@{/css/login.css}" rel="stylesheet"/>
+        <link rel="stylesheet" th:href="@{/css/login.css}"/>
     </head>
 
     <div class="text-center" style="width: 100%;">
-        <form class="form-signin" action="#" th:action="@{/cms/login}" th:object="${user}" method="post">
+        <form action="#" class="form-signin" method="post" th:action="@{/cms/login}" th:object="${user}">
             <h1 class="hero">
                 NEBULA
             </h1>
-<!--            <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
-<!--            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>-->
-            <label for="inputUsername" class="sr-only">Username</label>
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus th:field="*{username}">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required th:field="*{password}">
+            <!--            <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+            <!--            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>-->
+            <label class="sr-only" for="inputUsername">Username</label>
+            <input autofocus class="form-control" id="inputUsername" placeholder="Username" required th:field="*{username}"
+                   type="text">
+            <label class="sr-only" for="inputPassword">Password</label>
+            <input class="form-control" id="inputPassword" placeholder="Password" required th:field="*{password}"
+                   type="password">
             <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox" value="remember-me"> Remember me
@@ -30,41 +32,41 @@
     </div>
 
 
-<!--    <div class="login-bg-animation">-->
+    <!--    <div class="login-bg-animation">-->
 
-<!--    </div>-->
+    <!--    </div>-->
 
-<!--    <div th:if="${isUserLogin} == true">-->
-<!--        <div th:replace="fragments/app_bar :: app_bar"></div>-->
-<!--    </div>-->
+    <!--    <div th:if="${isUserLogin} == true">-->
+    <!--        <div th:replace="fragments/app_bar :: app_bar"></div>-->
+    <!--    </div>-->
 
 
-<!--    <div class="container d-flex h-100 login-container">-->
-<!--        <div class="row justify-content-center align-self-center">-->
-<!--            <div class="col-md-12">-->
+    <!--    <div class="container d-flex h-100 login-container">-->
+    <!--        <div class="row justify-content-center align-self-center">-->
+    <!--            <div class="col-md-12">-->
 
-<!--                <form action="#" th:action="@{/cms/login}" th:object="${user}" method="post">-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="exampleInputEmail1">Email address</label>-->
-<!--                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" th:field="*{username}"-->
-<!--                               placeholder="Enter username">-->
-<!--                        <small id="emailHelp" class="form-text">We'll never share your username with anyone-->
-<!--                            else.</small>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="exampleInputPassword1">Password</label>-->
-<!--                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" th:field="*{password}">-->
-<!--                    </div>-->
-<!--&lt;!&ndash;                    <div class="form-group form-check">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type="checkbox" class="form-check-input" id="exampleCheck1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <label class="form-check-label" for="exampleCheck1">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <small>Remember password</small>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </label>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--                    <button type="submit" class="btn btn-primary">Submit</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--                <form action="#" th:action="@{/cms/login}" th:object="${user}" method="post">-->
+    <!--                    <div class="form-group">-->
+    <!--                        <label for="exampleInputEmail1">Email address</label>-->
+    <!--                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" th:field="*{username}"-->
+    <!--                               placeholder="Enter username">-->
+    <!--                        <small id="emailHelp" class="form-text">We'll never share your username with anyone-->
+    <!--                            else.</small>-->
+    <!--                    </div>-->
+    <!--                    <div class="form-group">-->
+    <!--                        <label for="exampleInputPassword1">Password</label>-->
+    <!--                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" th:field="*{password}">-->
+    <!--                    </div>-->
+    <!--&lt;!&ndash;                    <div class="form-group form-check">&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <input type="checkbox" class="form-check-input" id="exampleCheck1">&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <label class="form-check-label" for="exampleCheck1">&ndash;&gt;-->
+    <!--&lt;!&ndash;                            <small>Remember password</small>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        </label>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+    <!--                    <button type="submit" class="btn btn-primary">Submit</button>-->
+    <!--                </form>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </div>
 </html>

@@ -2,12 +2,19 @@ package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.sku.Sku;
+import com.jz.nebula.entity.sku.SkuAttributeCategory;
 import com.jz.nebula.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/skus")
@@ -46,5 +53,15 @@ public class SKUController {
         return ResponseEntity.noContent().build();
     }
 
+    // Sku Attribute Categories
 
+
+    @GetMapping("/attributes/categories")
+    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN, Role.ROLE_USER})
+    public @ResponseBody
+    PagedResources<Resource<SkuAttributeCategory>> all(@RequestParam String keyword, Pageable pageable,
+                                                       final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                                       PagedResourcesAssembler<SkuAttributeCategory> assembler) {
+        return skuService.findAllSkuAttributeCategory(keyword, pageable, assembler);
+    }
 }

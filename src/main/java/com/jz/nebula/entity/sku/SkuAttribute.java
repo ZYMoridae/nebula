@@ -13,7 +13,7 @@ import java.sql.Date;
 @Setter
 @Entity
 @Table(name = "sku_attribute", schema = "public")
-public class SkuAttribute implements Serializable {
+public class SkuAttribute implements Serializable, Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,5 +49,11 @@ public class SkuAttribute implements Serializable {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        SkuAttribute _o = (SkuAttribute) o;
+        return this.id > _o.id ? 1 : 0;
     }
 }

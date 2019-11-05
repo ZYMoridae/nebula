@@ -25,7 +25,7 @@ public class User implements Serializable {
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     Set<UserRole> userRoles;
 
-//    @ElementCollection(fetch = FetchType.EAGER)
+    //    @ElementCollection(fetch = FetchType.EAGER)
 //    @Builder.Default
 //    private List<String> roles = new ArrayList<>();
     @Transient

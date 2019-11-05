@@ -34,7 +34,7 @@ public class CmsProductController extends CmsBaseController {
     }
 
     @PostMapping("/{id}/edit")
-    public String edit(@PathVariable("id") long id, @ModelAttribute Product product, @RequestParam Map<String,String> allParams) {
+    public String edit(@PathVariable("id") long id, @ModelAttribute Product product, @RequestParam Map<String, String> allParams) {
         logger.debug("edit:: product id [{}]", product.getId());
         productService.save(product);
         return "redirect:/cms/product/" + id + "/show";

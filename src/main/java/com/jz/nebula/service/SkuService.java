@@ -1,5 +1,6 @@
 package com.jz.nebula.service;
 
+import com.jz.nebula.controller.api.SKUController;
 import com.jz.nebula.dao.sku.SkuAttributeCategoryRepository;
 import com.jz.nebula.dao.sku.SkuAttributeRepository;
 import com.jz.nebula.dao.sku.SkuRepository;
@@ -8,7 +9,15 @@ import com.jz.nebula.entity.sku.SkuAttribute;
 import com.jz.nebula.entity.sku.SkuAttributeCategory;
 import com.jz.nebula.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
+
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Service
 public class SkuService {
@@ -75,6 +84,20 @@ public class SkuService {
     }
 
     /***** Sku Attribute Category *****/
+    public PagedResources<Resource<SkuAttributeCategory>> findAllSkuAttributeCategory(String keyword, Pageable pageable, PagedResourcesAssembler<SkuAttributeCategory> assembler) {
+        Page<SkuAttributeCategory> page;
+        if (keyword == null || keyword == "") {
+            page = skuAttributeCategoryRepository.findAll(pageable);
+        } else {
+            page = skuAttributeCategoryRepository.findByNameContaining(keyword, pageable);
+        }
+
+        PagedResources<Resource<SkuAttributeCategory>> resources = assembler.toResource(page,
+                linkTo(SKUController.class).slash("/api/skus/attributes/categories").withSelfRel());
+
+        return resources;
+    }
+
     public SkuAttributeCategory createSkuAttributeCategory(SkuAttributeCategory skuAttributeCategory) {
         return skuAttributeCategoryRepository.save(skuAttributeCategory);
     }

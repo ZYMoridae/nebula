@@ -8,10 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -36,9 +33,10 @@ public class Sku implements Serializable {
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sku_code", referencedColumnName="sku_code", updatable = false, insertable = false)
+    @JoinColumn(name = "sku_code", referencedColumnName = "sku_code", updatable = false, insertable = false)
     @ApiModelProperty(notes = "Stock keeping unit attributes. Normally has more than one attribute.")
-    private Set<SkuAttribute> skuAttributes = new HashSet<>();
+    @OrderBy("id ASC")
+    private SortedSet<SkuAttribute> skuAttributes;
 
     @Column(name = "created_user_id")
     @ApiModelProperty(notes = "The user created the stock keeping unit")
@@ -50,7 +48,7 @@ public class Sku implements Serializable {
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
 
-    public List<SkuAttribute> getSkuAttributesAsList(){
+    public List<SkuAttribute> getSkuAttributesAsList() {
         return new ArrayList<SkuAttribute>(skuAttributes);
     }
 

@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="product_form">
+<div th:fragment="product_form" xmlns:th="http://www.w3.org/1999/xhtml">
     <!--        <h1 class="hero">-->
     <!--            NEBULA-->
     <!--        </h1>-->
@@ -19,25 +19,25 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputId">Id</label>
-                <input type="text" id="inputId" class="form-control" placeholder="Id" required autofocus disabled
-                       th:field="*{id}">
+                <input autofocus class="form-control" disabled id="inputId" placeholder="Id" required th:field="*{id}"
+                       type="text">
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputName">Name</label>
-                <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus
-                       th:field="*{name}">
+                <input autofocus class="form-control" id="inputName" placeholder="Name" required th:field="*{name}"
+                       type="text">
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputProductCategory">Product Category</label>
-                <input type="text" id="inputProductCategory" class="form-control" placeholder="Product Category"
-                       required
-                       th:field="*{productCategory.name}">
+                <input class="form-control" id="inputProductCategory" placeholder="Product Category" required
+                       th:field="*{productCategory.name}"
+                       type="text">
             </div>
         </div>
     </div>
@@ -54,43 +54,44 @@
                 <!--                </div>-->
                 <!--                &lt;!&ndash;            </div>&ndash;&gt;-->
                 <!--            </div>-->
-<!--                <div class="row">-->
-                    <th:block th:each="sku, iterationStatus : *{skus}">
+                <!--                <div class="row">-->
+                <th:block th:each="sku, iterationStatus : *{skus}">
+                    <div class="p-3" style="border-radius: 5px;background-color: #f3f3f3;">
+                        <!--                            <label th:text="*{'Sku ' + skus[__${iterationStatus.index}__].id}"></label>-->
+                        <input class="form-control" hidden placeholder="Sku Code" required th:field="*{skus[__${iterationStatus.index}__].id}"
+                               type="text">
+                        <label th:text="*{'Sku ' + skus[__${iterationStatus.index}__].id}"></label>
+                        <input class="form-control" hidden placeholder="Sku Code" required th:field="*{skus[__${iterationStatus.index}__].skuCode}"
+                               type="text">
+                        <label>Stock</label>
+                        <input class="form-control" placeholder="Stock" required th:field="*{skus[__${iterationStatus.index}__].stock}"
+                               type="text">
+                        <label>Price</label>
+                        <input class="form-control" placeholder="Price" required th:field="*{skus[__${iterationStatus.index}__].price}"
+                               type="text">
+
+                        <input class="form-control" hidden placeholder="Product Id" required th:field="*{skus[__${iterationStatus.index}__].productId}"
+                               th:value="${product.id}" type="text">
+
+                        <input class="form-control" hidden placeholder="Create User Id" required th:field="*{skus[__${iterationStatus.index}__].createdUserId}"
+                               type="text">
+
                         <div class="p-3" style="border-radius: 5px;background-color: #f3f3f3;">
-<!--                            <label th:text="*{'Sku ' + skus[__${iterationStatus.index}__].id}"></label>-->
-                            <input type="text" class="form-control" placeholder="Sku Code" required hidden
-                                   th:field="*{skus[__${iterationStatus.index}__].id}">
-                            <label th:text="*{'Sku ' + skus[__${iterationStatus.index}__].id}"></label>
-                            <input type="text" class="form-control" placeholder="Sku Code" required hidden
-                                   th:field="*{skus[__${iterationStatus.index}__].skuCode}">
-                            <label>Stock</label>
-                            <input type="text" class="form-control" placeholder="Stock" required
-                                   th:field="*{skus[__${iterationStatus.index}__].stock}">
-                            <label>Price</label>
-                            <input type="text" class="form-control" placeholder="Price" required
-                                   th:field="*{skus[__${iterationStatus.index}__].price}">
+                            <th:block
+                                    th:each="skuAttribute, iterationStatus2 : *{skus[__${iterationStatus.index}__].skuAttributes}">
+                                <label th:text="${'Sku Attribute ' + (iterationStatus2.index + 1)}"></label>
+                                <input class="form-control" placeholder="Price" required th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].value}"
+                                       type="text">
 
-                            <input type="text" class="form-control" placeholder="Product Id" required hidden
-                                   th:field="*{skus[__${iterationStatus.index}__].productId}" th:value="${product.id}">
-
-                            <input type="text" class="form-control" placeholder="Create User Id" required hidden
-                                   th:field="*{skus[__${iterationStatus.index}__].createdUserId}">
-
-                            <div class="p-3" style="border-radius: 5px;background-color: #f3f3f3;">
-                                <th:block th:each="skuAttribute, iterationStatus2 : *{skus[__${iterationStatus.index}__].skuAttributes}">
-                                    <label th:text="${'Sku Attribute ' + (iterationStatus2.index + 1)}"></label>
-                                    <input type="text" class="form-control" placeholder="Price" required
-                                           th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].value}">
-
-                                    <label>Sku Category</label>
-                                    <input type="text" class="form-control" placeholder="Price" required
-                                           th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].skuAttributeCategory.name}">
-                                </th:block>
-                            </div>
-
+                                <label>Sku Category</label>
+                                <input class="form-control" placeholder="Price" required th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].skuAttributeCategory.name}"
+                                       type="text">
+                            </th:block>
                         </div>
-                    </th:block>
-<!--                </div>-->
+
+                    </div>
+                </th:block>
+                <!--                </div>-->
             </div>
         </div>
     </div>

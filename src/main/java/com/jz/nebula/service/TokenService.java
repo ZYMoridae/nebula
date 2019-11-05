@@ -175,22 +175,22 @@ public class TokenService {
 
             String username = claims.getBody().getSubject();
 
-            if(username != currentUser.getUsername()) {
+            if (username != currentUser.getUsername()) {
                 logger.warn("isAdminToken:: authorization failed");
                 return false;
             }
 
-            if(!validateToken(token)) {
+            if (!validateToken(token)) {
                 logger.warn("isAdminToken:: token expired in Redis");
                 return false;
             }
 
-            if(!currentUser.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList()).contains(Role.ROLE_ADMIN)) {
+            if (!currentUser.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList()).contains(Role.ROLE_ADMIN)) {
                 return false;
             }
 
             return true;
-        }catch (JwtException | IllegalArgumentException e) {
+        } catch (JwtException | IllegalArgumentException e) {
             e.printStackTrace();
             logger.error("isAdminToken::admin token validate error");
             return false;
