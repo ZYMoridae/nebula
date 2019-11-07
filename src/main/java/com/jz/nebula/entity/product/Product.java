@@ -79,7 +79,7 @@ public class Product implements Serializable {
      * https://stackoverflow.com/questions/5737747/entity-manager-returns-duplicate-copies-of-a-onetomany-related-entity
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @JoinColumn(name = "product_id")
 //    @Fetch(FetchMode.SUBSELECT)
     private Set<Sku> skus;
 
@@ -87,20 +87,8 @@ public class Product implements Serializable {
     }
 
     public Set<Sku> getSkus() {
-//        HashMap<String, Sku> dedupedList = new HashMap<>();
-//        this.skus.stream().forEach(sku -> {
-//            if(!dedupedList.containsKey(sku.getSkuCode())) {
-//                dedupedList.put(sku.getSkuCode(), sku);
-//            }
-//        });
-//        ArrayList<Sku> _list = new ArrayList<>(dedupedList.values());
-//        return this.skus.stream().distinct().collect(Collectors.toList());
         return this.skus;
     }
-
-//    public List<Sku> getSkusAsList(){
-//        return new ArrayList<Sku>(skus);
-//    }
 
     public void setSkus(Set<Sku> skus) {
         this.skus = skus;

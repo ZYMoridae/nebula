@@ -22,12 +22,12 @@ public class SkuAttribute implements Serializable, Comparable {
     @Column(name = "sku_code")
     private String skuCode;
 
-    @JsonProperty(access = Access.WRITE_ONLY)
-    @Column(name = "sku_attribute_category_id")
-    private Long skuAttributeCategoryId;
+//    @JsonProperty(access = Access.WRITE_ONLY)
+//    @Column(name = "sku_attribute_category_id")
+//    private Long skuAttributeCategoryId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sku_attribute_category_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sku_attribute_category_id", referencedColumnName = "id")
     private SkuAttributeCategory skuAttributeCategory;
 
     private String value;
@@ -43,7 +43,7 @@ public class SkuAttribute implements Serializable, Comparable {
         return "SkuAttribute{" +
                 "id=" + id +
                 ", skuCode='" + skuCode + '\'' +
-                ", skuAttributeCategoryId=" + skuAttributeCategoryId +
+//                ", skuAttributeCategoryId=" + skuAttributeCategoryId +
                 ", skuAttributeCategory=" + skuAttributeCategory +
                 ", value='" + value + '\'' +
                 ", createdAt=" + createdAt +

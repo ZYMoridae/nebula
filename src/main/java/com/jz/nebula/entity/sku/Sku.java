@@ -31,12 +31,11 @@ public class Sku implements Serializable {
 
     private int stock;
 
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sku_code", referencedColumnName = "sku_code", updatable = false, insertable = false)
+    @JoinColumn(name = "sku_code", referencedColumnName = "sku_code")
     @ApiModelProperty(notes = "Stock keeping unit attributes. Normally has more than one attribute.")
     @OrderBy("id ASC")
-    private SortedSet<SkuAttribute> skuAttributes;
+    private Set<SkuAttribute> skuAttributes;
 
     @Column(name = "created_user_id")
     @ApiModelProperty(notes = "The user created the stock keeping unit")
@@ -47,10 +46,6 @@ public class Sku implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
-
-    public List<SkuAttribute> getSkuAttributesAsList() {
-        return new ArrayList<SkuAttribute>(skuAttributes);
-    }
 
     @Override
     public String toString() {
