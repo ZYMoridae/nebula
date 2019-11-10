@@ -1,5 +1,6 @@
 package com.jz.nebula.entity.sku;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
@@ -23,18 +24,20 @@ public class SkuAttribute implements Serializable, Comparable {
     private String skuCode;
 
 //    @JsonProperty(access = Access.WRITE_ONLY)
-//    @Column(name = "sku_attribute_category_id")
-//    private Long skuAttributeCategoryId;
+    @Column(name = "sku_attribute_category_id")
+    private Long skuAttributeCategoryId;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sku_attribute_category_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sku_attribute_category_id", referencedColumnName = "id", updatable = false, insertable = false)
     private SkuAttributeCategory skuAttributeCategory;
 
     private String value;
 
+    @JsonIgnore
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;
 
+    @JsonIgnore
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
 

@@ -1,5 +1,6 @@
 package com.jz.nebula.entity.sku;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jz.nebula.entity.product.Product;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -41,9 +42,11 @@ public class Sku implements Serializable {
     @ApiModelProperty(notes = "The user created the stock keeping unit")
     private Long createdUserId;
 
+    @JsonIgnore
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;
 
+    @JsonIgnore
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
 

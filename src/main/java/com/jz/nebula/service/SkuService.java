@@ -74,7 +74,7 @@ public class SkuService {
      * @param sku
      * @return
      */
-    private String skuCodeGenerator(Sku sku) {
+    public String skuCodeGenerator(Sku sku) {
         String skuCode = "";
 
         Long currentTime = System.currentTimeMillis();

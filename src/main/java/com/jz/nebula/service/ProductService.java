@@ -2,6 +2,8 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import com.jz.nebula.entity.sku.Sku;
+import com.jz.nebula.entity.sku.SkuAttribute;
 import com.jz.nebula.util.pagination.CmsPagination;
 import com.jz.nebula.util.pagination.CmsPaginationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,23 @@ import com.jz.nebula.controller.api.ProductController;
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.entity.product.Product;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private SkuService skuService;
+
     public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
                                                      PagedResourcesAssembler<Product> assembler) {
         Page<Product> page;
         if (keyword == null || keyword == "") {
-            page = productRepository.findAll(pageable);
+            page = productRepository.findAllByOrderByIdAsc(pageable);
         } else {
             page = productRepository.findByNameContaining(keyword, pageable);
         }
@@ -52,7 +59,49 @@ public class ProductService {
 
 
     public Product save(Product product) {
-        Product updatedProduct = productRepository.save(product);
+        Set<Sku> skuList = product.getSkus();
+
+        Product updatedProduct;
+
+        if (product.getId() != null) {
+            product.getSkus().stream().forEach(sku -> {
+
+                if (sku.getId() == null) {
+                    sku.setProductId(product.getId());
+                    sku.setCreatedUserId(product.getVendorId());
+
+                    Set<SkuAttribute> skuAttributes = sku.getSkuAttributes();
+                    sku.setSkuAttributes(new HashSet<>());
+
+                    Sku updatedSku = skuService.create(sku);
+                    skuAttributes.stream().forEach(skuAttribute -> {
+                        skuAttribute.setSkuCode(updatedSku.getSkuCode());
+                        skuService.createSkuAttribute(skuAttribute);
+                    });
+                }
+
+            });
+
+            updatedProduct = productRepository.save(product);
+        } else {
+            product.setSkus(new HashSet());
+
+            updatedProduct = productRepository.save(product);
+
+            skuList.stream().forEach(sku -> {
+                sku.setProductId(updatedProduct.getId());
+//                sku.setCreatedUserId(product.getVendorId());
+
+                Set<SkuAttribute> skuAttributes = sku.getSkuAttributes();
+                sku.setSkuAttributes(new HashSet<>());
+
+                Sku updatedSku = skuService.create(sku);
+                skuAttributes.stream().forEach(skuAttribute -> {
+                    skuAttribute.setSkuCode(updatedSku.getSkuCode());
+                    skuService.createSkuAttribute(skuAttribute);
+                });
+            });
+        }
 
         return findById(updatedProduct.getId());
     }
@@ -67,5 +116,17 @@ public class ProductService {
 
     public List<Product> findByIds(List<Long> ids) {
         return productRepository.findByIdIn(ids);
+    }
+
+    /**
+     * Validate product object
+     *
+     * @param product
+     * @return
+     */
+    private boolean isValidProduct(Product product) {
+        boolean isValid = true;
+
+        return isValid;
     }
 }

@@ -1,5 +1,6 @@
 package com.jz.nebula.entity.sku;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +20,11 @@ public class SkuAttributeCategory implements Serializable {
 
     private String name;
 
+    @JsonIgnore
     @Column(name = "created_at", insertable = false)
     private Date createdAt;
 
+    @JsonIgnore
     @Column(name = "updated_at", insertable = false)
     private Date updatedAt;
 
