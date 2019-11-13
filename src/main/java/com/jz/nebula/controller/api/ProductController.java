@@ -98,7 +98,8 @@ public class ProductController {
     @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Product create(@RequestBody Product product) {
-        return productService.save(product);
+        Product savedProduct = productService.save(product);
+        return productService.findById(savedProduct.getId());
     }
 
     /**
