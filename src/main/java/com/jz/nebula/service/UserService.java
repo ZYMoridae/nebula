@@ -1,6 +1,7 @@
 package com.jz.nebula.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jz.nebula.controller.api.UserController;
 import com.jz.nebula.dao.RoleRepository;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.dao.UserRolesRepository;
@@ -14,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +29,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Service("userDetailsService")
 public class UserService implements UserDetailsService {
@@ -124,6 +129,30 @@ public class UserService implements UserDetailsService {
         CmsPaginationHelper<User> userCmsPaginationHelper = new CmsPaginationHelper<>();
         return userCmsPaginationHelper.getCmsPagination(pageable, userRepository.findAllByOrderByIdAsc(pageable), "/cms/user");
     }
+
+    /**
+     * Get all by pagination
+     *
+     * @param keyword
+     * @param pageable
+     * @param assembler
+     * @return
+     */
+    public PagedResources<Resource<User>> findAll(String keyword, Pageable pageable,
+                                                     PagedResourcesAssembler<User> assembler) {
+        Page<User> page;
+        if (keyword == null || keyword == "") {
+            page = userRepository.findAllByOrderByIdAsc(pageable);
+        } else {
+            page = userRepository.findByNameContaining(keyword, pageable);
+        }
+
+        PagedResources<Resource<User>> resources = assembler.toResource(page,
+                linkTo(UserController.class).slash("/users").withSelfRel());
+
+        return resources;
+    }
+
 
     /**
      * Find user by id
