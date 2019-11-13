@@ -4,6 +4,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import com.jz.nebula.entity.sku.Sku;
 import com.jz.nebula.entity.sku.SkuAttribute;
+import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.util.pagination.CmsPagination;
 import com.jz.nebula.util.pagination.CmsPaginationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ import org.springframework.stereotype.Service;
 import com.jz.nebula.controller.api.ProductController;
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.entity.product.Product;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
 
 @Service
+//@Transactional
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
@@ -57,29 +62,19 @@ public class ProductService {
         return cmsPaginationHelper.getCmsPagination(pageable, pageProduct, "/cms/product");
     }
 
-
+    @Transactional(rollbackFor = {Exception.class})
     public Product save(Product product) {
         Set<Sku> skuList = product.getSkus();
 
         Product updatedProduct;
 
         if (product.getId() != null) {
-            product.getSkus().stream().forEach(sku -> {
-
+            skuList.stream().forEach(sku -> {
                 if (sku.getId() == null) {
                     sku.setProductId(product.getId());
                     sku.setCreatedUserId(product.getVendorId());
-
-                    Set<SkuAttribute> skuAttributes = sku.getSkuAttributes();
-                    sku.setSkuAttributes(new HashSet<>());
-
-                    Sku updatedSku = skuService.create(sku);
-                    skuAttributes.stream().forEach(skuAttribute -> {
-                        skuAttribute.setSkuCode(updatedSku.getSkuCode());
-                        skuService.createSkuAttribute(skuAttribute);
-                    });
+                    bulkSaveSkuAttributes(sku);
                 }
-
             });
 
             updatedProduct = productRepository.save(product);
@@ -90,20 +85,29 @@ public class ProductService {
 
             skuList.stream().forEach(sku -> {
                 sku.setProductId(updatedProduct.getId());
-//                sku.setCreatedUserId(product.getVendorId());
-
-                Set<SkuAttribute> skuAttributes = sku.getSkuAttributes();
-                sku.setSkuAttributes(new HashSet<>());
-
-                Sku updatedSku = skuService.create(sku);
-                skuAttributes.stream().forEach(skuAttribute -> {
-                    skuAttribute.setSkuCode(updatedSku.getSkuCode());
-                    skuService.createSkuAttribute(skuAttribute);
-                });
+                sku.setCreatedUserId(updatedProduct.getVendorId());
+                bulkSaveSkuAttributes(sku);
             });
         }
 
         return findById(updatedProduct.getId());
+    }
+
+    /**
+     * Bulk save
+     *
+     * @param sku
+     */
+//    @Transactional(rollbackFor = {Exception.class})
+    public void bulkSaveSkuAttributes(Sku sku) {
+        Set<SkuAttribute> skuAttributes = sku.getSkuAttributes();
+        sku.setSkuAttributes(new HashSet<>());
+
+        Sku updatedSku = skuService.create(sku);
+        skuAttributes.stream().forEach(skuAttribute -> {
+            skuAttribute.setSkuCode(updatedSku.getSkuCode());
+            skuService.createSkuAttribute(skuAttribute);
+        });
     }
 
     public Product findById(long id) {

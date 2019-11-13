@@ -30,7 +30,7 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductService productService;
 
-    private Product expectedProdct;
+    private Product expectedProduct;
 
     @Before
     public void beforeTests() throws Exception {
@@ -40,7 +40,7 @@ public class ProductServiceTest {
         returnedProduct.setName("test");
         returnedProduct.setPrice(12.3);
         returnedProduct.setUnitsInStock(6);
-        this.expectedProdct = returnedProduct;
+        this.expectedProduct = returnedProduct;
     }
 
     /**
@@ -53,26 +53,26 @@ public class ProductServiceTest {
 //        parameterProduct.setPrice(12.3);
 //        parameterProduct.setUnitsInStock(6);
 //
-//        Optional<Product> optionalProduct = Optional.of(expectedProdct);
+//        Optional<Product> optionalProduct = Optional.of(expectedProduct);
 //
-//        when(productRepository.save(parameterProduct)).thenReturn(expectedProdct);
+//        when(productRepository.save(parameterProduct)).thenReturn(expectedProduct);
 //        when(productRepository.findById((long) 1)).thenReturn(optionalProduct);
 //        Product savedProduct = productService.save(parameterProduct);
-//        assertEquals(expectedProdct.getName(), savedProduct.getName());
-//        assertEquals(expectedProdct.getId(), savedProduct.getId());
-//        assertEquals(expectedProdct.getPrice(), savedProduct.getPrice(), 0);
-//        assertEquals(expectedProdct.getUnitsInStock(), savedProduct.getUnitsInStock());
+//        assertEquals(expectedProduct.getName(), savedProduct.getName());
+//        assertEquals(expectedProduct.getId(), savedProduct.getId());
+//        assertEquals(expectedProduct.getPrice(), savedProduct.getPrice(), 0);
+//        assertEquals(expectedProduct.getUnitsInStock(), savedProduct.getUnitsInStock());
 //    }
 
     @Test
     public void findByIdTest() {
-        Optional<Product> optionalProduct = Optional.of(expectedProdct);
+        Optional<Product> optionalProduct = Optional.of(expectedProduct);
         when(productRepository.findById((long) 1)).thenReturn(optionalProduct);
-        Product resProduct = productService.findById(expectedProdct.getId());
-        assertEquals(expectedProdct.getName(), resProduct.getName());
-        assertEquals(expectedProdct.getId(), resProduct.getId());
-        assertEquals(expectedProdct.getPrice(), resProduct.getPrice(), 0);
-        assertEquals(expectedProdct.getUnitsInStock(), resProduct.getUnitsInStock());
+        Product resProduct = productService.findById(expectedProduct.getId());
+        assertEquals(expectedProduct.getName(), resProduct.getName());
+        assertEquals(expectedProduct.getId(), resProduct.getId());
+        assertEquals(expectedProduct.getPrice(), resProduct.getPrice(), 0);
+        assertEquals(expectedProduct.getUnitsInStock(), resProduct.getUnitsInStock());
     }
 
     @Test
