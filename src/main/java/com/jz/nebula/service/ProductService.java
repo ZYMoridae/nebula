@@ -2,11 +2,13 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import com.google.common.base.Strings;
 import com.jz.nebula.entity.sku.Sku;
 import com.jz.nebula.entity.sku.SkuAttribute;
 import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.util.pagination.CmsPagination;
 import com.jz.nebula.util.pagination.CmsPaginationHelper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +29,7 @@ import java.util.Set;
 import java.util.stream.Collector;
 
 @Service
-//@Transactional
+@Transactional
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
@@ -35,10 +37,18 @@ public class ProductService {
     @Autowired
     private SkuService skuService;
 
+    /**
+     * Find all based on keyword and pagination parameter
+     *
+     * @param keyword
+     * @param pageable
+     * @param assembler
+     * @return
+     */
     public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
                                                      PagedResourcesAssembler<Product> assembler) {
         Page<Product> page;
-        if (keyword == null || keyword == "") {
+        if (Strings.isNullOrEmpty(keyword)) {
             page = productRepository.findAllByOrderByIdAsc(pageable);
         } else {
             page = productRepository.findByNameContaining(keyword, pageable);
@@ -62,8 +72,14 @@ public class ProductService {
         return cmsPaginationHelper.getCmsPagination(pageable, pageProduct, "/cms/product");
     }
 
+    /**
+     * NOTE: You can not get nested objects from findBy function because the object was not persisted
+     *
+     * @param product
+     * @return
+     */
     @Transactional(rollbackFor = {Exception.class})
-    public Product save(Product product) {
+    public synchronized Product save(Product product) {
         Set<Sku> skuList = product.getSkus();
 
         Product updatedProduct;

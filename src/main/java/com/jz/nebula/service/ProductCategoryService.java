@@ -2,6 +2,7 @@ package com.jz.nebula.service;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ public class ProductCategoryService {
                                                              PagedResourcesAssembler<ProductCategory> assembler) {
 
         Page<ProductCategory> page;
-        if (keyword == null || keyword == "") {
+        if (Strings.isNullOrEmpty(keyword)) {
             page = productCategoryRepository.findAll(pageable);
         } else {
             page = productCategoryRepository.findByNameContaining(keyword, pageable);

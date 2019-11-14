@@ -53,7 +53,7 @@ public class WebSecurityConfig {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
-                    .antMatchers("/api/sso/authorize").permitAll()
+                    .antMatchers("/api/sso/auth").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/token/refresh").permitAll()
                     .antMatchers(HttpMethod.GET, "/api/products").permitAll()

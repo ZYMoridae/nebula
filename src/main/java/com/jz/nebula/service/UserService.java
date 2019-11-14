@@ -1,6 +1,7 @@
 package com.jz.nebula.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Strings;
 import com.jz.nebula.controller.api.UserController;
 import com.jz.nebula.dao.RoleRepository;
 import com.jz.nebula.dao.UserRepository;
@@ -139,9 +140,9 @@ public class UserService implements UserDetailsService {
      * @return
      */
     public PagedResources<Resource<User>> findAll(String keyword, Pageable pageable,
-                                                     PagedResourcesAssembler<User> assembler) {
+                                                  PagedResourcesAssembler<User> assembler) {
         Page<User> page;
-        if (keyword == null || keyword == "") {
+        if (Strings.isNullOrEmpty(keyword)) {
             page = userRepository.findAllByOrderByIdAsc(pageable);
         } else {
             page = userRepository.findByNameContaining(keyword, pageable);
@@ -152,7 +153,6 @@ public class UserService implements UserDetailsService {
 
         return resources;
     }
-
 
     /**
      * Find user by id
@@ -183,7 +183,8 @@ public class UserService implements UserDetailsService {
      * @param persistedUser
      * @param updateRoles
      */
-    public void updateUserRole(User persistedUser, List<Role> updateRoles) {
+    @Transactional(rollbackFor = {Exception.class})
+    public synchronized void updateUserRole(User persistedUser, List<Role> updateRoles) {
         List<String> persistedRoleCode = persistedUser.getUserRoles().stream().map(userRole -> userRole.getRole().getCode()).collect(toList());
         List<String> updateRoleCode = updateRoles.stream().map(userRole -> userRole.getCode()).collect(toList());
 

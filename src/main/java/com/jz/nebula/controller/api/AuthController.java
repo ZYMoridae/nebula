@@ -1,12 +1,37 @@
+/*
+ * Copyright (c) 2019. Nebula Technology
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 package com.jz.nebula.controller.api;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.DatatypeConverter;
 
+import com.jz.nebula.entity.Role;
+import com.jz.nebula.exception.auth.BadBasicAuthInfo;
+import com.jz.nebula.exception.auth.UserNotFoundException;
 import com.jz.nebula.service.ReceiptingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -62,10 +87,10 @@ public class AuthController {
      * @param headers
      * @return
      */
-    @PostMapping("/authorize")
-    @ApiOperation(value = "Sign in Nebula API", response = ResponseEntity.class)
+    @PostMapping("/auth")
+    @ApiOperation(value = "Authenticate user", response = ResponseEntity.class)
 //  @RequestBody AuthenticationRequest data,
-    public ResponseEntity<?> signin(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<?> authenticate(@RequestHeader HttpHeaders headers) {
         try {
             String authValue = headers.getFirst(HttpHeaders.AUTHORIZATION);
             String credentials = authValue.substring("Basic".length()).trim();
@@ -73,27 +98,34 @@ public class AuthController {
             String decodedString = new String(decoded);
             String[] actualCredentials = decodedString.split(":");
 
-//    		String username = data.getUsername();
-//   		String password = data.getPassword();
+            if(actualCredentials.length != 2) {
+                logger.debug("authenticate:: bad basic authentication info");
+                throw new BadBasicAuthInfo("Bad basic authentication info");
+            }
             String username = actualCredentials[0];
             String password = actualCredentials[1];
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             Optional<User> userOptional = this.users.findByUsername(username);
-
-            Map<String, String> tokenMap = jwtTokenProvider.createToken(username, userOptional
-                    .orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList()));
             Map<Object, Object> resultMap = new HashMap<>();
-            User user = userOptional.get();
-            user.setRoles(user.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList()));
 
-            resultMap.put("user", user);
-            resultMap.put("token", tokenMap.get("accessToken"));
-            resultMap.put("refreshToken", tokenMap.get("refreshToken"));
+            if(userOptional.isPresent()) {
+                User user = userOptional.get();
+                List<Role> roles = user.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList());
 
-//            receiptingService.autoReceipting(null);
+                Map<String, String> tokenMap = jwtTokenProvider.createToken(username, roles);
+                user.setRoles(roles);
+
+                resultMap.put("user", user);
+                resultMap.put("token", tokenMap.get("accessToken"));
+                resultMap.put("refreshToken", tokenMap.get("refreshToken"));
+            }else {
+                logger.debug("authenticate:: user not found");
+                throw new UserNotFoundException("User not found");
+            }
 
             return ok(resultMap);
         } catch (AuthenticationException e) {
+            logger.debug("authenticate:: invalid username/password");
             throw new BadCredentialsException("Invalid username/password supplied");
         }
     }

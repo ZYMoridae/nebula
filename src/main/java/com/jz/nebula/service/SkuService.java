@@ -1,5 +1,6 @@
 package com.jz.nebula.service;
 
+import com.google.common.base.Strings;
 import com.jz.nebula.controller.api.SKUController;
 import com.jz.nebula.dao.sku.SkuAttributeCategoryRepository;
 import com.jz.nebula.dao.sku.SkuAttributeRepository;
@@ -15,11 +16,13 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Service
+@Transactional
 public class SkuService {
 
     String skuCodePrefix = "SKU";
@@ -39,6 +42,7 @@ public class SkuService {
      * @param sku
      * @return
      */
+    @Transactional(rollbackFor = {Exception.class})
     public Sku create(Sku sku) {
         sku.setSkuCode(skuCodeGenerator(sku));
         return skuRepository.save(sku);
@@ -48,6 +52,7 @@ public class SkuService {
      * @param sku
      * @return
      */
+    @Transactional(rollbackFor = {Exception.class})
     public Sku update(Sku sku) {
         skuRepository.save(sku);
         return find(sku.getId());
@@ -86,7 +91,7 @@ public class SkuService {
     /***** Sku Attribute Category *****/
     public PagedResources<Resource<SkuAttributeCategory>> findAllSkuAttributeCategory(String keyword, Pageable pageable, PagedResourcesAssembler<SkuAttributeCategory> assembler) {
         Page<SkuAttributeCategory> page;
-        if (keyword == null || keyword == "") {
+        if (Strings.isNullOrEmpty(keyword)) {
             page = skuAttributeCategoryRepository.findAll(pageable);
         } else {
             page = skuAttributeCategoryRepository.findByNameContaining(keyword, pageable);
@@ -98,6 +103,7 @@ public class SkuService {
         return resources;
     }
 
+    @Transactional(rollbackFor = {Exception.class})
     public SkuAttributeCategory createSkuAttributeCategory(SkuAttributeCategory skuAttributeCategory) {
         return skuAttributeCategoryRepository.save(skuAttributeCategory);
     }
@@ -106,16 +112,19 @@ public class SkuService {
         return skuAttributeCategoryRepository.findById(id).get();
     }
 
-    public SkuAttributeCategory updateSkuAttributeCategory(SkuAttributeCategory skuAttributeCategory) {
+    @Transactional(rollbackFor = {Exception.class})
+    public synchronized SkuAttributeCategory updateSkuAttributeCategory(SkuAttributeCategory skuAttributeCategory) {
         skuAttributeCategoryRepository.save(skuAttributeCategory);
         return findSkuAttributeCategoryById(skuAttributeCategory.getId());
     }
 
+    @Transactional(rollbackFor = {Exception.class})
     public void deleteSkuAttributeCategory(long id) {
         skuAttributeCategoryRepository.deleteById(id);
     }
 
     /*****  Sku Attribute *****/
+    @Transactional(rollbackFor = {Exception.class})
     public SkuAttribute createSkuAttribute(SkuAttribute skuAttribute) {
         return skuAttributeRepository.save(skuAttribute);
     }
@@ -124,11 +133,13 @@ public class SkuService {
         return skuAttributeRepository.findById(id).get();
     }
 
-    public SkuAttribute updateSkuAttributeCategory(SkuAttribute skuAttribute) {
+    @Transactional(rollbackFor = {Exception.class})
+    public synchronized SkuAttribute updateSkuAttributeCategory(SkuAttribute skuAttribute) {
         skuAttributeRepository.save(skuAttribute);
         return findSkuAttributeById(skuAttribute.getId());
     }
 
+    @Transactional(rollbackFor = {Exception.class})
     public void deleteSkuAttribute(long id) {
         skuAttributeRepository.deleteById(id);
     }
