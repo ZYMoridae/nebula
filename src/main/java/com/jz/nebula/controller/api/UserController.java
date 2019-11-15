@@ -44,6 +44,12 @@ public class UserController {
         return ok(user);
     }
 
+    @GetMapping("/{id}")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public User getUser(@PathVariable("id") long id) {
+        return userService.findById(id);
+    }
+
     /**
      * This is public route
      *
