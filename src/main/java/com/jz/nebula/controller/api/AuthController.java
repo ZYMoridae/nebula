@@ -72,7 +72,7 @@ public class AuthController {
     TokenService jwtTokenProvider;
 
     @Autowired
-    UserRepository users;
+    UserRepository userRepository;
 
     @Autowired
     ReceiptingService receiptingService;
@@ -101,7 +101,7 @@ public class AuthController {
             String username = actualCredentials[0];
             String password = actualCredentials[1];
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            Optional<User> userOptional = this.users.findByUsername(username);
+            Optional<User> userOptional = this.userRepository.findByUsername(username);
             Map<Object, Object> resultMap = new HashMap<>();
 
             if(userOptional.isPresent()) {

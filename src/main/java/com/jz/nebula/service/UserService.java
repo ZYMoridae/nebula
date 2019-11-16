@@ -161,7 +161,14 @@ public class UserService implements UserDetailsService {
      * @return
      */
     public User findById(long id) {
-        return userRepository.findById(id).get();
+        User user = null;
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            user = optionalUser.get();
+            user.setRoles(user.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList()));
+        }
+
+        return user;
     }
 
     /**
