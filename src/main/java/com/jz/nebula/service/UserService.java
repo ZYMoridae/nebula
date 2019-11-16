@@ -155,6 +155,29 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     * Find all roles
+     *
+     * @param keyword
+     * @param pageable
+     * @param assembler
+     * @return
+     */
+    public PagedResources<Resource<Role>> findAllRoles(String keyword, Pageable pageable,
+                                                       PagedResourcesAssembler<Role> assembler) {
+        Page<Role> page;
+        if (Strings.isNullOrEmpty(keyword)) {
+            page = roleRepository.findAllByOrderByIdAsc(pageable);
+        } else {
+            page = roleRepository.findByCodeContaining(keyword, pageable);
+        }
+
+        PagedResources<Resource<Role>> resources = assembler.toResource(page,
+                linkTo(UserController.class).slash("/users/roles").withSelfRel());
+
+        return resources;
+    }
+
+    /**
      * Find user by id
      *
      * @param id

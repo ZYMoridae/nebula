@@ -96,5 +96,24 @@ public class UserController {
         return userService.findAll(keyword, pageable, assembler);
     }
 
+    /**
+     * Get all roles
+     *
+     * @param keyword
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
+    @GetMapping("/roles")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public @ResponseBody
+    PagedResources<Resource<Role>> allRoles(@RequestParam String keyword, Pageable pageable,
+                                            final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                            PagedResourcesAssembler<Role> assembler) {
+        return userService.findAllRoles(keyword, pageable, assembler);
+    }
+
 
 }

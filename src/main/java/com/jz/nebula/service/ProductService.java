@@ -3,6 +3,7 @@ package com.jz.nebula.service;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import com.google.common.base.Strings;
+import com.jz.nebula.auth.AuthenticationFacade;
 import com.jz.nebula.entity.sku.Sku;
 import com.jz.nebula.entity.sku.SkuAttribute;
 import com.jz.nebula.exception.ProductStockException;
@@ -22,10 +23,7 @@ import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.entity.product.Product;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collector;
 
 @Service
@@ -33,6 +31,9 @@ import java.util.stream.Collector;
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
     private SkuService skuService;
@@ -101,7 +102,12 @@ public class ProductService {
 
             skuList.stream().forEach(sku -> {
                 sku.setProductId(updatedProduct.getId());
-                sku.setCreatedUserId(updatedProduct.getVendorId());
+                if (Objects.isNull(updatedProduct.getVendorId())) {
+                    sku.setCreatedUserId(authenticationFacade.getUserId());
+                } else {
+                    sku.setCreatedUserId(updatedProduct.getVendorId());
+                }
+
                 bulkSaveSkuAttributes(sku);
             });
         }
