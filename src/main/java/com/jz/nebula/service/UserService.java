@@ -69,11 +69,12 @@ public class UserService implements UserDetailsService {
 
     /**
      * Create user
+     * FIXME: We user role relationship to the separate table
      *
      * @param user
      * @return
      */
-    public Map createUser(User user) {
+    public User createUser(User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         ArrayList<Role> rolesList = new ArrayList<>();
         Role normalUser = roleRepository.findByCode(Role.ROLE_USER.replaceAll("ROLE_", "")).get();
@@ -93,14 +94,18 @@ public class UserService implements UserDetailsService {
         // Find user by id again to get user roles
         savedUser = userRepository.findById(savedUser.getId()).get();
 
-        Map<String, Object> map = oMapper.convertValue(savedUser, Map.class);
-        List<String> roles = new ArrayList<>();
-        roles.add(Role.ROLE_USER);
-        Map<String, String> tokenMap = jwtTokenProvider.createToken(savedUser.getUsername(), rolesList);
-        map.put("token", tokenMap.get("accessToken"));
-        map.put("refreshToken", tokenMap.get("refreshToken"));
+        return savedUser;
+    }
 
-        return tokenMap;
+    /**
+     * Get tokens
+     *
+     * @param user
+     * @param roles
+     * @return
+     */
+    public Map getTokens(User user, List roles) {
+        return jwtTokenProvider.createToken(user.getUsername(), roles);
     }
 
     /**
@@ -200,10 +205,21 @@ public class UserService implements UserDetailsService {
      * @param user
      * @return
      */
+    @Transactional(rollbackFor = {Exception.class})
     public User save(User user) {
-        logger.debug("save:: id [{}]", user.getId());
-        userRepository.save(user);
-        return findById(user.getId());
+        User persistedUser;
+
+        if (Objects.isNull(user.getId())) {
+            persistedUser = createUser(user);
+            logger.debug("save:: create new user");
+        } else {
+            List<Role> roles = user.getRoles();
+            persistedUser = userRepository.save(user);
+            updateUserRole(persistedUser, roles);
+            logger.debug("save:: update user with id [{}]", persistedUser.getId());
+        }
+
+        return persistedUser;
     }
 
     /**

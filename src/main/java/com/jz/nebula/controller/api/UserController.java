@@ -1,5 +1,6 @@
 package com.jz.nebula.controller.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.Role;
@@ -57,9 +58,19 @@ public class UserController {
      * @return
      */
     @PostMapping("")
-    public ResponseEntity<?> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody User user, @RequestParam Boolean isIncludeToken) {
         // TODO: Move logic into user service
-        Map userResultMap = userService.createUser(user);
+        User persistedUser = userService.createUser(user);
+
+        ObjectMapper oMapper = new ObjectMapper();
+        Map userResultMap = oMapper.convertValue(persistedUser, Map.class);
+
+        if (isIncludeToken == true) {
+            Map<String, String> tokenMap = userService.getTokens(persistedUser, user.getRoles());
+            userResultMap.put("token", tokenMap.get("accessToken"));
+            userResultMap.put("refreshToken", tokenMap.get("refreshToken"));
+        }
+
         return ok(userResultMap);
     }
 
