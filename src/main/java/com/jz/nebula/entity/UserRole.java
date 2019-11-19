@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "user_roles", schema = "public")
 public class UserRole implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
 //    @ManyToOne

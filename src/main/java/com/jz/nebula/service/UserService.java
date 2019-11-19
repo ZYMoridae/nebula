@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
@@ -52,6 +53,7 @@ public class UserService implements UserDetailsService {
      * Load user from database by username
      *
      * @param username
+     *
      * @return
      */
     @Transactional(readOnly = true)
@@ -72,6 +74,7 @@ public class UserService implements UserDetailsService {
      * FIXME: We user role relationship to the separate table
      *
      * @param user
+     *
      * @return
      */
     public User createUser(User user) {
@@ -102,6 +105,7 @@ public class UserService implements UserDetailsService {
      *
      * @param user
      * @param roles
+     *
      * @return
      */
     public Map getTokens(User user, List roles) {
@@ -112,6 +116,7 @@ public class UserService implements UserDetailsService {
      * Get current user through user details
      *
      * @param userDetails
+     *
      * @return
      */
     public User getCurrentUser(UserDetails userDetails) {
@@ -129,6 +134,7 @@ public class UserService implements UserDetailsService {
      * TODO: Need to be optimized
      *
      * @param pageable
+     *
      * @return
      */
     public CmsPagination findAll(Pageable pageable) {
@@ -142,6 +148,7 @@ public class UserService implements UserDetailsService {
      * @param keyword
      * @param pageable
      * @param assembler
+     *
      * @return
      */
     public PagedResources<Resource<User>> findAll(String keyword, Pageable pageable,
@@ -165,6 +172,7 @@ public class UserService implements UserDetailsService {
      * @param keyword
      * @param pageable
      * @param assembler
+     *
      * @return
      */
     public PagedResources<Resource<Role>> findAllRoles(String keyword, Pageable pageable,
@@ -186,6 +194,7 @@ public class UserService implements UserDetailsService {
      * Find user by id
      *
      * @param id
+     *
      * @return
      */
     public User findById(long id) {
@@ -203,24 +212,47 @@ public class UserService implements UserDetailsService {
      * Save user
      *
      * @param user
+     *
      * @return
      */
-    @Transactional(rollbackFor = {Exception.class})
+//    @Transactional(rollbackFor = {Exception.class})
     public User save(User user) {
         User persistedUser;
 
         if (Objects.isNull(user.getId())) {
+            // FIXME: Need to make create user as transactional (rollback when get exception)
             persistedUser = createUser(user);
             logger.debug("save:: create new user");
         } else {
             List<Role> roles = user.getRoles();
-            persistedUser = userRepository.save(user);
-            updateUserRole(persistedUser, roles);
-            logger.debug("save:: update user with id [{}]", persistedUser.getId());
+            persistedUser = saveUser(user);
+            updateUserRole(findById(user.getId()), roles);
         }
 
         return persistedUser;
     }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public synchronized User saveUser(User user) {
+        User persistedUser;
+        User _persistedUser = this.findById(user.getId());
+
+        _persistedUser.setUsername(user.getUsername());
+        _persistedUser.setAddress1(user.getAddress1());
+        _persistedUser.setAddress2(user.getAddress2());
+        _persistedUser.setEmail(user.getEmail());
+        _persistedUser.setTelephone(user.getTelephone());
+        _persistedUser.setFirstname(user.getFirstname());
+        _persistedUser.setLastname(user.getLastname());
+        _persistedUser.setGender(user.getGender());
+
+        persistedUser = userRepository.save(_persistedUser);
+
+        logger.debug("save:: update user with id [{}]", persistedUser.getId());
+
+        return persistedUser;
+    }
+
 
     /**
      * FIXME: Can be improved
@@ -231,13 +263,24 @@ public class UserService implements UserDetailsService {
      */
     @Transactional(rollbackFor = {Exception.class})
     public synchronized void updateUserRole(User persistedUser, List<Role> updateRoles) {
-        List<String> persistedRoleCode = persistedUser.getUserRoles().stream().map(userRole -> userRole.getRole().getCode()).collect(toList());
-        List<String> updateRoleCode = updateRoles.stream().map(userRole -> userRole.getCode()).collect(toList());
+        List<String> persistedRoleCode = persistedUser
+                .getUserRoles()
+                .stream()
+                .map(userRole -> userRole.getRole().getCode())
+                .collect(toList());
+        List<String> updateRoleCode = updateRoles
+                .stream()
+                .map(userRole -> userRole.getCode())
+                .collect(toList());
 
         List<String> roleToBeDelete = new ArrayList<>();
         List<String> roleToBeInsert = new ArrayList<>();
 
-        List<String> intersection = persistedRoleCode.stream().filter(updateRoleCode::contains).collect(toList());
+        List<String> intersection = persistedRoleCode
+                .stream()
+                .filter(updateRoleCode::contains)
+                .collect(toList());
+
         persistedRoleCode.stream().forEach(userRoleCode -> {
             if (!intersection.contains(userRoleCode)) {
                 roleToBeDelete.add(userRoleCode);

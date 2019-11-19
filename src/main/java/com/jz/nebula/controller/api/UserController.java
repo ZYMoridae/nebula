@@ -81,11 +81,12 @@ public class UserController {
      * @throws Exception
      */
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) throws Exception {
+    public User updateUser(@PathVariable("id") long id, @RequestBody User user) throws Exception {
         if (id != authenticationFacade.getUser().getId()) {
             throw new Exception();
         }
-        return ok(userRepository.save(user));
+        user.setId(id);
+        return userService.save(user);
     }
 
     /**
