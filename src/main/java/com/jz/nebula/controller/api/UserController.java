@@ -82,7 +82,7 @@ public class UserController {
      */
     @PutMapping("/{id}")
     public User updateUser(@PathVariable("id") long id, @RequestBody User user) throws Exception {
-        if (id != authenticationFacade.getUser().getId()) {
+        if (!authenticationFacade.getUser().isAdmin() && id != authenticationFacade.getUser().getId()) {
             throw new Exception();
         }
         user.setId(id);
