@@ -44,6 +44,7 @@ public class ProductService {
      * @param keyword
      * @param pageable
      * @param assembler
+     *
      * @return
      */
     public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
@@ -65,6 +66,7 @@ public class ProductService {
      * Find all products by pageable
      *
      * @param pageable
+     *
      * @return
      */
     public CmsPagination findAll(Pageable pageable) {
@@ -77,6 +79,7 @@ public class ProductService {
      * NOTE: You can not get nested objects from findBy function because the object was not persisted
      *
      * @param product
+     *
      * @return
      */
     @Transactional(rollbackFor = {Exception.class})
@@ -87,11 +90,11 @@ public class ProductService {
 
         if (product.getId() != null) {
             skuList.stream().forEach(sku -> {
-                if (sku.getId() == null) {
-                    sku.setProductId(product.getId());
-                    sku.setCreatedUserId(product.getVendorId());
-                    bulkSaveSkuAttributes(sku);
-                }
+//                if (sku.getId() == null) {
+                sku.setProductId(product.getId());
+                sku.setCreatedUserId(product.getVendorId());
+                bulkSaveSkuAttributes(sku);
+//                }
             });
 
             updatedProduct = productRepository.save(product);
@@ -112,7 +115,7 @@ public class ProductService {
             });
         }
 
-        return findById(updatedProduct.getId());
+        return updatedProduct;
     }
 
     /**
@@ -127,7 +130,10 @@ public class ProductService {
 
         Sku updatedSku = skuService.create(sku);
         skuAttributes.stream().forEach(skuAttribute -> {
+//            if (sku.getId() == null) {
             skuAttribute.setSkuCode(updatedSku.getSkuCode());
+//            }
+//            skuAttribute.setSkuCode(updatedSku.getSkuCode());
             skuService.createSkuAttribute(skuAttribute);
         });
     }
@@ -148,6 +154,7 @@ public class ProductService {
      * Validate product object
      *
      * @param product
+     *
      * @return
      */
     private boolean isValidProduct(Product product) {

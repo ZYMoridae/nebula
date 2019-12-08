@@ -44,7 +44,9 @@ public class SkuService {
      */
     @Transactional(rollbackFor = {Exception.class})
     public Sku create(Sku sku) {
-        sku.setSkuCode(skuCodeGenerator(sku));
+        if(sku.getSkuCode() == null) {
+            sku.setSkuCode(skuCodeGenerator(sku));
+        }
         return skuRepository.save(sku);
     }
 

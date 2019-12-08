@@ -139,7 +139,8 @@ public class ProductController {
     public @ResponseBody
     Product update(@PathVariable("id") long id, @RequestBody Product product) {
         product.setId(id);
-        return productService.save(product);
+        Product updatedProduct = productService.save(product);
+        return productService.findById(updatedProduct.getId());
     }
 
     /**

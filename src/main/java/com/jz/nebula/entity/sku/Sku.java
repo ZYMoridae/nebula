@@ -33,7 +33,7 @@ public class Sku implements Serializable {
     private int stock;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sku_code", referencedColumnName = "sku_code")
+    @JoinColumn(name = "sku_code", referencedColumnName = "sku_code", updatable = false, insertable = false)
     @ApiModelProperty(notes = "Stock keeping unit attributes. Normally has more than one attribute.")
     @OrderBy("id ASC")
     private Set<SkuAttribute> skuAttributes;
