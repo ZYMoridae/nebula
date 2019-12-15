@@ -10,4 +10,7 @@ public interface SkuRepository extends PagingAndSortingRepository<Sku, Long> {
     Optional<Sku> findBySkuCode(String skuCode);
 
     List<Sku> findByIdIn(List<Long> ids);
+
+    List<Sku> findBySkuCodeIn(List<String> skuCodes);
+
 }

@@ -89,7 +89,8 @@ public class OrderController {
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Order create(@RequestBody Order order) throws SkuOutOfStockException {
-        return orderService.save(order);
+        Order savedOrder =  orderService.save(order);
+        return orderService.findById(savedOrder.getId());
     }
 
     /**

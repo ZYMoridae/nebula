@@ -136,10 +136,13 @@ public class OrderService {
         }
 
         if (persistedOrder == null) {
-            List<Long> orderItemIds = order.getOrderItems().stream().map(item -> item.getId()).collect(Collectors.toList());
-            List<Sku> skus = skuRepository.findByIdIn(orderItemIds);
+            List<String> skuCodes = order.getOrderItems().stream().map(item -> item.getSkuCode()).collect(Collectors.toList());
 
-            List<Product> products = productService.findByIds(orderItemIds);
+            List<Long> orderProductId = order.getOrderItems().stream().map(item -> item.getProductId()).collect(Collectors.toList());
+
+            List<Sku> skus = skuRepository.findBySkuCodeIn(skuCodes);
+
+            List<Product> products = productService.findByIds(orderProductId);
             for (OrderItem orderItem : order.getOrderItems()) {
                 // Check order item id
                 ArrayList<Sku> persistedSku = (ArrayList<Sku>) skus.stream().filter(item -> item.getSkuCode() == orderItem.getSkuCode()).collect(Collectors.toList());
@@ -165,7 +168,7 @@ public class OrderService {
      * @param order
      * @return
      */
-    @Transactional(rollbackFor = {Exception.class})
+//    @Transactional(rollbackFor = {Exception.class})
     public Order save(Order order) throws SkuOutOfStockException {
         order = preProcessing(order);
         boolean isNew = this.isNewOrder(order);
@@ -181,7 +184,7 @@ public class OrderService {
 //        }
 
         Order updatedOrder = orderRepository.save(order);
-        return findById(updatedOrder.getId());
+        return updatedOrder;
     }
 
     /**

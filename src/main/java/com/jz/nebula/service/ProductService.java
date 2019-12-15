@@ -160,6 +160,6 @@ public class ProductService {
     private boolean isValidProduct(Product product) {
         boolean isValid = true;
 
-        return isValid;
+        return true;
     }
 }

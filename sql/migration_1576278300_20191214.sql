@@ -1,0 +1,1 @@
+SET CLIENT_MIN_MESSAGES = WARNING;BEGIN;alter table public.order_item    add column sku_code varchar(200);alter table public.cart_item    add column sku_code varchar(200);COMMIT;

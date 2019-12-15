@@ -39,6 +39,9 @@ public class CartItem implements Serializable {
 
     private int quantity;
 
+    @Column(name = "sku_code")
+    private String skuCode;
+
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name = "cart_id")
     private Long cartId;
@@ -109,6 +112,14 @@ public class CartItem implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getSkuCode() {
+        return skuCode;
+    }
+
+    public void setSkuCode(String skuCode) {
+        this.skuCode = skuCode;
     }
 
     /**

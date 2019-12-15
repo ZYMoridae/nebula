@@ -39,10 +39,10 @@ public class OrderItem implements Serializable {
 
     @Column(name = "sku_code")
     private String skuCode;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sku_code", insertable = false, updatable = false)
-    private Sku sku;
+//
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "sku_code", insertable = false, updatable = false)
+//    private Sku sku;
 
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;
@@ -111,14 +111,14 @@ public class OrderItem implements Serializable {
         return (double) this.quantity * this.product.getPrice() * 100;
     }
 
-    public Sku getSku() {
-        return sku;
-    }
-
-    public void setSku(Sku sku) {
-        this.sku = sku;
-    }
-
+//    public Sku getSku() {
+//        return sku;
+//    }
+//
+//    public void setSku(Sku sku) {
+//        this.sku = sku;
+//    }
+//
     public String getSkuCode() {
         return skuCode;
     }
@@ -136,7 +136,7 @@ public class OrderItem implements Serializable {
                 ", quantity=" + quantity +
                 ", product=" + product +
                 ", skuCode='" + skuCode + '\'' +
-                ", sku=" + sku +
+//                ", sku=" + sku +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
