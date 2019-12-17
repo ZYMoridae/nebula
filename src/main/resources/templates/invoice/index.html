@@ -18,11 +18,16 @@
   ~ under the License.
   -->
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.w3.org/1999/xhtml">
-
-<body style="font-family:Arial, Helvetica, sans-serif;margin: 30px 80px 30px 80px;">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.w3.org/1999/xhtml"
+>
+<body style="font-family:Arial, Helvetica, sans-serif;margin: 0px;">
 <style>
+    @page {
+        margin: 0px;
+    }
+
     .table td,
     .table th {
         text-align: left;
@@ -37,7 +42,12 @@
     .table tr {
         height: 50px;
         /* border-top: 1px solid; */
-        border: 1px solid #000000;
+        /* border: 1px solid #000000; */
+    }
+
+    .client div {
+        margin-bottom: 5px;
+        text-align: left;
     }
 </style>
 
@@ -51,15 +61,86 @@
 
 <!--</th:block>-->
 
-
-
-<div style="color: #5851d8;text-align: left;font-size: 52px;">
-    iEuclid
+<div
+        style="color: white;
+text-align: left;
+font-size: 52px;
+background-color: #5851d8;
+padding: 50px;
+display: inline-flex;
+    width: 100%;
+height: 60px;"
+>
+    <div style="flex: 1;">
+        iEuclid
+    </div>
+    <div style="position: absolute;
+    right: 0;
+    font-size: 20px;
+    margin-top: 45px;
+    margin-right: 50px;text-align: right;">
+        <div style="text-align: right;">
+            Invoice
+        </div>
+        <div style=" text-align: right;   font-size: 12px;margin-top: 5px;">
+            INV-10001
+        </div>
+        <div style=" text-align: right;   font-size: 12px;margin-top: 5px;">
+            25/12/2019
+        </div>
+    </div>
 </div>
 
-<div style="margin-top: 80px;">
-    <table style="width: 100%;" class="table">
-        <thead>
+<div style="margin: 80px 50px 30px 50px;">
+    <div style="margin-bottom: 80px;
+    width: 100%;
+    height: 150px;display: inline-flex;">
+        <div class="client" style="font-size: 12px;flex: 1;display: inline-block;">
+            <div style="font-size: 15px;">
+                iEucid
+            </div>
+            <div style="font-size: 18px;font-weight: 600;">
+                Coventry St
+            </div>
+            <div>
+                Address1
+            </div>
+            <div>
+                Address2
+            </div>
+            <div>
+                3006
+            </div>
+            <div>
+                Australia
+            </div>
+        </div>
+        <div class="client" style="font-size: 12px;display: inline-block;float: right;">
+            <div style="font-size: 15px;">
+                To,
+            </div>
+            <div style="font-size: 18px;font-weight: 600;">
+                Joe Zhou
+            </div>
+            <div>
+                Address1
+            </div>
+            <div>
+                Address2
+            </div>
+            <div>
+                3006
+            </div>
+            <div>
+                Australia
+            </div>
+        </div>
+    </div>
+    <table
+            style="width: 100%;font-size: 12px;border-collapse: collapse;"
+            class="table"
+    >
+        <thead style="border-bottom: 1px solid #efefef;">
         <tr>
             <th>
                 Item
@@ -75,22 +156,17 @@
             </th>
         </tr>
         </thead>
-        <tbody>
-            <th:block th:each="orderItem, iterationStatus : *{order.orderItems}">
-                <tr>
-                    <td th:text="*{orderItem.product.name}"></td>
-                    <td th:text="*{orderItem.quantity}"></td>
-                    <td th:text="*{orderItem.unitPrice}"></td>
-                    <td th:text="*{orderItem.unitPrice * orderItem.quantity}"></td>
-                </tr>
-
-
-            </th:block>
+        <tbody style="border-bottom: 1px solid #efefef;">
+        <th:block th:each="orderItem, iterationStatus : *{order.orderItems}">
+            <tr>
+                <td th:text="*{orderItem.product.name}"></td>
+                <td th:text="*{orderItem.quantity}"></td>
+                <td th:text="*{orderItem.unitPrice}"></td>
+                <td th:text="*{orderItem.unitPrice * orderItem.quantity}"></td>
+            </tr>
+        </th:block>
         </tbody>
     </table>
 </div>
-
-
 </body>
-
 </html>
