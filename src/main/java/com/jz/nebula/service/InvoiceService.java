@@ -1,10 +1,11 @@
 package com.jz.nebula.service;
 
-import java.io.File;
+import java.io.*;
+import java.net.URL;
 
+import com.itextpdf.html2pdf.HtmlConverter;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.mail.EmailService;
@@ -12,7 +13,6 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 
 @Service
-@Component("invoiceService")
 public class InvoiceService {
 
     @Autowired
@@ -46,10 +46,19 @@ public class InvoiceService {
 
     private void updateDbInovice(Charge charge) {
         // TODO: Update purchase info
+
     }
 
     private void sendInvoice(File invoice) {
         // TODO: send invoice
+    }
+
+    public ByteArrayInputStream getInvoice(String path) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        URL url = new URL(path);
+//        InputStream targetStream = new FileInputStream(file);
+        HtmlConverter.convertToPdf(url.openStream(), out);
+        return new ByteArrayInputStream(out.toByteArray());
     }
 
 }

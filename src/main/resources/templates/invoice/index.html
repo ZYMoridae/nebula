@@ -1,0 +1,96 @@
+<!--
+  ~ Copyright (c) 2019. iEuclid Technology
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body style="font-family:Arial, Helvetica, sans-serif;margin: 30px 80px 30px 80px;">
+<style>
+    .table td,
+    .table th {
+        text-align: left;
+    }
+
+    #right,
+    .table td + td,
+    .table th + th {
+        text-align: right;
+    }
+
+    .table tr {
+        height: 50px;
+        /* border-top: 1px solid; */
+        border: 1px solid #000000;
+    }
+</style>
+
+<!--<div th:if="*{order != null}">-->
+<!--                <span th:text="*{order.user.username}" style="color: red;">-->
+<!--                </span>-->
+<!--</div>-->
+<!--<th:block th:each="orderItem, iterationStatus : *{order.orderItems}">-->
+<!--    <span th:text="*{orderItem.unitPrice}"></span>-->
+<!--    <span th:text="*{orderItem.quantity}"></span>-->
+
+<!--</th:block>-->
+
+
+
+<div style="color: #5851d8;text-align: left;font-size: 52px;">
+    iEuclid
+</div>
+
+<div style="margin-top: 80px;">
+    <table style="width: 100%;" class="table">
+        <thead>
+        <tr>
+            <th>
+                Item
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Amount
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="orderItem, iterationStatus : *{order.orderItems}">
+                <tr>
+                    <td th:text="*{orderItem.product.name}"></td>
+                    <td th:text="*{orderItem.quantity}"></td>
+                    <td th:text="*{orderItem.unitPrice}"></td>
+                    <td th:text="*{orderItem.unitPrice * orderItem.quantity}"></td>
+                </tr>
+
+
+            </th:block>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+
+</html>

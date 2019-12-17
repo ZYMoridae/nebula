@@ -12,6 +12,7 @@ public class IndexController {
 
     @GetMapping("")
     public String login(Model model) {
-        return "forward:/cms/login";
+        return "index";
+//        return "forward:/cms/login";
     }
 }

@@ -81,7 +81,8 @@ public class WebSecurityConfig {
                             "/swagger-resources/**",
                             "/configuration/security",
                             "/swagger-ui.html",
-                            "/webjars/**");
+                            "/webjars/**",
+                            "/api/invoices/**");
         }
     }
 
@@ -112,7 +113,7 @@ public class WebSecurityConfig {
         @Override
         public void configure(WebSecurity web) throws Exception {
             web.ignoring()
-                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/webfonts/**");
+                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/webfonts/**", "/invoices/**");
         }
 
         @Override

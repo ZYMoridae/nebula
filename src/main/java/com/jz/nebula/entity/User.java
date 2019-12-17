@@ -19,22 +19,19 @@ public class User implements Serializable {
      *
      */
     private static final long serialVersionUID = -7813183948065034220L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @JsonIgnore
     @OneToMany(targetEntity = UserRole.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     @OrderBy("id ASC")
     Set<UserRole> userRoles;
-
     //    @ElementCollection(fetch = FetchType.EAGER)
 //    @Builder.Default
 //    private List<String> roles = new ArrayList<>();
     @Transient
     List<Role> roles;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "username")
     private String username;
     @Column(name = "email")
@@ -201,5 +198,11 @@ public class User implements Serializable {
                 ", lastname='" + lastname + '\'' +
                 ", gender='" + gender + '\'' +
                 '}';
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        java.util.Date utilDate = new java.util.Date();
+        updatedAt = new java.sql.Date(utilDate.getTime());
     }
 }
