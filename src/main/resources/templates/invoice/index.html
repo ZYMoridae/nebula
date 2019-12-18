@@ -22,15 +22,26 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:th="http://www.w3.org/1999/xhtml"
 >
-<body style="font-family:Arial, Helvetica, sans-serif;margin: 0px;">
+<body style="font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, ubuntu, roboto, noto, segoe ui, arial, sans-serif;margin: 0px;">
 <style>
     @page {
         margin: 0px;
+        size: A4;
     }
 
     .table td,
     .table th {
         text-align: left;
+        border-bottom-color: #efefef;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .table th {
+        font-size: 15px;
+        color: #6d6d6d;
     }
 
     #right,
@@ -41,8 +52,6 @@
 
     .table tr {
         height: 50px;
-        /* border-top: 1px solid; */
-        /* border: 1px solid #000000; */
     }
 
     .client div {
@@ -61,45 +70,31 @@
 
 <!--</th:block>-->
 
-<div
-        style="color: white;
-text-align: left;
-font-size: 52px;
-background-color: #5851d8;
-padding: 50px;
-display: inline-flex;
-    width: 100%;
-height: 60px;"
->
+<div style="color: white;text-align: left;font-size: 52px;background-color: #5851d8;padding: 50px;display: inline-flex;width: 100%;height: 60px;">
     <div style="flex: 1;">
         iEuclid
     </div>
-    <div style="position: absolute;
-    right: 0;
-    font-size: 20px;
-    margin-top: 45px;
-    margin-right: 50px;text-align: right;">
+    <div th:if="*{order != null}"
+         style="position: absolute;right: 0;font-size: 20px;margin-top: 45px;margin-right: 50px;text-align: right;">
         <div style="text-align: right;">
             Invoice
         </div>
-        <div style=" text-align: right;   font-size: 12px;margin-top: 5px;">
-            INV-10001
+        <div style=" text-align: right;font-size: 12px;margin-top: 5px;" th:text="*{invoiceId}">
+
         </div>
-        <div style=" text-align: right;   font-size: 12px;margin-top: 5px;">
-            25/12/2019
+        <div style=" text-align: right;font-size: 12px;margin-top: 5px;" th:text="*{invoiceDate}">
+
         </div>
     </div>
 </div>
 
-<div style="margin: 80px 50px 30px 50px;">
-    <div style="margin-bottom: 80px;
-    width: 100%;
-    height: 150px;display: inline-flex;">
+<div style="margin: 80px 50px 30px 50px;" th:if="*{order != null}">
+    <div style="margin-bottom: 80px;width: 100%;height: 150px;display: inline-flex;">
         <div class="client" style="font-size: 12px;flex: 1;display: inline-block;">
-            <div style="font-size: 15px;">
-                iEucid
-            </div>
             <div style="font-size: 18px;font-weight: 600;">
+                iEuclid
+            </div>
+            <div>
                 Coventry St
             </div>
             <div>
@@ -119,13 +114,12 @@ height: 60px;"
             <div style="font-size: 15px;">
                 To,
             </div>
-            <div style="font-size: 18px;font-weight: 600;">
-                Joe Zhou
+            <div style="font-size: 18px;font-weight: 600;" th:text="*{order.user.username}">
             </div>
-            <div>
+            <div th:text="*{order.user.address1}">
                 Address1
             </div>
-            <div>
+            <div th:text="*{order.user.address2}">
                 Address2
             </div>
             <div>
@@ -136,11 +130,8 @@ height: 60px;"
             </div>
         </div>
     </div>
-    <table
-            style="width: 100%;font-size: 12px;border-collapse: collapse;"
-            class="table"
-    >
-        <thead style="border-bottom: 1px solid #efefef;">
+    <table style="width: 100%;font-size: 12px;" class="table" cellspacing="0">
+        <thead>
         <tr>
             <th>
                 Item
@@ -167,6 +158,61 @@ height: 60px;"
         </th:block>
         </tbody>
     </table>
+
+
+    <div style="margin-bottom: 80px;width: 100%;height: 150px;display: inline-flex;">
+        <!--                <div class="client" style="font-size: 12px;flex: 1;display: inline-block;">-->
+        <!--                    <div style="font-size: 15px;">-->
+        <!--                        iEuclid-->
+        <!--                    </div>-->
+        <!--                    <div style="font-size: 18px;font-weight: 600;">-->
+        <!--                        Coventry St-->
+        <!--                    </div>-->
+        <!--                    <div>-->
+        <!--                        Address1-->
+        <!--                    </div>-->
+        <!--                    <div>-->
+        <!--                        Address2-->
+        <!--                    </div>-->
+        <!--                    <div>-->
+        <!--                        3006-->
+        <!--                    </div>-->
+        <!--                    <div>-->
+        <!--                        Australia-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <div class="client" style="font-size: 12px;display: inline-block;flex: 1;float: right;">
+            <table class="total" style="font-size: 15px;border: 1px solid #6d6d6d;">
+                <tr>
+                    <td style="color: #6d6d6d;padding-right: 50px;">
+                        Subtotal
+                    </td>
+                    <td style="text-align: right;font-weight: 600;" th:text="*{amount.subtotal}">
+                    </td>
+                </tr>
+                <tr style="margin-bottom: 50px;">
+                    <td style="color: #6d6d6d;padding-right: 50px;">
+                        Tax(10%)
+                    </td>
+                    <td style="text-align: right;font-weight: 600;" th:text="*{amount.tax}">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #6d6d6d;padding-right: 50px;">
+                        Total
+                    </td>
+                    <td style="text-align: right;color: #5851d8;font-weight: 600;" th:text="*{amount.total}">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div style="margin: 80px 50px 30px 50px;" th:if="*{order == null}">
+    <div style="text-align: left;font-size: 12px;">
+        Sorry, we can not find the invoice for you. Please contact <a href="mailto:ashzhouyue@gmail.com">ashzhouyue@gmail.com</a>.
+    </div>
 </div>
 </body>
 </html>

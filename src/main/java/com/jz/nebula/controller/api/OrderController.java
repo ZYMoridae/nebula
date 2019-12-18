@@ -4,6 +4,7 @@ import com.jz.nebula.amqp.MessageProducer;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderLogisticsInfo;
 import com.jz.nebula.entity.Role;
+import com.jz.nebula.exception.MultipleActivatedOrderException;
 import com.jz.nebula.exception.SkuOutOfStockException;
 import com.jz.nebula.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,7 @@ public class OrderController {
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Order create(@RequestBody Order order) throws SkuOutOfStockException {
+    Order create(@RequestBody Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
         Order savedOrder =  orderService.save(order);
         return orderService.findById(savedOrder.getId());
     }
@@ -101,7 +102,7 @@ public class OrderController {
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Order update(@PathVariable("id") long id, @RequestBody Order order) throws SkuOutOfStockException {
+    Order update(@PathVariable("id") long id, @RequestBody Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
         order.setId(id);
         return orderService.save(order);
     }
@@ -127,7 +128,13 @@ public class OrderController {
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     OrderLogisticsInfo createOrderLogisticsInfo(@PathVariable("id") long id, @RequestBody OrderLogisticsInfo orderLogisticsInfo) {
-        orderLogisticsInfo.setOrdersId(id);
+        OrderLogisticsInfo persistedOrderLogisticsInfo = orderService.findLogisticsInfoByOrderId(id);
+        if(persistedOrderLogisticsInfo != null) {
+            orderLogisticsInfo.setId(persistedOrderLogisticsInfo.getId());
+        }else {
+            orderLogisticsInfo.setOrdersId(id);
+        }
+
         return orderService.saveLogisticsInfo(orderLogisticsInfo);
     }
 

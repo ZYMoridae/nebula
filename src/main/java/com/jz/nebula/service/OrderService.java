@@ -13,6 +13,7 @@ import com.jz.nebula.entity.order.OrderLogisticsInfo;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.entity.sku.Sku;
+import com.jz.nebula.exception.MultipleActivatedOrderException;
 import com.jz.nebula.exception.SkuOutOfStockException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -55,6 +57,12 @@ public class OrderService {
 
     @Autowired
     private SkuRepository skuRepository;
+
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private CartItemService cartItemService;
 
     /**
      * Get order by pagination
@@ -121,12 +129,16 @@ public class OrderService {
      * @param order
      * @return
      */
-    private synchronized Order preProcessing(Order order) throws SkuOutOfStockException {
+    private synchronized Order preProcessing(Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
         Order safetyOrder = order;
         User user = this.authenticationFacade.getUser();
         if (isUser(user) && safetyOrder.getUserId() != null) {
             logger.info("preProcessingOrder::user with id:[{}] put userId: [{}] in the request", user.getId(), safetyOrder.getUserId());
             safetyOrder.setUserId(user.getId());
+        }
+
+        if(this.getCurrentActivatedOrder() != null) {
+            throw new MultipleActivatedOrderException();
         }
 
         Order persistedOrder = null;
@@ -168,8 +180,8 @@ public class OrderService {
      * @param order
      * @return
      */
-//    @Transactional(rollbackFor = {Exception.class})
-    public Order save(Order order) throws SkuOutOfStockException {
+    @Transactional(rollbackFor = {Exception.class})
+    public Order save(Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
         order = preProcessing(order);
         boolean isNew = this.isNewOrder(order);
 
@@ -184,8 +196,26 @@ public class OrderService {
 //        }
 
         Order updatedOrder = orderRepository.save(order);
+
+        this.deleteCartItems(order.getOrderItems());
+
         return updatedOrder;
     }
+
+    public void deleteCartItems(Set<OrderItem> finalisedOrderItems) {
+        Cart cart = this.cartService.getMyCart();
+
+        Set<CartItem> cartItems = cart.getCartItems();
+
+        List<Long> finalisedOrderItemsId = finalisedOrderItems.stream().map(orderItem -> orderItem.getProductId()).collect(Collectors.toList());
+
+        for (CartItem cartItem : cartItems) {
+            if (finalisedOrderItemsId.contains(cartItem.getProductId())) {
+                cartItemService.delete(cartItem.getId());
+            }
+        }
+    }
+
 
     /**
      * Find order by id
@@ -212,9 +242,9 @@ public class OrderService {
         Optional<OrderStatus> orderStatus = orderStatusRepository.findByName("pending");
         if (orderStatus.isPresent()) {
             List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(authenticationFacade.getUserId(), orderStatus.get().getId());
-//            if (orders.size() == 1) {
-            order = orders.get(0);
-//            }
+            if (orders != null && orders.size() > 0) {
+                order = orders.get(0);
+            }
         }
 
         return order;
@@ -226,6 +256,11 @@ public class OrderService {
      */
     public OrderLogisticsInfo saveLogisticsInfo(OrderLogisticsInfo orderLogisticsInfo) {
         return orderLogisticsInfoRepository.save(orderLogisticsInfo);
+    }
+
+    public OrderLogisticsInfo findLogisticsInfoByOrderId(Long orderId) {
+        Optional<OrderLogisticsInfo> orderLogisticsInfo = orderLogisticsInfoRepository.findByOrdersId(orderId);
+        return orderLogisticsInfo.isPresent() ? orderLogisticsInfo.get() : null;
     }
 
     /**

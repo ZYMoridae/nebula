@@ -65,7 +65,7 @@ public class CartService {
     private boolean isOneOrderActivated() {
         List<Order> orders = orderRepository.findByUserIdAndOrderStatusId(this.authenticationFacade.getUser().getId(),
                 OrderStatus.StatusType.PENDING.value);
-        return orders.size() == 1;
+        return orders != null && orders.size() == 1 ? true : false;
     }
 
     /**

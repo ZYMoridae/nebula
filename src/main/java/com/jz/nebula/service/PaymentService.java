@@ -1,6 +1,7 @@
 package com.jz.nebula.service;
 
 import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.dao.OrderLogisticsInfoRepository;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.ProductRepository;
@@ -8,6 +9,7 @@ import com.jz.nebula.dao.sku.SkuRepository;
 import com.jz.nebula.entity.*;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderItem;
+import com.jz.nebula.entity.order.OrderLogisticsInfo;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.payment.PaymentMethodInfo;
 import com.jz.nebula.entity.product.Product;
@@ -21,11 +23,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationAdapter;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -59,6 +61,13 @@ public class PaymentService {
 
     @Autowired
     private CartItemService cartItemService;
+
+    @Autowired
+    private InvoiceService invoiceService;
+
+    @Autowired
+    private OrderLogisticsInfoRepository orderLogisticsInfoRepository;
+
 
     public PaymentService() {
     }
@@ -167,6 +176,21 @@ public class PaymentService {
      */
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
     protected Object processOrder(Order order, PaymentMethodInfo paymentMethodInfo) throws Exception {
+
+        Order finalOrder = order;
+        // Once finalise order failed, we need to delete logistic info which saved in the previous step
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter(){
+            public void afterCommit(int status){
+                //do stuff right after commit
+                if(status == TransactionSynchronization.STATUS_ROLLED_BACK) {
+                    OrderLogisticsInfo orderLogisticsInfo = orderLogisticsInfoRepository.findByOrdersId(finalOrder.getId()).get();
+                    if(orderLogisticsInfo != null) {
+                        orderLogisticsInfoRepository.delete(orderLogisticsInfo);
+                    }
+                }
+            }
+        });
+
         Payment payment = new Payment();
         Map<String, Object> result = new ConcurrentHashMap<>();
 
@@ -202,15 +226,25 @@ public class PaymentService {
 
             // Delete product from shopping cart
             this.deleteCartItems(order.getOrderItems());
+
+            // Generate invoice
+            Invoice invoice = new Invoice();
+            invoice.setOrderId(order.getId());
+            invoice.setInvoiceId(invoiceService.formatInvoiceId(order.getId()));
+            this.invoiceService.save(invoice);
         } else {
             throw new Exception();
         }
+
+
+
 
         result.put("payment", charge);
         result.put("order", order);
 
         return result;
     }
+
 
 
     /**
