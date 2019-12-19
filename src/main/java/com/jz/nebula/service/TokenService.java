@@ -2,6 +2,7 @@ package com.jz.nebula.service;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
+import com.jz.nebula.entity.order.Order;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -21,10 +22,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collector;
@@ -72,6 +70,7 @@ public class TokenService {
      *
      * @param username
      * @param roles
+     *
      * @return
      */
     public Map<String, String> createToken(String username, List<Role> roles) {
@@ -101,6 +100,7 @@ public class TokenService {
      * Get authentication object according to token
      *
      * @param token
+     *
      * @return
      */
     public Authentication getAuthentication(String token) {
@@ -112,6 +112,7 @@ public class TokenService {
      * Get username
      *
      * @param token
+     *
      * @return
      */
     public String getUsername(String token) {
@@ -122,6 +123,7 @@ public class TokenService {
      * Resolve token from request
      *
      * @param req
+     *
      * @return
      */
     public String resolveToken(HttpServletRequest req) {
@@ -136,6 +138,7 @@ public class TokenService {
      * Validate token
      *
      * @param token
+     *
      * @return
      */
     public boolean validateToken(String token) {
@@ -195,5 +198,59 @@ public class TokenService {
             logger.error("isAdminToken::admin token validate error");
             return false;
         }
+    }
+
+
+    public String createPaymentToken(Order order) {
+        String orderIdentifier = "ORD" + order.getId();
+
+        String token = UUID.randomUUID().toString();
+
+        template.opsForHash().put(orderIdentifier, orderIdentifier, token);
+        template.expire(orderIdentifier, this.expiredMinutes, TimeUnit.MINUTES);
+
+        Map<String, String> tokenMap = new ConcurrentHashMap<>();
+
+        logger.debug("createPaymentToken::payment token created");
+        return token;
+    }
+
+
+    public String getPaymentToken(Order order) {
+        String orderIdentifier = "ORD" + order.getId();
+
+        String paymentToken = "";
+
+        Object redisPaymentToken = template.opsForHash().get(orderIdentifier, orderIdentifier);
+
+        if (redisPaymentToken == null) {
+            paymentToken = createPaymentToken(order);
+            logger.debug("getPaymentToken:: creat new token [{}]", paymentToken);
+        } else {
+            paymentToken = (String) redisPaymentToken;
+            logger.debug("getPaymentToken:: find redis persisted token [{}]", paymentToken);
+        }
+
+        return paymentToken;
+    }
+
+
+    public boolean isPaymentTokenValid(Long orderId, String token) {
+        logger.debug("isPaymentTokenValid:: start validate payment token");
+        if (token.equals("null")) {
+            logger.warn("validateToken::Token is not provided");
+            return false;
+        }
+        String orderIdentifier = "ORD" + orderId;
+
+        Object redisPaymentToken = template.opsForHash().get(orderIdentifier, orderIdentifier);
+
+        if (redisPaymentToken == null || !token.equals(redisPaymentToken)) {
+            return false;
+        }
+
+        logger.debug("isPaymentTokenValid:: payment token [{}] is valid", token);
+
+        return true;
     }
 }

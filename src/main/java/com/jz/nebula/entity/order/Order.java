@@ -1,6 +1,7 @@
 package com.jz.nebula.entity.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.jz.nebula.entity.LogisticsProvider;
@@ -59,6 +60,10 @@ public class Order implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Transient
+    private String paymentToken;
 
 ////    // TODO: One to one
 ////    @OneToOne(mappedBy = "orders", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -153,6 +158,14 @@ public class Order implements Serializable {
 
     public void setLogisticsProvider(LogisticsProvider logisticsProvider) {
         this.logisticsProvider = logisticsProvider;
+    }
+
+    public String getPaymentToken() {
+        return paymentToken;
+    }
+
+    public void setPaymentToken(String paymentToken) {
+        this.paymentToken = paymentToken;
     }
 
     @Override

@@ -64,11 +64,15 @@ public class OrderService {
     @Autowired
     private CartItemService cartItemService;
 
+    @Autowired
+    private TokenService tokenService;
+
     /**
      * Get order by pagination
      *
      * @param pageable
      * @param assembler
+     *
      * @return
      */
     public PagedResources<Resource<Order>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
@@ -92,6 +96,7 @@ public class OrderService {
      * @param id
      * @param pageable
      * @param assembler
+     *
      * @return
      */
     public PagedResources<Resource<Order>> findByUserId(long id, Pageable pageable,
@@ -107,6 +112,7 @@ public class OrderService {
      * Check the order is new order
      *
      * @param order
+     *
      * @return
      */
     private boolean isNewOrder(Order order) {
@@ -117,6 +123,7 @@ public class OrderService {
      * Check current user ROLE
      *
      * @param user
+     *
      * @return
      */
     private boolean isUser(User user) {
@@ -127,6 +134,7 @@ public class OrderService {
      * If current user is not ADMIN or VENDOR just replace the user id
      *
      * @param order
+     *
      * @return
      */
     private synchronized Order preProcessing(Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
@@ -137,7 +145,7 @@ public class OrderService {
             safetyOrder.setUserId(user.getId());
         }
 
-        if(this.getCurrentActivatedOrder() != null) {
+        if (this.getCurrentActivatedOrder() != null) {
             throw new MultipleActivatedOrderException();
         }
 
@@ -178,10 +186,11 @@ public class OrderService {
      * When order created push notification to queue and process it
      *
      * @param order
+     *
      * @return
      */
     @Transactional(rollbackFor = {Exception.class})
-    public Order save(Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
+    public Order createOrder(Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
         order = preProcessing(order);
         boolean isNew = this.isNewOrder(order);
 
@@ -200,6 +209,17 @@ public class OrderService {
         this.deleteCartItems(order.getOrderItems());
 
         return updatedOrder;
+    }
+
+    /**
+     * Native save function, should not put any business logic inside it
+     *
+     * @param order
+     *
+     * @return
+     */
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 
     public void deleteCartItems(Set<OrderItem> finalisedOrderItems) {
@@ -221,10 +241,19 @@ public class OrderService {
      * Find order by id
      *
      * @param id
+     *
      * @return
      */
     public Order findById(long id) {
-        return orderRepository.findById(id).get();
+        Order order = orderRepository.findById(id).get();
+
+        if (order != null && order.getOrderStatus().getName().equals("pending")) {
+            String paymentToken = tokenService.getPaymentToken(order);
+            logger.debug("findById:: set payment token [{}]", paymentToken);
+            order.setPaymentToken(tokenService.getPaymentToken(order));
+        }
+
+        return order;
     }
 
     /**
@@ -252,6 +281,7 @@ public class OrderService {
 
     /**
      * @param orderLogisticsInfo
+     *
      * @return
      */
     public OrderLogisticsInfo saveLogisticsInfo(OrderLogisticsInfo orderLogisticsInfo) {

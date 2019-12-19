@@ -24,6 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/druid")
 public class DruidStatController {
+
+    /**
+     * Get Druid database connection statistics
+     *
+     * @return
+     */
     @GetMapping("/stat")
     public Object druidStat() {
         return DruidStatManagerFacade.getInstance().getDataSourceStatDataList();

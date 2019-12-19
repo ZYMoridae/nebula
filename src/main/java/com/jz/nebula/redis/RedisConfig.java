@@ -1,8 +1,10 @@
 package com.jz.nebula.redis;
 
+import com.jz.nebula.component.ExpirationListener;
 import com.jz.nebula.redis.queue.MessagePublisher;
 import com.jz.nebula.redis.queue.RedisMessagePublisher;
 import com.jz.nebula.redis.queue.RedisMessageSubscriber;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,10 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConfiguration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
@@ -105,5 +109,14 @@ public class RedisConfig {
     @Bean
     ChannelTopic topic() {
         return new ChannelTopic("pubsub:queue");
+    }
+
+    @Bean
+    RedisMessageListenerContainer keyExpirationListenerContainer(@Qualifier("jedisConnectionFactory") RedisConnectionFactory connectionFactory, ExpirationListener expirationListener) {
+        RedisMessageListenerContainer listenerContainer = new RedisMessageListenerContainer();
+        listenerContainer.setConnectionFactory(connectionFactory);
+        listenerContainer.addMessageListener(expirationListener, new PatternTopic("__keyevent@*__:expired"));
+//        listenerContainer.setErrorHandler(e -> logger.error("There was an error in redis key expiration listener container", e));
+        return listenerContainer;
     }
 }

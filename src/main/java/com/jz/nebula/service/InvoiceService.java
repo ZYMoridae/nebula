@@ -20,7 +20,7 @@ import com.stripe.model.Charge;
 @Service
 public class InvoiceService {
 
-    public static final int INVOICE_LENGTH = 32;
+    public static final int INVOICE_LENGTH = 24;
 
     @Autowired
     PaymentService paymentService;
@@ -100,15 +100,24 @@ public class InvoiceService {
      * Save invoice
      *
      * @param invoice
+     *
      * @return
      */
     public Invoice save(Invoice invoice) {
         return invoiceRepository.save(invoice);
     }
 
+    /**
+     * Left padding 0 for invoice number
+     * FIXME: We should add country code in the invoice number
+     *
+     * @param orderId
+     *
+     * @return
+     */
     public String formatInvoiceId(Long orderId) {
         String sOrderId = String.valueOf(orderId);
-        String _invoiceId = StringUtils.leftPad(sOrderId, INVOICE_LENGTH - 5 - sOrderId.length(), "0");
-        return "INVCN" +_invoiceId;
+        String _invoiceId = StringUtils.leftPad(sOrderId, INVOICE_LENGTH - 5, "0");
+        return "INVCN" + _invoiceId;
     }
 }

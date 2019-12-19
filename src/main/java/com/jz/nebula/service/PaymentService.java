@@ -68,6 +68,8 @@ public class PaymentService {
     @Autowired
     private OrderLogisticsInfoRepository orderLogisticsInfoRepository;
 
+    @Autowired
+    private OrderService orderService;
 
     public PaymentService() {
     }
@@ -225,7 +227,7 @@ public class PaymentService {
             logger.info("Order id:[{}] status has been updated", order.getId());
 
             // Delete product from shopping cart
-            this.deleteCartItems(order.getOrderItems());
+            this.orderService.deleteCartItems(order.getOrderItems());
 
             // Generate invoice
             Invoice invoice = new Invoice();
@@ -236,9 +238,6 @@ public class PaymentService {
             throw new Exception();
         }
 
-
-
-
         result.put("payment", charge);
         result.put("order", order);
 
@@ -247,24 +246,24 @@ public class PaymentService {
 
 
 
-    /**
-     * Delete product from shopping cart after order finalised
-     *
-     * @param finalisedOrderItems
-     */
-    public void deleteCartItems(Set<OrderItem> finalisedOrderItems) {
-        Cart cart = this.cartService.getMyCart();
-
-        Set<CartItem> cartItems = cart.getCartItems();
-
-        List<Long> finalisedOrderItemsId = finalisedOrderItems.stream().map(orderItem -> orderItem.getProductId()).collect(Collectors.toList());
-
-        for (CartItem cartItem : cartItems) {
-            if (finalisedOrderItemsId.contains(cartItem.getProductId())) {
-                cartItemService.delete(cartItem.getId());
-            }
-        }
-    }
+//    /**
+//     * Delete product from shopping cart after order finalised
+//     *
+//     * @param finalisedOrderItems
+//     */
+//    public void deleteCartItems(Set<OrderItem> finalisedOrderItems) {
+//        Cart cart = this.cartService.getMyCart();
+//
+//        Set<CartItem> cartItems = cart.getCartItems();
+//
+//        List<Long> finalisedOrderItemsId = finalisedOrderItems.stream().map(orderItem -> orderItem.getProductId()).collect(Collectors.toList());
+//
+//        for (CartItem cartItem : cartItems) {
+//            if (finalisedOrderItemsId.contains(cartItem.getProductId())) {
+//                cartItemService.delete(cartItem.getId());
+//            }
+//        }
+//    }
 
 
     /**
