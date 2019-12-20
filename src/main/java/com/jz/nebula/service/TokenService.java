@@ -172,6 +172,13 @@ public class TokenService {
         }
     }
 
+    /**
+     * Check is admin token or not
+     *
+     * @param token
+     * @param currentUser
+     * @return
+     */
     public boolean isAdminToken(String token, User currentUser) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
@@ -200,7 +207,12 @@ public class TokenService {
         }
     }
 
-
+    /**
+     * Create payment token
+     *
+     * @param order
+     * @return
+     */
     public String createPaymentToken(Order order) {
         String orderIdentifier = "ORD" + order.getId();
 
@@ -209,17 +221,20 @@ public class TokenService {
         template.opsForHash().put(orderIdentifier, orderIdentifier, token);
         template.expire(orderIdentifier, this.expiredMinutes, TimeUnit.MINUTES);
 
-        Map<String, String> tokenMap = new ConcurrentHashMap<>();
-
         logger.debug("createPaymentToken::payment token created");
         return token;
     }
 
-
+    /**
+     * Get payment token from Redis, if record not found then create a new payment token
+     *
+     * @param order
+     * @return
+     */
     public String getPaymentToken(Order order) {
         String orderIdentifier = "ORD" + order.getId();
 
-        String paymentToken = "";
+        String paymentToken;
 
         Object redisPaymentToken = template.opsForHash().get(orderIdentifier, orderIdentifier);
 
@@ -234,10 +249,16 @@ public class TokenService {
         return paymentToken;
     }
 
-
+    /**
+     * Check payment token is valid or not
+     *
+     * @param orderId
+     * @param token
+     * @return
+     */
     public boolean isPaymentTokenValid(Long orderId, String token) {
         logger.debug("isPaymentTokenValid:: start validate payment token");
-        if (token.equals("null")) {
+        if (token == null || token.equals("null") || token.equals("")) {
             logger.warn("validateToken::Token is not provided");
             return false;
         }

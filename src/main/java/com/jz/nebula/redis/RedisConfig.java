@@ -1,6 +1,6 @@
 package com.jz.nebula.redis;
 
-import com.jz.nebula.component.ExpirationListener;
+import com.jz.nebula.component.listener.ExpirationListener;
 import com.jz.nebula.redis.queue.MessagePublisher;
 import com.jz.nebula.redis.queue.RedisMessagePublisher;
 import com.jz.nebula.redis.queue.RedisMessageSubscriber;

@@ -56,11 +56,6 @@ public class PaymentController {
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Object finaliseById(@PathVariable("id") long id, @RequestBody PaymentMethodInfo paymentMethodInfo, @RequestParam String paymentToken) throws Exception {
-        // Check payment token first before finalise the booking
-        if (paymentToken == "" || paymentToken == "null" || paymentToken == null) {
-            throw new InvalidPaymentTokenException();
-        }
-
         // Check payment token still alive in Redis
         if (!tokenService.isPaymentTokenValid(id, paymentToken)) {
             throw new InvalidPaymentTokenException();

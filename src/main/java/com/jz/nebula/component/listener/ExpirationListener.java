@@ -18,7 +18,7 @@
  * under the License.
  */
 
-package com.jz.nebula.component;
+package com.jz.nebula.component.listener;
 
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
@@ -26,7 +26,6 @@ import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderItem;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.product.Product;
-import com.jz.nebula.service.OrderService;
 import com.jz.nebula.service.ProductService;
 import lombok.Synchronized;
 import org.apache.logging.log4j.LogManager;
@@ -37,7 +36,6 @@ import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Set;
 
 @Component

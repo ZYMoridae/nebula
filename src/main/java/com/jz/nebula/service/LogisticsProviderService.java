@@ -23,7 +23,7 @@ public class LogisticsProviderService {
     public PagedResources<Resource<LogisticsProvider>> findAll(Pageable pageable, PagedResourcesAssembler<LogisticsProvider> assembler) {
         Page<LogisticsProvider> page = logisticsProviderRepository.findAll(pageable);
         PagedResources<Resource<LogisticsProvider>> resources = assembler.toResource(page,
-                linkTo(LogisticsProviderController.class).slash("/products").withSelfRel());
+                linkTo(LogisticsProviderController.class).slash("/logistic-providers").withSelfRel());
         ;
         return resources;
     }

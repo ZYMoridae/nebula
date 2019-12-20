@@ -21,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -70,6 +71,9 @@ public class PaymentService {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     public PaymentService() {
     }
@@ -140,6 +144,8 @@ public class PaymentService {
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
     public Object finaliseOrder(Long id, PaymentMethodInfo paymentMethodInfo) throws Exception {
         Optional<Order> order = orderRepository.findById(id);
+
+        applicationEventPublisher.publishEvent(order.get());
         if (!order.isPresent()) {
             throw new Exception();
         }
@@ -238,6 +244,7 @@ public class PaymentService {
             throw new Exception();
         }
 
+        // FIXME: Should we return stripe info to user?
         result.put("payment", charge);
         result.put("order", order);
 

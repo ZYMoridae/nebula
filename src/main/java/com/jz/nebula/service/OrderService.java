@@ -211,6 +211,20 @@ public class OrderService {
         return updatedOrder;
     }
 
+    @Transactional(rollbackFor = {Exception.class})
+    public void cancelOrder(Order order) {
+
+    }
+
+    /**
+     * Native delete function, should not put any business logic inside it
+     *
+     * @param order
+     */
+    public void delete(Order order) {
+        orderRepository.delete(order);
+    }
+
     /**
      * Native save function, should not put any business logic inside it
      *
