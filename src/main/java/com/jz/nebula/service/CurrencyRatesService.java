@@ -20,17 +20,27 @@
 
 package com.jz.nebula.service;
 
+import com.google.common.base.Strings;
+import com.jz.nebula.controller.api.ProductController;
 import com.jz.nebula.dao.CurrencyRateRepository;
 import com.jz.nebula.entity.CurrencyApiResponse;
 import com.jz.nebula.entity.CurrencyRate;
+import com.jz.nebula.entity.product.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 import java.util.Set;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Service
 public class CurrencyRatesService {
@@ -39,10 +49,37 @@ public class CurrencyRatesService {
     @Autowired
     CurrencyRateRepository currencyRateRepository;
 
+    /**
+     * Find all currency rates by base currency
+     *
+     * @param baseCurrency
+     * @param pageable
+     * @param assembler
+     *
+     * @return
+     */
+    public PagedResources<Resource<CurrencyRate>> findAll(String baseCurrency, Pageable pageable,
+                                                          PagedResourcesAssembler<CurrencyRate> assembler) {
+        Page<CurrencyRate> page;
+        if (Strings.isNullOrEmpty(baseCurrency)) {
+            page = currencyRateRepository.findAllByOrderByIdAsc(pageable);
+        } else {
+            page = currencyRateRepository.findByBaseCurrencyOrderByCurrencyCodeAsc(baseCurrency, pageable);
+        }
+
+        PagedResources<Resource<CurrencyRate>> resources = assembler.toResource(page,
+                linkTo(ProductController.class).slash("/currency-rates").withSelfRel());
+
+        return resources;
+    }
+
     public CurrencyRate save(CurrencyRate currencyRate) {
         return currencyRateRepository.save(currencyRate);
     }
 
+    /**
+     * Pull currency rate from exchange rate api
+     */
     public void syncCurrencyRate() {
         String[] allRates = new String[]{"CAD", "HKD", "ISK", "PHP", "DKK", "HUF", "CZK", "GBP", "RON", "SEK", "IDR", "INR", "BRL", "RUB", "HRK", "JPY", "THB", "CHF", "EUR", "MYR", "BGN", "TRY", "CNY", "NOK", "NZD", "ZAR", "USD", "MXN", "SGD", "AUD", "ILS", "KRW", "PLN"};
         for (String rate : allRates) {
@@ -50,6 +87,11 @@ public class CurrencyRatesService {
         }
     }
 
+    /**
+     * Pulling currency rate with particular base currency
+     *
+     * @param baseCurrency
+     */
     public void syncRateByBaseCurrency(String baseCurrency) {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://api.exchangeratesapi.io/latest?base=" + baseCurrency;
@@ -58,8 +100,6 @@ public class CurrencyRatesService {
                 .getForObject(url, CurrencyApiResponse.class);
 
         Set<String> keySet = response.getRates().keySet();
-
-//        String baseCurrency = response.getBase().toUpperCase();
 
         for (String key : keySet
         ) {

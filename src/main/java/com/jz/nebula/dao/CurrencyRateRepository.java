@@ -21,6 +21,8 @@
 package com.jz.nebula.dao;
 
 import com.jz.nebula.entity.CurrencyRate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Optional;
@@ -28,4 +30,8 @@ import java.util.Optional;
 public interface CurrencyRateRepository extends PagingAndSortingRepository<CurrencyRate, Long> {
 
     Optional<CurrencyRate> findByCurrencyCodeAndBaseCurrency(String currencyCode, String baseCurrency);
+
+    Page<CurrencyRate> findByBaseCurrencyOrderByCurrencyCodeAsc(String baseCurrency, Pageable pageable);
+
+    Page<CurrencyRate> findAllByOrderByIdAsc(Pageable pageable);
 }
