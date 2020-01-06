@@ -20,39 +20,39 @@ import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.order.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
-import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
-@Table(name = "class_order", schema = "public")
+@Table(name = "class_order_item", schema = "public")
 @Getter
 @Setter
-public class ClazzOrder {
+public class ClazzOrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "class_order_id")
+    private Long clazzOrderId;
 
-    @Column(name = "total_price")
-    private double totalPrice;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "class_order_id", nullable = false, updatable = false, insertable = false)
-    private Set<ClazzOrderItem> clazzOrderItems;
-
-    @Column(name = "status_id")
-    private Long statusId;
+    @Column(name = "class_id")
+    private Long clazzId;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "status_id", nullable = false, updatable = false, insertable = false)
-    private OrderStatus orderStatus;
+    @JoinColumn(name = "class_id", nullable = false, updatable = false, insertable = false)
+    private Clazz clazz;
+
+    @Column(name = "teacher_available_time_id")
+    private Long teacherAvailableTimeId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_available_time_id", nullable = false, updatable = false, insertable = false)
+    private TeacherAvailableTime teacherAvailableTime;
+
+    private double price;
 
     @CreationTimestamp
     @Column(name = "created_at")
