@@ -35,9 +35,6 @@ public class ClazzOrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "class_order_id")
-    private Long clazzOrderId;
-
     @Column(name = "class_id")
     private Long clazzId;
 

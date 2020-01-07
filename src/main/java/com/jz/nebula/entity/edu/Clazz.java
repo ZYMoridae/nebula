@@ -20,8 +20,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jz.nebula.entity.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "class", schema = "public")
@@ -40,13 +43,21 @@ public class Clazz {
     private String unit;
 
     @Column(name = "unit_price")
-    private String unitPrice;
+    private double unitPrice;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "teacher_id")
     private Long teacherId;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id", nullable = false, updatable = false, insertable = false)
     private User teacher;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

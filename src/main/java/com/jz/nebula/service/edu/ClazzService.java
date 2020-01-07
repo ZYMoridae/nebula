@@ -17,7 +17,9 @@
 package com.jz.nebula.service.edu;
 
 import com.jz.nebula.dao.edu.ClazzRepository;
+import com.jz.nebula.dao.edu.TeacherAvailableTimeRepository;
 import com.jz.nebula.entity.edu.Clazz;
+import com.jz.nebula.entity.edu.TeacherAvailableTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,9 @@ public class ClazzService {
 
     @Autowired
     ClazzRepository clazzRepository;
+
+    @Autowired
+    TeacherAvailableTimeRepository teacherAvailableTimeRepository;
 
     public Clazz findById(long id) {
         return clazzRepository.findById(id).get();
@@ -38,5 +43,24 @@ public class ClazzService {
 
     public void delete(long id) {
         clazzRepository.deleteById(id);
+    }
+
+    /**
+     * Create teacher available time
+     *
+     * @param teacherAvailableTime
+     * @return
+     */
+    public TeacherAvailableTime createTeacherAvailableTime(TeacherAvailableTime teacherAvailableTime) {
+        return teacherAvailableTimeRepository.save(teacherAvailableTime);
+    }
+
+    /**
+     * Delete teacher available time by id
+     *
+     * @param id
+     */
+    public void deleteTeacherAvailableTimeById(Long id) {
+        teacherAvailableTimeRepository.deleteById(id);
     }
 }

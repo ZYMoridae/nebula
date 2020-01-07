@@ -44,7 +44,7 @@ public class ClazzOrder {
     private double totalPrice;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "class_order_id", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name = "class_order_id", nullable = false)
     private Set<ClazzOrderItem> clazzOrderItems;
 
     @Column(name = "status_id")

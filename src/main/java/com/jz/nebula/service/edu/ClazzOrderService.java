@@ -16,12 +16,16 @@
 
 package com.jz.nebula.service.edu;
 
+import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.edu.ClazzOrderItemRepository;
 import com.jz.nebula.dao.edu.ClazzOrderRepository;
 import com.jz.nebula.dao.edu.TeacherAvailableTimeRepository;
-import com.jz.nebula.entity.edu.ClazzOrder;
-import com.jz.nebula.entity.edu.ClazzOrderItem;
-import com.jz.nebula.entity.edu.TeacherAvailableTime;
+import com.jz.nebula.entity.Role;
+import com.jz.nebula.entity.User;
+import com.jz.nebula.entity.edu.*;
+import com.jz.nebula.entity.order.OrderStatus;
+import com.jz.nebula.exception.MultipleActivatedOrderException;
 import lombok.Synchronized;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,6 +52,12 @@ public class ClazzOrderService {
     @Autowired
     TeacherAvailableTimeRepository teacherAvailableTimeRepository;
 
+    @Autowired
+    AuthenticationFacade authenticationFacade;
+
+    @Autowired
+    OrderStatusRepository orderStatusRepository;
+
     public ClazzOrder findById(long id) {
         return clazzOrderRepository.findById(id).get();
     }
@@ -60,15 +71,14 @@ public class ClazzOrderService {
     }
 
     /**
-     * Create clazz order
+     * We only return teacher available time to user and create clazz order
      *
      * @param clazzOrder
      * @return
      * @throws Exception
      */
-    @Synchronized
     @Transactional(rollbackFor = {Exception.class})
-    public ClazzOrder createClazzOrder(ClazzOrder clazzOrder) throws Exception {
+    public synchronized ClazzOrder createClazzOrder(ClazzOrder clazzOrder) throws Exception {
         ClazzOrder persistedClazzOrder = new ClazzOrder();
 
         // Validate the clazz order
@@ -83,7 +93,7 @@ public class ClazzOrderService {
 
         for (ClazzOrderItem clazzOrderItem : clazzOrderItems
         ) {
-            clazzOrderItem.setClazzOrderId(persistedClazzOrder.getId());
+//            clazzOrderItem.setClazzOrderId(persistedClazzOrder.getId());
 
             // Make class reservation for user
             TeacherAvailableTime teacherAvailableTime = clazzOrderItem.getTeacherAvailableTime();
@@ -106,9 +116,8 @@ public class ClazzOrderService {
      * @return
      * @throws Exception
      */
-    @Synchronized
     @Transactional(rollbackFor = {Exception.class})
-    public ClazzOrder updateClazzOrder(ClazzOrder clazzOrder) throws Exception {
+    public synchronized ClazzOrder updateClazzOrder(ClazzOrder clazzOrder) throws Exception {
         ClazzOrder persistedClazzOrder = new ClazzOrder();
 
         if (clazzOrder.getId() == null) {
@@ -146,7 +155,7 @@ public class ClazzOrderService {
 
         for (ClazzOrderItem clazzOrderItem : clazzOrderItems
         ) {
-            clazzOrderItem.setClazzOrderId(persistedClazzOrder.getId());
+//            clazzOrderItem.setClazzOrderId(persistedClazzOrder.getId());
             ClazzOrderItem persistedClazzOrderItem = clazzOrderItemRepository.save(clazzOrderItem);
             logger.debug("Clazz order item updated and item id is [{}]", persistedClazzOrderItem.getId());
         }
@@ -162,9 +171,8 @@ public class ClazzOrderService {
      *
      * @param id
      */
-    @Synchronized
     @Transactional(rollbackFor = {Exception.class})
-    public void deleteClazzOrder(Long id) {
+    public synchronized void deleteClazzOrder(Long id) {
         ClazzOrder clazzOrder = findById(id);
 
         for (ClazzOrderItem clazzOrderItem : clazzOrder.getClazzOrderItems()
@@ -179,5 +187,65 @@ public class ClazzOrderService {
         }
 
         clazzOrderRepository.delete(clazzOrder);
+    }
+
+    public ClazzOrder getCurrentActivatedOrder() {
+        ClazzOrder order = null;
+
+        Optional<OrderStatus> orderStatus = orderStatusRepository.findByName("pending");
+        if (orderStatus.isPresent()) {
+            List<ClazzOrder> orders = clazzOrderRepository.findByUserIdAndStatusId(authenticationFacade.getUserId(), orderStatus.get().getId());
+            if (orders != null && orders.size() > 0) {
+                order = orders.get(0);
+            }
+        }
+
+        return order;
+    }
+
+    /**
+     * This function must be called after cart converted to active clazz order
+     *
+     * @param clazzOrder
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = {Exception.class})
+    public synchronized ClazzOrder createOrder(ClazzOrder clazzOrder) throws Exception {
+        ClazzOrder persistedClazzOrder = getCurrentActivatedOrder();
+        if(persistedClazzOrder == null) {
+            ClazzOrder _clazzOrder = new ClazzOrder();
+            _clazzOrder.setStatusId((long) OrderStatus.StatusType.PENDING.value);
+            _clazzOrder.setUserId(authenticationFacade.getUserId());
+        }else {
+            throw new MultipleActivatedOrderException();
+        }
+
+
+        return persistedClazzOrder;
+    }
+
+
+    private boolean isUser(User user) {
+        return user.getUserRoles().stream().map(userRole -> userRole.getRole()).map(role -> role.getCode()).collect(Collectors.toList()).contains(Role.USER);
+    }
+
+
+
+
+    /**
+     * Lock time slot
+     *
+     * @param teacherAvailableTimeId
+     * @throws Exception
+     */
+    public synchronized void lockTimeSlot(Long teacherAvailableTimeId) throws Exception {
+        // Lock teacher available time
+        TeacherAvailableTime teacherAvailableTime = teacherAvailableTimeRepository.findById(teacherAvailableTimeId).get();
+        if(teacherAvailableTime != null) {
+            teacherAvailableTime.setReserved(true);
+            teacherAvailableTimeRepository.save(teacherAvailableTime);
+        }else {
+            throw new Exception("Teacher available time not found");
+        }
     }
 }

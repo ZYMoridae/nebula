@@ -71,9 +71,8 @@ public class ExpirationListener implements MessageListener {
      *
      * @param order
      */
-    @Synchronized
     @Transactional(rollbackFor = {Exception.class})
-    public void recoverStock(Order order) {
+    public synchronized void recoverStock(Order order) {
         OrderStatus orderStatus = orderStatusRepository.findByName("token_expired").get();
 
         // We just set the order status to token expired, but we still keep the record in the database for some purposes

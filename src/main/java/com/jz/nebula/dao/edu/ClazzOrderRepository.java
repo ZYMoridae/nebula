@@ -19,5 +19,8 @@ package com.jz.nebula.dao.edu;
 import com.jz.nebula.entity.edu.ClazzOrder;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 public interface ClazzOrderRepository extends PagingAndSortingRepository<ClazzOrder, Long> {
+    List<ClazzOrder> findByUserIdAndStatusId(long userId, long statusId);
 }
