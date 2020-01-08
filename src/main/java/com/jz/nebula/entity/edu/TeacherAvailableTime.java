@@ -38,8 +38,8 @@ public class TeacherAvailableTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "teacher_id")
+    private Long teacherId;
 
     @Column(name = "start_time")
     private java.util.Date startTime;

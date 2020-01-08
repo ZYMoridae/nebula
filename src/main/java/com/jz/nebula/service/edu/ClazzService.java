@@ -49,6 +49,7 @@ public class ClazzService {
      * Create teacher available time
      *
      * @param teacherAvailableTime
+     *
      * @return
      */
     public TeacherAvailableTime createTeacherAvailableTime(TeacherAvailableTime teacherAvailableTime) {
@@ -62,5 +63,19 @@ public class ClazzService {
      */
     public void deleteTeacherAvailableTimeById(Long id) {
         teacherAvailableTimeRepository.deleteById(id);
+    }
+
+    /**
+     * Update teacher available time
+     *
+     * @param teacherAvailableTime
+     * @return
+     */
+    public TeacherAvailableTime saveTeacherAvailableTime(TeacherAvailableTime teacherAvailableTime) {
+        return teacherAvailableTimeRepository.save(teacherAvailableTime);
+    }
+
+    public TeacherAvailableTime findTeacherAvailableTimeById(long id) {
+        return teacherAvailableTimeRepository.findById(id).get();
     }
 }

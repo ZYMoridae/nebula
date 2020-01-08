@@ -49,7 +49,7 @@ public class ClazzController {
      * @return
      */
     @GetMapping("/{id}")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
     Clazz findById(@PathVariable("id") long id) {
         return clazzService.findById(id);
@@ -63,7 +63,7 @@ public class ClazzController {
      * @return
      */
     @PostMapping("")
-    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
     Clazz create(@RequestBody Clazz clazz) {
         return clazzService.save(clazz);
@@ -78,7 +78,7 @@ public class ClazzController {
      * @return
      */
     @PutMapping("/{id}")
-    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
     Clazz update(@PathVariable("id") long id, @RequestBody Clazz clazz) {
         clazz.setId(id);
@@ -93,7 +93,7 @@ public class ClazzController {
      * @return
      */
     @DeleteMapping("/{id}")
-    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {
         clazzService.delete(id);
@@ -105,10 +105,11 @@ public class ClazzController {
      *
      * @param id
      * @param teacherAvailableTime
+     *
      * @return
      */
     @PostMapping("/{id}/teachers/availabilities")
-    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
     TeacherAvailableTime createTeacherAvailableTime(@PathVariable("id") long id, @RequestBody TeacherAvailableTime teacherAvailableTime) {
         return clazzService.createTeacherAvailableTime(teacherAvailableTime);
@@ -119,14 +120,43 @@ public class ClazzController {
      *
      * @param id
      * @param availId
+     *
      * @return
      */
     @DeleteMapping("/{id}/teachers/availabilities/{availId}")
-    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
     ResponseEntity<?> deleteTeacherAvailableTime(@PathVariable("id") long id, @PathVariable("availId") long availId) {
         clazzService.deleteTeacherAvailableTimeById(availId);
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Update teacher available time by id
+     *
+     * @param availId
+     * @param teacherAvailableTime
+     * @return
+     */
+    @PutMapping("/{id}/teachers/availabilities/{availId}")
+    @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
+    public @ResponseBody
+    TeacherAvailableTime updateTeacherAvailableTime(@PathVariable("availId") long availId, @RequestBody TeacherAvailableTime teacherAvailableTime) {
+        teacherAvailableTime.setId(availId);
+        return clazzService.saveTeacherAvailableTime(teacherAvailableTime);
+    }
+
+    /**
+     * Find teacher available time by id
+     *
+     * @param availId
+     * @return
+     */
+    @GetMapping("/{id}/teachers/availabilities/{availId}")
+    @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
+    public @ResponseBody
+    TeacherAvailableTime getTeacherAvailableTime(@PathVariable("availId") long availId) {
+        return clazzService.findTeacherAvailableTimeById(availId);
     }
 
 }

@@ -45,14 +45,14 @@ public class ClazzCartItem {
     @Column(name = "class_id")
     private Long clazzId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinColumn(name = "class_id", nullable = false, updatable = false, insertable = false)
     private Clazz clazz;
 
     @Column(name = "teacher_available_time_id")
     private Long teacherAvailableTimeId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_available_time_id", nullable = false, updatable = false, insertable = false)
     private TeacherAvailableTime teacherAvailableTime;
 

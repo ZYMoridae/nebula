@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. iEuclid Technology
+ * Copyright (c) 2020. iEuclid Technology
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,26 +18,18 @@
  * under the License.
  */
 
-package com.jz.nebula.component;
+package com.jz.nebula.exception.edu;
 
-import com.jz.nebula.service.CurrencyRatesService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-@Component
-public class ScheduledTasks {
+public class DuplicateClazzCartItemException extends Exception implements Serializable {
 
-    @Autowired
-    CurrencyRatesService currencyRatesService;
-
-    /**
-     * Refresh the rate every one hour
-     *
-     */
-    @Scheduled(fixedRate = 3600000)
-    public void updateCurrencyRates() {
-//        currencyRatesService.syncCurrencyRate();
+    public DuplicateClazzCartItemException() {
+        super("Duplicate class item was added into the cart!");
     }
 
+    public DuplicateClazzCartItemException(@NotNull String msg) {
+        super(msg);
+    }
 }

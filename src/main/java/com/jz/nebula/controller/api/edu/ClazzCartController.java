@@ -23,6 +23,7 @@ package com.jz.nebula.controller.api.edu;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.edu.ClazzCart;
 import com.jz.nebula.entity.edu.ClazzCartItem;
+import com.jz.nebula.entity.edu.ClazzOrder;
 import com.jz.nebula.service.edu.ClazzCartService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,9 +32,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/classes/orders")
+@RequestMapping("/api/classes/carts")
 public class ClazzCartController {
     private final static Logger logger = LogManager.getLogger(ClazzCartController.class);
 
@@ -47,26 +49,45 @@ public class ClazzCartController {
         return clazzCartService.findById(id);
     }
 
+    @PostMapping("/{id}/orders")
+    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    ClazzOrder toCartOrder(@PathVariable("id") long id, @RequestBody List<ClazzCartItem> cartItems) throws Exception {
+        return clazzCartService.cartToOrder(cartItems);
+    }
+
     /**
      * Add cla
      *
      * @param clazzCartItem
+     *
      * @return
+     *
      * @throws Exception
      */
     @PostMapping("/items")
     @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    ResponseEntity<?> addClazzCartItem(@RequestBody ClazzCartItem clazzCartItem) throws Exception {
-        clazzCartService.addItemToCart(clazzCartItem);
-        return ResponseEntity.noContent().build();
+    ClazzCart addClazzCartItem(@RequestBody ClazzCartItem clazzCartItem) throws Exception {
+        ClazzCart persistedClazzCart = clazzCartService.addItemToCart(clazzCartItem);
+        return clazzCartService.findById(persistedClazzCart.getId());
+    }
+
+    @PutMapping("/items/{id}")
+    @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+    public @ResponseBody
+    ClazzCartItem updateClazzCartItem(@PathVariable("id") long id, @RequestBody ClazzCartItem clazzCartItem) throws Exception {
+        clazzCartItem.setId(id);
+        return clazzCartService.updateClazzCartItem(clazzCartItem);
     }
 
     /**
      * Delete item from clazz cart
      *
      * @param id
+     *
      * @return
+     *
      * @throws Exception
      */
     @DeleteMapping("/items/{id}")
@@ -76,4 +97,6 @@ public class ClazzCartController {
         clazzCartService.deleteItemFromCart(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }
