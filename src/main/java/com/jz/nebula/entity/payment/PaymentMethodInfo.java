@@ -13,6 +13,8 @@ public class PaymentMethodInfo {
 
     private CreditCard creditCard;
 
+    private String reference;
+
     @Override
     public String toString() {
         return "PaymentMethodInfo{" +

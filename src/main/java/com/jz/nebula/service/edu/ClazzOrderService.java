@@ -25,7 +25,9 @@ import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.edu.*;
 import com.jz.nebula.entity.order.OrderStatus;
+import com.jz.nebula.entity.payment.PaymentTokenCategory;
 import com.jz.nebula.exception.MultipleActivatedOrderException;
+import com.jz.nebula.service.TokenService;
 import lombok.Synchronized;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,10 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,8 +57,19 @@ public class ClazzOrderService {
     @Autowired
     OrderStatusRepository orderStatusRepository;
 
+    @Autowired
+    TokenService tokenService;
+
     public ClazzOrder findById(long id) {
         return clazzOrderRepository.findById(id).get();
+    }
+
+    public HashMap getClazzOrderWithPaymentToken(long id) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        ClazzOrder clazzOrder = findById(id);
+        result.put("clazzOrder", clazzOrder);
+        result.put("paymentToken", tokenService.getPaymentToken(clazzOrder.getId(), PaymentTokenCategory.CLAZZ));
+        return result;
     }
 
     public ClazzOrder save(ClazzOrder clazzOrder) {
@@ -74,7 +84,9 @@ public class ClazzOrderService {
      * We only return teacher available time to user and create clazz order
      *
      * @param clazzOrder
+     *
      * @return
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class})
@@ -113,7 +125,9 @@ public class ClazzOrderService {
      * Update clazz order
      *
      * @param clazzOrder
+     *
      * @return
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class})
@@ -207,16 +221,17 @@ public class ClazzOrderService {
      * This function must be called after cart converted to active clazz order
      *
      * @param clazzOrder
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class})
     public synchronized ClazzOrder createOrder(ClazzOrder clazzOrder) throws Exception {
         ClazzOrder persistedClazzOrder = getCurrentActivatedOrder();
-        if(persistedClazzOrder == null) {
+        if (persistedClazzOrder == null) {
             ClazzOrder _clazzOrder = new ClazzOrder();
             _clazzOrder.setStatusId((long) OrderStatus.StatusType.PENDING.value);
             _clazzOrder.setUserId(authenticationFacade.getUserId());
-        }else {
+        } else {
             throw new MultipleActivatedOrderException();
         }
 
@@ -230,21 +245,20 @@ public class ClazzOrderService {
     }
 
 
-
-
     /**
      * Lock time slot
      *
      * @param teacherAvailableTimeId
+     *
      * @throws Exception
      */
     public synchronized void lockTimeSlot(Long teacherAvailableTimeId) throws Exception {
         // Lock teacher available time
         TeacherAvailableTime teacherAvailableTime = teacherAvailableTimeRepository.findById(teacherAvailableTimeId).get();
-        if(teacherAvailableTime != null) {
+        if (teacherAvailableTime != null) {
             teacherAvailableTime.setReserved(true);
             teacherAvailableTimeRepository.save(teacherAvailableTime);
-        }else {
+        } else {
             throw new Exception("Teacher available time not found");
         }
     }

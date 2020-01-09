@@ -2,7 +2,9 @@ package com.jz.nebula.service;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
+import com.jz.nebula.entity.edu.ClazzOrder;
 import com.jz.nebula.entity.order.Order;
+import com.jz.nebula.entity.payment.PaymentTokenCategory;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -177,6 +179,7 @@ public class TokenService {
      *
      * @param token
      * @param currentUser
+     *
      * @return
      */
     public boolean isAdminToken(String token, User currentUser) {
@@ -210,12 +213,11 @@ public class TokenService {
     /**
      * Create payment token
      *
-     * @param order
+     * @param orderIdentifier
+     *
      * @return
      */
-    public String createPaymentToken(Order order) {
-        String orderIdentifier = "ORD" + order.getId();
-
+    public String createPaymentToken(String orderIdentifier) {
         String token = UUID.randomUUID().toString();
 
         template.opsForHash().put(orderIdentifier, orderIdentifier, token);
@@ -228,18 +230,25 @@ public class TokenService {
     /**
      * Get payment token from Redis, if record not found then create a new payment token
      *
-     * @param order
+     * @param orderId
+     * @param paymentTokenCategory
+     *
      * @return
      */
-    public String getPaymentToken(Order order) {
-        String orderIdentifier = "ORD" + order.getId();
+    public String getPaymentToken(Long orderId, PaymentTokenCategory paymentTokenCategory) throws Exception {
+        String orderIdentifier = getPaymentTokenPrefix(paymentTokenCategory);
+        if(orderIdentifier == "") {
+            throw new Exception("Invalid payment token prefix");
+        }
+
+        orderIdentifier += orderId;
 
         String paymentToken;
 
         Object redisPaymentToken = template.opsForHash().get(orderIdentifier, orderIdentifier);
 
         if (redisPaymentToken == null) {
-            paymentToken = createPaymentToken(order);
+            paymentToken = createPaymentToken(orderIdentifier);
             logger.debug("getPaymentToken:: creat new token [{}]", paymentToken);
         } else {
             paymentToken = (String) redisPaymentToken;
@@ -250,19 +259,51 @@ public class TokenService {
     }
 
     /**
+     * Get payment token prefix
+     *
+     * @param paymentTokenCategory
+     * @return
+     */
+    private String getPaymentTokenPrefix(PaymentTokenCategory paymentTokenCategory) {
+        String prefix = "";
+        switch (paymentTokenCategory) {
+            case SHOPPING: {
+                prefix = Order.PREFIX;
+                break;
+            }
+            case CLAZZ: {
+                prefix = ClazzOrder.PREFIX;
+                break;
+            }
+            default:
+                break;
+        }
+        return prefix;
+    }
+
+    /**
      * Check payment token is valid or not
      *
      * @param orderId
      * @param token
+     * @param paymentTokenCategory
+     *
      * @return
      */
-    public boolean isPaymentTokenValid(Long orderId, String token) {
+    public boolean isPaymentTokenValid(Long orderId, String token, PaymentTokenCategory paymentTokenCategory) throws Exception {
         logger.debug("isPaymentTokenValid:: start validate payment token");
         if (token == null || token.equals("null") || token.equals("")) {
-            logger.warn("validateToken::Token is not provided");
+            logger.warn("validateToken::token is not provided");
             return false;
         }
-        String orderIdentifier = "ORD" + orderId;
+
+        String orderIdentifier = getPaymentTokenPrefix(paymentTokenCategory);
+        if (orderIdentifier == "") {
+            logger.error("validateToken::invalid payment token prefix");
+            return false;
+        }
+
+        orderIdentifier += orderId;
 
         Object redisPaymentToken = template.opsForHash().get(orderIdentifier, orderIdentifier);
 

@@ -11,6 +11,7 @@ import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderItem;
 import com.jz.nebula.entity.order.OrderLogisticsInfo;
 import com.jz.nebula.entity.order.OrderStatus;
+import com.jz.nebula.entity.payment.PaymentTokenCategory;
 import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.entity.sku.Sku;
 import com.jz.nebula.exception.MultipleActivatedOrderException;
@@ -137,7 +138,7 @@ public class OrderService {
      *
      * @return
      */
-    private synchronized Order preProcessing(Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
+    private synchronized Order preProcessing(Order order) throws Exception {
         Order safetyOrder = order;
         User user = this.authenticationFacade.getUser();
         if (isUser(user) && safetyOrder.getUserId() != null) {
@@ -190,7 +191,7 @@ public class OrderService {
      * @return
      */
     @Transactional(rollbackFor = {Exception.class})
-    public Order createOrder(Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
+    public Order createOrder(Order order) throws Exception {
         order = preProcessing(order);
         boolean isNew = this.isNewOrder(order);
 
@@ -258,13 +259,13 @@ public class OrderService {
      *
      * @return
      */
-    public Order findById(long id) {
+    public Order findById(long id) throws Exception {
         Order order = orderRepository.findById(id).get();
 
         if (order != null && order.getOrderStatus().getName().equals("pending")) {
-            String paymentToken = tokenService.getPaymentToken(order);
+            String paymentToken = tokenService.getPaymentToken(order.getId(), PaymentTokenCategory.SHOPPING);
             logger.debug("findById:: set payment token [{}]", paymentToken);
-            order.setPaymentToken(tokenService.getPaymentToken(order));
+            order.setPaymentToken(tokenService.getPaymentToken(order.getId(), PaymentTokenCategory.SHOPPING));
         }
 
         return order;

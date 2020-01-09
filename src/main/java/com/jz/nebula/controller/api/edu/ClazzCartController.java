@@ -24,6 +24,8 @@ import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.edu.ClazzCart;
 import com.jz.nebula.entity.edu.ClazzCartItem;
 import com.jz.nebula.entity.edu.ClazzOrder;
+import com.jz.nebula.entity.payment.PaymentTokenCategory;
+import com.jz.nebula.service.TokenService;
 import com.jz.nebula.service.edu.ClazzCartService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +34,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -42,6 +45,9 @@ public class ClazzCartController {
     @Autowired
     private ClazzCartService clazzCartService;
 
+    @Autowired
+    private TokenService tokenService;
+
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -49,15 +55,23 @@ public class ClazzCartController {
         return clazzCartService.findById(id);
     }
 
+    /**
+     * Convert clazz cart to clazz order. We return the payment token as well.
+     *
+     * @param id
+     * @param cartItems
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/{id}/orders")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    ClazzOrder toCartOrder(@PathVariable("id") long id, @RequestBody List<ClazzCartItem> cartItems) throws Exception {
+    HashMap<String, Object> toCartOrder(@PathVariable("id") long id, @RequestBody List<ClazzCartItem> cartItems) throws Exception {
         return clazzCartService.cartToOrder(cartItems);
     }
 
     /**
-     * Add cla
+     * Add clazz to cart
      *
      * @param clazzCartItem
      *
@@ -73,6 +87,14 @@ public class ClazzCartController {
         return clazzCartService.findById(persistedClazzCart.getId());
     }
 
+    /**
+     * Update clazz cart item
+     *
+     * @param id
+     * @param clazzCartItem
+     * @return
+     * @throws Exception
+     */
     @PutMapping("/items/{id}")
     @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody

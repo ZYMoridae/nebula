@@ -29,8 +29,10 @@ import com.jz.nebula.dao.edu.TeacherAvailableTimeRepository;
 import com.jz.nebula.entity.Cart;
 import com.jz.nebula.entity.edu.*;
 import com.jz.nebula.entity.order.OrderStatus;
+import com.jz.nebula.entity.payment.PaymentTokenCategory;
 import com.jz.nebula.exception.edu.ClazzTimeUnavailableException;
 import com.jz.nebula.exception.edu.DuplicateClazzCartItemException;
+import com.jz.nebula.service.TokenService;
 import lombok.Synchronized;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,13 +40,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+/**
+ * How to create clazz cart and convert to clazz order
+ * 1. Send below request to add cart item into the cart
+ * JSON:
+ * {
+ *  "clazzId": 2,
+ * 	"teacherAvailableTimeId": 3,
+ * 	"price": 45
+ * }
+ *
+ * 2. Send below request to convert clazz cart to clazz order
+ * JSON:
+ * [
+ *     {
+ *         "id": 1,
+ *         "clazzId": 1,
+ *         "teacherAvailableTimeId": 2,
+ *         "price": 23
+ *     },
+ *     {
+ *         "id": 4,
+ *         "clazzId": 2,
+ *         "teacherAvailableTimeId": 3,
+ *         "price": 45
+ *     }
+ * ]
+ */
 @Service
 public class ClazzCartService {
     private final Logger logger = LogManager.getLogger(ClazzCartService.class);
@@ -66,6 +92,9 @@ public class ClazzCartService {
 
     @Autowired
     OrderStatusRepository orderStatusRepository;
+
+    @Autowired
+    TokenService tokenService;
 
     public ClazzCart getClazzCartByUserId(long userId) {
         return clazzCartRepository.findByUserId(userId);
@@ -146,7 +175,9 @@ public class ClazzCartService {
     }
 
     @Transactional(rollbackFor = {Exception.class})
-    public ClazzOrder _createOrder(List<ClazzCartItem> clazzCartItemList) throws Exception {
+    public HashMap<String, Object> cartToOrder(List<ClazzCartItem> clazzCartItemList) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+
         ClazzOrder order;
         ClazzCart cart = getMyCart();
         Set<ClazzCartItem> persistedCartItems = cart.getClazzCartItems();
@@ -172,24 +203,16 @@ public class ClazzCartService {
 
         // If order created successfully, then remove the cart item from cart
 
-//        deleteAllClazzCartItems(newCartItems);
+        List<Long> idToBeDeleted = newCartItems.stream().map(item -> item.getId()).collect(Collectors.toList());
 
-        return order;
-    }
+        cart.setClazzCartItems(cart.getClazzCartItems().stream().filter(item -> !idToBeDeleted.contains(item.getId())).collect(Collectors.toSet()));
 
-    @Transactional(rollbackFor = {Exception.class})
-    public void deleteClazzCartItemFromCart(List<ClazzCartItem> clazzCartItemList) throws Exception{
-        for (ClazzCartItem _item : clazzCartItemList
-        ) {
-            logger.debug("cartToOrder::Will be deleted [{}]", _item.getId());
-            clazzCartItemRepository.deleteById(_item.getId());
-        }
-    }
+        deleteAllClazzCartItems(newCartItems);
 
-    public ClazzOrder cartToOrder(List<ClazzCartItem> clazzCartItemList) throws Exception {
-        ClazzOrder clazzOrder = _createOrder(clazzCartItemList);
-        deleteClazzCartItemFromCart(clazzCartItemList);
-        return clazzOrder;
+        result.put("clazzOrder", order);
+        result.put("paymentToken", tokenService.getPaymentToken(order.getId(), PaymentTokenCategory.CLAZZ));
+
+        return result;
     }
 
     public void deleteAllClazzCartItems(Iterable<ClazzCartItem> cartItems) {

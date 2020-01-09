@@ -33,6 +33,8 @@ import java.util.Set;
 @Getter
 @Setter
 public class ClazzOrder {
+    public static final String PREFIX = "CLZ";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -17,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "orders", schema = "public")
 public class Order implements Serializable {
-
+    public static final String PREFIX = "ORD";
     /**
      *
      */
