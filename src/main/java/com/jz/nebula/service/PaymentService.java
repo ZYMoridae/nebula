@@ -7,6 +7,7 @@ import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.dao.sku.SkuRepository;
 import com.jz.nebula.entity.*;
+import com.jz.nebula.entity.edu.ClazzOrder;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderItem;
 import com.jz.nebula.entity.order.OrderLogisticsInfo;
@@ -17,6 +18,7 @@ import com.jz.nebula.entity.sku.Sku;
 import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.payment.PaymentGateway;
 import com.jz.nebula.payment.PaymentType;
+import com.jz.nebula.service.edu.ClazzOrderService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,11 +74,17 @@ public class PaymentService {
     @Autowired
     private OrderService orderService;
 
+    private ClazzOrderService clazzOrderService;
+
+
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public PaymentService() {
+    @Autowired
+    public PaymentService(ClazzOrderService clazzOrderService) {
+        this.clazzOrderService = clazzOrderService;
     }
+
 
     public PaymentGateway getPaymentGateway() {
         return paymentGateway;
@@ -251,7 +259,18 @@ public class PaymentService {
         return result;
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    protected HashMap processClazzOrder(long orderId, PaymentMethodInfo paymentMethodInfo) throws Exception {
+        HashMap<String, Object> results = new HashMap<>();
+        Payment payment = new Payment();
 
+        ClazzOrder clazzOrder = clazzOrderService.findById(orderId);
+
+
+
+
+        return results;
+    }
 
 //    /**
 //     * Delete product from shopping cart after order finalised

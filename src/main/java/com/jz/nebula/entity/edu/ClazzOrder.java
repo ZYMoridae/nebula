@@ -63,4 +63,8 @@ public class ClazzOrder {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+//    public double getTotalAmount() {
+//
+//    }
 }
