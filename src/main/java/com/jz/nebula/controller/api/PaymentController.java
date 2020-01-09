@@ -67,6 +67,14 @@ public class PaymentController {
         return this.paymentService.finaliseOrder(id, paymentMethodInfo);
     }
 
+    /**
+     * This method is general payment method, user need to pass in the valid order reference
+     *
+     * @param paymentMethodInfo
+     * @param paymentToken
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/finalise")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -77,6 +85,7 @@ public class PaymentController {
         long orderId = -1;
         Object paymentResult = null;
 
+        // Get first three chars to determine is valid reference number
         if (orderReferenceNumber.length() >= 3) {
             prefix = orderReferenceNumber.substring(0, 3);
         }
