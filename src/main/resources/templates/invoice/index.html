@@ -148,13 +148,25 @@
         </tr>
         </thead>
         <tbody style="border-bottom: 1px solid #efefef;">
-        <th:block th:each="orderItem, iterationStatus : *{order.orderItems}">
-            <tr>
-                <td th:text="*{orderItem.product.name}"></td>
-                <td th:text="*{orderItem.quantity}"></td>
-                <td th:text="*{orderItem.unitPrice}"></td>
-                <td th:text="*{orderItem.unitPrice * orderItem.quantity}"></td>
-            </tr>
+        <th:block th:if="${entityType == 'ORD'}">
+            <th:block th:each="orderItem, iterationStatus : *{order.orderItems}">
+                <tr>
+                    <td th:text="*{orderItem.product.name}"></td>
+                    <td th:text="*{orderItem.quantity}"></td>
+                    <td th:text="*{orderItem.unitPrice}"></td>
+                    <td th:text="*{orderItem.unitPrice * orderItem.quantity}"></td>
+                </tr>
+            </th:block>
+        </th:block>
+        <th:block th:if="${entityType == 'CLZ'}">
+            <th:block th:each="clazzOrderItem, iterationStatus : *{order.clazzOrderItems}">
+                <tr>
+                    <td th:text="*{clazzOrderItem.clazz.name}"></td>
+                    <td th:text="1"></td>
+                    <td th:text="*{clazzOrderItem.price}"></td>
+                    <td th:text="*{clazzOrderItem.price}"></td>
+                </tr>
+            </th:block>
         </th:block>
         </tbody>
     </table>

@@ -52,7 +52,7 @@ public class OrderController {
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Order findById(@PathVariable("id") long id) {
+    Order findById(@PathVariable("id") long id) throws Exception {
         return orderService.findById(id);
     }
 
@@ -89,7 +89,7 @@ public class OrderController {
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    Order create(@RequestBody Order order) throws SkuOutOfStockException, MultipleActivatedOrderException {
+    Order create(@RequestBody Order order) throws Exception {
         Order savedOrder =  orderService.createOrder(order);
         return orderService.findById(savedOrder.getId());
     }

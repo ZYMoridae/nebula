@@ -9,6 +9,8 @@ import com.jz.nebula.entity.payment.PaymentTokenCategory;
 import com.jz.nebula.exception.payment.InvalidPaymentTokenException;
 import com.jz.nebula.service.PaymentService;
 import com.jz.nebula.service.TokenService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,8 @@ import javax.annotation.security.RolesAllowed;
 @RestController
 @RequestMapping("/api/payments")
 public class PaymentController {
+    private final static Logger logger = LogManager.getLogger(PaymentController.class);
+
     @Autowired
     private PaymentService paymentService;
 
@@ -40,12 +44,12 @@ public class PaymentController {
      *
      * @throws Exception
      */
-    @PostMapping("/finalise")
-    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    public @ResponseBody
-    Object finalise(@RequestBody PaymentMethodInfo paymentMethodInfo) throws Exception {
-        return this.paymentService.finaliseOrder(paymentMethodInfo);
-    }
+//    @PostMapping("/finalise")
+//    @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
+//    public @ResponseBody
+//    Object finalise(@RequestBody PaymentMethodInfo paymentMethodInfo) throws Exception {
+//        return this.paymentService.finaliseOrder(paymentMethodInfo);
+//    }
 
     /**
      * @param id
@@ -79,7 +83,7 @@ public class PaymentController {
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
     Object finaliseOrder(@RequestBody PaymentMethodInfo paymentMethodInfo, @RequestParam String paymentToken) throws Exception {
-        String orderReferenceNumber = paymentMethodInfo.getPaymentType();
+        String orderReferenceNumber = paymentMethodInfo.getReference();
 
         String prefix = "";
         long orderId = -1;
@@ -88,8 +92,10 @@ public class PaymentController {
         // Get first three chars to determine is valid reference number
         if (orderReferenceNumber.length() >= 3) {
             prefix = orderReferenceNumber.substring(0, 3);
+            logger.debug("finaliseOrder:: prefix is [{}]", prefix);
         }
 
+        logger.debug("finaliseOrder:: order id is [{}]", orderReferenceNumber.substring(3));
         orderId = Long.parseLong(orderReferenceNumber.substring(3));
 
         PaymentTokenCategory paymentTokenCategory = null;
@@ -106,6 +112,11 @@ public class PaymentController {
             }
             case ClazzOrder.PREFIX: {
                 paymentTokenCategory = PaymentTokenCategory.CLAZZ;
+                // Check payment token still alive in Redis
+                if (!tokenService.isPaymentTokenValid(orderId, paymentToken, paymentTokenCategory)) {
+                    throw new InvalidPaymentTokenException();
+                }
+                paymentResult = paymentService.finaliseClazzOrder(orderId, paymentMethodInfo);
                 break;
             }
             default:

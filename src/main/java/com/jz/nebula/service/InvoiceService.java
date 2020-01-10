@@ -33,9 +33,8 @@ public class InvoiceService {
 
     private Logger logger = Logger.getLogger(InvoiceService.class);
 
-
     public InvoiceService() {
-        this.invoicePattern = Pattern.compile("^(INV)[A-Z]{2}[0-9]{19}");
+        this.invoicePattern = Pattern.compile("^(INV)[A-Z]{5}[0-9]{16}");
     }
 
     /**
@@ -55,6 +54,16 @@ public class InvoiceService {
             logger.error(e);
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Find by invoice id
+     *
+     * @param invoiceId
+     * @return
+     */
+    public Invoice findByInvoiceId(String invoiceId) {
+        return invoiceRepository.findByInvoiceId(invoiceId);
     }
 
     private void updateDbInovice(Charge charge) {
@@ -115,9 +124,9 @@ public class InvoiceService {
      *
      * @return
      */
-    public String formatInvoiceId(Long orderId) {
+    public String formatInvoiceId(Long orderId, String entityType) {
         String sOrderId = String.valueOf(orderId);
-        String _invoiceId = StringUtils.leftPad(sOrderId, INVOICE_LENGTH - 5, "0");
-        return "INVCN" + _invoiceId;
+        String _invoiceId = StringUtils.leftPad(sOrderId, INVOICE_LENGTH - 8, "0");
+        return "INV" + entityType + "CN" + _invoiceId;
     }
 }

@@ -25,7 +25,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -41,6 +43,10 @@ public class ClazzOrder {
 
     @Column(name = "user_id")
     private Long userId;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
 
     @Column(name = "total_price")
     private double totalPrice;
@@ -64,7 +70,17 @@ public class ClazzOrder {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-//    public double getTotalAmount() {
-//
-//    }
+    /**
+     * Get total amount of order
+     *
+     * @return
+     */
+    public Optional<Double> getTotalAmount(boolean isInCent) {
+        double totalAmount = 0;
+        for (ClazzOrderItem clazzOrderItem : this.clazzOrderItems) {
+            totalAmount += isInCent ? clazzOrderItem.getPrice() * 100 : clazzOrderItem.getPrice();
+        }
+
+        return Optional.of(totalAmount);
+    }
 }

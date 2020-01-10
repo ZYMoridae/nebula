@@ -36,15 +36,14 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "order_id")
-    private Long orderId;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id", nullable = false, updatable = false, insertable = false)
-    private Order order;
+    @Column(name = "entity_id")
+    private Long entityId;
 
     @Column(name = "invoice_id")
     private String invoiceId;
+
+    @Column(name = "entity_type")
+    private String entityType;
 
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;

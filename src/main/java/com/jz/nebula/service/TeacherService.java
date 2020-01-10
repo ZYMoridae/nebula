@@ -1,21 +1,31 @@
 package com.jz.nebula.service;
 
+import com.google.common.base.Strings;
 import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.controller.api.UserController;
 import com.jz.nebula.dao.TeacherMetaRepository;
 import com.jz.nebula.dao.TeacherRepository;
 import com.jz.nebula.dao.TeacherSubscriptionRepository;
+import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.teacher.Teacher;
 import com.jz.nebula.entity.teacher.TeacherMeta;
 import com.jz.nebula.entity.teacher.TeacherSubscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Service
 public class TeacherService {
@@ -33,10 +43,27 @@ public class TeacherService {
     @Autowired
     private TeacherSubscriptionRepository teacherSubscriptionRepository;
 
+    public PagedResources<Resource<Teacher>> findAll(String keyword, Pageable pageable,
+                                                     PagedResourcesAssembler<Teacher> assembler) {
+        Page<Teacher> page;
+        if (Strings.isNullOrEmpty(keyword)) {
+            page = teacherRepository.findAllByOrderByIdAsc(pageable);
+        } else {
+            page = teacherRepository.findByNameContaining(keyword, pageable);
+        }
+
+        PagedResources<Resource<Teacher>> resources = assembler.toResource(page,
+                linkTo(UserController.class).slash("/users").withSelfRel());
+
+        return resources;
+    }
+
+
     /**
      * Find teacher by id
      *
      * @param id
+     *
      * @return
      */
     public HashMap<String, Object> findById(long id) {
@@ -63,6 +90,7 @@ public class TeacherService {
      * Find meta by teacher id
      *
      * @param id
+     *
      * @return
      */
     public TeacherMeta findMetaByTeacherId(long id) {
@@ -74,6 +102,7 @@ public class TeacherService {
      * Create teacher meta
      *
      * @param teacherMeta
+     *
      * @return
      */
     public TeacherMeta saveTeacherMeta(long id, TeacherMeta teacherMeta) throws Exception {

@@ -7,6 +7,7 @@ import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.dao.sku.SkuRepository;
 import com.jz.nebula.entity.*;
+import com.jz.nebula.entity.edu.Clazz;
 import com.jz.nebula.entity.edu.ClazzOrder;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderItem;
@@ -114,6 +115,7 @@ public class PaymentService {
      * Update stock. We will update the SKU based on the sku code stored in side order item.
      *
      * @param orderItem
+     *
      * @throws ProductStockException
      */
     private synchronized void updateStock(OrderItem orderItem) throws ProductStockException {
@@ -134,6 +136,7 @@ public class PaymentService {
      * Update order status
      *
      * @param order
+     *
      * @return
      */
     private Order updateOrderStatus(Order order) {
@@ -146,7 +149,9 @@ public class PaymentService {
      *
      * @param id
      * @param paymentMethodInfo
+     *
      * @return
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
@@ -165,6 +170,7 @@ public class PaymentService {
      * Finalise order and rollback when encounter a exception
      *
      * @return
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
@@ -187,7 +193,9 @@ public class PaymentService {
     /**
      * @param order
      * @param paymentMethodInfo
+     *
      * @return
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class, ProductStockException.class})
@@ -195,12 +203,12 @@ public class PaymentService {
 
         Order finalOrder = order;
         // Once finalise order failed, we need to delete logistic info which saved in the previous step
-        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter(){
-            public void afterCommit(int status){
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+            public void afterCommit(int status) {
                 //do stuff right after commit
-                if(status == TransactionSynchronization.STATUS_ROLLED_BACK) {
+                if (status == TransactionSynchronization.STATUS_ROLLED_BACK) {
                     OrderLogisticsInfo orderLogisticsInfo = orderLogisticsInfoRepository.findByOrdersId(finalOrder.getId()).get();
-                    if(orderLogisticsInfo != null) {
+                    if (orderLogisticsInfo != null) {
                         orderLogisticsInfoRepository.delete(orderLogisticsInfo);
                     }
                 }
@@ -244,10 +252,7 @@ public class PaymentService {
             this.orderService.deleteCartItems(order.getOrderItems());
 
             // Generate invoice
-            Invoice invoice = new Invoice();
-            invoice.setOrderId(order.getId());
-            invoice.setInvoiceId(invoiceService.formatInvoiceId(order.getId()));
-            this.invoiceService.save(invoice);
+            generateInvoice(order.getId(), Order.PREFIX);
         } else {
             throw new Exception();
         }
@@ -260,16 +265,46 @@ public class PaymentService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    protected HashMap processClazzOrder(long orderId, PaymentMethodInfo paymentMethodInfo) throws Exception {
-        HashMap<String, Object> results = new HashMap<>();
+    public HashMap finaliseClazzOrder(long orderId, PaymentMethodInfo paymentMethodInfo) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
         Payment payment = new Payment();
-
+        Object charge = null;
         ClazzOrder clazzOrder = clazzOrderService.findById(orderId);
+        Optional<Double> totalAmount = clazzOrder.getTotalAmount(true);
 
+        if (totalAmount.isPresent() && totalAmount.get() > 0) {
+            payment.setAmount(totalAmount.get().intValue());
 
+            payment.setType(PaymentType.CHARGE);
 
+            // TODO: Need to be changed for currency
+            payment.setCurrency("aud");
+            payment.setSource("tok_visa");
+            payment.setReceiptEmail(authenticationFacade.getUser().getEmail());
 
-        return results;
+            charge = this.doPayment(payment, paymentMethodInfo);
+            logger.info("ClazzOrder id:[{}] has been charged", orderId);
+
+            clazzOrder.setStatusId((long) OrderStatus.StatusType.PAID.value);
+
+            clazzOrder = clazzOrderService.save(clazzOrder);
+
+            // Generate invoice
+            generateInvoice(orderId, ClazzOrder.PREFIX);
+        }
+
+        result.put("payment", charge);
+        result.put("order", clazzOrder);
+
+        return result;
+    }
+
+    public Invoice generateInvoice(long entityId, String entityType) {
+        Invoice invoice = new Invoice();
+        invoice.setEntityId(entityId);
+        invoice.setInvoiceId(invoiceService.formatInvoiceId(entityId, entityType));
+        invoice.setEntityType(entityType);
+        return this.invoiceService.save(invoice);
     }
 
 //    /**
@@ -296,7 +331,9 @@ public class PaymentService {
      * Do payment
      *
      * @param payment
+     *
      * @return
+     *
      * @throws Exception
      */
     public Object doPayment(Payment payment, PaymentMethodInfo paymentMethodInfo) throws Exception {

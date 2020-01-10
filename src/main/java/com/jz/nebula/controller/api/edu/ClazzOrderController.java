@@ -21,8 +21,6 @@
 package com.jz.nebula.controller.api.edu;
 
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.entity.edu.ClazzOrder;
-import com.jz.nebula.entity.payment.CreditCard;
 import com.jz.nebula.service.edu.ClazzOrderService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,8 +41,8 @@ public class ClazzOrderController {
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    ClazzOrder findById(@PathVariable("id") long id) {
-        return clazzOrderService.findById(id);
+    HashMap findById(@PathVariable("id") long id) throws Exception {
+        return clazzOrderService.getClazzOrderWithPaymentToken(id);
     }
 
 
