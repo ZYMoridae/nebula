@@ -21,9 +21,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -43,6 +41,15 @@ public class TeacherService {
     @Autowired
     private TeacherSubscriptionRepository teacherSubscriptionRepository;
 
+    /**
+     * Find all teachers
+     *
+     * @param keyword
+     * @param pageable
+     * @param assembler
+     *
+     * @return
+     */
     public PagedResources<Resource<Teacher>> findAll(String keyword, Pageable pageable,
                                                      PagedResourcesAssembler<Teacher> assembler) {
         Page<Teacher> page;
@@ -52,12 +59,20 @@ public class TeacherService {
             page = teacherRepository.findByNameContaining(keyword, pageable);
         }
 
+        // Loop each teacher item and find the teacher meta
+        Iterator<Teacher> iterator = page.iterator();
+        while (iterator.hasNext()) {
+            Teacher teacher = iterator.next();
+            TeacherMeta teacherMeta = teacherMetaRepository.findByUserId(teacher.getId()).get();
+            logger.debug("findAll:: teacher meta id [{}]", teacherMeta != null ? teacherMeta.getId() : -1);
+            teacher.setTeacherMeta(teacherMeta);
+        }
+
         PagedResources<Resource<Teacher>> resources = assembler.toResource(page,
                 linkTo(UserController.class).slash("/users").withSelfRel());
 
         return resources;
     }
-
 
     /**
      * Find teacher by id
@@ -78,9 +93,7 @@ public class TeacherService {
             resultSet.put("firstname", teacher.getFirstname());
             resultSet.put("lastname", teacher.getLastname());
             resultSet.put("gender", teacher.getGender());
-            resultSet.put("introduction", teacherMeta.getIntro());
-            resultSet.put("countryCode", teacherMeta.getCountryCode());
-            resultSet.put("avatar", teacherMeta.getAvatar());
+            resultSet.put("teacherMeta", teacherMeta);
         }
 
         return resultSet;

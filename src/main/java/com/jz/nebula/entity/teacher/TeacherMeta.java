@@ -18,7 +18,7 @@ public class TeacherMeta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "user_id")
     private Long userId;
 
@@ -36,6 +36,24 @@ public class TeacherMeta implements Serializable {
 
     @Column(name = "avatar")
     private String avatar;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
+
+    @Column(name = "speaking_language")
+    private String speakingLanguage;
+
+    @Column(name = "certificates")
+    private String certificates;
+
+    @Column(name = "student_min_requirements")
+    private String studentMinRequirements;
 
     @Override
     public String toString() {

@@ -21,7 +21,7 @@ import java.util.Set;
 public class Teacher extends User implements Serializable {
 
 //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id", nullable = false, updatable = false, insertable = false)
-//    private TeacherMeta teacherMeta;
-
+//    @JoinColumn(name = "id", nullable = false, updatable = false, insertable = false)
+    @Transient
+    private TeacherMeta teacherMeta;
 }
