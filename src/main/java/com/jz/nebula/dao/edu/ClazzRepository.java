@@ -17,7 +17,15 @@
 package com.jz.nebula.dao.edu;
 
 import com.jz.nebula.entity.edu.Clazz;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface ClazzRepository extends PagingAndSortingRepository<Clazz, Long> {
+    Page<Clazz> findAllByOrderByIdAsc(Pageable pageable);
+
+    @Query("select c from Clazz c where lower(c.name) like %?1%")
+    Page<Clazz> findByNameContaining(@Param("keyword") String keyword, Pageable pageable);
 }

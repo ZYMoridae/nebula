@@ -27,10 +27,16 @@ import com.jz.nebula.service.edu.ClazzService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
 @RestController
@@ -40,6 +46,25 @@ public class ClazzController {
 
     @Autowired
     private ClazzService clazzService;
+
+    /**
+     * Find all classes
+     *
+     * @param keyword
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     * @return
+     */
+    @GetMapping
+    @RolesAllowed({Role.ROLE_ADMIN, Role.ROLE_USER, Role.ROLE_TEACHER, Role.ROLE_VENDOR})
+    public @ResponseBody
+    PagedResources<Resource<Clazz>> all(@RequestParam String keyword, Pageable pageable,
+                                        final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                        PagedResourcesAssembler<Clazz> assembler) {
+        return clazzService.findAll(keyword, pageable, assembler);
+    }
 
     /**
      * Find class by id
@@ -136,6 +161,7 @@ public class ClazzController {
      *
      * @param availId
      * @param teacherAvailableTime
+     *
      * @return
      */
     @PutMapping("/{id}/teachers/availabilities/{availId}")
@@ -150,6 +176,7 @@ public class ClazzController {
      * Find teacher available time by id
      *
      * @param availId
+     *
      * @return
      */
     @GetMapping("/{id}/teachers/availabilities/{availId}")
