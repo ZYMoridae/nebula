@@ -22,6 +22,7 @@ package com.jz.nebula.controller.api.edu;
 
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.edu.Clazz;
+import com.jz.nebula.entity.edu.ClazzCategory;
 import com.jz.nebula.entity.edu.TeacherAvailableTime;
 import com.jz.nebula.service.edu.ClazzService;
 import org.apache.logging.log4j.LogManager;
@@ -55,15 +56,16 @@ public class ClazzController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping
     @RolesAllowed({Role.ROLE_ADMIN, Role.ROLE_USER, Role.ROLE_TEACHER, Role.ROLE_VENDOR})
     public @ResponseBody
-    PagedResources<Resource<Clazz>> all(@RequestParam String keyword, Pageable pageable,
+    PagedResources<Resource<Clazz>> all(@RequestParam long clazzCategoryId, @RequestParam String keyword, Pageable pageable,
                                         final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
                                         PagedResourcesAssembler<Clazz> assembler) {
-        return clazzService.findAll(keyword, pageable, assembler);
+        return clazzService.findAll(clazzCategoryId, keyword, pageable, assembler);
     }
 
     /**
@@ -184,6 +186,85 @@ public class ClazzController {
     public @ResponseBody
     TeacherAvailableTime getTeacherAvailableTime(@PathVariable("availId") long availId) {
         return clazzService.findTeacherAvailableTimeById(availId);
+    }
+
+    /**
+     * Get class category by id
+     *
+     * @param id
+     *
+     * @return
+     */
+    @GetMapping("/categories/{id}")
+    @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN, Role.ROLE_USER, Role.ROLE_ADMIN})
+    public @ResponseBody
+    ClazzCategory getClazzCategory(@PathVariable("id") long id) {
+        return clazzService.findClazzCategoryById(id);
+    }
+
+    /**
+     * Create new class category
+     *
+     * @param clazzCategory
+     *
+     * @return
+     */
+    @PostMapping("/categories")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public @ResponseBody
+    ClazzCategory createClazzCategory(@RequestBody ClazzCategory clazzCategory) {
+        return clazzService.saveClazzCategory(clazzCategory);
+    }
+
+    /**
+     * Update class category by id
+     *
+     * @param id
+     * @param clazzCategory
+     *
+     * @return
+     */
+    @PutMapping("/categories/{id}")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public @ResponseBody
+    ClazzCategory createClazzCategory(@PathVariable("id") long id, @RequestBody ClazzCategory clazzCategory) {
+        clazzCategory.setId(id);
+        return clazzService.saveClazzCategory(clazzCategory);
+    }
+
+    /**
+     * Delete category by id
+     *
+     * @param id
+     *
+     * @return
+     */
+    @DeleteMapping("/categories/{id}")
+    @RolesAllowed({Role.ROLE_ADMIN})
+    public @ResponseBody
+    ResponseEntity<?> deleteClazzCategory(@PathVariable("id") long id) {
+        clazzService.deleteClazzCategoryById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Find all class categories
+     *
+     * @param keyword
+     * @param pageable
+     * @param uriBuilder
+     * @param response
+     * @param assembler
+     *
+     * @return
+     */
+    @GetMapping("/categories")
+    @RolesAllowed({Role.ROLE_ADMIN, Role.ROLE_USER, Role.ROLE_TEACHER, Role.ROLE_VENDOR})
+    public @ResponseBody
+    PagedResources<Resource<ClazzCategory>> getAllClazzCategory(@RequestParam String keyword, Pageable pageable,
+                                                                final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                                                PagedResourcesAssembler<ClazzCategory> assembler) {
+        return clazzService.findAllClazzCategory(keyword, pageable, assembler);
     }
 
 }

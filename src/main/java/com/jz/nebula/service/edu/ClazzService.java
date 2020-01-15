@@ -18,10 +18,13 @@ package com.jz.nebula.service.edu;
 
 import com.google.common.base.Strings;
 import com.jz.nebula.controller.api.UserController;
+import com.jz.nebula.controller.api.edu.ClazzController;
+import com.jz.nebula.dao.edu.ClazzCategoryRepository;
 import com.jz.nebula.dao.edu.ClazzRepository;
 import com.jz.nebula.dao.edu.TeacherAvailableTimeRepository;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.edu.Clazz;
+import com.jz.nebula.entity.edu.ClazzCategory;
 import com.jz.nebula.entity.edu.TeacherAvailableTime;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,14 +48,27 @@ public class ClazzService {
     @Autowired
     TeacherAvailableTimeRepository teacherAvailableTimeRepository;
 
-    public PagedResources<Resource<Clazz>> findAll(String keyword, Pageable pageable,
-                                                  PagedResourcesAssembler<Clazz> assembler) {
+    @Autowired
+    ClazzCategoryRepository clazzCategoryRepository;
+
+    /**
+     * Find all classes
+     *
+     * @param keyword
+     * @param pageable
+     * @param assembler
+     *
+     * @return
+     */
+    public PagedResources<Resource<Clazz>> findAll(long clazzCategoryId, String keyword, Pageable pageable,
+                                                   PagedResourcesAssembler<Clazz> assembler) {
         Page<Clazz> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = clazzRepository.findAllByOrderByIdAsc(pageable);
-            logger.debug("findAll::");
+            logger.debug("findAll::order by id");
         } else {
-            page = clazzRepository.findByNameContaining(keyword, pageable);
+            page = clazzRepository.findByClazzCategoryIdAndNameContaining(clazzCategoryId, keyword, pageable);
+            logger.debug("findAll::find by name containing");
         }
 
         PagedResources<Resource<Clazz>> resources = assembler.toResource(page,
@@ -61,15 +77,34 @@ public class ClazzService {
         return resources;
     }
 
+    /**
+     * Find by id
+     *
+     * @param id
+     *
+     * @return
+     */
     public Clazz findById(long id) {
         return clazzRepository.findById(id).get();
     }
 
+    /**
+     * Native save class
+     *
+     * @param clazz
+     *
+     * @return
+     */
     public Clazz save(Clazz clazz) {
         Clazz persistedClazz = clazzRepository.save(clazz);
         return findById(persistedClazz.getId());
     }
 
+    /**
+     * Delete class by id
+     *
+     * @param id
+     */
     public void delete(long id) {
         clazzRepository.deleteById(id);
     }
@@ -98,13 +133,49 @@ public class ClazzService {
      * Update teacher available time
      *
      * @param teacherAvailableTime
+     *
      * @return
      */
     public TeacherAvailableTime saveTeacherAvailableTime(TeacherAvailableTime teacherAvailableTime) {
         return teacherAvailableTimeRepository.save(teacherAvailableTime);
     }
 
+    /**
+     * Find teacher available time by id
+     *
+     * @param id
+     *
+     * @return
+     */
     public TeacherAvailableTime findTeacherAvailableTimeById(long id) {
         return teacherAvailableTimeRepository.findById(id).get();
+    }
+
+    public ClazzCategory findClazzCategoryById(long id) {
+        return clazzCategoryRepository.findById(id).get();
+    }
+
+    public ClazzCategory saveClazzCategory(ClazzCategory clazzCategory) {
+        return clazzCategoryRepository.save(clazzCategory);
+    }
+
+    public void deleteClazzCategoryById(long id) {
+        clazzCategoryRepository.deleteById(id);
+    }
+
+    public PagedResources<Resource<ClazzCategory>> findAllClazzCategory(String keyword, Pageable pageable,
+                                                                        PagedResourcesAssembler<ClazzCategory> assembler) {
+
+        Page<ClazzCategory> page;
+        if (Strings.isNullOrEmpty(keyword)) {
+            page = clazzCategoryRepository.findAll(pageable);
+        } else {
+            page = clazzCategoryRepository.findByNameContaining(keyword, pageable);
+        }
+
+        PagedResources<Resource<ClazzCategory>> resources = assembler.toResource(page,
+                linkTo(ClazzController.class).slash("/classes/categories").withSelfRel());
+        ;
+        return resources;
     }
 }

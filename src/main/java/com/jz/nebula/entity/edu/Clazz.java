@@ -53,6 +53,14 @@ public class Clazz {
     @JoinColumn(name = "teacher_id", nullable = false, updatable = false, insertable = false)
     private User teacher;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "class_category_id")
+    private Long classCategoryId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "class_category_id", nullable = false, updatable = false, insertable = false)
+    private ClazzCategory clazzCategory;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
