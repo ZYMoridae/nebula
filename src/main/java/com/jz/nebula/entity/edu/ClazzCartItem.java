@@ -21,6 +21,8 @@
 package com.jz.nebula.entity.edu;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.jz.nebula.View;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -58,10 +60,12 @@ public class ClazzCartItem {
 
     private double price;
 
+    @JsonView(View.Admin.class)
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @JsonView(View.Admin.class)
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

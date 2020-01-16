@@ -17,6 +17,8 @@
 package com.jz.nebula.entity.edu;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.jz.nebula.View;
 import com.jz.nebula.entity.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -61,10 +63,18 @@ public class Clazz {
     @JoinColumn(name = "class_category_id", nullable = false, updatable = false, insertable = false)
     private ClazzCategory clazzCategory;
 
+    @Column(name = "rating")
+    private double rating;
+
+    @Column(name = "rating_count")
+    private int ratingCount;
+
+    @JsonView(View.Admin.class)
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @JsonView(View.Admin.class)
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

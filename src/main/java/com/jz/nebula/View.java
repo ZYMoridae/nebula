@@ -18,39 +18,42 @@
  * under the License.
  */
 
-package com.jz.nebula.entity.edu;
+package com.jz.nebula;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.jz.nebula.View;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import com.jz.nebula.entity.Role;
 
-@Entity
-@Table(name = "class_category", schema = "public")
-@Getter
-@Setter
-public class ClazzCategory {
+import java.util.HashMap;
+import java.util.Map;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+/**
+ * This class is used for JSON view
+ *
+ */
+public class View {
+    public static final Map<Role.ViewRole, Class> MAPPING = new HashMap<>();
 
-    private String name;
+    static {
+        MAPPING.put(Role.ViewRole.ROLE_ADMIN, Admin.class);
+        MAPPING.put(Role.ViewRole.ROLE_USER, User.class);
+        MAPPING.put(Role.ViewRole.ROLE_TEACHER, Teacher.class);
+        MAPPING.put(Role.ViewRole.ROLE_VENDOR, Vendor.class);
+        MAPPING.put(Role.ViewRole.ROLE_ANONYMOUS, User.class);
+    }
 
-    private String code;
+    public static class User {
 
-    @JsonView(View.Admin.class)
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    }
 
-    @JsonView(View.Admin.class)
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    public static class Admin extends User {
+
+    }
+
+    public static class Vendor extends User {
+
+    }
+
+    public static class Teacher extends User {
+
+    }
 }

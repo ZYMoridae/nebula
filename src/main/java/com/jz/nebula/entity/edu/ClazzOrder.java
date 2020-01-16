@@ -16,6 +16,8 @@
 
 package com.jz.nebula.entity.edu;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.jz.nebula.View;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.order.OrderStatus;
 import lombok.Getter;
@@ -62,10 +64,12 @@ public class ClazzOrder {
     @JoinColumn(name = "status_id", nullable = false, updatable = false, insertable = false)
     private OrderStatus orderStatus;
 
+    @JsonView(View.Admin.class)
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @JsonView(View.Admin.class)
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

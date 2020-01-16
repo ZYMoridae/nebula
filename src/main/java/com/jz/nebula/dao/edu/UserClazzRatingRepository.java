@@ -18,39 +18,15 @@
  * under the License.
  */
 
-package com.jz.nebula.entity.edu;
+package com.jz.nebula.dao.edu;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.jz.nebula.View;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.jz.nebula.entity.edu.UserClazzRating;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Optional;
 
-@Entity
-@Table(name = "class_category", schema = "public")
-@Getter
-@Setter
-public class ClazzCategory {
+public interface UserClazzRatingRepository extends PagingAndSortingRepository<UserClazzRating, Long> {
+    Optional<UserClazzRating> findByUserId(long id);
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    private String code;
-
-    @JsonView(View.Admin.class)
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @JsonView(View.Admin.class)
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    Optional<UserClazzRating> findByUserIdAndClazzId(long userId, long clazzId);
 }

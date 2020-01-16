@@ -20,8 +20,6 @@
 
 package com.jz.nebula.entity.edu;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.jz.nebula.View;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,25 +29,28 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "class_category", schema = "public")
+@Table(name = "class_rating", schema = "public")
 @Getter
 @Setter
-public class ClazzCategory {
+public class UserClazzRating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "user_id")
+    private Long userId;
 
-    private String code;
+    @Column(name = "class_id")
+    private Long clazzId;
 
-    @JsonView(View.Admin.class)
+    @Column(name = "rating")
+    private double rating;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @JsonView(View.Admin.class)
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

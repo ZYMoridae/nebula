@@ -38,4 +38,12 @@ public class Role implements Serializable {
 
     public Role() {
     }
+
+    public enum ViewRole {
+        ROLE_USER,
+        ROLE_ADMIN,
+        ROLE_ANONYMOUS,
+        ROLE_TEACHER,
+        ROLE_VENDOR
+    }
 }

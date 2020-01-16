@@ -22,10 +22,12 @@ import com.jz.nebula.controller.api.edu.ClazzController;
 import com.jz.nebula.dao.edu.ClazzCategoryRepository;
 import com.jz.nebula.dao.edu.ClazzRepository;
 import com.jz.nebula.dao.edu.TeacherAvailableTimeRepository;
+import com.jz.nebula.dao.edu.UserClazzRatingRepository;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.edu.Clazz;
 import com.jz.nebula.entity.edu.ClazzCategory;
 import com.jz.nebula.entity.edu.TeacherAvailableTime;
+import com.jz.nebula.entity.edu.UserClazzRating;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -51,6 +56,9 @@ public class ClazzService {
     @Autowired
     ClazzCategoryRepository clazzCategoryRepository;
 
+    @Autowired
+    UserClazzRatingRepository userClazzRatingRepository;
+
     /**
      * Find all classes
      *
@@ -64,7 +72,7 @@ public class ClazzService {
                                                    PagedResourcesAssembler<Clazz> assembler) {
         Page<Clazz> page;
         if (Strings.isNullOrEmpty(keyword)) {
-            page = clazzRepository.findAllByOrderByIdAsc(pageable);
+            page = clazzRepository.findAll(pageable);
             logger.debug("findAll::order by id");
         } else {
             page = clazzRepository.findByClazzCategoryIdAndNameContaining(clazzCategoryId, keyword, pageable);
@@ -151,31 +159,99 @@ public class ClazzService {
         return teacherAvailableTimeRepository.findById(id).get();
     }
 
+    /**
+     * Find class category by id
+     *
+     * @param id
+     *
+     * @return
+     */
     public ClazzCategory findClazzCategoryById(long id) {
         return clazzCategoryRepository.findById(id).get();
     }
 
+    /**
+     * Save class category
+     *
+     * @param clazzCategory
+     *
+     * @return
+     */
     public ClazzCategory saveClazzCategory(ClazzCategory clazzCategory) {
         return clazzCategoryRepository.save(clazzCategory);
     }
 
+    /**
+     * Delete class category by id
+     *
+     * @param id
+     */
     public void deleteClazzCategoryById(long id) {
         clazzCategoryRepository.deleteById(id);
     }
 
+    /**
+     * Find all class category
+     *
+     * @param keyword
+     * @param pageable
+     * @param assembler
+     *
+     * @return
+     */
     public PagedResources<Resource<ClazzCategory>> findAllClazzCategory(String keyword, Pageable pageable,
                                                                         PagedResourcesAssembler<ClazzCategory> assembler) {
-
         Page<ClazzCategory> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = clazzCategoryRepository.findAll(pageable);
         } else {
             page = clazzCategoryRepository.findByNameContaining(keyword, pageable);
         }
+        logger.debug("findAllClazzCategory::find clazz category totally [{}]", page.getTotalElements());
 
         PagedResources<Resource<ClazzCategory>> resources = assembler.toResource(page,
                 linkTo(ClazzController.class).slash("/classes/categories").withSelfRel());
         ;
         return resources;
+    }
+
+    /**
+     * Save user class rating
+     *
+     * @param userClazzRating
+     */
+    @Transactional(rollbackFor = {Exception.class})
+    public synchronized void saveUserClazzRating(UserClazzRating userClazzRating) {
+        userClazzRatingRepository.save(userClazzRating);
+        logger.debug("saveUserClazzRating::user clazz rating has been saved");
+
+        Clazz clazz = clazzRepository.findById(userClazzRating.getClazzId()).get();
+
+        double totalRating = clazz.getRating() * clazz.getRatingCount();
+
+        clazz.setRating(totalRating / (clazz.getRatingCount() + 1));
+        clazz.setRatingCount(clazz.getRatingCount() + 1);
+
+        clazzRepository.save(clazz);
+        logger.debug("saveUserClazzRating::clazz rating has been updated");
+    }
+
+    /**
+     * Delete user clazz rating
+     *
+     * @param userId
+     * @param clazzId
+     *
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = {Exception.class})
+    public synchronized void deleteUserClazzRating(long userId, long clazzId) throws Exception {
+        Optional<UserClazzRating> userClazzRating = userClazzRatingRepository.findByUserIdAndClazzId(userId, clazzId);
+
+        if (!userClazzRating.isPresent()) {
+            throw new Exception("User rating can not be found!");
+        }
+
+        userClazzRatingRepository.delete(userClazzRating.get());
     }
 }
