@@ -126,6 +126,8 @@ public class UserService implements UserDetailsService {
                 .collect(toList()));
 
         User user = userRepository.findByUsername(userDetails.getUsername()).get();
+        List<Role> roles = user.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList());
+        user.setRoles(roles);
 
         return user;
     }

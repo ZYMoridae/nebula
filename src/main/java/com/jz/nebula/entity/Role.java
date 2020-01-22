@@ -39,6 +39,9 @@ public class Role implements Serializable {
     public Role() {
     }
 
+    /**
+     * The view role is used for JSON response render
+     */
     public enum ViewRole {
         ROLE_USER,
         ROLE_ADMIN,
