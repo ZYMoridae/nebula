@@ -1,14 +1,14 @@
 package com.jz.nebula.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.controller.api.ProductCategoryController;
@@ -20,8 +20,8 @@ public class ProductCategoryService {
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
 
-    public PagedResources<Resource<ProductCategory>> findAll(String keyword, Pageable pageable,
-                                                             PagedResourcesAssembler<ProductCategory> assembler) {
+    public PagedModel<EntityModel<ProductCategory>> findAll(String keyword, Pageable pageable,
+                                                            PagedResourcesAssembler<ProductCategory> assembler) {
 
         Page<ProductCategory> page;
         if (Strings.isNullOrEmpty(keyword)) {
@@ -30,7 +30,7 @@ public class ProductCategoryService {
             page = productCategoryRepository.findByNameContaining(keyword, pageable);
         }
 
-        PagedResources<Resource<ProductCategory>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<ProductCategory>> resources = assembler.toModel(page,
                 linkTo(ProductCategoryController.class).slash("/product-categories").withSelfRel());
         ;
         return resources;

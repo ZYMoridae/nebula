@@ -26,6 +26,7 @@ public class CmsPaginationHelper<T> {
      *
      * @param totalPages
      * @param pageNumber
+     *
      * @return
      */
     public static List getPageNumberArray(int totalPages, int pageNumber) {
@@ -64,6 +65,7 @@ public class CmsPaginationHelper<T> {
      *
      * @param pageNumbers
      * @param pageNumber
+     *
      * @return
      */
     public static HashMap<String, Integer> getPrevAndNextIndex(List<Integer> pageNumbers, int pageNumber) {
@@ -93,6 +95,7 @@ public class CmsPaginationHelper<T> {
      * @param pageable
      * @param pageData
      * @param resourcePath
+     *
      * @return
      */
     public CmsPagination getCmsPagination(Pageable pageable, Page<T> pageData, String resourcePath) {

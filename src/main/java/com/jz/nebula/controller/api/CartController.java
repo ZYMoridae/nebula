@@ -40,11 +40,16 @@ import com.jz.nebula.service.CartService;
 @RequestMapping("/api/carts")
 @Api(value = "carts")
 public class CartController {
-    @Autowired
     private CartService cartService;
+
+    @Autowired
+    public void setCartService(CartService cartService) {
+        this.cartService = cartService;
+    }
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping(value = "/user/{id}")
@@ -68,6 +73,7 @@ public class CartController {
 
     /**
      * @return
+     *
      * @throws Exception
      */
     @PostMapping(value = "/finalise")
@@ -80,7 +86,9 @@ public class CartController {
 
     /**
      * @param cartItems
+     *
      * @return
+     *
      * @throws Exception
      */
     @PostMapping(value = "/bulk")

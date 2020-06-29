@@ -22,8 +22,8 @@ import com.jz.nebula.service.HomeBannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -35,21 +35,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/home-banners")
 public class HomeBannerController {
-    @Autowired
     private HomeBannerService homeBannerService;
+
+    @Autowired
+    public void setHomeBannerService(HomeBannerService homeBannerService) {
+        this.homeBannerService = homeBannerService;
+    }
 
     /**
      * @param pageable
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<HomeBanner>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                             final HttpServletResponse response, PagedResourcesAssembler<HomeBanner> assembler) {
+    PagedModel<EntityModel<HomeBanner>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                            final HttpServletResponse response, PagedResourcesAssembler<HomeBanner> assembler) {
         return homeBannerService.findAll(pageable, assembler);
     }
 
@@ -66,6 +71,7 @@ public class HomeBannerController {
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping("/{id}")
@@ -77,6 +83,7 @@ public class HomeBannerController {
 
     /**
      * @param homeBanner
+     *
      * @return
      */
     @PostMapping("")
@@ -89,6 +96,7 @@ public class HomeBannerController {
     /**
      * @param id
      * @param homeBanner
+     *
      * @return
      */
     @PutMapping("/{id}")
@@ -101,6 +109,7 @@ public class HomeBannerController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/{id}")

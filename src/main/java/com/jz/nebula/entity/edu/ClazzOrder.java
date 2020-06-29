@@ -17,17 +17,15 @@
 package com.jz.nebula.entity.edu;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.jz.nebula.View;
+import com.jz.nebula.util.View;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.order.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
-import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;

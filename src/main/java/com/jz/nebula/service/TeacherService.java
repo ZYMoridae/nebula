@@ -1,12 +1,11 @@
 package com.jz.nebula.service;
 
 import com.google.common.base.Strings;
-import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacade;
 import com.jz.nebula.controller.api.UserController;
 import com.jz.nebula.dao.TeacherMetaRepository;
 import com.jz.nebula.dao.TeacherRepository;
 import com.jz.nebula.dao.TeacherSubscriptionRepository;
-import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.teacher.Teacher;
 import com.jz.nebula.entity.teacher.TeacherMeta;
 import com.jz.nebula.entity.teacher.TeacherSubscription;
@@ -16,21 +15,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.*;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Service
 public class TeacherService {
     private static final Logger logger = LoggerFactory.getLogger(TeacherService.class);
 
     @Autowired
-    private IAuthenticationFacade authenticationFacade;
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
     private TeacherRepository teacherRepository;
@@ -50,8 +48,8 @@ public class TeacherService {
      *
      * @return
      */
-    public PagedResources<Resource<Teacher>> findAll(String keyword, Pageable pageable,
-                                                     PagedResourcesAssembler<Teacher> assembler) {
+    public PagedModel<EntityModel<Teacher>> findAll(String keyword, Pageable pageable,
+                                                    PagedResourcesAssembler<Teacher> assembler) {
         Page<Teacher> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = teacherRepository.findAllByOrderByIdAsc(pageable);
@@ -63,12 +61,14 @@ public class TeacherService {
         Iterator<Teacher> iterator = page.iterator();
         while (iterator.hasNext()) {
             Teacher teacher = iterator.next();
-            TeacherMeta teacherMeta = teacherMetaRepository.findByUserId(teacher.getId()).get();
-            logger.debug("findAll:: teacher meta id [{}]", teacherMeta != null ? teacherMeta.getId() : -1);
-            teacher.setTeacherMeta(teacherMeta);
+
+            Optional<TeacherMeta> teacherMeta = teacherMetaRepository.findByUserId(teacher.getId());
+
+            logger.debug("findAll:: teacher meta id [{}]", teacherMeta.isPresent() ? teacherMeta.get().getId() : -1);
+            teacher.setTeacherMeta(teacherMeta.isPresent() ? teacherMeta.get() : null);
         }
 
-        PagedResources<Resource<Teacher>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<Teacher>> resources = assembler.toModel(page,
                 linkTo(UserController.class).slash("/users").withSelfRel());
 
         return resources;

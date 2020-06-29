@@ -6,13 +6,13 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import com.jz.nebula.util.auth.AuthenticationFacade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.dao.CartRepository;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.entity.Cart;
@@ -27,7 +27,7 @@ public class CartService {
     private final Logger logger = LogManager.getLogger(CartService.class);
 
     @Autowired
-    private IAuthenticationFacade authenticationFacade;
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
     private CartRepository cartRepository;
@@ -42,6 +42,7 @@ public class CartService {
      * Get cart by userId
      *
      * @param userId
+     *
      * @return
      */
     public Cart getCart(long userId) {
@@ -72,6 +73,7 @@ public class CartService {
      * Create order
      *
      * @param orderItems
+     *
      * @return
      */
     private Order createOrder(Set<OrderItem> orderItems) {
@@ -90,6 +92,7 @@ public class CartService {
      *
      * @param cartItemList
      * @param cartItemIds
+     *
      * @return
      */
     private boolean isCartItemsValid(List<CartItem> cartItemList, List<Long> cartItemIds) {
@@ -105,6 +108,7 @@ public class CartService {
      * be deleted from cart.) The payment API will be called in the last step.
      *
      * @return
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class})
@@ -131,7 +135,9 @@ public class CartService {
      * payment API will be called in the last step.
      *
      * @param cartItemList
+     *
      * @return
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class})

@@ -9,17 +9,17 @@ import com.jz.nebula.entity.sku.Sku;
 import com.jz.nebula.entity.sku.SkuAttribute;
 import com.jz.nebula.entity.sku.SkuAttributeCategory;
 import com.jz.nebula.util.Security;
+import org.hibernate.EntityMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Service
 @Transactional
@@ -40,11 +40,12 @@ public class SkuService {
      * Insert stock keeping unit
      *
      * @param sku
+     *
      * @return
      */
     @Transactional(rollbackFor = {Exception.class})
     public Sku create(Sku sku) {
-        if(sku.getSkuCode() == null) {
+        if (sku.getSkuCode() == null) {
             sku.setSkuCode(skuCodeGenerator(sku));
         }
         return skuRepository.save(sku);
@@ -52,6 +53,7 @@ public class SkuService {
 
     /**
      * @param sku
+     *
      * @return
      */
     @Transactional(rollbackFor = {Exception.class})
@@ -62,6 +64,7 @@ public class SkuService {
 
     /**
      * @param skuId
+     *
      * @return
      */
     public Sku find(long skuId) {
@@ -79,6 +82,7 @@ public class SkuService {
      * Generate sku code
      *
      * @param sku
+     *
      * @return
      */
     public String skuCodeGenerator(Sku sku) {
@@ -91,7 +95,7 @@ public class SkuService {
     }
 
     /***** Sku Attribute Category *****/
-    public PagedResources<Resource<SkuAttributeCategory>> findAllSkuAttributeCategory(String keyword, Pageable pageable, PagedResourcesAssembler<SkuAttributeCategory> assembler) {
+    public PagedModel<EntityModel<SkuAttributeCategory>> findAllSkuAttributeCategory(String keyword, Pageable pageable, PagedResourcesAssembler<SkuAttributeCategory> assembler) {
         Page<SkuAttributeCategory> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = skuAttributeCategoryRepository.findAll(pageable);
@@ -99,7 +103,7 @@ public class SkuService {
             page = skuAttributeCategoryRepository.findByNameContaining(keyword, pageable);
         }
 
-        PagedResources<Resource<SkuAttributeCategory>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<SkuAttributeCategory>> resources = assembler.toModel(page,
                 linkTo(SKUController.class).slash("/api/skus/attributes/categories").withSelfRel());
 
         return resources;

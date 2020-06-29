@@ -111,7 +111,7 @@ public class OrderItem implements Serializable {
         return (double) this.quantity * this.product.getPrice();
     }
 
-//    public Sku getSku() {
+    //    public Sku getSku() {
 //        return sku;
 //    }
 //

@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Service
 public class HomeBannerService {
@@ -24,9 +24,9 @@ public class HomeBannerService {
     @Autowired
     private HomeBannerRepository homeBannerRepository;
 
-    public PagedResources<Resource<HomeBanner>> findAll(Pageable pageable, PagedResourcesAssembler<HomeBanner> assembler) {
+    public PagedModel<EntityModel<HomeBanner>> findAll(Pageable pageable, PagedResourcesAssembler<HomeBanner> assembler) {
         Page<HomeBanner> page = homeBannerRepository.findAll(pageable);
-        PagedResources<Resource<HomeBanner>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<HomeBanner>> resources = assembler.toModel(page,
                 linkTo(NotificationController.class).slash("/home-banners").withSelfRel());
         return resources;
     }

@@ -17,8 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,7 +32,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Service("userDetailsService")
 public class UserService implements UserDetailsService {
@@ -153,8 +154,8 @@ public class UserService implements UserDetailsService {
      *
      * @return
      */
-    public PagedResources<Resource<User>> findAll(String keyword, Pageable pageable,
-                                                  PagedResourcesAssembler<User> assembler) {
+    public PagedModel<EntityModel<User>> findAll(String keyword, Pageable pageable,
+                                                 PagedResourcesAssembler<User> assembler) {
         Page<User> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = userRepository.findAllByOrderByIdAsc(pageable);
@@ -162,8 +163,7 @@ public class UserService implements UserDetailsService {
             page = userRepository.findByNameContaining(keyword, pageable);
         }
 
-        PagedResources<Resource<User>> resources = assembler.toResource(page,
-                linkTo(UserController.class).slash("/users").withSelfRel());
+        PagedModel<EntityModel<User>> resources = assembler.toModel(page, linkTo(UserController.class).slash("/users").withSelfRel());
 
         return resources;
     }
@@ -177,8 +177,8 @@ public class UserService implements UserDetailsService {
      *
      * @return
      */
-    public PagedResources<Resource<Role>> findAllRoles(String keyword, Pageable pageable,
-                                                       PagedResourcesAssembler<Role> assembler) {
+    public PagedModel<EntityModel<Role>> findAllRoles(String keyword, Pageable pageable,
+                                                      PagedResourcesAssembler<Role> assembler) {
         Page<Role> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = roleRepository.findAllByOrderByIdAsc(pageable);
@@ -186,7 +186,7 @@ public class UserService implements UserDetailsService {
             page = roleRepository.findByCodeContaining(keyword, pageable);
         }
 
-        PagedResources<Resource<Role>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<Role>> resources = assembler.toModel(page,
                 linkTo(UserController.class).slash("/users/roles").withSelfRel());
 
         return resources;

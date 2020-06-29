@@ -1,6 +1,6 @@
 package com.jz.nebula.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.controller.api.NotificationController;
@@ -23,9 +23,9 @@ public class NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    public PagedResources<Resource<Notification>> findAll(Pageable pageable, PagedResourcesAssembler<Notification> assembler) {
+    public PagedModel<EntityModel<Notification>> findAll(Pageable pageable, PagedResourcesAssembler<Notification> assembler) {
         Page<Notification> page = notificationRepository.findAll(pageable);
-        PagedResources<Resource<Notification>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<Notification>> resources = assembler.toModel(page,
                 linkTo(NotificationController.class).slash("/notifications").withSelfRel());
         return resources;
     }

@@ -22,12 +22,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.DatatypeConverter;
 
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.exception.auth.BadBasicAuthInfo;
-import com.jz.nebula.exception.auth.UserNotFoundException;
+import com.jz.nebula.component.exception.auth.BadBasicAuthInfo;
+import com.jz.nebula.component.exception.auth.UserNotFoundException;
 import com.jz.nebula.service.ReceiptingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,9 +39,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,26 +58,42 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private static String VERIFICATION_HEADER = "X-VERIFICATION";
-
-    @Autowired
-    AuthService authService;
-
-    @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
-    TokenService jwtTokenProvider;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     ReceiptingService receiptingService;
+    private AuthService authService;
+    private AuthenticationManager authenticationManager;
+    private TokenService jwtTokenProvider;
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
+    @Autowired
+    public void setJwtTokenProvider(TokenService jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setReceiptingService(ReceiptingService receiptingService) {
+        this.receiptingService = receiptingService;
+    }
+
+    @Autowired
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
+    }
 
     /**
      * Sign in the Nebula API with Basic Auth
      *
      * @param headers
+     *
      * @return
      */
     @PostMapping("/auth")
@@ -94,7 +107,7 @@ public class AuthController {
             String decodedString = new String(decoded);
             String[] actualCredentials = decodedString.split(":");
 
-            if(actualCredentials.length != 2) {
+            if (actualCredentials.length != 2) {
                 logger.debug("authenticate:: bad basic authentication info");
                 throw new BadBasicAuthInfo("Bad basic authentication info");
             }
@@ -104,7 +117,7 @@ public class AuthController {
             Optional<User> userOptional = this.userRepository.findByUsername(username);
             Map<Object, Object> resultMap = new HashMap<>();
 
-            if(userOptional.isPresent()) {
+            if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 List<Role> roles = user.getUserRoles().stream().map(userRole -> userRole.getRole()).collect(Collectors.toList());
 
@@ -114,7 +127,7 @@ public class AuthController {
                 resultMap.put("user", user);
                 resultMap.put("token", tokenMap.get("accessToken"));
                 resultMap.put("refreshToken", tokenMap.get("refreshToken"));
-            }else {
+            } else {
                 logger.debug("authenticate:: user not found");
                 throw new UserNotFoundException("User not found");
             }
@@ -130,6 +143,7 @@ public class AuthController {
      * Verify the authentication
      *
      * @param headers
+     *
      * @return
      */
     @PostMapping("/verify")

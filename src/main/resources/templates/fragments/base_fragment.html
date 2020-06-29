@@ -99,27 +99,26 @@
             <!-- Icons -->
             <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
             <script>
-                feather.replace();
+              feather.replace()
 
-                function getCmsPath() {
-                    let path = window.location.pathname;
+              function getCmsPath () {
+                let path = window.location.pathname
 
-                    let splittedPath = path.split('/');
-                    let relativePath = '';
-                    for (let i = 0; i < splittedPath.length; i += 1) {
-                        if (splittedPath[i] == 'cms' && splittedPath[i + 1] != null) {
-                            relativePath = splittedPath[i + 1];
-                        }
-                    }
-                    return relativePath;
+                let splittedPath = path.split('/')
+                let relativePath = ''
+                for (let i = 0; i < splittedPath.length; i += 1) {
+                  if (splittedPath[i] == 'cms' && splittedPath[i + 1] != null) {
+                    relativePath = splittedPath[i + 1]
+                  }
                 }
+                return relativePath
+              }
 
+              $(document).ready(function () {
+                $('.nav .nav-link').removeClass('active')
 
-                $(document).ready(function () {
-                    $('.nav .nav-link').removeClass('active');
-
-                    $('.nav-link[data-label=' + getCmsPath() + ']').addClass('active');
-                });
+                $('.nav-link[data-label=' + getCmsPath() + ']').addClass('active')
+              })
             </script>
 
             <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">

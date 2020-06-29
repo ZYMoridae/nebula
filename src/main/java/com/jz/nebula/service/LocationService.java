@@ -1,13 +1,13 @@
 package com.jz.nebula.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.controller.api.LocationController;
@@ -24,11 +24,12 @@ public class LocationService {
      *
      * @param pageable
      * @param assembler
+     *
      * @return
      */
-    public PagedResources<Resource<Location>> findAll(Pageable pageable, PagedResourcesAssembler<Location> assembler) {
+    public PagedModel<EntityModel<Location>> findAll(Pageable pageable, PagedResourcesAssembler<Location> assembler) {
         Page<Location> page = locationRepository.findAll(pageable);
-        PagedResources<Resource<Location>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<Location>> resources = assembler.toModel(page,
                 linkTo(LocationController.class).slash("/locations").withSelfRel());
         ;
         return resources;
@@ -38,6 +39,7 @@ public class LocationService {
      * Save location
      *
      * @param location
+     *
      * @return
      */
     public Location save(Location location) {
@@ -49,6 +51,7 @@ public class LocationService {
      * Find location by id
      *
      * @param id
+     *
      * @return
      */
     public Location findById(long id) {

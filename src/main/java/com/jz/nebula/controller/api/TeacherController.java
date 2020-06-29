@@ -1,7 +1,6 @@
 package com.jz.nebula.controller.api;
 
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.teacher.Teacher;
 import com.jz.nebula.entity.teacher.TeacherMeta;
 import com.jz.nebula.entity.teacher.TeacherSubscription;
@@ -9,8 +8,8 @@ import com.jz.nebula.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,9 +27,9 @@ public class TeacherController {
     @GetMapping
     @RolesAllowed({Role.ROLE_ADMIN, Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_TEACHER})
     public @ResponseBody
-    PagedResources<Resource<Teacher>> all(@RequestParam String keyword, Pageable pageable,
-                                          final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                          PagedResourcesAssembler<Teacher> assembler) {
+    PagedModel<EntityModel<Teacher>> all(@RequestParam String keyword, Pageable pageable,
+                                         final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                         PagedResourcesAssembler<Teacher> assembler) {
         return teacherService.findAll(keyword, pageable, assembler);
     }
 

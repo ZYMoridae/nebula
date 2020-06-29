@@ -6,8 +6,8 @@ import com.jz.nebula.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,19 +26,21 @@ public class ProductCategoryController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<ProductCategory>> all(@RequestParam String keyword, Pageable pageable,
-                                                  final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                                  PagedResourcesAssembler<ProductCategory> assembler) {
+    PagedModel<EntityModel<ProductCategory>> all(@RequestParam String keyword, Pageable pageable,
+                                                 final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                                 PagedResourcesAssembler<ProductCategory> assembler) {
         return productCategoryService.findAll(keyword, pageable, assembler);
     }
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping("/{id}")
@@ -50,6 +52,7 @@ public class ProductCategoryController {
 
     /**
      * @param productCategory
+     *
      * @return
      */
     @PostMapping("")
@@ -62,6 +65,7 @@ public class ProductCategoryController {
     /**
      * @param id
      * @param productCategory
+     *
      * @return
      */
     @PutMapping("/{id}")
@@ -75,6 +79,7 @@ public class ProductCategoryController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/{id}")

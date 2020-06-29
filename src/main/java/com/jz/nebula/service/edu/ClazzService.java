@@ -34,14 +34,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Service
 public class ClazzService {
@@ -68,8 +68,8 @@ public class ClazzService {
      *
      * @return
      */
-    public PagedResources<Resource<Clazz>> findAll(long clazzCategoryId, String keyword, Pageable pageable,
-                                                   PagedResourcesAssembler<Clazz> assembler) {
+    public PagedModel<EntityModel<Clazz>> findAll(long clazzCategoryId, String keyword, Pageable pageable,
+                                                  PagedResourcesAssembler<Clazz> assembler) {
         Page<Clazz> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = clazzRepository.findAll(pageable);
@@ -79,7 +79,7 @@ public class ClazzService {
             logger.debug("findAll::find by name containing");
         }
 
-        PagedResources<Resource<Clazz>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<Clazz>> resources = assembler.toModel(page,
                 linkTo(UserController.class).slash("/classes").withSelfRel());
 
         return resources;
@@ -199,8 +199,8 @@ public class ClazzService {
      *
      * @return
      */
-    public PagedResources<Resource<ClazzCategory>> findAllClazzCategory(String keyword, Pageable pageable,
-                                                                        PagedResourcesAssembler<ClazzCategory> assembler) {
+    public PagedModel<EntityModel<ClazzCategory>> findAllClazzCategory(String keyword, Pageable pageable,
+                                                                       PagedResourcesAssembler<ClazzCategory> assembler) {
         Page<ClazzCategory> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = clazzCategoryRepository.findAll(pageable);
@@ -209,7 +209,7 @@ public class ClazzService {
         }
         logger.debug("findAllClazzCategory::find clazz category totally [{}]", page.getTotalElements());
 
-        PagedResources<Resource<ClazzCategory>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<ClazzCategory>> resources = assembler.toModel(page,
                 linkTo(ClazzController.class).slash("/classes/categories").withSelfRel());
         ;
         return resources;

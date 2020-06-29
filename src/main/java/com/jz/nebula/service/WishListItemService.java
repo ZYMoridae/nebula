@@ -1,6 +1,6 @@
 package com.jz.nebula.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import java.util.Optional;
 
@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacade;
 import com.jz.nebula.controller.api.WishListItemController;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.dao.WishListItemRepository;
@@ -25,7 +25,7 @@ import com.jz.nebula.entity.CartItem;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.WishList;
 import com.jz.nebula.entity.WishListItem;
-import com.jz.nebula.validator.WishListItemValidator;
+import com.jz.nebula.util.validator.WishListItemValidator;
 
 @Service
 @Transactional(propagation = Propagation.NOT_SUPPORTED, rollbackFor = Exception.class)
@@ -33,7 +33,7 @@ public class WishListItemService {
     private final Logger logger = LogManager.getLogger(WishListItemService.class);
 
     @Autowired
-    private IAuthenticationFacade authenticationFacade;
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
     private WishListRepository wishListRepository;
@@ -81,6 +81,7 @@ public class WishListItemService {
      * Get item in wish list
      *
      * @param wishListItem
+     *
      * @return
      */
     private WishListItem getItemInWishList(WishListItem wishListItem) {
@@ -95,12 +96,13 @@ public class WishListItemService {
      * @param wishListId Wish list Id
      * @param pageable   Pageable object
      * @param assembler  PagedResourcesAssembler object
+     *
      * @return PagedResources object
      */
-    public PagedResources<Resource<WishListItem>> findByWishListId(long wishListId, Pageable pageable,
-                                                                   PagedResourcesAssembler<WishListItem> assembler) {
+    public PagedModel<EntityModel<WishListItem>> findByWishListId(long wishListId, Pageable pageable,
+                                                                  PagedResourcesAssembler<WishListItem> assembler) {
         Page<WishListItem> page = wishListItemRepository.findByWishListId(wishListId, pageable);
-        PagedResources<Resource<WishListItem>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<WishListItem>> resources = assembler.toModel(page,
                 linkTo(WishListItemController.class).slash("/wishlist-items").withSelfRel());
         ;
         return resources;
@@ -110,7 +112,9 @@ public class WishListItemService {
      * Save wish list item
      *
      * @param wishListItem WishListItem object
+     *
      * @return WishListItem object
+     *
      * @throws Exception Exception class
      */
     @Transactional(rollbackFor = {Exception.class})
@@ -141,6 +145,7 @@ public class WishListItemService {
      * Find wish list item by id
      *
      * @param id Wish list item id
+     *
      * @return WishListItem object
      */
     public WishListItem findById(long id) {
@@ -160,7 +165,9 @@ public class WishListItemService {
      * Convert wish list item to cart item
      *
      * @param wishListItem WishListItem object
+     *
      * @return CartItem object
+     *
      * @throws Exception Exception class
      */
     @Transactional(rollbackFor = {Exception.class})

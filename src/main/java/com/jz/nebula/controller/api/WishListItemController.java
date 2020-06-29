@@ -7,8 +7,8 @@ import com.jz.nebula.service.WishListItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -25,6 +25,7 @@ public class WishListItemController {
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping("/{id}")
@@ -42,20 +43,23 @@ public class WishListItemController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping("/wishlists/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<WishListItem>> findByWishListId(@PathVariable("id") long wishListId,
-                                                            Pageable pageable, final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                                            PagedResourcesAssembler<WishListItem> assembler) {
+    PagedModel<EntityModel<WishListItem>> findByWishListId(@PathVariable("id") long wishListId,
+                                                           Pageable pageable, final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                                           PagedResourcesAssembler<WishListItem> assembler) {
         return wishListItemService.findByWishListId(wishListId, pageable, assembler);
     }
 
     /**
      * @param wishListItem
+     *
      * @return
+     *
      * @throws Exception
      */
     @PostMapping("")
@@ -73,7 +77,9 @@ public class WishListItemController {
     /**
      * @param id
      * @param wishListItem
+     *
      * @return
+     *
      * @throws Exception
      */
     @PutMapping("/{id}")
@@ -87,6 +93,7 @@ public class WishListItemController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/{id}")
@@ -100,7 +107,9 @@ public class WishListItemController {
     /**
      * @param id
      * @param wishListItem
+     *
      * @return
+     *
      * @throws Exception
      */
     @PostMapping("/{id}/tocartitem")

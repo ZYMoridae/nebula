@@ -6,8 +6,8 @@ import com.jz.nebula.service.UserLogisticsPreferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,18 +26,20 @@ public class UserPreferenceController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping("/logistics")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<UserLogisticsPreference>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                                          final HttpServletResponse response, PagedResourcesAssembler<UserLogisticsPreference> assembler) {
+    PagedModel<EntityModel<UserLogisticsPreference>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                                         final HttpServletResponse response, PagedResourcesAssembler<UserLogisticsPreference> assembler) {
         return userLogisticsPreferenceService.findAll(pageable, assembler);
     }
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping("/logistics/{id}")
@@ -49,6 +51,7 @@ public class UserPreferenceController {
 
     /**
      * @param userLogisticsPreference
+     *
      * @return
      */
     @PostMapping("/logistics")
@@ -61,6 +64,7 @@ public class UserPreferenceController {
     /**
      * @param id
      * @param userLogisticsPreference
+     *
      * @return
      */
     @PutMapping("/logistics/{id}")
@@ -73,6 +77,7 @@ public class UserPreferenceController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/logistics/{id}")

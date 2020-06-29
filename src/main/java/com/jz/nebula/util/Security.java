@@ -16,6 +16,7 @@ public class Security {
      * Generate md5 hash for given string
      *
      * @param msg
+     *
      * @return
      */
     public static String generateHash(String msg) {
@@ -47,6 +48,7 @@ public class Security {
      *
      * @param encoderClass
      * @param credential
+     *
      * @return
      */
     public static String encryptPassword(Class encoderClass, String credential) {

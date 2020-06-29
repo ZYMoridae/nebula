@@ -237,7 +237,7 @@ public class TokenService {
      */
     public String getPaymentToken(Long orderId, PaymentTokenCategory paymentTokenCategory) throws Exception {
         String orderIdentifier = getPaymentTokenPrefix(paymentTokenCategory);
-        if(orderIdentifier == "") {
+        if (orderIdentifier == "") {
             throw new Exception("Invalid payment token prefix");
         }
 
@@ -262,6 +262,7 @@ public class TokenService {
      * Get payment token prefix
      *
      * @param paymentTokenCategory
+     *
      * @return
      */
     private String getPaymentTokenPrefix(PaymentTokenCategory paymentTokenCategory) {

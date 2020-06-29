@@ -1,6 +1,6 @@
 package com.jz.nebula.service;
 
-import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacade;
 import com.jz.nebula.controller.api.OrderController;
 import com.jz.nebula.dao.OrderLogisticsInfoRepository;
 import com.jz.nebula.dao.OrderRepository;
@@ -14,16 +14,16 @@ import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.payment.PaymentTokenCategory;
 import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.entity.sku.Sku;
-import com.jz.nebula.exception.MultipleActivatedOrderException;
-import com.jz.nebula.exception.SkuOutOfStockException;
+import com.jz.nebula.component.exception.MultipleActivatedOrderException;
+import com.jz.nebula.component.exception.SkuOutOfStockException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +33,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
-//import com.jz.nebula.amqp.MessageProducer;
+//import com.jz.nebula.config.rabbitmq.MessageProducer;
 
 @Service
 public class OrderService {
@@ -48,7 +48,7 @@ public class OrderService {
     private OrderLogisticsInfoRepository orderLogisticsInfoRepository;
 
     @Autowired
-    private IAuthenticationFacade authenticationFacade;
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
     private OrderStatusRepository orderStatusRepository;
@@ -76,7 +76,7 @@ public class OrderService {
      *
      * @return
      */
-    public PagedResources<Resource<Order>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
+    public PagedModel<EntityModel<Order>> findAll(Pageable pageable, PagedResourcesAssembler<Order> assembler) {
         Page<Order> page;
         User user = authenticationFacade.getUser();
         if (user.isAdmin()) {
@@ -85,7 +85,7 @@ public class OrderService {
             page = orderRepository.findAll(pageable);
         }
 
-        PagedResources<Resource<Order>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<Order>> resources = assembler.toModel(page,
                 linkTo(OrderController.class).slash("/orders").withSelfRel());
         ;
         return resources;
@@ -100,10 +100,10 @@ public class OrderService {
      *
      * @return
      */
-    public PagedResources<Resource<Order>> findByUserId(long id, Pageable pageable,
-                                                        PagedResourcesAssembler<Order> assembler) {
+    public PagedModel<EntityModel<Order>> findByUserId(long id, Pageable pageable,
+                                                       PagedResourcesAssembler<Order> assembler) {
         Page<Order> page = orderRepository.findByUserId(id, pageable);
-        PagedResources<Resource<Order>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<Order>> resources = assembler.toModel(page,
                 linkTo(OrderController.class).slash("/orders").withSelfRel());
         ;
         return resources;

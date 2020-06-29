@@ -21,7 +21,7 @@
 package com.jz.nebula.entity.edu;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.jz.nebula.View;
+import com.jz.nebula.util.View;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;

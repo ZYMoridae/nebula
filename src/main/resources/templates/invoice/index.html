@@ -74,8 +74,8 @@
     <div style="flex: 1;">
         iEuclid
     </div>
-    <div th:if="*{order != null}"
-         style="position: absolute;right: 0;font-size: 20px;margin-top: 45px;margin-right: 50px;text-align: right;">
+    <div style="position: absolute;right: 0;font-size: 20px;margin-top: 45px;margin-right: 50px;text-align: right;"
+         th:if="*{order != null}">
         <div style="text-align: right;">
             Invoice
         </div>
@@ -130,7 +130,7 @@
             </div>
         </div>
     </div>
-    <table style="width: 100%;font-size: 12px;" class="table" cellspacing="0">
+    <table cellspacing="0" class="table" style="width: 100%;font-size: 12px;">
         <thead>
         <tr>
             <th>

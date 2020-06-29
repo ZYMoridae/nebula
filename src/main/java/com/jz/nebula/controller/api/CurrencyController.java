@@ -32,9 +32,12 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/api/currency-rates")
 public class CurrencyController {
+    CurrencyRatesService currencyRatesService;
 
     @Autowired
-    CurrencyRatesService currencyRatesService;
+    public void setCurrencyRatesService(CurrencyRatesService currencyRatesService) {
+        this.currencyRatesService = currencyRatesService;
+    }
 
     @GetMapping("")
     public Object getCurrencies(@RequestParam String baseCurrency, Pageable pageable,

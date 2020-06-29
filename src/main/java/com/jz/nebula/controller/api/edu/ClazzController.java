@@ -30,8 +30,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -62,9 +62,9 @@ public class ClazzController {
     @GetMapping
     @RolesAllowed({Role.ROLE_ADMIN, Role.ROLE_USER, Role.ROLE_TEACHER, Role.ROLE_VENDOR})
     public @ResponseBody
-    PagedResources<Resource<Clazz>> all(@RequestParam long clazzCategoryId, @RequestParam String keyword, Pageable pageable,
-                                        final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                        PagedResourcesAssembler<Clazz> assembler) {
+    PagedModel<EntityModel<Clazz>> all(@RequestParam long clazzCategoryId, @RequestParam String keyword, Pageable pageable,
+                                       final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                       PagedResourcesAssembler<Clazz> assembler) {
         return clazzService.findAll(clazzCategoryId, keyword, pageable, assembler);
     }
 
@@ -261,9 +261,9 @@ public class ClazzController {
     @GetMapping("/categories")
     @RolesAllowed({Role.ROLE_ADMIN, Role.ROLE_USER, Role.ROLE_TEACHER, Role.ROLE_VENDOR})
     public @ResponseBody
-    PagedResources<Resource<ClazzCategory>> getAllClazzCategory(@RequestParam String keyword, Pageable pageable,
-                                                                final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                                                PagedResourcesAssembler<ClazzCategory> assembler) {
+    PagedModel<EntityModel<ClazzCategory>> getAllClazzCategory(@RequestParam String keyword, Pageable pageable,
+                                                               final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                                               PagedResourcesAssembler<ClazzCategory> assembler) {
         return clazzService.findAllClazzCategory(keyword, pageable, assembler);
     }
 

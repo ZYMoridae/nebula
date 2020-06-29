@@ -18,7 +18,7 @@
 //    private String name;
 //
 //    @Column(name="value")
-//    @Type(type="com.jz.nebula.hibernate.GenericArrayUserType")
+//    @Type(type="com.jz.nebula.config.hibernate.GenericArrayUserType")
 //    private String[] value;
 //
 //    @Column(name = "created_at", updatable = false, insertable = false)

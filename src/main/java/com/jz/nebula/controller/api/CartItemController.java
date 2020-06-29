@@ -25,8 +25,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,8 +47,13 @@ import com.jz.nebula.service.CartItemService;
 @RequestMapping("/api/cart-items")
 @Api(value = "cartitem")
 public class CartItemController {
-    @Autowired
+
     private CartItemService cartItemService;
+
+    @Autowired
+    public void setCartItemService(CartItemService cartItemService) {
+        this.cartItemService = cartItemService;
+    }
 
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
@@ -66,20 +71,23 @@ public class CartItemController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping("/carts/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Get a cart items in side cart with an ID", response = PagedResources.class)
+    @ApiOperation(value = "Get a cart items in side cart with an ID", response = PagedModel.class)
     public @ResponseBody
-    PagedResources<Resource<CartItem>> findByCartId(@PathVariable("id") long cartId, Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                                    final HttpServletResponse response, PagedResourcesAssembler<CartItem> assembler) {
+    PagedModel<EntityModel<CartItem>> findByCartId(@PathVariable("id") long cartId, Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                                   final HttpServletResponse response, PagedResourcesAssembler<CartItem> assembler) {
         return cartItemService.findByCartId(cartId, pageable, assembler);
     }
 
     /**
      * @param cartItem
+     *
      * @return
+     *
      * @throws Exception
      */
     @PostMapping("")
@@ -98,7 +106,9 @@ public class CartItemController {
     /**
      * @param id
      * @param cartItem
+     *
      * @return
+     *
      * @throws Exception
      */
     @PutMapping("/{id}")
@@ -112,6 +122,7 @@ public class CartItemController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/{id}")
@@ -125,7 +136,9 @@ public class CartItemController {
 
     /**
      * @param id
+     *
      * @return
+     *
      * @throws Exception
      */
     @PostMapping("/{id}/towishlistitem")

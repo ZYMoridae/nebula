@@ -1,7 +1,7 @@
 package com.jz.nebula.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacade;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.User;
@@ -9,8 +9,8 @@ import com.jz.nebula.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,13 +30,14 @@ public class UserController {
     UserRepository userRepository;
 
     @Autowired
-    private IAuthenticationFacade authenticationFacade;
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
     private UserService userService;
 
     /**
      * @param userDetails
+     *
      * @return
      */
     @GetMapping("/me")
@@ -55,6 +56,7 @@ public class UserController {
      * This is public route
      *
      * @param user
+     *
      * @return
      */
     @PostMapping("")
@@ -77,7 +79,9 @@ public class UserController {
     /**
      * @param id
      * @param user
+     *
      * @return
+     *
      * @throws Exception
      */
     @PutMapping("/{id}")
@@ -97,14 +101,15 @@ public class UserController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<User>> all(@RequestParam String keyword, Pageable pageable,
-                                       final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                       PagedResourcesAssembler<User> assembler) {
+    PagedModel<EntityModel<User>> all(@RequestParam String keyword, Pageable pageable,
+                                      final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                      PagedResourcesAssembler<User> assembler) {
         return userService.findAll(keyword, pageable, assembler);
     }
 
@@ -116,14 +121,15 @@ public class UserController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping("/roles")
     @RolesAllowed({Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<Role>> allRoles(@RequestParam String keyword, Pageable pageable,
-                                            final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                            PagedResourcesAssembler<Role> assembler) {
+    PagedModel<EntityModel<Role>> allRoles(@RequestParam String keyword, Pageable pageable,
+                                           final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                           PagedResourcesAssembler<Role> assembler) {
         return userService.findAllRoles(keyword, pageable, assembler);
     }
 

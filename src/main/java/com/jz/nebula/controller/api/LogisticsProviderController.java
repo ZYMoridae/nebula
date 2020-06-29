@@ -6,8 +6,8 @@ import com.jz.nebula.service.LogisticsProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,26 +19,32 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/api/logistics-provider")
 public class LogisticsProviderController {
-    @Autowired
     private LogisticsProviderService logisticsProviderService;
+
+    @Autowired
+    public void setLogisticsProviderService(LogisticsProviderService logisticsProviderService) {
+        this.logisticsProviderService = logisticsProviderService;
+    }
 
     /**
      * @param pageable
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<LogisticsProvider>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                                    final HttpServletResponse response, PagedResourcesAssembler<LogisticsProvider> assembler) {
+    PagedModel<EntityModel<LogisticsProvider>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                                   final HttpServletResponse response, PagedResourcesAssembler<LogisticsProvider> assembler) {
         return logisticsProviderService.findAll(pageable, assembler);
     }
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping("/{id}")
@@ -50,6 +56,7 @@ public class LogisticsProviderController {
 
     /**
      * @param logisticsProvider
+     *
      * @return
      */
     @PostMapping("")
@@ -62,6 +69,7 @@ public class LogisticsProviderController {
     /**
      * @param id
      * @param logisticsProvider
+     *
      * @return
      */
     @PutMapping("/{id}")
@@ -74,6 +82,7 @@ public class LogisticsProviderController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/{id}")

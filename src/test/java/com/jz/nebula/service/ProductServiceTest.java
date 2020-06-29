@@ -63,7 +63,6 @@ public class ProductServiceTest {
 //        assertEquals(expectedProduct.getPrice(), savedProduct.getPrice(), 0);
 //        assertEquals(expectedProduct.getUnitsInStock(), savedProduct.getUnitsInStock());
 //    }
-
     @Test
     public void findByIdTest() {
         Optional<Product> optionalProduct = Optional.of(expectedProduct);

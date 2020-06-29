@@ -33,7 +33,6 @@ public class ScheduledTasks {
 
     /**
      * Refresh the rate every one hour
-     *
      */
     @Scheduled(fixedRate = 3600000)
     public void updateCurrencyRates() {

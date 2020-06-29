@@ -32,6 +32,7 @@ public class UserRole implements Serializable {
     @Column(name = "role_id")
     private Long roleId;
 
+
 //    @Override
 //    public String toString() {
 //        return "UserRole{" +

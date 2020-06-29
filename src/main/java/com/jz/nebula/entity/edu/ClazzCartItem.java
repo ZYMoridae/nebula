@@ -22,7 +22,7 @@ package com.jz.nebula.entity.edu;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.jz.nebula.View;
+import com.jz.nebula.util.View;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -47,14 +47,14 @@ public class ClazzCartItem {
     @Column(name = "class_id")
     private Long clazzId;
 
-    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "class_id", nullable = false, updatable = false, insertable = false)
     private Clazz clazz;
 
     @Column(name = "teacher_available_time_id")
     private Long teacherAvailableTimeId;
 
-    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_available_time_id", nullable = false, updatable = false, insertable = false)
     private TeacherAvailableTime teacherAvailableTime;
 

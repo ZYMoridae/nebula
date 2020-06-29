@@ -1,15 +1,15 @@
 package com.jz.nebula.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 import com.jz.nebula.entity.UserLogisticsPreference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 
 import com.jz.nebula.controller.api.UserPreferenceController;
 import com.jz.nebula.dao.UserLogisticsPreferenceRepository;
@@ -24,13 +24,13 @@ public class UserLogisticsPreferenceService {
     private UserLogisticsPreferenceRepository userPreferenceRepository;
 
     @Autowired
-    private AuthenticationFacade authenticationFacade;
+    private AuthenticationFacadeImpl authenticationFacadeImpl;
 
-    public PagedResources<Resource<UserLogisticsPreference>> findAll(Pageable pageable,
-                                                                     PagedResourcesAssembler<UserLogisticsPreference> assembler) {
+    public PagedModel<EntityModel<UserLogisticsPreference>> findAll(Pageable pageable,
+                                                                    PagedResourcesAssembler<UserLogisticsPreference> assembler) {
         Page<UserLogisticsPreference> page = userPreferenceRepository.findAll(pageable);
 
-        PagedResources<Resource<UserLogisticsPreference>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<UserLogisticsPreference>> resources = assembler.toModel(page,
                 linkTo(UserPreferenceController.class).slash("/user-preferences").withSelfRel());
         ;
         return resources;
@@ -56,7 +56,7 @@ public class UserLogisticsPreferenceService {
      * @return
      */
     public List<UserLogisticsPreference> findByUserId() {
-        return userPreferenceRepository.findByUserId(authenticationFacade.getUserId());
+        return userPreferenceRepository.findByUserId(authenticationFacadeImpl.getUserId());
     }
 
 }

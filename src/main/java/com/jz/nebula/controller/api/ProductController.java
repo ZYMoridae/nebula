@@ -27,15 +27,15 @@ import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.entity.product.ProductComment;
 import com.jz.nebula.entity.product.ProductRating;
 import com.jz.nebula.entity.Role;
-import com.jz.nebula.exception.InvalidEntityException;
+import com.jz.nebula.component.exception.InvalidEntityException;
 import com.jz.nebula.service.ProductCommentService;
 import com.jz.nebula.service.ProductRatingService;
 import com.jz.nebula.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -70,13 +70,14 @@ public class ProductController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping
     public @ResponseBody
-    PagedResources<Resource<Product>> all(@RequestParam String keyword, Pageable pageable,
-                                          final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                          PagedResourcesAssembler<Product> assembler) {
+    PagedModel<EntityModel<Product>> all(@RequestParam String keyword, Pageable pageable,
+                                         final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                         PagedResourcesAssembler<Product> assembler) {
         return productService.findAll(keyword, pageable, assembler);
     }
 
@@ -84,6 +85,7 @@ public class ProductController {
      * TODO: Need to be optimized. Currently, this page mainly for payment page (PaymentOrder component).
      *
      * @param params
+     *
      * @return
      */
     @PostMapping("/ids")
@@ -103,6 +105,7 @@ public class ProductController {
      * TODO: Is it secure enough?
      *
      * @param id
+     *
      * @return
      */
     @GetMapping("/{id}")
@@ -116,6 +119,7 @@ public class ProductController {
      * data
      *
      * @param product
+     *
      * @return
      */
     @PostMapping("")
@@ -132,6 +136,7 @@ public class ProductController {
     /**
      * @param id
      * @param product
+     *
      * @return
      */
     @PutMapping("/{id}")
@@ -145,6 +150,7 @@ public class ProductController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/{id}")
@@ -159,6 +165,7 @@ public class ProductController {
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping("/{id}/ratings")
@@ -171,6 +178,7 @@ public class ProductController {
     /**
      * @param id
      * @param productRating
+     *
      * @return
      */
     @PostMapping("/{id}/ratings")
@@ -185,6 +193,7 @@ public class ProductController {
     /**
      * @param productRatingId
      * @param productRating
+     *
      * @return
      */
     @PutMapping("/ratings/{product_rating_id}")
@@ -198,6 +207,7 @@ public class ProductController {
 
     /**
      * @param productRatingId
+     *
      * @return
      */
     @DeleteMapping("/ratings/{product_rating_id}")
@@ -214,6 +224,7 @@ public class ProductController {
     /**
      * @param id
      * @param productComment
+     *
      * @return
      */
     @PostMapping("/{id}/comments")
@@ -231,19 +242,21 @@ public class ProductController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping("/{id}/comments")
     public @ResponseBody
-    PagedResources<Resource<ProductComment>> getProductComment(@PathVariable("id") long id,
-                                                               Pageable pageable, final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
-                                                               PagedResourcesAssembler<ProductComment> assembler) {
+    PagedModel<EntityModel<ProductComment>> getProductComment(@PathVariable("id") long id,
+                                                              Pageable pageable, final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
+                                                              PagedResourcesAssembler<ProductComment> assembler) {
         return productCommentService.findByProductIdAndParentCommentId(id, pageable, assembler);
     }
 
     /**
      * @param id
      * @param commentId
+     *
      * @return
      */
     @DeleteMapping("/{id}/comments/{comment_id}")
@@ -259,6 +272,7 @@ public class ProductController {
 
     /**
      * @return
+     *
      * @throws IOException
      */
     @PostMapping("/streaming")

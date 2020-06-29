@@ -27,7 +27,9 @@ public class TokenController {
 
     /**
      * @param refreshToken
+     *
      * @return
+     *
      * @throws Exception
      */
     @PostMapping("/refresh")
@@ -53,6 +55,7 @@ public class TokenController {
      * Check token is alive or not
      *
      * @param token
+     *
      * @return
      */
     @GetMapping("/{token}/alive")

@@ -20,7 +20,7 @@
 
 package com.jz.nebula.controller;
 
-import com.jz.nebula.exception.payment.InvalidPaymentTokenException;
+import com.jz.nebula.component.exception.payment.InvalidPaymentTokenException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +40,7 @@ public class RestResponseEntityExceptionHandler
      *
      * @param ex
      * @param request
+     *
      * @return
      */
     @ExceptionHandler(value

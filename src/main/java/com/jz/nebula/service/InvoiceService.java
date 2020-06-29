@@ -2,7 +2,6 @@ package com.jz.nebula.service;
 
 import java.io.*;
 import java.net.URL;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -13,7 +12,7 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jz.nebula.mail.EmailService;
+import com.jz.nebula.service.mail.EmailServiceImpl;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 
@@ -25,7 +24,7 @@ public class InvoiceService {
     @Autowired
     PaymentService paymentService;
     @Autowired
-    EmailService emailService;
+    EmailServiceImpl emailServiceImpl;
     @Autowired
     InvoiceRepository invoiceRepository;
 
@@ -60,6 +59,7 @@ public class InvoiceService {
      * Find by invoice id
      *
      * @param invoiceId
+     *
      * @return
      */
     public Invoice findByInvoiceId(String invoiceId) {

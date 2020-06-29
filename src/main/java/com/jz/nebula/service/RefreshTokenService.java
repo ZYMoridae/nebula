@@ -11,10 +11,9 @@ import javax.annotation.PostConstruct;
 import com.jz.nebula.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.entity.User;
 
@@ -43,7 +42,7 @@ public class RefreshTokenService {
     private UserRepository userRepository;
 
     @Autowired
-    private AuthenticationFacade authenticationFacade;
+    private AuthenticationFacadeImpl authenticationFacadeImpl;
 
     @PostConstruct
     protected void init() {
@@ -57,6 +56,7 @@ public class RefreshTokenService {
      * @param username
      * @param roles
      * @param secretKey
+     *
      * @return
      */
     public String createRefreshToken(String username, List<Role> roles, Key secretKey) {
@@ -79,6 +79,7 @@ public class RefreshTokenService {
      * Get refresh token by username
      *
      * @param username
+     *
      * @return
      */
     public String getRefreshToken(String username) {
@@ -91,6 +92,7 @@ public class RefreshTokenService {
      *
      * @param username
      * @param refreshToken
+     *
      * @return
      */
     public boolean isRefreshTokenValid(String username, String refreshToken) {
@@ -102,6 +104,7 @@ public class RefreshTokenService {
      * Refresh token if refresh token expired
      *
      * @param refreshToken
+     *
      * @return
      */
     public Map<String, String> refreshToken(String refreshToken) {
@@ -131,7 +134,7 @@ public class RefreshTokenService {
      */
     public String getRefreshToken() {
         String refreshToken = null;
-        User user = authenticationFacade.getUser();
+        User user = authenticationFacadeImpl.getUser();
         if (user != null) {
             // TODO: Direct type cast !!!
             refreshToken = (String) template.opsForHash().get(user.getUsername(), user.getUsername());

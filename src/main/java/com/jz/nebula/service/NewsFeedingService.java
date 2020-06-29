@@ -48,6 +48,7 @@ public class NewsFeedingService {
      * Get news from search parameter
      *
      * @param newsSearchParameter
+     *
      * @return
      */
     public List<News> getNews(NewsSearchParameter newsSearchParameter) {
@@ -102,6 +103,7 @@ public class NewsFeedingService {
      * Get Netease interface
      *
      * @param newsSearchParameter
+     *
      * @return
      */
     private NeteaseInterface getNeteaseInterace(NewsSearchParameter newsSearchParameter) {
@@ -118,6 +120,7 @@ public class NewsFeedingService {
      * Get Bytedance interface
      *
      * @param newsSearchParameter
+     *
      * @return
      */
     private ByteDanceInterface getByteDanceInterface(NewsSearchParameter newsSearchParameter) {

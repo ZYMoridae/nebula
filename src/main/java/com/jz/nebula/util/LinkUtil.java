@@ -26,6 +26,7 @@ public final class LinkUtil {
      *
      * @param uri the base uri
      * @param rel the relative path
+     *
      * @return the complete url
      */
     public static String createLinkHeader(final String uri, final String rel) {

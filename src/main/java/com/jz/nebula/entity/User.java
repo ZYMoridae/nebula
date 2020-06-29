@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.jz.nebula.View;
+import com.jz.nebula.util.View;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -44,7 +44,7 @@ public class User implements Serializable {
     @JsonView(View.Admin.class)
     @Column(name = "created_at", updatable = false, insertable = false)
     private Date createdAt;
-    
+
     @JsonView(View.Admin.class)
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;

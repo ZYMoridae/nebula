@@ -55,21 +55,22 @@ public class TeacherAvailableTimeService {
      * @param teacherAvailableTime
      * @param userStartTime
      * @param userEndTime
+     *
      * @return
      */
     private boolean isTeacherAvailable(TeacherAvailableTime teacherAvailableTime, Date userStartTime, Date userEndTime) {
         boolean isAvailable = false;
 
-        if(teacherAvailableTime.isReserved()) {
+        if (teacherAvailableTime.isReserved()) {
             return false;
         }
 
         Date clazzStartTime = teacherAvailableTime.getStartTime();
         Date clazzEndTime = teacherAvailableTime.getEndTime();
 
-        if(clazzStartTime.getTime() <= userStartTime.getTime() && clazzEndTime.getTime() >= userEndTime.getTime()) {
+        if (clazzStartTime.getTime() <= userStartTime.getTime() && clazzEndTime.getTime() >= userEndTime.getTime()) {
             isAvailable = true;
-        }else {
+        } else {
             isAvailable = false;
         }
 

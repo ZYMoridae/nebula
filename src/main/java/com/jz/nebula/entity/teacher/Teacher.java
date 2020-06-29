@@ -20,7 +20,7 @@ import java.util.Set;
 @Table(name = "teacher_info", schema = "public")
 public class Teacher extends User implements Serializable {
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JoinColumn(name = "id", nullable = false, updatable = false, insertable = false)
     @Transient
     private TeacherMeta teacherMeta;

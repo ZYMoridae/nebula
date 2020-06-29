@@ -32,15 +32,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 import java.util.Set;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Service
 public class CurrencyRatesService {
@@ -58,8 +58,8 @@ public class CurrencyRatesService {
      *
      * @return
      */
-    public PagedResources<Resource<CurrencyRate>> findAll(String baseCurrency, Pageable pageable,
-                                                          PagedResourcesAssembler<CurrencyRate> assembler) {
+    public PagedModel<EntityModel<CurrencyRate>> findAll(String baseCurrency, Pageable pageable,
+                                                         PagedResourcesAssembler<CurrencyRate> assembler) {
         Page<CurrencyRate> page;
         if (Strings.isNullOrEmpty(baseCurrency)) {
             page = currencyRateRepository.findAllByOrderByIdAsc(pageable);
@@ -67,7 +67,7 @@ public class CurrencyRatesService {
             page = currencyRateRepository.findByBaseCurrencyOrderByCurrencyCodeAsc(baseCurrency, pageable);
         }
 
-        PagedResources<Resource<CurrencyRate>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<CurrencyRate>> resources = assembler.toModel(page,
                 linkTo(ProductController.class).slash("/currency-rates").withSelfRel());
 
         return resources;

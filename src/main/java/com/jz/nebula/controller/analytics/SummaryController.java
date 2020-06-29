@@ -13,8 +13,13 @@ import javax.annotation.security.RolesAllowed;
 @RestController
 @RequestMapping("/api/analytics")
 public class SummaryController {
-    @Autowired
+
     private AnalyticsService analyticsService;
+
+    @Autowired
+    public void setAnalyticsService(AnalyticsService analyticsService) {
+        this.analyticsService = analyticsService;
+    }
 
     /**
      * @return

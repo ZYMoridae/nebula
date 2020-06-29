@@ -34,17 +34,12 @@ import java.util.Set;
 public class InvoiceController {
     private final static Logger logger = LogManager.getLogger(InvoiceController.class);
 
-    @Autowired
     private InvoiceService invoiceService;
 
-    @Autowired
     private OrderService orderService;
 
-    @Autowired
     private ClazzOrderService clazzOrderService;
-
     private NumberFormat formatter;
-
     private SimpleDateFormat dateFormatter;
 
     public InvoiceController() {
@@ -52,11 +47,28 @@ public class InvoiceController {
         this.dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
     }
 
+    @Autowired
+    public void setInvoiceService(InvoiceService invoiceService) {
+        this.invoiceService = invoiceService;
+    }
+
+    @Autowired
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @Autowired
+    public void setClazzOrderService(ClazzOrderService clazzOrderService) {
+        this.clazzOrderService = clazzOrderService;
+    }
+
     /**
      * Get invoice based on invoice id
      *
      * @param id
+     *
      * @return
+     *
      * @throws IOException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET,
@@ -81,6 +93,7 @@ public class InvoiceController {
      *
      * @param invoiceId
      * @param model
+     *
      * @return
      */
     @GetMapping(value = "/internal/{invoiceId}")
@@ -132,7 +145,9 @@ public class InvoiceController {
      * Get meta info based on shopping order
      *
      * @param orderId
+     *
      * @return
+     *
      * @throws Exception
      */
     private HashMap getOrderMetaInfo(long orderId) throws Exception {
@@ -159,7 +174,9 @@ public class InvoiceController {
      * Get meta info based on clazz order id
      *
      * @param orderId
+     *
      * @return
+     *
      * @throws Exception
      */
     private HashMap getClazzOrderMetaInfo(long orderId) throws Exception {

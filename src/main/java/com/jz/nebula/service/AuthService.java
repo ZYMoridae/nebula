@@ -8,12 +8,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -24,7 +23,7 @@ public class AuthService {
     private final Logger logger = LogManager.getLogger(AuthService.class);
 
     @Autowired
-    AuthenticationFacade authenticationFacade;
+    AuthenticationFacadeImpl authenticationFacadeImpl;
 
     @Autowired
     UserRepository userRepository;
@@ -36,11 +35,12 @@ public class AuthService {
      * Verify the user
      *
      * @param credential
+     *
      * @return
      */
     public boolean verifyUser(String credential) {
         String encodedCredential = new BCryptPasswordEncoder().encode(credential);
-        return authenticationFacade.getUser().getPassword().equals(encodedCredential);
+        return authenticationFacadeImpl.getUser().getPassword().equals(encodedCredential);
     }
 
     /**
@@ -48,6 +48,7 @@ public class AuthService {
      *
      * @param username
      * @param rawPassword
+     *
      * @return
      */
     public boolean authenticate(String username, String rawPassword) {

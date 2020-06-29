@@ -1,22 +1,22 @@
 package com.jz.nebula.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import java.util.Optional;
 
+import com.jz.nebula.util.auth.AuthenticationFacade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jz.nebula.auth.IAuthenticationFacade;
 import com.jz.nebula.controller.api.CartItemController;
 import com.jz.nebula.dao.CartItemRepository;
 import com.jz.nebula.dao.CartRepository;
@@ -27,8 +27,8 @@ import com.jz.nebula.entity.CartItem;
 //import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.WishListItem;
-//import com.jz.nebula.exception.ProductStockException;
-import com.jz.nebula.validator.CartItemValidator;
+//import com.jz.nebula.component.exception.ProductStockException;
+import com.jz.nebula.util.validator.CartItemValidator;
 
 @Service
 @Transactional(propagation = Propagation.NOT_SUPPORTED, rollbackFor = Exception.class)
@@ -36,7 +36,7 @@ public class CartItemService {
     private final Logger logger = LogManager.getLogger(CartItemService.class);
 
     @Autowired
-    private IAuthenticationFacade authenticationFacade;
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
     private CartItemRepository cartItemRepository;
@@ -76,6 +76,7 @@ public class CartItemService {
      * Get item in shopping cart
      *
      * @param cartItem
+     *
      * @return
      */
     private CartItem getItemInCart(CartItem cartItem) {
@@ -95,12 +96,13 @@ public class CartItemService {
      * @param cartId
      * @param pageable
      * @param assembler
+     *
      * @return
      */
-    public PagedResources<Resource<CartItem>> findByCartId(long cartId, Pageable pageable,
-                                                           PagedResourcesAssembler<CartItem> assembler) {
+    public PagedModel<EntityModel<CartItem>> findByCartId(long cartId, Pageable pageable,
+                                                          PagedResourcesAssembler<CartItem> assembler) {
         Page<CartItem> page = cartItemRepository.findByCartId(cartId, pageable);
-        PagedResources<Resource<CartItem>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<CartItem>> resources = assembler.toModel(page,
                 linkTo(CartItemController.class).slash("/cart-items").withSelfRel());
         ;
         return resources;
@@ -110,7 +112,9 @@ public class CartItemService {
      * Save cartItem into database
      *
      * @param cartItem
+     *
      * @return
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class})
@@ -141,6 +145,7 @@ public class CartItemService {
      * Get cart item by id
      *
      * @param id
+     *
      * @return
      */
     public CartItem findById(long id) {
@@ -169,6 +174,7 @@ public class CartItemService {
      * Convert cart item to wish list item and save to wishlist
      *
      * @param cartItemId
+     *
      * @throws Exception
      */
     @Transactional(rollbackFor = {Exception.class})

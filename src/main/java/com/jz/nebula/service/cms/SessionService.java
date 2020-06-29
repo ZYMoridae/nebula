@@ -1,15 +1,11 @@
 package com.jz.nebula.service.cms;
 
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 import com.jz.nebula.util.Security;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
@@ -22,7 +18,7 @@ public class SessionService {
     private RedisTemplate<String, String> template;
 
     @Autowired
-    private AuthenticationFacade authenticationFacade;
+    private AuthenticationFacadeImpl authenticationFacadeImpl;
 
     private int expiredMinutes = 30;
 
@@ -48,6 +44,7 @@ public class SessionService {
      * Check session in Redis whether it is still alive
      *
      * @param sessionId
+     *
      * @return
      */
     public boolean isSessionAlive(String sessionId) {
@@ -70,7 +67,7 @@ public class SessionService {
      * @return
      */
     public String getCurrentSessionId() {
-        String sessionId = Security.generateHash(authenticationFacade.getAuthentication().getName());
+        String sessionId = Security.generateHash(authenticationFacadeImpl.getAuthentication().getName());
         logger.debug("getCurrentSessionId:: current user session id [{}]", sessionId);
 
         if (!isSessionAlive(sessionId)) {

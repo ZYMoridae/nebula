@@ -23,7 +23,7 @@ public class SkuAttribute implements Serializable, Comparable {
     @Column(name = "sku_code")
     private String skuCode;
 
-//    @JsonProperty(access = Access.WRITE_ONLY)
+    //    @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name = "sku_attribute_category_id")
     private Long skuAttributeCategoryId;
 

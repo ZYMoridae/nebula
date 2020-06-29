@@ -94,6 +94,7 @@ public class ElasticSearchService {
      * Check news was added or not
      *
      * @param hashCode
+     *
      * @return
      */
     public boolean hasNews(String hashCode) {
@@ -113,6 +114,7 @@ public class ElasticSearchService {
      *
      * @param index
      * @param query
+     *
      * @return
      */
     public SearchResponse searchByHash(String index, QueryBuilder query) {
@@ -143,6 +145,7 @@ public class ElasticSearchService {
      * Format news
      *
      * @param news
+     *
      * @return
      */
     private HashMap formatNews(News news) {

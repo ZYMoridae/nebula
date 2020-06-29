@@ -27,7 +27,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputUsername">Username</label>
-                <input autofocus class="form-control" id="inputUsername" placeholder="Username" required th:field="*{username}"
+                <input autofocus class="form-control" id="inputUsername" placeholder="Username" required
+                       th:field="*{username}"
                        type="text">
             </div>
         </div>
@@ -45,7 +46,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="inputFirstName">First Name</label>
-                <input class="form-control" id="inputFirstName" placeholder="First Name" required th:field="*{firstname}"
+                <input class="form-control" id="inputFirstName" placeholder="First Name" required
+                       th:field="*{firstname}"
                        type="text">
             </div>
         </div>
@@ -73,7 +75,8 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="inputPassword">Password</label>
-                    <input class="form-control" id="inputPassword" placeholder="Password" required th:field="*{password}"
+                    <input class="form-control" id="inputPassword" placeholder="Password" required
+                           th:field="*{password}"
                            type="password">
                 </div>
             </div>
@@ -154,20 +157,20 @@
 
 
     <script th:inline="javascript">
-        /*<![CDATA[*/
-        $(document).ready(function () {
-            var userRoles = /*[[${user.userRoles}]]*/;
+      /*<![CDATA[*/
+      $(document).ready(function () {
+        var userRoles = /*[[${user.userRoles}]]*/
 
-            console.log(userRoles);
+          console.log(userRoles)
 
-            $('.role-select').select2().val(userRoles.map(function (item) {
-                return item.role.code;
-            })).trigger('change');
-        })
-        /*]]>*/
+        $('.role-select').select2().val(userRoles.map(function (item) {
+          return item.role.code
+        })).trigger('change')
+      })
+      /*]]>*/
     </script>
 
     <script>
-        ;
+
     </script>
 </div>

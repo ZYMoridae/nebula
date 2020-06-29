@@ -16,6 +16,7 @@ public class WishListController {
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping(value = "/user/{id}")

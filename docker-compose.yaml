@@ -1,0 +1,12 @@
+version: '3.4'
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  redis:
+    image: 'redis:4-alpine'
+    ports:
+      - '6379:6379'
+

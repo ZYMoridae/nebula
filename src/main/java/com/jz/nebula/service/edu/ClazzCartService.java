@@ -20,20 +20,18 @@
 
 package com.jz.nebula.service.edu;
 
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.edu.ClazzCartItemRepository;
 import com.jz.nebula.dao.edu.ClazzCartRepository;
 import com.jz.nebula.dao.edu.ClazzOrderRepository;
 import com.jz.nebula.dao.edu.TeacherAvailableTimeRepository;
-import com.jz.nebula.entity.Cart;
 import com.jz.nebula.entity.edu.*;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.payment.PaymentTokenCategory;
-import com.jz.nebula.exception.edu.ClazzTimeUnavailableException;
-import com.jz.nebula.exception.edu.DuplicateClazzCartItemException;
+import com.jz.nebula.component.exception.edu.ClazzTimeUnavailableException;
+import com.jz.nebula.component.exception.edu.DuplicateClazzCartItemException;
 import com.jz.nebula.service.TokenService;
-import lombok.Synchronized;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,26 +47,26 @@ import java.util.stream.Collectors;
  * 1. Send below request to add cart item into the cart
  * JSON:
  * {
- *  "clazzId": 2,
- * 	"teacherAvailableTimeId": 3,
- * 	"price": 45
+ * "clazzId": 2,
+ * "teacherAvailableTimeId": 3,
+ * "price": 45
  * }
- *
+ * <p>
  * 2. Send below request to convert clazz cart to clazz order
  * JSON:
  * [
- *     {
- *         "id": 1,
- *         "clazzId": 1,
- *         "teacherAvailableTimeId": 2,
- *         "price": 23
- *     },
- *     {
- *         "id": 4,
- *         "clazzId": 2,
- *         "teacherAvailableTimeId": 3,
- *         "price": 45
- *     }
+ * {
+ * "id": 1,
+ * "clazzId": 1,
+ * "teacherAvailableTimeId": 2,
+ * "price": 23
+ * },
+ * {
+ * "id": 4,
+ * "clazzId": 2,
+ * "teacherAvailableTimeId": 3,
+ * "price": 45
+ * }
  * ]
  */
 @Service
@@ -88,7 +86,7 @@ public class ClazzCartService {
     ClazzOrderRepository clazzOrderRepository;
 
     @Autowired
-    AuthenticationFacade authenticationFacade;
+    AuthenticationFacadeImpl authenticationFacadeImpl;
 
     @Autowired
     OrderStatusRepository orderStatusRepository;
@@ -129,12 +127,12 @@ public class ClazzCartService {
             throw new ClazzTimeUnavailableException();
         }
 
-        ClazzCart clazzCart = getClazzCartByUserId(authenticationFacade.getUserId());
+        ClazzCart clazzCart = getClazzCartByUserId(authenticationFacadeImpl.getUserId());
 
         // If clazz cart not created then created
         if (clazzCart == null) {
             ClazzCart _clazzCart = new ClazzCart();
-            _clazzCart.setUserId(authenticationFacade.getUserId());
+            _clazzCart.setUserId(authenticationFacadeImpl.getUserId());
             clazzCart = save(_clazzCart);
         } else {
             // Check the class item was added twice
@@ -153,7 +151,7 @@ public class ClazzCartService {
     }
 
     public ClazzCart getMyCart() {
-        return clazzCartRepository.findByUserId(authenticationFacade.getUserId());
+        return clazzCartRepository.findByUserId(authenticationFacadeImpl.getUserId());
     }
 
     private boolean isCartItemsValid(List<ClazzCartItem> cartItemList, List<Long> cartItemIds) {
@@ -166,7 +164,7 @@ public class ClazzCartService {
     private ClazzOrder createOrder(Set<ClazzOrderItem> orderItems) {
         ClazzOrder order = new ClazzOrder();
         order.setClazzOrderItems(orderItems);
-        order.setUserId(this.authenticationFacade.getUser().getId());
+        order.setUserId(this.authenticationFacadeImpl.getUser().getId());
         Optional<OrderStatus> orderStatus = orderStatusRepository.findByName("pending");
         order.setStatusId(orderStatus.get().getId());
 
@@ -247,7 +245,7 @@ public class ClazzCartService {
         }
 
         // FIXME: If cart is empty then delete cart, should we still keep the cart record inside the table
-        if(clazzCartItemSize == 0) {
+        if (clazzCartItemSize == 0) {
             clazzCartRepository.deleteById(cart.getId());
         }
     }
@@ -256,6 +254,7 @@ public class ClazzCartService {
      * Update class cart item
      *
      * @param clazzCartItem
+     *
      * @return
      */
     public ClazzCartItem updateClazzCartItem(ClazzCartItem clazzCartItem) {

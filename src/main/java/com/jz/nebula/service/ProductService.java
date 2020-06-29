@@ -1,12 +1,11 @@
 package com.jz.nebula.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import com.google.common.base.Strings;
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 import com.jz.nebula.entity.sku.Sku;
 import com.jz.nebula.entity.sku.SkuAttribute;
-import com.jz.nebula.exception.ProductStockException;
 import com.jz.nebula.util.pagination.CmsPagination;
 import com.jz.nebula.util.pagination.CmsPaginationHelper;
 
@@ -14,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import com.jz.nebula.controller.api.ProductController;
@@ -24,7 +23,6 @@ import com.jz.nebula.entity.product.Product;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collector;
 
 @Service
 @Transactional
@@ -33,7 +31,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private AuthenticationFacade authenticationFacade;
+    private AuthenticationFacadeImpl authenticationFacadeImpl;
 
     @Autowired
     private SkuService skuService;
@@ -47,8 +45,8 @@ public class ProductService {
      *
      * @return
      */
-    public PagedResources<Resource<Product>> findAll(String keyword, Pageable pageable,
-                                                     PagedResourcesAssembler<Product> assembler) {
+    public PagedModel<EntityModel<Product>> findAll(String keyword, Pageable pageable,
+                                                    PagedResourcesAssembler<Product> assembler) {
         Page<Product> page;
         if (Strings.isNullOrEmpty(keyword)) {
             page = productRepository.findAllByOrderByIdAsc(pageable);
@@ -56,7 +54,7 @@ public class ProductService {
             page = productRepository.findByNameContaining(keyword, pageable);
         }
 
-        PagedResources<Resource<Product>> resources = assembler.toResource(page,
+        PagedModel<EntityModel<Product>> resources = assembler.toModel(page,
                 linkTo(ProductController.class).slash("/products").withSelfRel());
 
         return resources;
@@ -106,7 +104,7 @@ public class ProductService {
             skuList.stream().forEach(sku -> {
                 sku.setProductId(updatedProduct.getId());
                 if (Objects.isNull(updatedProduct.getVendorId())) {
-                    sku.setCreatedUserId(authenticationFacade.getUserId());
+                    sku.setCreatedUserId(authenticationFacadeImpl.getUserId());
                 } else {
                     sku.setCreatedUserId(updatedProduct.getVendorId());
                 }

@@ -42,14 +42,26 @@ import java.util.Set;
 public class ExpirationListener implements MessageListener {
     private final static Logger logger = LogManager.getLogger(ExpirationListener.class);
 
-    @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
+
+    private ProductService productService;
+
+    private OrderStatusRepository orderStatusRepository;
 
     @Autowired
-    ProductService productService;
+    public void setOrderRepository(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Autowired
-    OrderStatusRepository orderStatusRepository;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @Autowired
+    public void setOrderStatusRepository(OrderStatusRepository orderStatusRepository) {
+        this.orderStatusRepository = orderStatusRepository;
+    }
 
     @Override
     public void onMessage(Message message, byte[] pattern) {

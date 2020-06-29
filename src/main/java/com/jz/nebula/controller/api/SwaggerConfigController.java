@@ -6,8 +6,8 @@ import com.jz.nebula.service.SwaggerConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -27,18 +27,20 @@ public class SwaggerConfigController {
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<SwaggerConfig>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                                final HttpServletResponse response, PagedResourcesAssembler<SwaggerConfig> assembler) {
+    PagedModel<EntityModel<SwaggerConfig>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                               final HttpServletResponse response, PagedResourcesAssembler<SwaggerConfig> assembler) {
         return swaggerConfigService.findAll(pageable, assembler);
     }
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping("/{id}")
@@ -50,6 +52,7 @@ public class SwaggerConfigController {
 
     /**
      * @param swaggerConfig
+     *
      * @return
      */
     @PostMapping("")
@@ -62,6 +65,7 @@ public class SwaggerConfigController {
     /**
      * @param id
      * @param swaggerConfig
+     *
      * @return
      */
     @PutMapping("/{id}")
@@ -74,6 +78,7 @@ public class SwaggerConfigController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/{id}")

@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,27 +43,32 @@ import com.jz.nebula.service.LocationService;
 @RestController
 @RequestMapping("/api/locations")
 public class LocationController {
+    private LocationService locationService;
 
     @Autowired
-    private LocationService locationService;
+    public void setLocationService(LocationService locationService) {
+        this.locationService = locationService;
+    }
 
     /**
      * @param pageable
      * @param uriBuilder
      * @param response
      * @param assembler
+     *
      * @return
      */
     @GetMapping
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    PagedResources<Resource<Location>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
-                                           final HttpServletResponse response, PagedResourcesAssembler<Location> assembler) {
+    PagedModel<EntityModel<Location>> all(Pageable pageable, final UriComponentsBuilder uriBuilder,
+                                          final HttpServletResponse response, PagedResourcesAssembler<Location> assembler) {
         return locationService.findAll(pageable, assembler);
     }
 
     /**
      * @param id
+     *
      * @return
      */
     @GetMapping("/{id}")
@@ -75,6 +80,7 @@ public class LocationController {
 
     /**
      * @param location
+     *
      * @return
      */
     @PostMapping("")
@@ -87,6 +93,7 @@ public class LocationController {
     /**
      * @param id
      * @param location
+     *
      * @return
      */
     @PutMapping("/{id}")
@@ -99,6 +106,7 @@ public class LocationController {
 
     /**
      * @param id
+     *
      * @return
      */
     @DeleteMapping("/{id}")

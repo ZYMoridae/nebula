@@ -16,7 +16,7 @@
 
 package com.jz.nebula.service.edu;
 
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.edu.ClazzOrderItemRepository;
 import com.jz.nebula.dao.edu.ClazzOrderRepository;
@@ -26,9 +26,8 @@ import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.edu.*;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.payment.PaymentTokenCategory;
-import com.jz.nebula.exception.MultipleActivatedOrderException;
+import com.jz.nebula.component.exception.MultipleActivatedOrderException;
 import com.jz.nebula.service.TokenService;
-import lombok.Synchronized;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class ClazzOrderService {
     TeacherAvailableTimeRepository teacherAvailableTimeRepository;
 
     @Autowired
-    AuthenticationFacade authenticationFacade;
+    AuthenticationFacadeImpl authenticationFacadeImpl;
 
     @Autowired
     OrderStatusRepository orderStatusRepository;
@@ -208,7 +207,7 @@ public class ClazzOrderService {
 
         Optional<OrderStatus> orderStatus = orderStatusRepository.findByName("pending");
         if (orderStatus.isPresent()) {
-            List<ClazzOrder> orders = clazzOrderRepository.findByUserIdAndStatusId(authenticationFacade.getUserId(), orderStatus.get().getId());
+            List<ClazzOrder> orders = clazzOrderRepository.findByUserIdAndStatusId(authenticationFacadeImpl.getUserId(), orderStatus.get().getId());
             if (orders != null && orders.size() > 0) {
                 order = orders.get(0);
             }
@@ -230,7 +229,7 @@ public class ClazzOrderService {
         if (persistedClazzOrder == null) {
             ClazzOrder _clazzOrder = new ClazzOrder();
             _clazzOrder.setStatusId((long) OrderStatus.StatusType.PENDING.value);
-            _clazzOrder.setUserId(authenticationFacade.getUserId());
+            _clazzOrder.setUserId(authenticationFacadeImpl.getUserId());
         } else {
             throw new MultipleActivatedOrderException();
         }

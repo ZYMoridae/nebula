@@ -1,24 +1,22 @@
 package com.jz.nebula.service;
 
-import com.jz.nebula.auth.IAuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacade;
 import com.jz.nebula.dao.OrderLogisticsInfoRepository;
 import com.jz.nebula.dao.OrderRepository;
 import com.jz.nebula.dao.OrderStatusRepository;
 import com.jz.nebula.dao.ProductRepository;
 import com.jz.nebula.dao.sku.SkuRepository;
 import com.jz.nebula.entity.*;
-import com.jz.nebula.entity.edu.Clazz;
 import com.jz.nebula.entity.edu.ClazzOrder;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.order.OrderItem;
 import com.jz.nebula.entity.order.OrderLogisticsInfo;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.payment.PaymentMethodInfo;
-import com.jz.nebula.entity.product.Product;
 import com.jz.nebula.entity.sku.Sku;
-import com.jz.nebula.exception.ProductStockException;
-import com.jz.nebula.payment.PaymentGateway;
-import com.jz.nebula.payment.PaymentType;
+import com.jz.nebula.component.exception.ProductStockException;
+import com.jz.nebula.service.payment.PaymentGateway;
+import com.jz.nebula.service.payment.PaymentType;
 import com.jz.nebula.service.edu.ClazzOrderService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +32,6 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -42,7 +39,7 @@ public class PaymentService {
     private final Logger logger = LogManager.getLogger(PaymentService.class);
 
     @Autowired
-    private IAuthenticationFacade authenticationFacade;
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
     private OrderRepository orderRepository;

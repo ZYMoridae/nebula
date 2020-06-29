@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jz.nebula.auth.AuthenticationFacade;
+import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 import com.jz.nebula.dao.ProductRatingRepository;
 import com.jz.nebula.entity.product.ProductRating;
 import com.jz.nebula.entity.User;
@@ -18,10 +18,10 @@ public class ProductRatingService {
     private ProductRatingRepository productRatingRepository;
 
     @Autowired
-    private AuthenticationFacade authenticationFacade;
+    private AuthenticationFacadeImpl authenticationFacadeImpl;
 
     public ProductRating save(ProductRating productRating) {
-        User user = authenticationFacade.getUser();
+        User user = authenticationFacadeImpl.getUser();
         if (!user.isAdmin()) {
             productRating.setUsertId(user.getId());
         }

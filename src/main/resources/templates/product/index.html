@@ -108,18 +108,18 @@
     </nav>
 
     <script th:inline="javascript">
-        /*<![CDATA[*/
-        $(document).ready(function () {
-            $('#pageSelect').change(function () {
-                var basePath = /*[[${data.path + \'?page=\' + data.pageNumber + \'&size=\'}]]*/;
-                window.location.href = basePath + $(this).val();
-            });
-        });
+      /*<![CDATA[*/
+      $(document).ready(function () {
+        $('#pageSelect').change(function () {
+          var basePath = /*[[${data.path + \'?page=\' + data.pageNumber + \'&size=\'}]]*/
+            window.location.href = basePath + $(this).val()
+        })
+      })
 
-        $('#new-btn').click(function () {
-            window.location.href = '/cms/product/new';
-        });
-        /*]]>*/
+      $('#new-btn').click(function () {
+        window.location.href = '/cms/product/new'
+      })
+      /*]]>*/
     </script>
 
 

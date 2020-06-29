@@ -34,6 +34,7 @@ public class UserLogService {
      * Save user log
      *
      * @param userLog
+     *
      * @return
      */
     public UserLog save(UserLog userLog) {

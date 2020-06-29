@@ -1,12 +1,11 @@
 package com.jz.nebula.controller.api;
 
-import com.jz.nebula.entity.Payment;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.edu.ClazzOrder;
 import com.jz.nebula.entity.order.Order;
 import com.jz.nebula.entity.payment.PaymentMethodInfo;
 import com.jz.nebula.entity.payment.PaymentTokenCategory;
-import com.jz.nebula.exception.payment.InvalidPaymentTokenException;
+import com.jz.nebula.component.exception.payment.InvalidPaymentTokenException;
 import com.jz.nebula.service.PaymentService;
 import com.jz.nebula.service.TokenService;
 import org.apache.logging.log4j.LogManager;
@@ -76,7 +75,9 @@ public class PaymentController {
      *
      * @param paymentMethodInfo
      * @param paymentToken
+     *
      * @return
+     *
      * @throws Exception
      */
     @PostMapping("/finalise")

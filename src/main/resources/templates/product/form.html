@@ -58,33 +58,41 @@
                 <th:block th:each="sku, iterationStatus : *{skus}">
                     <div class="p-3" style="border-radius: 5px;background-color: #f3f3f3;">
                         <!--                            <label th:text="*{'Sku ' + skus[__${iterationStatus.index}__].id}"></label>-->
-                        <input class="form-control" hidden placeholder="Sku Code" required th:field="*{skus[__${iterationStatus.index}__].id}"
+                        <input class="form-control" hidden placeholder="Sku Code" required
+                               th:field="*{skus[__${iterationStatus.index}__].id}"
                                type="text">
                         <label th:text="*{'Sku ' + skus[__${iterationStatus.index}__].id}"></label>
-                        <input class="form-control" hidden placeholder="Sku Code" required th:field="*{skus[__${iterationStatus.index}__].skuCode}"
+                        <input class="form-control" hidden placeholder="Sku Code" required
+                               th:field="*{skus[__${iterationStatus.index}__].skuCode}"
                                type="text">
                         <label>Stock</label>
-                        <input class="form-control" placeholder="Stock" required th:field="*{skus[__${iterationStatus.index}__].stock}"
+                        <input class="form-control" placeholder="Stock" required
+                               th:field="*{skus[__${iterationStatus.index}__].stock}"
                                type="text">
                         <label>Price</label>
-                        <input class="form-control" placeholder="Price" required th:field="*{skus[__${iterationStatus.index}__].price}"
+                        <input class="form-control" placeholder="Price" required
+                               th:field="*{skus[__${iterationStatus.index}__].price}"
                                type="text">
 
-                        <input class="form-control" hidden placeholder="Product Id" required th:field="*{skus[__${iterationStatus.index}__].productId}"
+                        <input class="form-control" hidden placeholder="Product Id" required
+                               th:field="*{skus[__${iterationStatus.index}__].productId}"
                                th:value="${product.id}" type="text">
 
-                        <input class="form-control" hidden placeholder="Create User Id" required th:field="*{skus[__${iterationStatus.index}__].createdUserId}"
+                        <input class="form-control" hidden placeholder="Create User Id" required
+                               th:field="*{skus[__${iterationStatus.index}__].createdUserId}"
                                type="text">
 
                         <div class="p-3" style="border-radius: 5px;background-color: #f3f3f3;">
                             <th:block
                                     th:each="skuAttribute, iterationStatus2 : *{skus[__${iterationStatus.index}__].skuAttributes}">
                                 <label th:text="${'Sku Attribute ' + (iterationStatus2.index + 1)}"></label>
-                                <input class="form-control" placeholder="Price" required th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].value}"
+                                <input class="form-control" placeholder="Price" required
+                                       th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].value}"
                                        type="text">
 
                                 <label>Sku Category</label>
-                                <input class="form-control" placeholder="Price" required th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].skuAttributeCategory.name}"
+                                <input class="form-control" placeholder="Price" required
+                                       th:field="*{skus[__${iterationStatus.index}__].skuAttributesAsList[__${iterationStatus2.index}__].skuAttributeCategory.name}"
                                        type="text">
                             </th:block>
                         </div>
