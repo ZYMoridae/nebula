@@ -15,9 +15,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailServiceImpl implements EmailService {
+    public JavaMailSender emailSender;
 
     @Autowired
-    public JavaMailSender javaMailSender;
+    public void setEmailSender(JavaMailSender emailSender) {
+        this.emailSender = emailSender;
+    }
 
     public void sendSimpleMessage(String from, String to, String subject, String text) {
         try {
