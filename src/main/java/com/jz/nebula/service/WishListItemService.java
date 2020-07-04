@@ -4,6 +4,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import java.util.Optional;
 
+import com.jz.nebula.dao.CartItemRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class WishListItemService {
     private WishListItemValidator wishListItemValidator;
 
     @Autowired
-    private CartItemService cartItemService;
+    private CartItemRepository cartItemRepository;
 
     /**
      * Get authenticated user
@@ -86,7 +87,7 @@ public class WishListItemService {
      */
     private WishListItem getItemInWishList(WishListItem wishListItem) {
         Optional<WishListItem> optional = wishListItemRepository
-                .findByWishListIdAndProductId(wishListItem.getWishListId(), wishListItem.getProductId());
+                .findByWishListIdAndProductId(wishListItem.getWishListId(), wishListItem.getProduct().getId());
         return optional.isPresent() ? optional.get() : null;
     }
 
@@ -136,7 +137,7 @@ public class WishListItemService {
             updatedWishListItem = wishListItemRepository.save(wishListItem);
         }
 
-        logger.info("Product with id:[{}] has been added", wishListItem.getProductId());
+        logger.info("Product with id:[{}] has been added", wishListItem.getProduct().getId());
 
         return findById(updatedWishListItem.getId());
     }
@@ -173,9 +174,9 @@ public class WishListItemService {
     @Transactional(rollbackFor = {Exception.class})
     public CartItem toCartItem(WishListItem wishListItem) throws Exception {
         CartItem cartItem = wishListItem.toCartItem();
-        cartItemService.save(cartItem);
+        cartItemRepository.save(cartItem);
         delete(wishListItem.getId());
 
-        return cartItemService.findById(cartItem.getId());
+        return cartItemRepository.findById(cartItem.getId()).get();
     }
 }

@@ -1,620 +1,3092 @@
--- Table: public.file
+--
+-- PostgreSQL database dump
+--
 
-SET CLIENT_MIN_MESSAGES = WARNING;
+-- Dumped from database version 10.10
+-- Dumped by pg_dump version 12.2
 
-BEGIN;
--- Create public.roles table
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
-DROP TABLE IF EXISTS public.role;
+SET default_tablespace = '';
 
-CREATE TABLE public.role
-(
-    id         serial,
-    code       text NOT NULL,
+--
+-- Name: api_category; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_category (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.api_category OWNER TO postgres;
+
+--
+-- Name: api_category_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_category_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_category_id_seq OWNER TO postgres;
+
+--
+-- Name: api_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_category_id_seq OWNED BY public.api_category.id;
+
+
+--
+-- Name: api_info; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_info (
+    id integer NOT NULL,
+    action_type character varying(50) NOT NULL,
+    api_category_id integer NOT NULL,
+    request character varying,
+    response character varying,
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT role_pkey PRIMARY KEY (id)
+    end_point character varying(200)
 );
 
--- Create public.users table
 
-DROP TABLE IF EXISTS public.user;
+ALTER TABLE public.api_info OWNER TO postgres;
 
-CREATE TABLE public.user
-(
-    id         serial,
-    password   text                  NOT NULL,
-    created_at timestamp without time zone    DEFAULT now(),
-    updated_at timestamp without time zone    DEFAULT now(),
-    role_id    integer               NOT NULL DEFAULT 1,
-    telephone  text                  NOT NULL,
-    address1   character varying(50) NOT NULL,
-    address2   character varying(50) NOT NULL,
-    firstname  character varying(50) NOT NULL,
-    lastname   character varying(50) NOT NULL,
-    gender     character varying(2)  NOT NULL,
-    email      character varying(50) NOT NULL,
-    username   character varying(50) NOT NULL,
-    CONSTRAINT user_pkey PRIMARY KEY (id),
-    CONSTRAINT user_role_id_fkey FOREIGN KEY (role_id)
-        REFERENCES public.role (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CONSTRAINT user_email_key UNIQUE (email),
-    CONSTRAINT user_username_key UNIQUE (username)
-);
+--
+-- Name: api_info_header; Type: TABLE; Schema: public; Owner: postgres
+--
 
--- Create public.file table
-
-DROP TABLE IF EXISTS public.file;
-
-CREATE TABLE public.file
-(
-    id         serial,
-    name       text    NOT NULL,
-    path       text    NOT NULL,
-    user_id    integer NOT NULL,
+CREATE TABLE public.api_info_header (
+    id integer NOT NULL,
+    api_info_id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    value text[] NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT file_pkey PRIMARY KEY (id),
-    CONSTRAINT file_user_id_fkey FOREIGN KEY (user_id)
-        REFERENCES public.user (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION
+    updated_at timestamp without time zone DEFAULT now()
 );
 
-DROP TABLE IF EXISTS public.note;
 
-CREATE TABLE public.note
-(
-    id      serial,
-    body    text    NOT NULL,
+ALTER TABLE public.api_info_header OWNER TO postgres;
+
+--
+-- Name: api_info_header_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_info_header_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_info_header_id_seq OWNER TO postgres;
+
+--
+-- Name: api_info_header_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_info_header_id_seq OWNED BY public.api_info_header.id;
+
+
+--
+-- Name: api_info_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_info_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_info_id_seq OWNER TO postgres;
+
+--
+-- Name: api_info_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_info_id_seq OWNED BY public.api_info.id;
+
+
+--
+-- Name: cart; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cart (
+    id integer NOT NULL,
     user_id integer NOT NULL,
-    CONSTRAINT note_pkey PRIMARY KEY (id),
-    CONSTRAINT note_user_id_fkey FOREIGN KEY (user_id)
-        REFERENCES public.user (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
 );
 
-DROP TABLE IF EXISTS public.logisticsProvider;
 
-CREATE TABLE public.logisticsProvider
-(
-    id         serial,
-    name       text                  NOT NULL,
-    contact    character varying(20) NOT NULL,
+ALTER TABLE public.cart OWNER TO postgres;
+
+--
+-- Name: cart_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.cart_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cart_id_seq OWNER TO postgres;
+
+--
+-- Name: cart_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.cart_id_seq OWNED BY public.cart.id;
+
+
+--
+-- Name: cart_item; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cart_item (
+    id integer NOT NULL,
+    cart_id integer NOT NULL,
+    product_id integer NOT NULL,
+    quantity integer NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT shipper_pkey PRIMARY KEY (id)
+    sku_code character varying(200)
 );
 
-DROP TABLE IF EXISTS public.product_category;
 
-CREATE TABLE public.product_category
-(
-    id         serial,
-    name       text NOT NULL,
+ALTER TABLE public.cart_item OWNER TO postgres;
+
+--
+-- Name: cart_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.cart_item_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cart_item_id_seq OWNER TO postgres;
+
+--
+-- Name: cart_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.cart_item_id_seq OWNED BY public.cart_item.id;
+
+
+--
+-- Name: class; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.class (
+    id integer NOT NULL,
+    name text NOT NULL,
+    thumbnail text,
+    description text NOT NULL,
+    unit text NOT NULL,
+    unit_price double precision NOT NULL,
+    class_category_id integer NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT product_category_pkey PRIMARY KEY (id)
-);
-
-DROP TABLE IF EXISTS public.product;
-
-CREATE TABLE public.product
-(
-    id             serial,
-    name           text    NOT NULL,
-    vendor_id      integer,
-    price          numeric NOT NULL,
-    units_in_stock integer NOT NULL            DEFAULT 0,
-    created_at     timestamp without time zone DEFAULT now(),
-    updated_at     timestamp without time zone DEFAULT now(),
-    category_id    integer,
-    CONSTRAINT product_pkey PRIMARY KEY (id),
-    CONSTRAINT product_category_id_fkey FOREIGN KEY (category_id)
-        REFERENCES public.product_category (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CONSTRAINT product_vendor_id_fkey FOREIGN KEY (vendor_id)
-        REFERENCES public.user (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION
+    teacher_id integer NOT NULL,
+    rating double precision DEFAULT 0 NOT NULL,
+    rating_count integer DEFAULT 0 NOT NULL
 );
 
 
-DROP TABLE IF EXISTS public.orders;
+ALTER TABLE public.class OWNER TO postgres;
 
-CREATE TABLE public.orders
-(
-    id         serial,
-    user_id    integer NOT NULL,
+--
+-- Name: class_cart; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.class_cart (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.class_cart OWNER TO postgres;
+
+--
+-- Name: class_cart_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.class_cart_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.class_cart_id_seq OWNER TO postgres;
+
+--
+-- Name: class_cart_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.class_cart_id_seq OWNED BY public.class_cart.id;
+
+
+--
+-- Name: class_cart_item; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.class_cart_item (
+    id integer NOT NULL,
+    class_cart_id integer NOT NULL,
+    class_id integer NOT NULL,
+    teacher_available_time_id integer NOT NULL,
+    price double precision NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.class_cart_item OWNER TO postgres;
+
+--
+-- Name: class_cart_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.class_cart_item_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.class_cart_item_id_seq OWNER TO postgres;
+
+--
+-- Name: class_cart_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.class_cart_item_id_seq OWNED BY public.class_cart_item.id;
+
+
+--
+-- Name: class_category; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.class_category (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    code character varying(10) NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.class_category OWNER TO postgres;
+
+--
+-- Name: class_category_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.class_category_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.class_category_id_seq OWNER TO postgres;
+
+--
+-- Name: class_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.class_category_id_seq OWNED BY public.class_category.id;
+
+
+--
+-- Name: class_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.class_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.class_id_seq OWNER TO postgres;
+
+--
+-- Name: class_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.class_id_seq OWNED BY public.class.id;
+
+
+--
+-- Name: class_order; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.class_order (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    invoice_id text,
+    total_price double precision NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now(),
+    status_id integer NOT NULL
+);
+
+
+ALTER TABLE public.class_order OWNER TO postgres;
+
+--
+-- Name: class_order_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.class_order_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.class_order_id_seq OWNER TO postgres;
+
+--
+-- Name: class_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.class_order_id_seq OWNED BY public.class_order.id;
+
+
+--
+-- Name: class_order_item; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.class_order_item (
+    id integer NOT NULL,
+    class_order_id integer NOT NULL,
+    class_id integer NOT NULL,
+    teacher_available_time_id integer NOT NULL,
+    price double precision NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.class_order_item OWNER TO postgres;
+
+--
+-- Name: class_order_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.class_order_item_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.class_order_item_id_seq OWNER TO postgres;
+
+--
+-- Name: class_order_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.class_order_item_id_seq OWNED BY public.class_order_item.id;
+
+
+--
+-- Name: currency_rates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.currency_rates (
+    id integer NOT NULL,
+    currency_code character varying(5) NOT NULL,
+    base_currency character varying(5) NOT NULL,
+    rate double precision NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.currency_rates OWNER TO postgres;
+
+--
+-- Name: currency_rates_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.currency_rates_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.currency_rates_id_seq OWNER TO postgres;
+
+--
+-- Name: currency_rates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.currency_rates_id_seq OWNED BY public.currency_rates.id;
+
+
+--
+-- Name: file; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.file (
+    id integer NOT NULL,
+    name text NOT NULL,
+    path text NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.file OWNER TO postgres;
+
+--
+-- Name: file_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.file_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.file_id_seq OWNER TO postgres;
+
+--
+-- Name: file_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.file_id_seq OWNED BY public.file.id;
+
+
+--
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hibernate_sequence OWNER TO postgres;
+
+--
+-- Name: home_banner; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.home_banner (
+    id integer NOT NULL,
+    image_url character varying NOT NULL,
+    title character varying(250) NOT NULL,
+    description text NOT NULL,
+    link character varying NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.home_banner OWNER TO postgres;
+
+--
+-- Name: home_banner_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.home_banner_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.home_banner_id_seq OWNER TO postgres;
+
+--
+-- Name: home_banner_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.home_banner_id_seq OWNED BY public.home_banner.id;
+
+
+--
+-- Name: invoice; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.invoice (
+    id integer NOT NULL,
+    entity_id integer NOT NULL,
+    entity_type character varying(5) NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now(),
+    invoice_id text NOT NULL
+);
+
+
+ALTER TABLE public.invoice OWNER TO postgres;
+
+--
+-- Name: invoice_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.invoice_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.invoice_id_seq OWNER TO postgres;
+
+--
+-- Name: invoice_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.invoice_id_seq OWNED BY public.invoice.id;
+
+
+--
+-- Name: job; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.job (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    title character varying(500) NOT NULL,
+    description text NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.job OWNER TO postgres;
+
+--
+-- Name: job_category; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.job_category (
+    id integer NOT NULL,
+    name character varying(500) NOT NULL,
+    code character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public.job_category OWNER TO postgres;
+
+--
+-- Name: job_category_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.job_category_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.job_category_id_seq OWNER TO postgres;
+
+--
+-- Name: job_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.job_category_id_seq OWNED BY public.job_category.id;
+
+
+--
+-- Name: job_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.job_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.job_id_seq OWNER TO postgres;
+
+--
+-- Name: job_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.job_id_seq OWNED BY public.job.id;
+
+
+--
+-- Name: location; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.location (
+    id integer NOT NULL,
+    country_code character varying(10) NOT NULL,
+    state_code character varying(10) NOT NULL,
+    name character varying NOT NULL,
+    postcode character varying(20),
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.location OWNER TO postgres;
+
+--
+-- Name: location_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.location_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.location_id_seq OWNER TO postgres;
+
+--
+-- Name: location_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.location_id_seq OWNED BY public.location.id;
+
+
+--
+-- Name: note; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.note (
+    id integer NOT NULL,
+    body text NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.note OWNER TO postgres;
+
+--
+-- Name: note_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.note_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.note_id_seq OWNER TO postgres;
+
+--
+-- Name: note_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.note_id_seq OWNED BY public.note.id;
+
+
+--
+-- Name: notification; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.notification (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    body text NOT NULL,
+    status_id integer DEFAULT 1 NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.notification OWNER TO postgres;
+
+--
+-- Name: notification_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.notification_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notification_id_seq OWNER TO postgres;
+
+--
+-- Name: notification_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.notification_id_seq OWNED BY public.notification.id;
+
+
+--
+-- Name: notification_status; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.notification_status (
+    id integer NOT NULL,
+    code character varying(30) NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.notification_status OWNER TO postgres;
+
+--
+-- Name: notification_status_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.notification_status_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notification_status_id_seq OWNER TO postgres;
+
+--
+-- Name: notification_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.notification_status_id_seq OWNED BY public.notification_status.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.orders (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
     shipper_id integer NOT NULL,
-    CONSTRAINT order_pkey PRIMARY KEY (id),
-    CONSTRAINT order_shipper_id_fkey FOREIGN KEY (shipper_id)
-        REFERENCES public.logisticsProvider (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CONSTRAINT order_user_id_fkey FOREIGN KEY (user_id)
-        REFERENCES public.user (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE CASCADE
+    order_status_id integer DEFAULT 1
 );
 
 
-DROP TABLE IF EXISTS public.order_item;
+ALTER TABLE public.orders OWNER TO postgres;
 
-CREATE TABLE public.order_item
-(
-    id         serial,
-    order_id   integer NOT NULL,
-    unit_price numeric NOT NULL            DEFAULT 0,
-    quantity   integer NOT NULL            DEFAULT 0,
+--
+-- Name: order_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.order_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.order_id_seq OWNER TO postgres;
+
+--
+-- Name: order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.order_id_seq OWNED BY public.orders.id;
+
+
+--
+-- Name: order_item; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.order_item (
+    id integer NOT NULL,
+    order_id integer NOT NULL,
+    unit_price numeric DEFAULT 0 NOT NULL,
+    quantity integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
     product_id integer NOT NULL,
-    CONSTRAINT order_item_pkey PRIMARY KEY (id),
-    CONSTRAINT order_item_order_id_fkey FOREIGN KEY (order_id)
-        REFERENCES public.order (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE CASCADE,
-    CONSTRAINT order_item_product_id_fkey FOREIGN KEY (product_id)
-        REFERENCES public.product (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION
+    sku_code character varying(200)
 );
 
-DROP TABLE IF EXISTS public.invoice;
 
-CREATE TABLE public.invoice
-(
-    id         serial,
-    order_id   integer NOT NULL,
+ALTER TABLE public.order_item OWNER TO postgres;
+
+--
+-- Name: order_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.order_item_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.order_item_id_seq OWNER TO postgres;
+
+--
+-- Name: order_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.order_item_id_seq OWNED BY public.order_item.id;
+
+
+--
+-- Name: order_shipping_info; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.order_shipping_info (
+    id integer NOT NULL,
+    orders_id integer NOT NULL,
+    address1 character varying(50) NOT NULL,
+    address2 character varying(50),
+    firstname character varying(50) NOT NULL,
+    lastname character varying(50) NOT NULL,
+    email character varying(50) NOT NULL,
+    post_code character varying(50) NOT NULL,
+    telephone text NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.order_shipping_info OWNER TO postgres;
+
+--
+-- Name: order_shipping_info_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.order_shipping_info_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.order_shipping_info_id_seq OWNER TO postgres;
+
+--
+-- Name: order_shipping_info_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.order_shipping_info_id_seq OWNED BY public.order_shipping_info.id;
+
+
+--
+-- Name: order_status; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.order_status (
+    id integer NOT NULL,
+    name text NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.order_status OWNER TO postgres;
+
+--
+-- Name: order_status_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.order_status_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.order_status_id_seq OWNER TO postgres;
+
+--
+-- Name: order_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.order_status_id_seq OWNED BY public.order_status.id;
+
+
+--
+-- Name: product; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product (
+    id integer NOT NULL,
+    name text NOT NULL,
+    vendor_id integer,
+    price numeric NOT NULL,
+    units_in_stock integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
-    invoice_id text    NOT NULL,
-    CONSTRAINT invoice_pkey PRIMARY KEY (id),
-    CONSTRAINT invoice_order_id_fkey FOREIGN KEY (order_id)
-        REFERENCES public.order (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CONSTRAINT invoice_invoice_id_key UNIQUE (invoice_id)
+    category_id integer,
+    description character varying(255)
 );
 
 
--- Drop table
+ALTER TABLE public.product OWNER TO postgres;
 
--- DROP TABLE public.order_status;
+--
+-- Name: product_category; Type: TABLE; Schema: public; Owner: postgres
+--
 
-CREATE TABLE public.order_status
-(
-    id         serial        NOT NULL,
-    code       character(20) NOT NULL,
-    "name"     text          NOT NULL,
-    created_at timestamp     NULL DEFAULT now(),
-    updated_at timestamp     NULL DEFAULT now(),
-    CONSTRAINT order_status_pkey PRIMARY KEY (id)
+CREATE TABLE public.product_category (
+    id integer NOT NULL,
+    name text NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
 );
 
 
-INSERT INTO public.order_status
-    (code, "name", created_at, updated_at)
-VALUES ('PAD', 'paid', '2019-04-03 19:00:03.088', '2019-04-03 19:00:03.088');
+ALTER TABLE public.product_category OWNER TO postgres;
 
-INSERT INTO public.order_status
-    (code, "name", created_at, updated_at)
-VALUES ('UPD', 'unpaid', '2019-04-03 19:00:03.088', '2019-04-03 19:00:03.088');
+--
+-- Name: product_category_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
-INSERT INTO public.order_status
-    (code, "name", created_at, updated_at)
-VALUES ('SPD', 'shipped', '2019-04-03 19:00:03.088', '2019-04-03 19:00:03.088');
-
-INSERT INTO public.order_status
-    (code, "name", created_at, updated_at)
-VALUES ('USD', 'unshipped', '2019-04-03 19:00:03.088', '2019-04-03 19:00:03.088');
+CREATE SEQUENCE public.product_category_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-create view vendor_info as (select username,
-                                   telephone,
-                                   address1,
-                                   address2,
-                                   firstname,
-                                   lastname,
-                                   gender,
-                                   email
-                            from "user");
+ALTER TABLE public.product_category_id_seq OWNER TO postgres;
 
-DROP TABLE IF EXISTS public.cart;
-CREATE TABLE public.cart
-(
-    id         serial,
-    user_id    int NOT NULL REFERENCES "user" (id),
+--
+-- Name: product_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.product_category_id_seq OWNED BY public.product_category.id;
+
+
+--
+-- Name: product_comment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product_comment (
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    parent_comment_id integer DEFAULT 0,
+    body text,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.product_comment OWNER TO postgres;
+
+--
+-- Name: product_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.product_comment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_comment_id_seq OWNER TO postgres;
+
+--
+-- Name: product_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.product_comment_id_seq OWNED BY public.product_comment.id;
+
+
+--
+-- Name: product_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.product_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_id_seq OWNER TO postgres;
+
+--
+-- Name: product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.product_id_seq OWNED BY public.product.id;
+
+
+--
+-- Name: product_meta; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product_meta (
+    id bigint NOT NULL,
+    created_at date,
+    key character varying(255),
+    updated_at date,
+    value character varying(255),
+    product_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.product_meta OWNER TO postgres;
+
+--
+-- Name: product_meta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.product_meta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_meta_id_seq OWNER TO postgres;
+
+--
+-- Name: product_meta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.product_meta_id_seq OWNED BY public.product_meta.id;
+
+
+--
+-- Name: product_rating; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product_rating (
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    user_id integer NOT NULL,
+    rating integer DEFAULT 0,
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT cart_pkey PRIMARY KEY (id)
+    CONSTRAINT product_rating_rating_check CHECK (((rating >= 0) AND (rating <= 5)))
 );
 
--- ----------------------------
--- Table structure for order_status
--- ----------------------------
-DROP TABLE IF EXISTS public.cart_item;
-CREATE TABLE public.cart_item
-(
-    id         serial,
-    cart_id    int NOT NULL REFERENCES "cart" (id),
-    product_id int NOT NULL REFERENCES "product" (id),
-    quantity   int NOT NULL,
+
+ALTER TABLE public.product_rating OWNER TO postgres;
+
+--
+-- Name: product_rating_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.product_rating_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_rating_id_seq OWNER TO postgres;
+
+--
+-- Name: product_rating_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.product_rating_id_seq OWNED BY public.product_rating.id;
+
+
+--
+-- Name: role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.role (
+    id integer NOT NULL,
+    code text NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.role OWNER TO postgres;
+
+--
+-- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.role_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.role_id_seq OWNER TO postgres;
+
+--
+-- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.role_id_seq OWNED BY public.role.id;
+
+
+--
+-- Name: shipper; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.shipper (
+    id integer NOT NULL,
+    name text NOT NULL,
+    contact character varying(20) NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.shipper OWNER TO postgres;
+
+--
+-- Name: shipper_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.shipper_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.shipper_id_seq OWNER TO postgres;
+
+--
+-- Name: shipper_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.shipper_id_seq OWNED BY public.shipper.id;
+
+
+--
+-- Name: sku; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sku (
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    sku_code character varying(50) NOT NULL,
+    price numeric NOT NULL,
+    stock integer NOT NULL,
+    created_user_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.sku OWNER TO postgres;
+
+--
+-- Name: sku_attribute; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sku_attribute (
+    id integer NOT NULL,
+    sku_code character varying(50) NOT NULL,
+    sku_attribute_category_id integer NOT NULL,
+    value text,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.sku_attribute OWNER TO postgres;
+
+--
+-- Name: sku_attribute_category; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sku_attribute_category (
+    id integer NOT NULL,
+    name text NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.sku_attribute_category OWNER TO postgres;
+
+--
+-- Name: sku_attribute_category_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.sku_attribute_category_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sku_attribute_category_id_seq OWNER TO postgres;
+
+--
+-- Name: sku_attribute_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.sku_attribute_category_id_seq OWNED BY public.sku_attribute_category.id;
+
+
+--
+-- Name: sku_attribute_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.sku_attribute_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sku_attribute_id_seq OWNER TO postgres;
+
+--
+-- Name: sku_attribute_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.sku_attribute_id_seq OWNED BY public.sku_attribute.id;
+
+
+--
+-- Name: sku_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.sku_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sku_id_seq OWNER TO postgres;
+
+--
+-- Name: sku_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.sku_id_seq OWNED BY public.sku.id;
+
+
+--
+-- Name: swagger_config; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.swagger_config (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    value text NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.swagger_config OWNER TO postgres;
+
+--
+-- Name: swagger_config_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.swagger_config_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.swagger_config_id_seq OWNER TO postgres;
+
+--
+-- Name: swagger_config_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.swagger_config_id_seq OWNED BY public.swagger_config.id;
+
+
+--
+-- Name: teacher_available_time; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.teacher_available_time (
+    id integer NOT NULL,
+    teacher_id integer NOT NULL,
+    start_time timestamp without time zone DEFAULT now(),
+    end_time timestamp without time zone DEFAULT now(),
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT cart_item_pkey PRIMARY KEY (id),
-    CONSTRAINT cart_product_ukey UNIQUE (cart_id, product_id)
+    is_reserved boolean DEFAULT false
 );
 
--- ----------------------------
--- Table structure for order_status
--- ----------------------------
-DROP TABLE IF EXISTS public.order_status;
-CREATE TABLE public.order_status
-(
-    id         serial,
-    name       text not null,
+
+ALTER TABLE public.teacher_available_time OWNER TO postgres;
+
+--
+-- Name: teacher_available_time_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.teacher_available_time_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.teacher_available_time_id_seq OWNER TO postgres;
+
+--
+-- Name: teacher_available_time_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.teacher_available_time_id_seq OWNED BY public.teacher_available_time.id;
+
+
+--
+-- Name: user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."user" (
+    id integer NOT NULL,
+    password text NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
     updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT order_status_pkey PRIMARY KEY (id)
+    role_id integer DEFAULT 1 NOT NULL,
+    telephone text NOT NULL,
+    address1 character varying(50) NOT NULL,
+    address2 character varying(50) NOT NULL,
+    firstname character varying(50) NOT NULL,
+    lastname character varying(50) NOT NULL,
+    gender character varying(2) NOT NULL,
+    email character varying(50) NOT NULL,
+    username character varying(50) NOT NULL
 );
 
--- ----------------------------
--- Records of order_status
--- ----------------------------
-INSERT INTO order_status(name)
-VALUES ('pending');
-INSERT INTO order_status(name)
-VALUES ('paid');
-INSERT INTO order_status(name)
-VALUES ('refund');
 
-ALTER TABLE public."orders"
-    ADD COLUMN order_status_id int default 1;
-ALTER TABLE public."orders"
-    ADD CONSTRAINT fk_order_status_id foreign key (order_status_id) references order_status (id);
+ALTER TABLE public."user" OWNER TO postgres;
 
+--
+-- Name: user_roles; Type: TABLE; Schema: public; Owner: postgres
+--
 
--- ----------------------------
--- Table structure for notification_status
--- ----------------------------
-DROP TABLE IF EXISTS public.notification_status;
-
-CREATE TABLE public.notification_status
-(
-    id         serial,
-    code       varchar(30) NOT NULL,
+CREATE TABLE public.user_roles (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    role_id integer NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT notification_status_pkey PRIMARY KEY (id)
-);
-
--- ----------------------------
--- Records of notification_status
--- ----------------------------
-INSERT INTO public.notification_status(code)
-VALUES ('UNREAD');
-INSERT INTO public.notification_status(code)
-VALUES ('READ');
-
-DROP TABLE IF EXISTS public.notification;
-
-CREATE TABLE public.notification
-(
-    id         serial,
-    user_id    int  NOT NULL REFERENCES "user" (id),
-    body       text NOT NULL,
-    status_id  int  NOT NULL REFERENCES "notification_status" (id) DEFAULT 1,
-    created_at timestamp without time zone                         DEFAULT now(),
-    updated_at timestamp without time zone                         DEFAULT now(),
-    CONSTRAINT notification_pkey PRIMARY KEY (id)
-);
-
--- ----------------------------
--- Table structure for location
--- ----------------------------
-DROP TABLE IF EXISTS public.location;
-
-CREATE TABLE public.location
-(
-    id           serial,
-    country_code varchar(10) NOT NULL,
-    state_code   varchar(10) NOT NULL,
-    name         varchar     NOT NULL,
-    postcode     varchar(20),
-    created_at   timestamp without time zone DEFAULT now(),
-    updated_at   timestamp without time zone DEFAULT now(),
-    CONSTRAINT location_pkey PRIMARY KEY (id)
-);
-
--- ----------------------------
--- Table structure for product_comment
--- ----------------------------
-DROP TABLE IF EXISTS public.product_comment;
-
-CREATE TABLE public.product_comment
-(
-    id                serial,
-    product_id        int NOT NULL REFERENCES "product" (id),
-    parent_comment_id int                         default 0,
-    body              text,
-    user_id           int NOT NULL REFERENCES "user" (id),
-    created_at        timestamp without time zone DEFAULT now(),
-    updated_at        timestamp without time zone DEFAULT now(),
-    CONSTRAINT product_comment_pkey PRIMARY KEY (id)
-);
-
--- ----------------------------
--- Table structure for product_rating
--- ----------------------------
-DROP TABLE IF EXISTS public.product_rating;
-
-CREATE TABLE public.product_rating
-(
-    id         serial,
-    product_id int NOT NULL REFERENCES "product" (id),
-    user_id    int NOT NULL REFERENCES "user" (id),
-    rating     int                         default 0,
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    check (rating >= 0 AND rating <= 5),
-    CONSTRAINT product_rating_pkey PRIMARY KEY (id),
-    CONSTRAINT product_id_user_id_ukey UNIQUE (product_id, user_id)
-);
-
--- ----------------------------
--- Table structure for wish_list
--- ----------------------------
-DROP TABLE IF EXISTS public.wish_list;
-CREATE TABLE public.wish_list
-(
-    id         serial,
-    user_id    int NOT NULL REFERENCES "user" (id),
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT wish_list_pkey PRIMARY KEY (id)
+    updated_at timestamp without time zone DEFAULT now()
 );
 
 
--- ----------------------------
--- Table structure for wish_list_item
--- ----------------------------
-DROP TABLE IF EXISTS public.wish_list_item;
-CREATE TABLE public.wish_list_item
-(
-    id           serial,
-    wish_list_id int NOT NULL REFERENCES "wish_list" (id),
-    product_id   int NOT NULL REFERENCES "product" (id),
-    quantity     int NOT NULL,
-    created_at   timestamp without time zone DEFAULT now(),
-    updated_at   timestamp without time zone DEFAULT now(),
-    CONSTRAINT wish_list_item_pkey PRIMARY KEY (id),
-    CONSTRAINT wish_list_product_ukey UNIQUE (wish_list_id, product_id)
-);
+ALTER TABLE public.user_roles OWNER TO postgres;
 
--- ----------------------------
--- Table structure for order_shipping_info
--- ----------------------------
-DROP TABLE IF EXISTS public.order_shipping_info;
-CREATE TABLE public.order_shipping_info
-(
-    id         serial,
-    orders_id  int                   NOT NULL REFERENCES "orders" (id),
-    address1   character varying(50) NOT NULL,
-    address2   character varying(50),
-    firstname  character varying(50) NOT NULL,
-    lastname   character varying(50) NOT NULL,
-    email      character varying(50) NOT NULL,
-    post_code  character varying(50) NOT NULL,
-    telephone  text                  NOT NULL,
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT order_shipping_info_pkey PRIMARY KEY (id),
-    CONSTRAINT order_shipping_info_orders_id_ukey UNIQUE (orders_id)
-);
+--
+-- Name: teacher_info; Type: VIEW; Schema: public; Owner: postgres
+--
 
--- ----------------------------
--- Table structure for user_shipping_preference
--- ----------------------------
-DROP TABLE IF EXISTS public.user_shipping_preference;
-CREATE TABLE public.user_shipping_preference
-(
-    id         serial,
-    user_id    int                    NOT NULL REFERENCES "user" (id),
-    first_name character varying(50)  NOT NULL,
-    last_name  character varying(50)  NOT NULL,
-    email      character varying(200) NOT NULL,
-    phone      character varying(50)  NOT NULL,
-    address1   character varying(50)  NOT NULL,
-    address2   character varying(50),
-    post_code  character varying(50)  NOT NULL,
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT user_shipping_preference_pkey PRIMARY KEY (id),
-    CONSTRAINT user_shipping_preference_user_id_ukey UNIQUE (user_id)
-);
+CREATE VIEW public.teacher_info AS
+ SELECT "user".id,
+    "user".password,
+    "user".created_at,
+    "user".updated_at,
+    "user".role_id,
+    "user".telephone,
+    "user".address1,
+    "user".address2,
+    "user".firstname,
+    "user".lastname,
+    "user".gender,
+    "user".email,
+    "user".username
+   FROM public."user"
+  WHERE ("user".id IN ( SELECT user_roles.user_id
+           FROM public.user_roles
+          WHERE (user_roles.role_id IN ( SELECT role.id
+                   FROM public.role
+                  WHERE (role.code = 'TEACHER'::text)))));
 
--- ----------------------------
--- Table structure for product_meta
--- ----------------------------
-CREATE TABLE public.product_meta
-(
-    id         serial       NOT NULL,
-    "key"      varchar(500) NOT NULL,
-    value      varchar(500) NOT NULL,
-    product_id int4         NOT NULL,
-    created_at timestamp    NULL DEFAULT now(),
-    updated_at timestamp    NULL DEFAULT now(),
-    CONSTRAINT product_meta_pkey PRIMARY KEY (id),
-    CONSTRAINT product_meta_product_id_fkey FOREIGN KEY (product_id) REFERENCES product (id)
-);
 
-ALTER TABLE product
-    ADD COLUMN description text;
+ALTER TABLE public.teacher_info OWNER TO postgres;
 
-INSERT INTO "role"(code)
-VALUES ('USER');
-INSERT INTO "role"(code)
-VALUES ('ADMIN');
-INSERT INTO "role"(code)
-VALUES ('VENDOR');
-insert into "role"(code)
-values ('TEACHER');
+--
+-- Name: teacher_meta; Type: TABLE; Schema: public; Owner: postgres
+--
 
-CREATE SEQUENCE hibernate_sequence START 1;
-
--- ----------------------------
--- Table structure for user_roles
--- ----------------------------
--- CREATE TABLE public.user_roles
--- (
---     user_id int8         NOT NULL,
---     roles   varchar(255) NULL,
---     CONSTRAINT fkhfh9dx7w3ubf1co1vdev94g3f FOREIGN KEY (user_id) REFERENCES "user" (id)
--- );
-
--- ----------------------------
--- Table structure for home_banner
--- ----------------------------
-DROP TABLE IF EXISTS public.home_banner;
-CREATE TABLE public.home_banner
-(
-    id          serial       NOT NULL,
-    image_url   varchar      NOT NULL,
-    title       varchar(250) NOT NULL,
-    description text         NOT NULL,
-    link        varchar      NOT NULL,
-    active      boolean      not null default false,
-    created_at  timestamp    NULL     DEFAULT now(),
-    updated_at  timestamp    NULL     DEFAULT now()
-);
-
-DROP TABLE IF EXISTS public.user_roles;
-
--- ----------------------------
--- Table structure for user_roles
--- ----------------------------
-CREATE TABLE public.user_roles
-(
-    id         serial,
-    user_id    int NOT NULL REFERENCES "user" (id),
-    role_id    int NOT NULL REFERENCES "role" (id),
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT user_roles_pkey PRIMARY KEY (id),
-    CONSTRAINT user_roles_ukey UNIQUE (user_id, role_id)
-);
-
--- ----------------------------
--- Table structure for teacher_info
--- ----------------------------
-drop view if exists teacher_info;
-create view teacher_info as (select *
-                             from "user"
-                             where id in (select user_id
-                                          from user_roles
-                                          where role_id in (select id from "role" where code = 'TEACHER')));
-
-drop schema if exists teacher;
-create schema teacher;
-set search_path = teacher, public;
-
--- ----------------------------
--- Table structure for teacher_meta
--- ----------------------------
-DROP TABLE IF EXISTS public.teacher_meta;
-CREATE TABLE public.teacher_meta
-(
-    id           serial,
-    user_id      int                  NOT NULL REFERENCES "user" (id),
-    intro        text,
+CREATE TABLE public.teacher_meta (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    intro text,
     country_code character varying(2) NOT NULL,
-    avatar       text,
-    created_at   timestamp without time zone DEFAULT now(),
-    updated_at   timestamp without time zone DEFAULT now(),
-    CONSTRAINT teacher_meta_pkey PRIMARY KEY (id),
-    CONSTRAINT teacher_meta_ukey UNIQUE (user_id)
+    city character varying(50) NOT NULL,
+    latitude double precision NOT NULL,
+    longitude double precision NOT NULL,
+    speaking_language text NOT NULL,
+    certificates text NOT NULL,
+    student_min_requirements text NOT NULL,
+    avatar text,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
 );
 
--- ----------------------------
--- Table structure for teacher_subscription
--- ----------------------------
-DROP TABLE IF EXISTS public.teacher_subscription;
-CREATE TABLE public.teacher_subscription
-(
-    id         serial,
-    teacher_id int NOT NULL REFERENCES "user" (id),
-    user_id    int NOT NULL REFERENCES "user" (id),
+
+ALTER TABLE public.teacher_meta OWNER TO postgres;
+
+--
+-- Name: teacher_meta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.teacher_meta_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.teacher_meta_id_seq OWNER TO postgres;
+
+--
+-- Name: teacher_meta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.teacher_meta_id_seq OWNED BY public.teacher_meta.id;
+
+
+--
+-- Name: teacher_subscription; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.teacher_subscription (
+    id integer NOT NULL,
+    teacher_id integer NOT NULL,
+    user_id integer NOT NULL,
     started_at timestamp without time zone DEFAULT now(),
     expired_at timestamp without time zone DEFAULT now(),
     created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT teacher_subscription_pkey PRIMARY KEY (id),
-    CONSTRAINT teacher_subscription_ukey UNIQUE (teacher_id)
+    updated_at timestamp without time zone DEFAULT now()
 );
 
--- ----------------------------
--- Table structure for sku
--- ----------------------------
-DROP TABLE IF EXISTS public.sku;
-CREATE TABLE public.sku
-(
-    id              serial,
-    product_id      int                   NOT NULL REFERENCES "product" (id),
-    sku_code        character varying(50) NOT NULL,
-    price           numeric               NOT NULL,
-    stock           int                   NOT NULL,
-    created_user_id int                   not null REFERENCES "user" (id),
-    created_at      timestamp without time zone DEFAULT now(),
-    updated_at      timestamp without time zone DEFAULT now(),
-    CONSTRAINT sku_pkey PRIMARY KEY (id),
-    CONSTRAINT sku_code_ukey UNIQUE (sku_code)
-);
-CREATE INDEX ON sku (sku_code);
-CREATE INDEX ON sku (created_user_id);
 
--- ----------------------------
--- Table structure for sku_attribute_category
--- ----------------------------
-DROP TABLE IF EXISTS public.sku_attribute_category;
-CREATE TABLE public.sku_attribute_category
-(
-    id         serial,
-    name       text not null,
+ALTER TABLE public.teacher_subscription OWNER TO postgres;
+
+--
+-- Name: teacher_subscription_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.teacher_subscription_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.teacher_subscription_id_seq OWNER TO postgres;
+
+--
+-- Name: teacher_subscription_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.teacher_subscription_id_seq OWNED BY public.teacher_subscription.id;
+
+
+--
+-- Name: user_class_rating; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_class_rating (
+    id integer NOT NULL,
+    rating double precision NOT NULL,
+    user_id integer NOT NULL,
+    class_id integer NOT NULL,
     created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    CONSTRAINT sku_attribute_category_pkey PRIMARY KEY (id)
+    updated_at timestamp without time zone DEFAULT now()
 );
 
--- ----------------------------
--- Table structure for sku_attribute
--- ----------------------------
-DROP TABLE IF EXISTS public.sku_attribute;
-CREATE TABLE public.sku_attribute
-(
-    id                        serial,
-    sku_code                  character varying(50) NOT NULL REFERENCES "sku" (sku_code),
-    sku_attribute_category_id int                   NOT NULL REFERENCES "sku_attribute_category" (id),
-    value                     text,
-    created_at                timestamp without time zone DEFAULT now(),
-    updated_at                timestamp without time zone DEFAULT now(),
-    CONSTRAINT sku_attribute_pkey PRIMARY KEY (id)
+
+ALTER TABLE public.user_class_rating OWNER TO postgres;
+
+--
+-- Name: user_class_rating_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_class_rating_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_class_rating_id_seq OWNER TO postgres;
+
+--
+-- Name: user_class_rating_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_class_rating_id_seq OWNED BY public.user_class_rating.id;
+
+
+--
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO postgres;
+
+--
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
+
+
+--
+-- Name: user_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_log (
+    id integer NOT NULL,
+    action text NOT NULL,
+    user_id integer NOT NULL,
+    ip_addr character varying(50) NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
 );
-CREATE INDEX ON sku_attribute (sku_code);
 
--- ----------------------------
--- Table structure for order_operate_history
--- ----------------------------
-DROP TABLE IF EXISTS public.order_operate_history;
-CREATE TABLE public.order_operate_history
-(
-    id              serial,
-    order_id        int not null references "orders" (id),
-    operate_user    int not null references "user" (id),
-    order_status_id int not null references "order_status" (id),
-    note            text                        default null,
-    created_at      timestamp without time zone DEFAULT now(),
-    updated_at      timestamp without time zone DEFAULT now()
+
+ALTER TABLE public.user_log OWNER TO postgres;
+
+--
+-- Name: user_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_log_id_seq OWNER TO postgres;
+
+--
+-- Name: user_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_log_id_seq OWNED BY public.user_log.id;
+
+
+--
+-- Name: user_roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_roles_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_roles_id_seq OWNER TO postgres;
+
+--
+-- Name: user_roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_roles_id_seq OWNED BY public.user_roles.id;
+
+
+--
+-- Name: user_shipping_preference; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_shipping_preference (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+    email character varying(200) NOT NULL,
+    phone character varying(50) NOT NULL,
+    address1 character varying(50) NOT NULL,
+    address2 character varying(50),
+    post_code character varying(50) NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
 );
 
-ALTER TABLE order_item ADD COLUMN sku_code character varying(50) NOT NULL REFERENCES "sku" (sku_code);
+
+ALTER TABLE public.user_shipping_preference OWNER TO postgres;
+
+--
+-- Name: user_shipping_preference_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_shipping_preference_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-COMMIT;
+ALTER TABLE public.user_shipping_preference_id_seq OWNER TO postgres;
+
+--
+-- Name: user_shipping_preference_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_shipping_preference_id_seq OWNED BY public.user_shipping_preference.id;
+
+
+--
+-- Name: vendor_info; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.vendor_info AS
+ SELECT "user".username,
+    "user".telephone,
+    "user".address1,
+    "user".address2,
+    "user".firstname,
+    "user".lastname,
+    "user".gender,
+    "user".email
+   FROM public."user";
+
+
+ALTER TABLE public.vendor_info OWNER TO postgres;
+
+--
+-- Name: wish_list; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.wish_list (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.wish_list OWNER TO postgres;
+
+--
+-- Name: wish_list_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.wish_list_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.wish_list_id_seq OWNER TO postgres;
+
+--
+-- Name: wish_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.wish_list_id_seq OWNED BY public.wish_list.id;
+
+
+--
+-- Name: wish_list_item; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.wish_list_item (
+    id integer NOT NULL,
+    wish_list_id integer NOT NULL,
+    product_id integer NOT NULL,
+    quantity integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.wish_list_item OWNER TO postgres;
+
+--
+-- Name: wish_list_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.wish_list_item_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.wish_list_item_id_seq OWNER TO postgres;
+
+--
+-- Name: wish_list_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.wish_list_item_id_seq OWNED BY public.wish_list_item.id;
+
+
+--
+-- Name: api_category id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_category ALTER COLUMN id SET DEFAULT nextval('public.api_category_id_seq'::regclass);
+
+
+--
+-- Name: api_info id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_info ALTER COLUMN id SET DEFAULT nextval('public.api_info_id_seq'::regclass);
+
+
+--
+-- Name: api_info_header id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_info_header ALTER COLUMN id SET DEFAULT nextval('public.api_info_header_id_seq'::regclass);
+
+
+--
+-- Name: cart id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart ALTER COLUMN id SET DEFAULT nextval('public.cart_id_seq'::regclass);
+
+
+--
+-- Name: cart_item id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart_item ALTER COLUMN id SET DEFAULT nextval('public.cart_item_id_seq'::regclass);
+
+
+--
+-- Name: class id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class ALTER COLUMN id SET DEFAULT nextval('public.class_id_seq'::regclass);
+
+
+--
+-- Name: class_cart id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_cart ALTER COLUMN id SET DEFAULT nextval('public.class_cart_id_seq'::regclass);
+
+
+--
+-- Name: class_cart_item id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_cart_item ALTER COLUMN id SET DEFAULT nextval('public.class_cart_item_id_seq'::regclass);
+
+
+--
+-- Name: class_category id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_category ALTER COLUMN id SET DEFAULT nextval('public.class_category_id_seq'::regclass);
+
+
+--
+-- Name: class_order id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order ALTER COLUMN id SET DEFAULT nextval('public.class_order_id_seq'::regclass);
+
+
+--
+-- Name: class_order_item id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order_item ALTER COLUMN id SET DEFAULT nextval('public.class_order_item_id_seq'::regclass);
+
+
+--
+-- Name: currency_rates id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.currency_rates ALTER COLUMN id SET DEFAULT nextval('public.currency_rates_id_seq'::regclass);
+
+
+--
+-- Name: file id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.file ALTER COLUMN id SET DEFAULT nextval('public.file_id_seq'::regclass);
+
+
+--
+-- Name: home_banner id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.home_banner ALTER COLUMN id SET DEFAULT nextval('public.home_banner_id_seq'::regclass);
+
+
+--
+-- Name: invoice id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.invoice ALTER COLUMN id SET DEFAULT nextval('public.invoice_id_seq'::regclass);
+
+
+--
+-- Name: job id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job ALTER COLUMN id SET DEFAULT nextval('public.job_id_seq'::regclass);
+
+
+--
+-- Name: job_category id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_category ALTER COLUMN id SET DEFAULT nextval('public.job_category_id_seq'::regclass);
+
+
+--
+-- Name: location id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.location ALTER COLUMN id SET DEFAULT nextval('public.location_id_seq'::regclass);
+
+
+--
+-- Name: note id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.note ALTER COLUMN id SET DEFAULT nextval('public.note_id_seq'::regclass);
+
+
+--
+-- Name: notification id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notification ALTER COLUMN id SET DEFAULT nextval('public.notification_id_seq'::regclass);
+
+
+--
+-- Name: notification_status id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notification_status ALTER COLUMN id SET DEFAULT nextval('public.notification_status_id_seq'::regclass);
+
+
+--
+-- Name: order_item id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_item ALTER COLUMN id SET DEFAULT nextval('public.order_item_id_seq'::regclass);
+
+
+--
+-- Name: order_shipping_info id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_shipping_info ALTER COLUMN id SET DEFAULT nextval('public.order_shipping_info_id_seq'::regclass);
+
+
+--
+-- Name: order_status id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_status ALTER COLUMN id SET DEFAULT nextval('public.order_status_id_seq'::regclass);
+
+
+--
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.order_id_seq'::regclass);
+
+
+--
+-- Name: product id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product ALTER COLUMN id SET DEFAULT nextval('public.product_id_seq'::regclass);
+
+
+--
+-- Name: product_category id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_category ALTER COLUMN id SET DEFAULT nextval('public.product_category_id_seq'::regclass);
+
+
+--
+-- Name: product_comment id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_comment ALTER COLUMN id SET DEFAULT nextval('public.product_comment_id_seq'::regclass);
+
+
+--
+-- Name: product_meta id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_meta ALTER COLUMN id SET DEFAULT nextval('public.product_meta_id_seq'::regclass);
+
+
+--
+-- Name: product_rating id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_rating ALTER COLUMN id SET DEFAULT nextval('public.product_rating_id_seq'::regclass);
+
+
+--
+-- Name: role id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role ALTER COLUMN id SET DEFAULT nextval('public.role_id_seq'::regclass);
+
+
+--
+-- Name: shipper id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.shipper ALTER COLUMN id SET DEFAULT nextval('public.shipper_id_seq'::regclass);
+
+
+--
+-- Name: sku id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku ALTER COLUMN id SET DEFAULT nextval('public.sku_id_seq'::regclass);
+
+
+--
+-- Name: sku_attribute id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku_attribute ALTER COLUMN id SET DEFAULT nextval('public.sku_attribute_id_seq'::regclass);
+
+
+--
+-- Name: sku_attribute_category id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku_attribute_category ALTER COLUMN id SET DEFAULT nextval('public.sku_attribute_category_id_seq'::regclass);
+
+
+--
+-- Name: swagger_config id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.swagger_config ALTER COLUMN id SET DEFAULT nextval('public.swagger_config_id_seq'::regclass);
+
+
+--
+-- Name: teacher_available_time id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_available_time ALTER COLUMN id SET DEFAULT nextval('public.teacher_available_time_id_seq'::regclass);
+
+
+--
+-- Name: teacher_meta id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_meta ALTER COLUMN id SET DEFAULT nextval('public.teacher_meta_id_seq'::regclass);
+
+
+--
+-- Name: teacher_subscription id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_subscription ALTER COLUMN id SET DEFAULT nextval('public.teacher_subscription_id_seq'::regclass);
+
+
+--
+-- Name: user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+--
+-- Name: user_class_rating id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_class_rating ALTER COLUMN id SET DEFAULT nextval('public.user_class_rating_id_seq'::regclass);
+
+
+--
+-- Name: user_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_log ALTER COLUMN id SET DEFAULT nextval('public.user_log_id_seq'::regclass);
+
+
+--
+-- Name: user_roles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_roles ALTER COLUMN id SET DEFAULT nextval('public.user_roles_id_seq'::regclass);
+
+
+--
+-- Name: user_shipping_preference id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_shipping_preference ALTER COLUMN id SET DEFAULT nextval('public.user_shipping_preference_id_seq'::regclass);
+
+
+--
+-- Name: wish_list id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.wish_list ALTER COLUMN id SET DEFAULT nextval('public.wish_list_id_seq'::regclass);
+
+
+--
+-- Name: wish_list_item id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.wish_list_item ALTER COLUMN id SET DEFAULT nextval('public.wish_list_item_id_seq'::regclass);
+
+
+--
+-- Name: api_category api_category_name_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_category
+    ADD CONSTRAINT api_category_name_ukey UNIQUE (name);
+
+
+--
+-- Name: api_category api_category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_category
+    ADD CONSTRAINT api_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_info_header api_info_header_api_info_id_name_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_info_header
+    ADD CONSTRAINT api_info_header_api_info_id_name_ukey UNIQUE (api_info_id, name);
+
+
+--
+-- Name: api_info_header api_info_header_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_info_header
+    ADD CONSTRAINT api_info_header_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_info api_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_info
+    ADD CONSTRAINT api_info_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cart_item cart_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart_item
+    ADD CONSTRAINT cart_item_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cart cart_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart
+    ADD CONSTRAINT cart_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cart_item cart_product_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart_item
+    ADD CONSTRAINT cart_product_ukey UNIQUE (cart_id, product_id);
+
+
+--
+-- Name: class_cart_item class_cart_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_cart_item
+    ADD CONSTRAINT class_cart_item_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: class_cart class_cart_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_cart
+    ADD CONSTRAINT class_cart_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: class_category class_category_code_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_category
+    ADD CONSTRAINT class_category_code_key UNIQUE (code);
+
+
+--
+-- Name: class_category class_category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_category
+    ADD CONSTRAINT class_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: class_order_item class_order_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order_item
+    ADD CONSTRAINT class_order_item_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: class_order class_order_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order
+    ADD CONSTRAINT class_order_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: class class_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class
+    ADD CONSTRAINT class_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: currency_rates currency_code_base_currency_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.currency_rates
+    ADD CONSTRAINT currency_code_base_currency_ukey UNIQUE (currency_code, base_currency);
+
+
+--
+-- Name: currency_rates currency_rates_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.currency_rates
+    ADD CONSTRAINT currency_rates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: file file_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.file
+    ADD CONSTRAINT file_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: invoice invoice_invoice_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.invoice
+    ADD CONSTRAINT invoice_invoice_id_key UNIQUE (invoice_id);
+
+
+--
+-- Name: invoice invoice_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.invoice
+    ADD CONSTRAINT invoice_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: job_category job_category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_category
+    ADD CONSTRAINT job_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: job job_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job
+    ADD CONSTRAINT job_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: location location_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.location
+    ADD CONSTRAINT location_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: note note_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.note
+    ADD CONSTRAINT note_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notification notification_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notification
+    ADD CONSTRAINT notification_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notification_status notification_status_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notification_status
+    ADD CONSTRAINT notification_status_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_item order_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_item
+    ADD CONSTRAINT order_item_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders order_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT order_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_shipping_info order_shipping_info_orders_id_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_shipping_info
+    ADD CONSTRAINT order_shipping_info_orders_id_ukey UNIQUE (orders_id);
+
+
+--
+-- Name: order_shipping_info order_shipping_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_shipping_info
+    ADD CONSTRAINT order_shipping_info_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_status order_status_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_status
+    ADD CONSTRAINT order_status_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_category product_category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_category
+    ADD CONSTRAINT product_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_comment product_comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_comment
+    ADD CONSTRAINT product_comment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_rating product_id_user_id_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_rating
+    ADD CONSTRAINT product_id_user_id_ukey UNIQUE (product_id, user_id);
+
+
+--
+-- Name: product_meta product_meta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_meta
+    ADD CONSTRAINT product_meta_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product
+    ADD CONSTRAINT product_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_rating product_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_rating
+    ADD CONSTRAINT product_rating_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: role role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shipper shipper_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.shipper
+    ADD CONSTRAINT shipper_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sku_attribute_category sku_attribute_category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku_attribute_category
+    ADD CONSTRAINT sku_attribute_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sku_attribute sku_attribute_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku_attribute
+    ADD CONSTRAINT sku_attribute_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sku sku_code_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku
+    ADD CONSTRAINT sku_code_ukey UNIQUE (sku_code);
+
+
+--
+-- Name: sku sku_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku
+    ADD CONSTRAINT sku_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_available_time teacher_available_time_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_available_time
+    ADD CONSTRAINT teacher_available_time_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_meta teacher_meta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_meta
+    ADD CONSTRAINT teacher_meta_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_meta teacher_meta_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_meta
+    ADD CONSTRAINT teacher_meta_ukey UNIQUE (user_id);
+
+
+--
+-- Name: teacher_subscription teacher_subscription_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_subscription
+    ADD CONSTRAINT teacher_subscription_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_subscription teacher_subscription_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_subscription
+    ADD CONSTRAINT teacher_subscription_ukey UNIQUE (teacher_id);
+
+
+--
+-- Name: user_class_rating user_class_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_class_rating
+    ADD CONSTRAINT user_class_rating_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_class_rating user_class_rating_user_id_class_id_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_class_rating
+    ADD CONSTRAINT user_class_rating_user_id_class_id_ukey UNIQUE (user_id, class_id);
+
+
+--
+-- Name: user user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_email_key UNIQUE (email);
+
+
+--
+-- Name: user_log user_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_log
+    ADD CONSTRAINT user_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_roles user_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_roles user_roles_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_ukey UNIQUE (user_id, role_id);
+
+
+--
+-- Name: user_shipping_preference user_shipping_preference_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_shipping_preference
+    ADD CONSTRAINT user_shipping_preference_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_shipping_preference user_shipping_preference_user_id_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_shipping_preference
+    ADD CONSTRAINT user_shipping_preference_user_id_ukey UNIQUE (user_id);
+
+
+--
+-- Name: user user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_username_key UNIQUE (username);
+
+
+--
+-- Name: wish_list_item wish_list_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.wish_list_item
+    ADD CONSTRAINT wish_list_item_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wish_list wish_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.wish_list
+    ADD CONSTRAINT wish_list_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wish_list_item wish_list_product_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.wish_list_item
+    ADD CONSTRAINT wish_list_product_ukey UNIQUE (wish_list_id, product_id);
+
+
+--
+-- Name: sku_attribute_sku_code_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sku_attribute_sku_code_idx ON public.sku_attribute USING btree (sku_code);
+
+
+--
+-- Name: sku_created_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sku_created_user_id_idx ON public.sku USING btree (created_user_id);
+
+
+--
+-- Name: sku_sku_code_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sku_sku_code_idx ON public.sku USING btree (sku_code);
+
+
+--
+-- Name: api_info api_info_api_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_info
+    ADD CONSTRAINT api_info_api_category_id_fkey FOREIGN KEY (api_category_id) REFERENCES public.api_category(id);
+
+
+--
+-- Name: api_info_header api_info_header_api_info_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_info_header
+    ADD CONSTRAINT api_info_header_api_info_id_fkey FOREIGN KEY (api_info_id) REFERENCES public.api_info(id);
+
+
+--
+-- Name: cart_item cart_item_cart_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart_item
+    ADD CONSTRAINT cart_item_cart_id_fkey FOREIGN KEY (cart_id) REFERENCES public.cart(id);
+
+
+--
+-- Name: cart_item cart_item_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart_item
+    ADD CONSTRAINT cart_item_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.product(id);
+
+
+--
+-- Name: cart cart_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart
+    ADD CONSTRAINT cart_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: class_cart_item class_cart_item_class_cart_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_cart_item
+    ADD CONSTRAINT class_cart_item_class_cart_id_fkey FOREIGN KEY (class_cart_id) REFERENCES public.class_cart(id);
+
+
+--
+-- Name: class_cart_item class_cart_item_class_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_cart_item
+    ADD CONSTRAINT class_cart_item_class_id_fkey FOREIGN KEY (class_id) REFERENCES public.class(id);
+
+
+--
+-- Name: class_cart_item class_cart_item_teacher_available_time_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_cart_item
+    ADD CONSTRAINT class_cart_item_teacher_available_time_id_fkey FOREIGN KEY (teacher_available_time_id) REFERENCES public.teacher_available_time(id);
+
+
+--
+-- Name: class_cart class_cart_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_cart
+    ADD CONSTRAINT class_cart_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: class class_class_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class
+    ADD CONSTRAINT class_class_category_id_fkey FOREIGN KEY (class_category_id) REFERENCES public.class_category(id);
+
+
+--
+-- Name: class_order_item class_order_item_class_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order_item
+    ADD CONSTRAINT class_order_item_class_id_fkey FOREIGN KEY (class_id) REFERENCES public.class(id);
+
+
+--
+-- Name: class_order_item class_order_item_class_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order_item
+    ADD CONSTRAINT class_order_item_class_order_id_fkey FOREIGN KEY (class_order_id) REFERENCES public.class_order(id);
+
+
+--
+-- Name: class_order_item class_order_item_teacher_available_time_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order_item
+    ADD CONSTRAINT class_order_item_teacher_available_time_id_fkey FOREIGN KEY (teacher_available_time_id) REFERENCES public.teacher_available_time(id);
+
+
+--
+-- Name: class_order class_order_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order
+    ADD CONSTRAINT class_order_status_id_fkey FOREIGN KEY (status_id) REFERENCES public.order_status(id);
+
+
+--
+-- Name: class_order class_order_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_order
+    ADD CONSTRAINT class_order_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: class class_teacher_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class
+    ADD CONSTRAINT class_teacher_id_fkey FOREIGN KEY (teacher_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: file file_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.file
+    ADD CONSTRAINT file_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: orders fk_order_status_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_order_status_id FOREIGN KEY (order_status_id) REFERENCES public.order_status(id);
+
+
+--
+-- Name: product_meta fknrj529uycuyprik999f192i33; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_meta
+    ADD CONSTRAINT fknrj529uycuyprik999f192i33 FOREIGN KEY (product_id) REFERENCES public.product(id);
+
+
+--
+-- Name: job job_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job
+    ADD CONSTRAINT job_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: note note_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.note
+    ADD CONSTRAINT note_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: notification notification_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notification
+    ADD CONSTRAINT notification_status_id_fkey FOREIGN KEY (status_id) REFERENCES public.notification_status(id);
+
+
+--
+-- Name: notification notification_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notification
+    ADD CONSTRAINT notification_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: order_item order_item_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_item
+    ADD CONSTRAINT order_item_order_id_fkey FOREIGN KEY (order_id) REFERENCES public.orders(id) ON DELETE CASCADE;
+
+
+--
+-- Name: order_item order_item_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_item
+    ADD CONSTRAINT order_item_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.product(id);
+
+
+--
+-- Name: orders order_shipper_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT order_shipper_id_fkey FOREIGN KEY (shipper_id) REFERENCES public.shipper(id);
+
+
+--
+-- Name: order_shipping_info order_shipping_info_orders_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_shipping_info
+    ADD CONSTRAINT order_shipping_info_orders_id_fkey FOREIGN KEY (orders_id) REFERENCES public.orders(id);
+
+
+--
+-- Name: orders order_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT order_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON DELETE CASCADE;
+
+
+--
+-- Name: product product_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product
+    ADD CONSTRAINT product_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.product_category(id);
+
+
+--
+-- Name: product_comment product_comment_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_comment
+    ADD CONSTRAINT product_comment_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.product(id);
+
+
+--
+-- Name: product_comment product_comment_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_comment
+    ADD CONSTRAINT product_comment_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: product_rating product_rating_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_rating
+    ADD CONSTRAINT product_rating_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.product(id);
+
+
+--
+-- Name: product_rating product_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_rating
+    ADD CONSTRAINT product_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: product product_vendor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product
+    ADD CONSTRAINT product_vendor_id_fkey FOREIGN KEY (vendor_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: sku_attribute sku_attribute_sku_attribute_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku_attribute
+    ADD CONSTRAINT sku_attribute_sku_attribute_category_id_fkey FOREIGN KEY (sku_attribute_category_id) REFERENCES public.sku_attribute_category(id);
+
+
+--
+-- Name: sku_attribute sku_attribute_sku_code_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku_attribute
+    ADD CONSTRAINT sku_attribute_sku_code_fkey FOREIGN KEY (sku_code) REFERENCES public.sku(sku_code);
+
+
+--
+-- Name: sku sku_created_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku
+    ADD CONSTRAINT sku_created_user_id_fkey FOREIGN KEY (created_user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: sku sku_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sku
+    ADD CONSTRAINT sku_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.product(id);
+
+
+--
+-- Name: teacher_available_time teacher_available_time_teacher_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_available_time
+    ADD CONSTRAINT teacher_available_time_teacher_id_fkey FOREIGN KEY (teacher_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: teacher_meta teacher_meta_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_meta
+    ADD CONSTRAINT teacher_meta_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: teacher_subscription teacher_subscription_teacher_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_subscription
+    ADD CONSTRAINT teacher_subscription_teacher_id_fkey FOREIGN KEY (teacher_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: teacher_subscription teacher_subscription_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teacher_subscription
+    ADD CONSTRAINT teacher_subscription_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: user_class_rating user_class_rating_class_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_class_rating
+    ADD CONSTRAINT user_class_rating_class_id_fkey FOREIGN KEY (class_id) REFERENCES public.class(id);
+
+
+--
+-- Name: user_class_rating user_class_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_class_rating
+    ADD CONSTRAINT user_class_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: user user_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.role(id);
+
+
+--
+-- Name: user_roles user_roles_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.role(id);
+
+
+--
+-- Name: user_roles user_roles_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: user_shipping_preference user_shipping_preference_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_shipping_preference
+    ADD CONSTRAINT user_shipping_preference_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: wish_list_item wish_list_item_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.wish_list_item
+    ADD CONSTRAINT wish_list_item_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.product(id);
+
+
+--
+-- Name: wish_list_item wish_list_item_wish_list_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.wish_list_item
+    ADD CONSTRAINT wish_list_item_wish_list_id_fkey FOREIGN KEY (wish_list_id) REFERENCES public.wish_list(id);
+
+
+--
+-- Name: wish_list wish_list_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.wish_list
+    ADD CONSTRAINT wish_list_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

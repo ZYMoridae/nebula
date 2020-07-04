@@ -2,8 +2,9 @@ package com.jz.nebula.service.edu;
 
 import com.jz.nebula.controller.api.edu.JobController;
 import com.jz.nebula.dao.edu.JobCategoryRepository;
-import com.jz.nebula.entity.JobCategory;
-import com.jz.nebula.entity.job.Job;
+import com.jz.nebula.dto.JobCategoryParam;
+import com.jz.nebula.entity.edu.job.JobCategory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,13 +43,39 @@ public class JobCategoryService {
     }
 
     /**
-     * Save job category
+     * Create job category
      *
-     * @param jobCategory
+     * @param jobCategoryParam
      *
      * @return
      */
-    public JobCategory save(JobCategory jobCategory) {
+    public JobCategory create(JobCategoryParam jobCategoryParam) {
+        JobCategory jobCategory = new JobCategory();
+        jobCategory.setName(jobCategoryParam.getName());
+        jobCategory.setCode(jobCategoryParam.getCode());
+        JobCategory persistedJobCategory = jobCategoryRepository.save(jobCategory);
+        return findById(persistedJobCategory.getId());
+    }
+
+    /**
+     * Delete by id
+     *
+     * @param id
+     */
+    public void delete(long id) {
+        jobCategoryRepository.deleteById(id);
+    }
+
+    /**
+     * Update job category
+     *
+     * @param id
+     * @param jobCategoryParam
+     */
+    public JobCategory update(long id, JobCategoryParam jobCategoryParam) {
+        JobCategory jobCategory = new JobCategory();
+        jobCategory.setId(id);
+        BeanUtils.copyProperties(jobCategoryParam, jobCategory);
         JobCategory persistedJobCategory = jobCategoryRepository.save(jobCategory);
         return findById(persistedJobCategory.getId());
     }

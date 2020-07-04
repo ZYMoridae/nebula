@@ -37,7 +37,10 @@ public class CartItemValidatorTest {
     @Test
     public void isProductExistTrueTest() {
         CartItem parameterCartItem = new CartItem();
-        parameterCartItem.setProductId((long) 1);
+        Product product = new Product();
+        product.setId((long) 1);
+
+        parameterCartItem.setProduct(product);
         parameterCartItem.setQuantity(3);
 
         Product returnedProduct = new Product();
@@ -54,7 +57,10 @@ public class CartItemValidatorTest {
     @Test
     public void isProductNotExistTest() {
         CartItem parameterCartItem = new CartItem();
-        parameterCartItem.setProductId((long) 1);
+        Product product = new Product();
+        product.setId((long) 1);
+
+        parameterCartItem.setProduct(product);
         parameterCartItem.setQuantity(3);
 
         Product returnedProduct = new Product();
@@ -70,7 +76,10 @@ public class CartItemValidatorTest {
     @Test
     public void isQuantityInvalidTest() {
         CartItem parameterCartItem = new CartItem();
-        parameterCartItem.setProductId((long) 1);
+        Product product = new Product();
+        product.setId((long) 1);
+
+        parameterCartItem.setProduct(product);
         parameterCartItem.setQuantity(3);
 
         Product returnedProduct = new Product();

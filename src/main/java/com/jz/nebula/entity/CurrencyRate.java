@@ -20,6 +20,7 @@
 
 package com.jz.nebula.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,8 +31,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "currency_rates", schema = "public")
 public class CurrencyRate {
 

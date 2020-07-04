@@ -27,7 +27,7 @@ import org.springframework.data.repository.query.Param;
 public interface ClazzRepository extends PagingAndSortingRepository<Clazz, Long> {
     Page<Clazz> findAllByOrderByIdAsc(Pageable pageable);
 
-    @Query("select c from Clazz c where c.classCategoryId = ?1 and lower(c.name) like %?2%")
+    @Query("select c from Clazz c where c.clazzCategory.id = ?1 and lower(c.name) like %?2%")
     Page<Clazz> findByClazzCategoryIdAndNameContaining(@Param("clazzCategoryId") long clazzCategoryId, @Param("keyword") String keyword, Pageable pageable);
 
     Page<Clazz> findAllByOrderByRatingDesc(Pageable pageable);

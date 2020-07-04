@@ -21,6 +21,7 @@
 package com.jz.nebula.entity;
 
 import com.jz.nebula.entity.order.Order;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,8 +29,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class Invoice {
 
     @Id

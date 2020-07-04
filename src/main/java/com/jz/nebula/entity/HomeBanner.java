@@ -1,5 +1,6 @@
 package com.jz.nebula.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "home_banner", schema = "public")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class HomeBanner {
 
@@ -34,18 +34,4 @@ public class HomeBanner {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
-
-    @Override
-    public String toString() {
-        return "HomeBanner{" +
-                "id=" + id +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", link='" + link + '\'' +
-                ", active=" + active +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

@@ -141,9 +141,9 @@ public class OrderService {
     private synchronized Order preProcessing(Order order) throws Exception {
         Order safetyOrder = order;
         User user = this.authenticationFacade.getUser();
-        if (isUser(user) && safetyOrder.getUserId() != null) {
-            logger.info("preProcessingOrder::user with id:[{}] put userId: [{}] in the request", user.getId(), safetyOrder.getUserId());
-            safetyOrder.setUserId(user.getId());
+        if (isUser(user) && safetyOrder.getUser() != null) {
+            logger.info("preProcessingOrder::user with id:[{}] put userId: [{}] in the request", user.getId(), safetyOrder.getUser().getId());
+            safetyOrder.setUser(user);
         }
 
         if (this.getCurrentActivatedOrder() != null) {
@@ -159,7 +159,7 @@ public class OrderService {
         if (persistedOrder == null) {
             List<String> skuCodes = order.getOrderItems().stream().map(item -> item.getSkuCode()).collect(Collectors.toList());
 
-            List<Long> orderProductId = order.getOrderItems().stream().map(item -> item.getProductId()).collect(Collectors.toList());
+            List<Long> orderProductId = order.getOrderItems().stream().map(item -> item.getProduct().getId()).collect(Collectors.toList());
 
             List<Sku> skus = skuRepository.findBySkuCodeIn(skuCodes);
 
@@ -173,7 +173,7 @@ public class OrderService {
                 }
 
                 // Check unit price
-                ArrayList<Product> persistedProduct = (ArrayList<Product>) products.stream().filter(item -> item.getId() == orderItem.getProductId()).collect(Collectors.toList());
+                ArrayList<Product> persistedProduct = (ArrayList<Product>) products.stream().filter(item -> item.getId() == orderItem.getProduct().getId()).collect(Collectors.toList());
                 if (persistedProduct.size() > 0) {
                     orderItem.setUnitPrice(persistedProduct.get(0).getPrice());
                 }
@@ -196,13 +196,13 @@ public class OrderService {
         boolean isNew = this.isNewOrder(order);
 
         if (isNew) {
-            order.setOrderStatusId((long) OrderStatus.StatusType.PENDING.value);
+            order.setOrderStatus(orderStatusRepository.findByName("PENDING").get());
         }
 
         User currentUser = authenticationFacade.getUser();
 
 //        if (!currentUser.isAdmin()) {
-        order.setUserId(currentUser.getId());
+        order.setUser(currentUser);
 //        }
 
         Order updatedOrder = orderRepository.save(order);
@@ -242,10 +242,10 @@ public class OrderService {
 
         Set<CartItem> cartItems = cart.getCartItems();
 
-        List<Long> finalisedOrderItemsId = finalisedOrderItems.stream().map(orderItem -> orderItem.getProductId()).collect(Collectors.toList());
+        List<Long> finalisedOrderItemsId = finalisedOrderItems.stream().map(orderItem -> orderItem.getProduct().getId()).collect(Collectors.toList());
 
         for (CartItem cartItem : cartItems) {
-            if (finalisedOrderItemsId.contains(cartItem.getProductId())) {
+            if (finalisedOrderItemsId.contains(cartItem.getProduct().getId())) {
                 cartItemService.delete(cartItem.getId());
             }
         }

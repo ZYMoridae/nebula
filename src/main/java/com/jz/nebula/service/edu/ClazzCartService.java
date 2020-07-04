@@ -20,12 +20,12 @@
 
 package com.jz.nebula.service.edu;
 
+import com.google.api.client.util.Lists;
+import com.jz.nebula.dao.edu.*;
+import com.jz.nebula.dto.edu.ClazzCartItemParam;
+import com.jz.nebula.dto.edu.ToCartOrderParam;
 import com.jz.nebula.util.auth.AuthenticationFacadeImpl;
 import com.jz.nebula.dao.OrderStatusRepository;
-import com.jz.nebula.dao.edu.ClazzCartItemRepository;
-import com.jz.nebula.dao.edu.ClazzCartRepository;
-import com.jz.nebula.dao.edu.ClazzOrderRepository;
-import com.jz.nebula.dao.edu.TeacherAvailableTimeRepository;
 import com.jz.nebula.entity.edu.*;
 import com.jz.nebula.entity.order.OrderStatus;
 import com.jz.nebula.entity.payment.PaymentTokenCategory;
@@ -73,26 +73,40 @@ import java.util.stream.Collectors;
 public class ClazzCartService {
     private final Logger logger = LogManager.getLogger(ClazzCartService.class);
 
-    @Autowired
-    ClazzCartRepository clazzCartRepository;
+    private ClazzCartRepository clazzCartRepository;
+
+    private ClazzCartItemRepository clazzCartItemRepository;
+
+    private TeacherAvailableTimeRepository teacherAvailableTimeRepository;
+
+    private ClazzOrderRepository clazzOrderRepository;
+
+    private AuthenticationFacadeImpl authenticationFacadeImpl;
+
+    private OrderStatusRepository orderStatusRepository;
+
+    private TokenService tokenService;
+
+    private ClazzRepository clazzRepository;
 
     @Autowired
-    ClazzCartItemRepository clazzCartItemRepository;
-
-    @Autowired
-    TeacherAvailableTimeRepository teacherAvailableTimeRepository;
-
-    @Autowired
-    ClazzOrderRepository clazzOrderRepository;
-
-    @Autowired
-    AuthenticationFacadeImpl authenticationFacadeImpl;
-
-    @Autowired
-    OrderStatusRepository orderStatusRepository;
-
-    @Autowired
-    TokenService tokenService;
+    public ClazzCartService(ClazzCartRepository clazzCartRepository,
+                            ClazzCartItemRepository clazzCartItemRepository,
+                            TeacherAvailableTimeRepository teacherAvailableTimeRepository,
+                            ClazzOrderRepository clazzOrderRepository,
+                            AuthenticationFacadeImpl authenticationFacadeImpl,
+                            OrderStatusRepository orderStatusRepository,
+                            TokenService tokenService,
+                            ClazzRepository clazzRepository) {
+        this.clazzCartRepository = clazzCartRepository;
+        this.clazzCartItemRepository = clazzCartItemRepository;
+        this.teacherAvailableTimeRepository = teacherAvailableTimeRepository;
+        this.clazzOrderRepository = clazzOrderRepository;
+        this.authenticationFacadeImpl = authenticationFacadeImpl;
+        this.orderStatusRepository = orderStatusRepository;
+        this.tokenService = tokenService;
+        this.clazzRepository = clazzRepository;
+    }
 
     public ClazzCart getClazzCartByUserId(long userId) {
         return clazzCartRepository.findByUserId(userId);
@@ -112,7 +126,7 @@ public class ClazzCartService {
     private boolean isClazzTimeAvailable(ClazzCartItem clazzCartItem) {
         boolean isAvailable = false;
 
-        TeacherAvailableTime teacherAvailableTime = teacherAvailableTimeRepository.findById(clazzCartItem.getTeacherAvailableTimeId()).get();
+        TeacherAvailableTime teacherAvailableTime = clazzCartItem.getTeacherAvailableTime();
         if (teacherAvailableTime != null && !teacherAvailableTime.isReserved()) {
             isAvailable = true;
         }
@@ -121,7 +135,12 @@ public class ClazzCartService {
     }
 
     @Transactional(rollbackFor = {Exception.class})
-    public synchronized ClazzCart addItemToCart(ClazzCartItem clazzCartItem) throws Exception {
+    public synchronized ClazzCart addItemToCart(ClazzCartItemParam clazzCartItemParam) throws Exception {
+        ClazzCartItem clazzCartItem = new ClazzCartItem();
+
+        setClazz(clazzCartItem, clazzCartItemParam);
+        setTeacherAvailableTime(clazzCartItem, clazzCartItemParam);
+
         // If clazz time unavailable then throw exception
         if (!isClazzTimeAvailable(clazzCartItem)) {
             throw new ClazzTimeUnavailableException();
@@ -138,7 +157,8 @@ public class ClazzCartService {
             // Check the class item was added twice
             Set<ClazzCartItem> clazzCartItems = clazzCart.getClazzCartItems();
             for (ClazzCartItem item : clazzCartItems) {
-                if (item.getClazzId() == clazzCartItem.getClazzId() && item.getTeacherAvailableTimeId() == clazzCartItem.getTeacherAvailableTimeId()) {
+                if (item.getClazz().getId() == clazzCartItem.getClazz().getId()
+                        && item.getTeacherAvailableTime().getId() == clazzCartItem.getTeacherAvailableTime().getId()) {
                     throw new DuplicateClazzCartItemException();
                 }
             }
@@ -164,21 +184,23 @@ public class ClazzCartService {
     private ClazzOrder createOrder(Set<ClazzOrderItem> orderItems) {
         ClazzOrder order = new ClazzOrder();
         order.setClazzOrderItems(orderItems);
-        order.setUserId(this.authenticationFacadeImpl.getUser().getId());
+        order.setUser(authenticationFacadeImpl.getUser());
         Optional<OrderStatus> orderStatus = orderStatusRepository.findByName("pending");
-        order.setStatusId(orderStatus.get().getId());
+        order.setOrderStatus(orderStatus.get());
 
         order = clazzOrderRepository.save(order);
         return order;
     }
 
     @Transactional(rollbackFor = {Exception.class})
-    public HashMap<String, Object> cartToOrder(List<ClazzCartItem> clazzCartItemList) throws Exception {
+    public HashMap<String, Object> cartToOrder(ToCartOrderParam toCardOrderParam) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
 
         ClazzOrder order;
         ClazzCart cart = getMyCart();
         Set<ClazzCartItem> persistedCartItems = cart.getClazzCartItems();
+
+        List<ClazzCartItem> clazzCartItemList = Lists.newArrayList(clazzCartItemRepository.findAllById(toCardOrderParam.getCartItemIds()));
 
         // Cart item validation
         List<Long> cartItemIds = persistedCartItems.stream().map(item -> item.getId()).collect(Collectors.toList());
@@ -196,6 +218,11 @@ public class ClazzCartService {
 
         // Create order
         Set<ClazzOrderItem> orderItems = newCartItems.stream().map(item -> item.toClazzOrderItem()).collect(Collectors.toSet());
+
+        if (orderItems.size() == 0) {
+            throw new Exception("No cart items in order");
+        }
+
         order = this.createOrder(orderItems);
         logger.info("cartToOrder::order has been created");
 
@@ -253,11 +280,45 @@ public class ClazzCartService {
     /**
      * Update class cart item
      *
-     * @param clazzCartItem
+     * @param id
+     * @param clazzCartItemParam
      *
      * @return
      */
-    public ClazzCartItem updateClazzCartItem(ClazzCartItem clazzCartItem) {
+    public ClazzCartItem updateClazzCartItem(long id, ClazzCartItemParam clazzCartItemParam) {
+        ClazzCartItem clazzCartItem = new ClazzCartItem();
+        clazzCartItem.setId(id);
+
+        setClazz(clazzCartItem, clazzCartItemParam);
+        setTeacherAvailableTime(clazzCartItem, clazzCartItemParam);
+
         return clazzCartItemRepository.save(clazzCartItem);
+    }
+
+    /**
+     * Set clazz in cart item
+     *
+     * @param clazzCartItem
+     * @param clazzCartItemParam
+     */
+    private void setClazz(ClazzCartItem clazzCartItem, ClazzCartItemParam clazzCartItemParam) {
+        if (clazzCartItemParam.getClazzId() != null) {
+            Clazz clazz = clazzRepository.findById(clazzCartItemParam.getClazzId()).get();
+            clazzCartItem.setClazz(clazz);
+            clazzCartItem.setPrice(clazz.getUnitPrice());
+        }
+    }
+
+    /**
+     * Set teacher available
+     *
+     * @param clazzCartItem
+     * @param clazzCartItemParam
+     */
+    private void setTeacherAvailableTime(ClazzCartItem clazzCartItem, ClazzCartItemParam clazzCartItemParam) {
+        if (clazzCartItemParam.getTeacherAvailableTimeId() != null) {
+            TeacherAvailableTime teacherAvailableTime = teacherAvailableTimeRepository.findById(clazzCartItemParam.getTeacherAvailableTimeId()).get();
+            clazzCartItem.setTeacherAvailableTime(teacherAvailableTime);
+        }
     }
 }

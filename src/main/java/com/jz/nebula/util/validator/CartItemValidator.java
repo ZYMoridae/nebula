@@ -69,7 +69,7 @@ public class CartItemValidator extends BaseValidator implements ValidatorInterfa
 
     @Order(1)
     private boolean isProductExist(CartItem cartItem) {
-        long productId = cartItem.getProductId();
+        long productId = cartItem.getProduct().getId();
         Optional<Product> optional = productRepository.findById(productId);
         boolean isPresent = optional.isPresent();
         if (isPresent) {
@@ -83,7 +83,7 @@ public class CartItemValidator extends BaseValidator implements ValidatorInterfa
 
     @Order(2)
     private boolean isQuantityValid(CartItem cartItem) {
-        Optional<Product> optional = productRepository.findById(cartItem.getProductId());
+        Optional<Product> optional = productRepository.findById(cartItem.getProduct().getId());
         boolean isValid = true;
 
         if (optional.isPresent()) {
@@ -92,7 +92,7 @@ public class CartItemValidator extends BaseValidator implements ValidatorInterfa
             logger.info("Quantity for product id:[{}] is valid", cartItem.getQuantity());
         } else {
             isValid = false;
-            logger.info("Product with id:[{}] is not present", cartItem.getProductId());
+            logger.info("Product with id:[{}] is not present", cartItem.getProduct().getId());
         }
 
         return isValid;

@@ -20,8 +20,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jz.nebula.entity.Cart;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+//import io.swagger.annotations.Api;
+//import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -45,7 +45,7 @@ import com.jz.nebula.service.CartItemService;
 
 @RestController
 @RequestMapping("/api/cart-items")
-@Api(value = "cartitem")
+//@Api(value = "cartitem")
 public class CartItemController {
 
     private CartItemService cartItemService;
@@ -57,7 +57,7 @@ public class CartItemController {
 
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Get a cart item with an ID", response = CartItem.class)
+//    @ApiOperation(value = "Get a cart item with an ID", response = CartItem.class)
     public @ResponseBody
     CartItem findById(@PathVariable("id") long id) {
         return cartItemService.findById(id);
@@ -76,7 +76,7 @@ public class CartItemController {
      */
     @GetMapping("/carts/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Get a cart items in side cart with an ID", response = PagedModel.class)
+//    @ApiOperation(value = "Get a cart items in side cart with an ID", response = PagedModel.class)
     public @ResponseBody
     PagedModel<EntityModel<CartItem>> findByCartId(@PathVariable("id") long cartId, Pageable pageable, final UriComponentsBuilder uriBuilder,
                                                    final HttpServletResponse response, PagedResourcesAssembler<CartItem> assembler) {
@@ -92,7 +92,7 @@ public class CartItemController {
      */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Create a cart item", response = CartItem.class)
+//    @ApiOperation(value = "Create a cart item", response = CartItem.class)
     public @ResponseBody
     CartItem create(@RequestBody CartItem cartItem) throws Exception {
         CartItem savedCartItem = cartItemService.save(cartItem);
@@ -113,7 +113,7 @@ public class CartItemController {
      */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Update a cart item", response = CartItem.class)
+//    @ApiOperation(value = "Update a cart item", response = CartItem.class)
     public @ResponseBody
     CartItem update(@PathVariable("id") long id, @RequestBody CartItem cartItem) throws Exception {
         cartItem.setId(id);
@@ -127,7 +127,7 @@ public class CartItemController {
      */
     @DeleteMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Delete a cart item", response = ResponseEntity.class)
+//    @ApiOperation(value = "Delete a cart item", response = ResponseEntity.class)
     public @ResponseBody
     ResponseEntity<?> delete(@PathVariable("id") long id) {
         cartItemService.delete(id);
@@ -143,7 +143,7 @@ public class CartItemController {
      */
     @PostMapping("/{id}/towishlistitem")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Convert cart item to wish list item", response = ResponseEntity.class)
+//    @ApiOperation(value = "Convert cart item to wish list item", response = ResponseEntity.class)
     public @ResponseBody
     ResponseEntity<?> toWishListItem(@PathVariable("id") long id) throws Exception {
         cartItemService.saveToWishList(id);

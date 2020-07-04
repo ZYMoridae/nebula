@@ -19,10 +19,12 @@ package com.jz.nebula.service.edu;
 import com.google.common.base.Strings;
 import com.jz.nebula.controller.api.UserController;
 import com.jz.nebula.controller.api.edu.ClazzController;
+import com.jz.nebula.dao.UserRepository;
 import com.jz.nebula.dao.edu.ClazzCategoryRepository;
 import com.jz.nebula.dao.edu.ClazzRepository;
 import com.jz.nebula.dao.edu.TeacherAvailableTimeRepository;
 import com.jz.nebula.dao.edu.UserClazzRatingRepository;
+import com.jz.nebula.dto.edu.ClazzParam;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.edu.Clazz;
 import com.jz.nebula.entity.edu.ClazzCategory;
@@ -30,6 +32,7 @@ import com.jz.nebula.entity.edu.TeacherAvailableTime;
 import com.jz.nebula.entity.edu.UserClazzRating;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,17 +50,32 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class ClazzService {
     private final static Logger logger = LogManager.getLogger(ClazzService.class);
 
-    @Autowired
-    ClazzRepository clazzRepository;
+
+    private ClazzRepository clazzRepository;
+
+
+    private TeacherAvailableTimeRepository teacherAvailableTimeRepository;
+
+
+    private ClazzCategoryRepository clazzCategoryRepository;
+
+
+    private UserClazzRatingRepository userClazzRatingRepository;
+
+    private UserRepository userRepository;
 
     @Autowired
-    TeacherAvailableTimeRepository teacherAvailableTimeRepository;
-
-    @Autowired
-    ClazzCategoryRepository clazzCategoryRepository;
-
-    @Autowired
-    UserClazzRatingRepository userClazzRatingRepository;
+    public ClazzService(ClazzRepository clazzRepository,
+                        TeacherAvailableTimeRepository teacherAvailableTimeRepository,
+                        ClazzCategoryRepository clazzCategoryRepository,
+                        UserClazzRatingRepository userClazzRatingRepository,
+                        UserRepository userRepository) {
+        this.clazzRepository = clazzRepository;
+        this.teacherAvailableTimeRepository = teacherAvailableTimeRepository;
+        this.clazzCategoryRepository = clazzCategoryRepository;
+        this.userClazzRatingRepository = userClazzRatingRepository;
+        this.userRepository = userRepository;
+    }
 
     /**
      * Find all classes
@@ -75,7 +93,8 @@ public class ClazzService {
             page = clazzRepository.findAll(pageable);
             logger.debug("findAll::order by id");
         } else {
-            page = clazzRepository.findByClazzCategoryIdAndNameContaining(clazzCategoryId, keyword, pageable);
+            page = clazzRepository.findAll(pageable);
+//            page = clazzRepository.findByClazzCategoryIdAndNameContaining(clazzCategoryId, keyword, pageable);
             logger.debug("findAll::find by name containing");
         }
 
@@ -106,6 +125,43 @@ public class ClazzService {
     public Clazz save(Clazz clazz) {
         Clazz persistedClazz = clazzRepository.save(clazz);
         return findById(persistedClazz.getId());
+    }
+
+    public Clazz create(ClazzParam clazzParam) {
+        Clazz clazz = new Clazz();
+        BeanUtils.copyProperties(clazzParam, clazz);
+
+        setTeacher(clazz, clazzParam);
+        setClazzCategory(clazz, clazzParam);
+
+        Clazz persistedClazz = clazzRepository.save(clazz);
+        return findById(persistedClazz.getId());
+    }
+
+    public Clazz update(long id, ClazzParam clazzParam) {
+        Clazz clazz = new Clazz();
+        clazz.setId(id);
+        BeanUtils.copyProperties(clazzParam, clazz);
+
+        setTeacher(clazz, clazzParam);
+        setClazzCategory(clazz, clazzParam);
+
+        Clazz persistedClazz = clazzRepository.save(clazz);
+        return findById(persistedClazz.getId());
+    }
+
+    private void setTeacher(Clazz clazz, ClazzParam clazzParam) {
+        if (clazzParam.getTeacherId() != null) {
+            User teacher = userRepository.findById(clazzParam.getTeacherId()).get();
+            clazz.setTeacher(teacher);
+        }
+    }
+
+    private void setClazzCategory(Clazz clazz, ClazzParam clazzParam) {
+        if (clazzParam.getClazzCategoryId() != null) {
+            ClazzCategory clazzCategory = clazzCategoryRepository.findById(clazzParam.getClazzCategoryId()).get();
+            clazz.setClazzCategory(clazzCategory);
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.jz.nebula.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "user", schema = "public")
 public class Vendor implements Serializable {
@@ -28,21 +28,4 @@ public class Vendor implements Serializable {
     private String firstname;
     private String lastname;
     private String email;
-
-    public Vendor() {
-    }
-
-    @Override
-    public String toString() {
-        return "Vendor{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", address1='" + address1 + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

@@ -22,6 +22,7 @@ package com.jz.nebula.entity.edu;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.jz.nebula.util.View;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,8 +33,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "teacher_available_time", schema = "public")
-@Getter
-@Setter
+@Data
 public class TeacherAvailableTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

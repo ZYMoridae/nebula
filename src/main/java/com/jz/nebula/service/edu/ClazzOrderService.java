@@ -207,10 +207,10 @@ public class ClazzOrderService {
 
         Optional<OrderStatus> orderStatus = orderStatusRepository.findByName("pending");
         if (orderStatus.isPresent()) {
-            List<ClazzOrder> orders = clazzOrderRepository.findByUserIdAndStatusId(authenticationFacadeImpl.getUserId(), orderStatus.get().getId());
-            if (orders != null && orders.size() > 0) {
-                order = orders.get(0);
-            }
+//            List<ClazzOrder> orders = clazzOrderRepository.findByUserIdAndStatusId(authenticationFacadeImpl.getUserId(), orderStatus.get().getId());
+//            if (orders != null && orders.size() > 0) {
+//                order = orders.get(0);
+//            }
         }
 
         return order;
@@ -228,8 +228,8 @@ public class ClazzOrderService {
         ClazzOrder persistedClazzOrder = getCurrentActivatedOrder();
         if (persistedClazzOrder == null) {
             ClazzOrder _clazzOrder = new ClazzOrder();
-            _clazzOrder.setStatusId((long) OrderStatus.StatusType.PENDING.value);
-            _clazzOrder.setUserId(authenticationFacadeImpl.getUserId());
+//            _clazzOrder.setStatusId((long) OrderStatus.StatusType.PENDING.value);
+//            _clazzOrder.setUserId(authenticationFacadeImpl.getUserId());
         } else {
             throw new MultipleActivatedOrderException();
         }

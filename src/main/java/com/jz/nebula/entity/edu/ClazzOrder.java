@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.jz.nebula.util.View;
 import com.jz.nebula.entity.User;
 import com.jz.nebula.entity.order.OrderStatus;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,8 +33,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "class_order", schema = "public")
-@Getter
-@Setter
+@Data
 public class ClazzOrder {
     public static final String PREFIX = "CLZ";
 
@@ -41,11 +41,8 @@ public class ClazzOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "total_price")
@@ -55,11 +52,8 @@ public class ClazzOrder {
     @JoinColumn(name = "class_order_id", nullable = false)
     private Set<ClazzOrderItem> clazzOrderItems;
 
-    @Column(name = "status_id")
-    private Long statusId;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "status_id", nullable = false, updatable = false, insertable = false)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", nullable = false)
     private OrderStatus orderStatus;
 
     @JsonView(View.Admin.class)

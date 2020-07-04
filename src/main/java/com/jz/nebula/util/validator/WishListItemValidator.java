@@ -70,7 +70,7 @@ public class WishListItemValidator extends BaseValidator implements ValidatorInt
     // FIXME: Duplicate logic in other validator
     @Order(1)
     private boolean isProductExist(WishListItem wishListItem) {
-        long productId = wishListItem.getProductId();
+        long productId = wishListItem.getProduct().getId();
         Optional<Product> optional = productRepository.findById(productId);
         boolean isPresent = optional.isPresent();
         if (isPresent) {
@@ -85,7 +85,7 @@ public class WishListItemValidator extends BaseValidator implements ValidatorInt
     // FIXME: Duplicate logic in other validator
     @Order(2)
     private boolean isQuantityValid(WishListItem wishListItem) {
-        Optional<Product> optional = productRepository.findById(wishListItem.getProductId());
+        Optional<Product> optional = productRepository.findById(wishListItem.getProduct().getId());
         boolean isValid = true;
 
         if (optional.isPresent()) {
@@ -94,7 +94,7 @@ public class WishListItemValidator extends BaseValidator implements ValidatorInt
             logger.info("Quantity for product id:[{}] is valid", wishListItem.getQuantity());
         } else {
             isValid = false;
-            logger.info("Product with id:[{}] is not present", wishListItem.getProductId());
+            logger.info("Product with id:[{}] is not present", wishListItem.getProduct().getId());
         }
 
         return isValid;

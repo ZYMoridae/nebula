@@ -20,8 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.jz.nebula.util.View;
 import com.jz.nebula.entity.User;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,8 +29,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "class", schema = "public")
-@Getter
-@Setter
+@Data
 public class Clazz {
 
     @Id
@@ -47,20 +45,12 @@ public class Clazz {
     @Column(name = "unit_price")
     private double unitPrice;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "teacher_id")
-    private Long teacherId;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher_id", nullable = false, updatable = false, insertable = false)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_id", nullable = false)
     private User teacher;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "class_category_id")
-    private Long classCategoryId;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "class_category_id", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "class_category_id", nullable = false)
     private ClazzCategory clazzCategory;
 
     @Column(name = "rating")

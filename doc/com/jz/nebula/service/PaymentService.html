@@ -163,7 +163,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/jz/nebula/service/PaymentService.html#setPaymentGatway-com.jz.nebula.payment.PaymentGateway-">setPaymentGatway</a></span>(<a href="../../../../com/jz/nebula/payment/PaymentGateway.html" title="interface in com.jz.nebula.payment">PaymentGateway</a>&nbsp;paymentGatway)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a
+        href="../../../../com/jz/nebula/service/PaymentService.html#setPaymentGatway-com.jz.nebula.service.payment.PaymentGateway-">setPaymentGatway</a></span>(<a
+        href="../../../../com/jz/nebula/payment/PaymentGateway.html" title="interface in com.jz.nebula.payment">PaymentGateway</a>&nbsp;paymentGatway)</code>&nbsp;
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -228,7 +231,9 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>finaliseOrder</h4>
-<pre>@Transactional(rollbackFor={java.lang.Exception.class,<a href="../../../../com/jz/nebula/exception/ProductStockException.html" title="class in com.jz.nebula.exception">ProductStockException.class</a>})
+    <pre>@Transactional(rollbackFor={java.lang.Exception.class,<a
+            href="../../../../com/jz/nebula/exception/ProductStockException.html"
+            title="class in com.jz.nebula.component.exception">ProductStockException.class</a>})
 public&nbsp;java.lang.Object&nbsp;finaliseOrder()
                                                                                                                     throws java.lang.Exception</pre>
 <dl>

@@ -1,6 +1,8 @@
 package com.jz.nebula.entity;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -11,15 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "shipper", schema = "public")
+@NoArgsConstructor
 public class LogisticsProvider implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 3952309942343713378L;
 
     @Id
@@ -28,19 +27,8 @@ public class LogisticsProvider implements Serializable {
     private String name;
     private String contact;
 
-    public LogisticsProvider() {
-    }
-
     public LogisticsProvider(String name) {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "LogisticsProvider{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", contact='" + contact + '\'' +
-                '}';
-    }
 }

@@ -26,17 +26,24 @@ import com.jz.nebula.entity.order.OrderStatus;
 public class CartService {
     private final Logger logger = LogManager.getLogger(CartService.class);
 
-    @Autowired
     private AuthenticationFacade authenticationFacade;
 
-    @Autowired
     private CartRepository cartRepository;
 
-    @Autowired
     private OrderRepository orderRepository;
 
-    @Autowired
     private CartItemService cartItemService;
+
+    @Autowired
+    public CartService(AuthenticationFacade authenticationFacade,
+                       CartRepository cartRepository,
+                       OrderRepository orderRepository,
+                       CartItemService cartItemService) {
+        this.authenticationFacade = authenticationFacade;
+        this.cartRepository = cartRepository;
+        this.orderRepository = orderRepository;
+        this.cartItemService = cartItemService;
+    }
 
     /**
      * Get cart by userId
@@ -79,9 +86,9 @@ public class CartService {
     private Order createOrder(Set<OrderItem> orderItems) {
         Order order = new Order();
         order.setOrderItems(orderItems);
-        order.setUserId(this.authenticationFacade.getUser().getId());
+        order.setUser(this.authenticationFacade.getUser());
         // TODO: Read shipper from user preference
-        order.setShipperId((long) 1);
+//        order.setLogisticsProvider();
 
         order = orderRepository.save(order);
         return order;

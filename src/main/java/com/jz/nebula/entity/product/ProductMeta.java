@@ -13,18 +13,14 @@ import javax.persistence.Table;
 //import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "product_meta", schema = "public")
 public class ProductMeta implements Serializable {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = -6418169893155673908L;
 
     @Id
@@ -42,15 +38,4 @@ public class ProductMeta implements Serializable {
     @JsonIgnore
     @Column(name = "updated_at")
     private Date updatedAt;
-
-    @Override
-    public String toString() {
-        return "ProductMeta{" +
-                "id=" + id +
-                ", key='" + key + '\'' +
-                ", value='" + value + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

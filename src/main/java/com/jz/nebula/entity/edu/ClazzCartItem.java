@@ -23,6 +23,7 @@ package com.jz.nebula.entity.edu;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.jz.nebula.util.View;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,8 +34,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "class_cart_item", schema = "public")
-@Getter
-@Setter
+@Data
 public class ClazzCartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,18 +44,12 @@ public class ClazzCartItem {
     @Column(name = "class_cart_id")
     private Long clazzCartId;
 
-    @Column(name = "class_id")
-    private Long clazzId;
-
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "class_id", nullable = false, updatable = false, insertable = false)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "class_id", nullable = false)
     private Clazz clazz;
 
-    @Column(name = "teacher_available_time_id")
-    private Long teacherAvailableTimeId;
-
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher_available_time_id", nullable = false, updatable = false, insertable = false)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_available_time_id", nullable = false)
     private TeacherAvailableTime teacherAvailableTime;
 
     private double price;
@@ -77,9 +71,9 @@ public class ClazzCartItem {
      */
     public ClazzOrderItem toClazzOrderItem() {
         ClazzOrderItem clazzOrderItem = new ClazzOrderItem();
-        clazzOrderItem.setClazzId(this.clazzId);
-        clazzOrderItem.setPrice(this.price);
-        clazzOrderItem.setTeacherAvailableTimeId(this.teacherAvailableTimeId);
+        clazzOrderItem.setClazz(clazz);
+        clazzOrderItem.setPrice(price);
+        clazzOrderItem.setTeacherAvailableTime(teacherAvailableTime);
         return clazzOrderItem;
     }
 }

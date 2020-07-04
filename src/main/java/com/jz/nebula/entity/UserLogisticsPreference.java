@@ -14,12 +14,12 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "user_shipping_preference", schema = "public")
 public class UserLogisticsPreference implements Serializable {
 
@@ -52,19 +52,4 @@ public class UserLogisticsPreference implements Serializable {
     private String email;
 
     private String phone;
-
-    @Override
-    public String toString() {
-        return "UserLogisticsPreference{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address1='" + address1 + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", postCode='" + postCode + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
-    }
 }

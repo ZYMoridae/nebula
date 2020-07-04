@@ -90,7 +90,7 @@ public class ProductService {
             skuList.stream().forEach(sku -> {
 //                if (sku.getId() == null) {
                 sku.setProductId(product.getId());
-                sku.setCreatedUserId(product.getVendorId());
+                sku.setCreatedUserId(product.getVendor().getId());
                 bulkSaveSkuAttributes(sku);
 //                }
             });
@@ -103,10 +103,10 @@ public class ProductService {
 
             skuList.stream().forEach(sku -> {
                 sku.setProductId(updatedProduct.getId());
-                if (Objects.isNull(updatedProduct.getVendorId())) {
+                if (Objects.isNull(updatedProduct.getVendor().getId())) {
                     sku.setCreatedUserId(authenticationFacadeImpl.getUserId());
                 } else {
-                    sku.setCreatedUserId(updatedProduct.getVendorId());
+                    sku.setCreatedUserId(updatedProduct.getVendor().getId());
                 }
 
                 bulkSaveSkuAttributes(sku);

@@ -37,7 +37,7 @@ public class ProductCommentService {
 //	}
 
     public ProductComment save(ProductComment productComment) {
-        productComment.setUsertId(authenticationFacadeImpl.getUser().getId());
+        productComment.setUser(authenticationFacadeImpl.getUser());
         if (productComment.getParentCommentId() == null) {
             productComment.setParentCommentId((long) 0);
         }

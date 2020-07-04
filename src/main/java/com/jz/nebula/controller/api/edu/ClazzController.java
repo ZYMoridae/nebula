@@ -20,6 +20,7 @@
 
 package com.jz.nebula.controller.api.edu;
 
+import com.jz.nebula.dto.edu.ClazzParam;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.edu.Clazz;
 import com.jz.nebula.entity.edu.ClazzCategory;
@@ -33,6 +34,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -45,8 +47,12 @@ import java.util.HashMap;
 public class ClazzController {
     private final static Logger logger = LogManager.getLogger(ClazzController.class);
 
-    @Autowired
     private ClazzService clazzService;
+
+    @Autowired
+    public void setClazzService(ClazzService clazzService) {
+        this.clazzService = clazzService;
+    }
 
     /**
      * Find all classes
@@ -68,13 +74,6 @@ public class ClazzController {
         return clazzService.findAll(clazzCategoryId, keyword, pageable, assembler);
     }
 
-    /**
-     * Find class by id
-     *
-     * @param id
-     *
-     * @return
-     */
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
@@ -82,34 +81,18 @@ public class ClazzController {
         return clazzService.findById(id);
     }
 
-    /**
-     * Create class
-     *
-     * @param clazz
-     *
-     * @return
-     */
     @PostMapping("")
     @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
-    Clazz create(@RequestBody Clazz clazz) {
-        return clazzService.save(clazz);
+    Clazz create(@Validated @RequestBody ClazzParam clazzParam) {
+        return clazzService.create(clazzParam);
     }
 
-    /**
-     * Update class by id
-     *
-     * @param id
-     * @param clazz
-     *
-     * @return
-     */
     @PutMapping("/{id}")
     @RolesAllowed({Role.ROLE_TEACHER, Role.ROLE_ADMIN})
     public @ResponseBody
-    Clazz update(@PathVariable("id") long id, @RequestBody Clazz clazz) {
-        clazz.setId(id);
-        return clazzService.save(clazz);
+    Clazz update(@PathVariable("id") long id, @RequestBody ClazzParam clazzParam) {
+        return clazzService.update(id, clazzParam);
     }
 
     /**

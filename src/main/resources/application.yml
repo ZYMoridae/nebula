@@ -1,7 +1,11 @@
 server:
   port: 8080
-  servlet:
-    context-path: /api/v1
+  #  servlet:
+  #    context-path: /api
+  shutdown: graceful
+#  servlet:
+#    context-path: /context-path
+
 
 stripe:
   api:
@@ -13,13 +17,16 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     com.jz.nebula: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type: trace
-  file:
-    name: app.log
-
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type: TRACE
+#  file:
+#    name: app.log
 
 spring:
   profiles:
     active: "dev"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
 #    active: "prod"

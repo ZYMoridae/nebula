@@ -22,6 +22,7 @@ package com.jz.nebula.entity.edu;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.jz.nebula.util.View;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,8 +34,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "class_cart", schema = "public")
-@Getter
-@Setter
+@Data
 public class ClazzCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

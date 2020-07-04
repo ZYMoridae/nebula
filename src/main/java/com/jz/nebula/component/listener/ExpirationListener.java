@@ -90,7 +90,7 @@ public class ExpirationListener implements MessageListener {
         // We just set the order status to token expired, but we still keep the record in the database for some purposes
         if (orderStatus != null) {
             logger.debug("recoverStock::find status token_expired");
-            order.setOrderStatusId(orderStatus.getId());
+            order.setOrderStatus(orderStatus);
             orderRepository.save(order);
         }
 

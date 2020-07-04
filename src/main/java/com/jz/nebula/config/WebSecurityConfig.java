@@ -19,6 +19,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -30,8 +32,8 @@ public class WebSecurityConfig {
     @Order(2)
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-    class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
-        private final Logger logger = LogManager.getLogger(CmsSecurityConfiguration.class);
+    class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+//        private final Logger logger = LogManager.getLogger(CmsSecurityConfiguration.class);
 
         private TokenService jwtTokenProvider;
 
@@ -39,6 +41,13 @@ public class WebSecurityConfig {
         public void setJwtTokenProvider(TokenService jwtTokenProvider) {
             this.jwtTokenProvider = jwtTokenProvider;
         }
+
+        //Swagger Resources
+//        @Override
+//        public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+//            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+//        }
 
         @Bean
         @Override
@@ -48,9 +57,15 @@ public class WebSecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            logger.debug("ApiSecurityConfiguration:: entered");
+//            logger.debug("ApiSecurityConfiguration:: entered");
             //TODO: Set csrf enable in the production environment
-            http.antMatcher("/api/**").httpBasic().disable().csrf().disable().sessionManagement()
+            http
+                    .authorizeRequests().antMatchers("/v2/api-docs",
+                    "/configuration/**",
+                    "/swagger*/**", "/webjars/**",
+                    "/swagger-ui.html").permitAll().and()
+
+                    .antMatcher("/api/**").httpBasic().disable().csrf().disable().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
@@ -65,14 +80,9 @@ public class WebSecurityConfig {
                     .antMatchers(HttpMethod.GET, "/api/jobs").permitAll()
                     .antMatchers(HttpMethod.GET, "/api/jobs/categories").permitAll()
                     .antMatchers(HttpMethod.GET, "/api/jobs/{\\d+}").permitAll()
-                    .antMatchers("/swagger-ui.html").permitAll()
+//                    .antMatchers("/swagger-ui.html").permitAll()
                     // Below is for the Swagger path by pass
-                    .antMatchers("/v2/api-docs",
-                            "/configuration/ui",
-                            "/swagger-resources/**",
-                            "/configuration/security",
-                            "/swagger-ui.html",
-                            "/webjars/**").permitAll()
+
                     .anyRequest().authenticated().and().apply(new JwtConfigurer(jwtTokenProvider));
         }
 
@@ -81,11 +91,10 @@ public class WebSecurityConfig {
         public void configure(WebSecurity web) throws Exception {
             web.ignoring()
                     .antMatchers("/v2/api-docs",
-                            "/configuration/ui",
+                            "/swagger*/**", "/webjars/**",
                             "/swagger-resources/**",
                             "/configuration/security",
                             "/swagger-ui.html",
-                            "/webjars/**",
                             "/api/invoices/**");
         }
     }
@@ -98,8 +107,12 @@ public class WebSecurityConfig {
     class CmsSecurityConfiguration extends WebSecurityConfigurerAdapter {
         private final Logger logger = LogManager.getLogger(CmsSecurityConfiguration.class);
 
-        @Autowired
         private UserService managerDetailsService;
+
+        @Autowired
+        public void setManagerDetailsService(UserService managerDetailsService) {
+            this.managerDetailsService = managerDetailsService;
+        }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {

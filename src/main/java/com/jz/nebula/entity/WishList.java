@@ -16,11 +16,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "wish_list", schema = "public")
 public class WishList implements Serializable {
@@ -47,14 +47,5 @@ public class WishList implements Serializable {
 
     public WishList(Long userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "WishList{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", wishListItems=" + wishListItems +
-                '}';
     }
 }

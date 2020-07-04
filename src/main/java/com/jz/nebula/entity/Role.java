@@ -1,5 +1,6 @@
 package com.jz.nebula.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +11,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "role", schema = "public")
 public class Role implements Serializable {

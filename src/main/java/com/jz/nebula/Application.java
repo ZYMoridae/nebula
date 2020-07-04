@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableConfigurationProperties(StripeProperties.class)
 @EnableScheduling
-@ComponentScan(basePackages = {"com.jz.nebula.service", "com.jz.nebula.config", "com.jz.nebula.component", "com.jz.nebula"})
 public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

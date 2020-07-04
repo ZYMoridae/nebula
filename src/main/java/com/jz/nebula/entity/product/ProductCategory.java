@@ -11,18 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "product_category", schema = "public")
 public class ProductCategory implements Serializable {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = -7576563878222934393L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,17 +33,4 @@ public class ProductCategory implements Serializable {
     @JsonIgnore
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
-
-    public ProductCategory() {
-    }
-
-    @Override
-    public String toString() {
-        return "ProductCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

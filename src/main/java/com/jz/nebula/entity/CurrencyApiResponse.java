@@ -20,13 +20,13 @@
 
 package com.jz.nebula.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
 
-@Getter
-@Setter
+@Data
 public class CurrencyApiResponse {
     HashMap<String, Double> rates;
 

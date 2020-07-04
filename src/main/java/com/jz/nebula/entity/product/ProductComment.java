@@ -20,14 +20,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.jz.nebula.entity.User;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "product_comment", schema = "public")
 public class ProductComment implements Serializable {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = -4155776716734201072L;
 
     @Id
@@ -36,11 +34,7 @@ public class ProductComment implements Serializable {
 
     private String body;
 
-    @JsonProperty(access = Access.WRITE_ONLY)
-    @Column(name = "user_id")
-    private Long usertId;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
@@ -61,93 +55,4 @@ public class ProductComment implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    @JsonIgnore
-    public Long getUsertId() {
-        return usertId;
-    }
-
-    public void setUsertId(Long usertId) {
-        this.usertId = usertId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    @JsonIgnore
-    public Long getParentCommentId() {
-        return parentCommentId;
-    }
-
-    public void setParentCommentId(Long parentCommentId) {
-        this.parentCommentId = parentCommentId;
-    }
-
-    public Set<ProductComment> getChildrenComments() {
-        return childrenComments;
-    }
-
-    public void setChildrenComments(Set<ProductComment> childrenComments) {
-        this.childrenComments = childrenComments;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductComment{" +
-                "id=" + id +
-                ", body='" + body + '\'' +
-                ", usertId=" + usertId +
-                ", user=" + user +
-                ", productId=" + productId +
-                ", parentCommentId=" + parentCommentId +
-                ", childrenComments=" + childrenComments +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

@@ -1,5 +1,6 @@
 package com.jz.nebula.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "location", schema = "public")
 public class Location implements Serializable {
@@ -43,17 +43,4 @@ public class Location implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", countryCode='" + countryCode + '\'' +
-                ", stateCode='" + stateCode + '\'' +
-                ", name='" + name + '\'' +
-                ", postCode='" + postCode + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

@@ -1,33 +1,35 @@
-package com.jz.nebula.entity.job;
+package com.jz.nebula.entity.edu.job;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jz.nebula.entity.User;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "job", schema = "public")
-@Getter
-@Setter
+@Data
 public class Job implements Serializable {
-
     public String title;
     public String description;
+    public String contact;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "job_job_category",
+            joinColumns = @JoinColumn(name = "job_id"),
+            inverseJoinColumns = @JoinColumn(name = "job_category_id"))
+    Set<JobCategory> jobCategorySet;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "user_id")
-    private Long userId;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     @JsonManagedReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private User user;
@@ -36,15 +38,4 @@ public class Job implements Serializable {
 
     @Column(name = "updated_at", updatable = false, insertable = false)
     private Date updatedAt;
-
-    @Override
-    public String toString() {
-        return "Job{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", user=" + user +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

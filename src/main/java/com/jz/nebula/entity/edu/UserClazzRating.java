@@ -20,6 +20,7 @@
 
 package com.jz.nebula.entity.edu;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,8 +31,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "class_rating", schema = "public")
-@Getter
-@Setter
+@Data
 public class UserClazzRating {
 
     @Id

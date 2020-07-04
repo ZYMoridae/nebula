@@ -241,7 +241,7 @@ public class PaymentService {
             logger.info("Order id:[{}] has been charged", order.getId());
 
             // Update the order status
-            order.setOrderStatusId((long) OrderStatus.StatusType.PAID.value);
+            order.setOrderStatus(orderStatusRepository.findByName("PAID").get());
             order = this.updateOrderStatus(order);
             logger.info("Order id:[{}] status has been updated", order.getId());
 
@@ -282,7 +282,7 @@ public class PaymentService {
             charge = this.doPayment(payment, paymentMethodInfo);
             logger.info("ClazzOrder id:[{}] has been charged", orderId);
 
-            clazzOrder.setStatusId((long) OrderStatus.StatusType.PAID.value);
+//            clazzOrder.setStatusId((long) OrderStatus.StatusType.PAID.value);
 
             clazzOrder = clazzOrderService.save(clazzOrder);
 

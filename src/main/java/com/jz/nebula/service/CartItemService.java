@@ -35,23 +35,32 @@ import com.jz.nebula.util.validator.CartItemValidator;
 public class CartItemService {
     private final Logger logger = LogManager.getLogger(CartItemService.class);
 
-    @Autowired
     private AuthenticationFacade authenticationFacade;
 
-    @Autowired
     private CartItemRepository cartItemRepository;
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private CartRepository cartRepository;
 
-    @Autowired
     private WishListItemService wishListItemService;
 
-    @Autowired
     private CartItemValidator cartItemValidator;
+
+    @Autowired
+    public CartItemService(AuthenticationFacade authenticationFacade,
+                           CartItemRepository cartItemRepository,
+                           UserRepository userRepository,
+                           CartRepository cartRepository,
+                           WishListItemService wishListItemService,
+                           CartItemValidator cartItemValidator) {
+        this.authenticationFacade = authenticationFacade;
+        this.cartItemRepository = cartItemRepository;
+        this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
+        this.wishListItemService = wishListItemService;
+        this.cartItemValidator = cartItemValidator;
+    }
 
     /**
      * Get current user's cart
@@ -66,7 +75,7 @@ public class CartItemService {
         }
 
         if (cart == null) {
-            cart = new Cart(authenticationFacade.getUser().getId());
+            cart = new Cart(authenticationFacade.getUser());
             cart = cartRepository.save(cart);
         }
         return cart;
@@ -81,7 +90,7 @@ public class CartItemService {
      */
     private CartItem getItemInCart(CartItem cartItem) {
         Optional<CartItem> optional = cartItemRepository.findByCartIdAndProductId(cartItem.getCartId(),
-                cartItem.getProductId());
+                cartItem.getProduct().getId());
         if (optional.isPresent()) {
             logger.info("getItemInCart::cart item with id:[{}] was found", optional.get().getId());
         } else {
@@ -136,7 +145,7 @@ public class CartItemService {
             updatedCartItem = cartItemRepository.save(cartItem);
         }
 
-        logger.info("saveCartItem::product with id:[{}] was added to cart", cartItem.getProductId());
+        logger.info("saveCartItem::product with id:[{}] was added to cart", cartItem.getProduct().getId());
 
         return findById(updatedCartItem.getId());
     }

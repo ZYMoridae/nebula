@@ -20,8 +20,8 @@ import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+//import io.swagger.annotations.Api;
+//import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +38,7 @@ import com.jz.nebula.service.CartService;
 
 @RestController
 @RequestMapping("/api/carts")
-@Api(value = "carts")
+//@Api(value = "carts")
 public class CartController {
     private CartService cartService;
 
@@ -54,7 +54,7 @@ public class CartController {
      */
     @GetMapping(value = "/user/{id}")
     @RolesAllowed({Role.ROLE_ADMIN})
-    @ApiOperation(value = "Get a cart with an ID", response = Cart.class)
+//    @ApiOperation(value = "Get a cart with an ID", response = Cart.class)
     public @ResponseBody
     Cart getCart(@PathVariable("id") long id) {
         return cartService.getCart(id);
@@ -65,7 +65,7 @@ public class CartController {
      */
     @GetMapping(value = "/my")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Get current user's cart", response = Cart.class)
+//    @ApiOperation(value = "Get current user's cart", response = Cart.class)
     public @ResponseBody
     Cart getMyCart() {
         return cartService.getMyCart();
@@ -78,7 +78,7 @@ public class CartController {
      */
     @PostMapping(value = "/finalise")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Finalise all cart items", response = Object.class)
+//    @ApiOperation(value = "Finalise all cart items", response = Object.class)
     public @ResponseBody
     Object finalizeAllCartItems() throws Exception {
         return cartService.cartToOrder();
@@ -93,7 +93,7 @@ public class CartController {
      */
     @PostMapping(value = "/bulk")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
-    @ApiOperation(value = "Finalise cart items", response = Object.class)
+//    @ApiOperation(value = "Finalise cart items", response = Object.class)
     public @ResponseBody
     Object finalizeCartItems(@RequestBody List<CartItem> cartItems) throws Exception {
         return cartService.cartToOrder(cartItems);

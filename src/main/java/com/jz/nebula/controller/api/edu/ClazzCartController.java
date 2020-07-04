@@ -20,11 +20,11 @@
 
 package com.jz.nebula.controller.api.edu;
 
+import com.jz.nebula.dto.edu.ClazzCartItemParam;
+import com.jz.nebula.dto.edu.ToCartOrderParam;
 import com.jz.nebula.entity.Role;
 import com.jz.nebula.entity.edu.ClazzCart;
 import com.jz.nebula.entity.edu.ClazzCartItem;
-import com.jz.nebula.entity.edu.ClazzOrder;
-import com.jz.nebula.entity.payment.PaymentTokenCategory;
 import com.jz.nebula.service.TokenService;
 import com.jz.nebula.service.edu.ClazzCartService;
 import org.apache.logging.log4j.LogManager;
@@ -35,18 +35,18 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/classes/carts")
 public class ClazzCartController {
     private final static Logger logger = LogManager.getLogger(ClazzCartController.class);
 
-    @Autowired
     private ClazzCartService clazzCartService;
 
     @Autowired
-    private TokenService tokenService;
+    public void setClazzCartService(ClazzCartService clazzCartService) {
+        this.clazzCartService = clazzCartService;
+    }
 
     @GetMapping("/{id}")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
@@ -59,7 +59,7 @@ public class ClazzCartController {
      * Convert clazz cart to clazz order. We return the payment token as well.
      *
      * @param id
-     * @param cartItems
+     * @param toCardOrderParam
      *
      * @return
      *
@@ -68,14 +68,14 @@ public class ClazzCartController {
     @PostMapping("/{id}/orders")
     @RolesAllowed({Role.ROLE_USER, Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    HashMap<String, Object> toCartOrder(@PathVariable("id") long id, @RequestBody List<ClazzCartItem> cartItems) throws Exception {
-        return clazzCartService.cartToOrder(cartItems);
+    HashMap<String, Object> toCartOrder(@PathVariable("id") long id, @RequestBody ToCartOrderParam toCardOrderParam) throws Exception {
+        return clazzCartService.cartToOrder(toCardOrderParam);
     }
 
     /**
      * Add clazz to cart
      *
-     * @param clazzCartItem
+     * @param clazzCartItemParam
      *
      * @return
      *
@@ -84,8 +84,8 @@ public class ClazzCartController {
     @PostMapping("/items")
     @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    ClazzCart addClazzCartItem(@RequestBody ClazzCartItem clazzCartItem) throws Exception {
-        ClazzCart persistedClazzCart = clazzCartService.addItemToCart(clazzCartItem);
+    ClazzCart addClazzCartItem(@RequestBody ClazzCartItemParam clazzCartItemParam) throws Exception {
+        ClazzCart persistedClazzCart = clazzCartService.addItemToCart(clazzCartItemParam);
         return clazzCartService.findById(persistedClazzCart.getId());
     }
 
@@ -102,9 +102,9 @@ public class ClazzCartController {
     @PutMapping("/items/{id}")
     @RolesAllowed({Role.ROLE_VENDOR, Role.ROLE_ADMIN})
     public @ResponseBody
-    ClazzCartItem updateClazzCartItem(@PathVariable("id") long id, @RequestBody ClazzCartItem clazzCartItem) throws Exception {
-        clazzCartItem.setId(id);
-        return clazzCartService.updateClazzCartItem(clazzCartItem);
+    ClazzCartItem updateClazzCartItem(@PathVariable("id") long id, @RequestBody ClazzCartItemParam clazzCartItemParam) throws Exception {
+//        clazzCartItem.setId(id);
+        return clazzCartService.updateClazzCartItem(id, clazzCartItemParam);
     }
 
     /**
